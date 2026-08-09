@@ -6,7 +6,7 @@ Ce fichier enregistre les corpus et sources utilisés par le projet. Il ne rempl
 
 ### Google Drive — RAPO / Rapport V2
 
-Arborescence de référence explorée pour les sociétés cotées BRVM.
+Arborescence historique de référence :
 
 - dossier `RAPO` : `https://drive.google.com/drive/folders/1pabkvo_ch9ekBt7LqaJPbrgDez1IJtWd`
 - sous-dossier `Rapport V2` : `https://drive.google.com/drive/folders/1dsobS8AStWqa1ds3RAnmNS1jnGZWmJy2`
@@ -17,91 +17,109 @@ Organisation observée :
 
 Un sous-dossier `divers` peut contenir des documents couvrant des périodes absentes des dossiers annuels.
 
-### Script Python présent à la racine
-
-La liste directe de la racine `Rapport V2` confirme le fichier :
+### Script Python historique présent à la racine
 
 - nom : `telecharger_rapports_brvm.py`
 - Drive ID : `1F1WRVMG4C27EOTMq5Gt9FT9Mosv-Rryz`
 - MIME : `text/x-python`
 - taille : `14546` octets
-- rôle déclaré : téléchargement automatique des rapports de sociétés cotées depuis `brvm.org`
-- mapping embarqué : `48` sociétés / slugs BRVM
+- rôle : téléchargement automatique des rapports depuis `brvm.org`
+- mapping embarqué : 48 sociétés / slugs historiques
 
-Important : une recherche Drive antérieure n'avait pas retourné ce fichier. La liste directe du dossier est donc la preuve de référence pour la présence d'un objet dans cette arborescence.
+La liste directe du dossier constitue la preuve de présence de ce fichier ; une recherche Drive textuelle antérieure l'avait manqué.
 
-Le script est une **source historique de collecte**, pas une source de vérité pour les périodes économiques. Sa fonction `determine_year()` peut utiliser le nom de fichier puis, en dernier recours, les quatre premiers chiffres comme approximation. Le projet `financialdata` doit donc inventorier le classement existant mais résoudre les périodes économiques ultérieurement depuis le contenu réel des documents.
+Le script est une **source historique de collecte**, pas une source de vérité pour les périodes économiques. Il déduit l'année principalement du nom du fichier et peut utiliser l'année de publication comme approximation.
 
-Le script désactive aussi la vérification SSL (`verify=False`) : ne pas le réutiliser tel quel en production sans revue de sécurité et de robustesse.
+Le plan d'évolution est documenté dans `docs/BRVM_COLLECTOR_V2_PLAN.md`.
 
-## 2. Document de gouvernance conceptuelle historique
+## 2. Source BRVM officielle courante
 
-Document Drive ayant servi à consolider les observations avant initialisation du présent dépôt :
+Source primaire de fraîcheur :
+
+`https://www.brvm.org/fr/rapports-societe-cotes/<slug>`
+
+Les pages courantes publient les rapports par émetteur avec des catégories telles que :
+
+- rapports annuels ;
+- états financiers ;
+- rapports semestriels ;
+- rapports trimestriels ;
+- commentaires sur l'activité.
+
+Les PDF observés en 2026 restent servis sous des URLs de type :
+
+`https://www.brvm.org/sites/default/files/<nom>.pdf`
+
+### Rôle dans le projet
+
+Le Drive `Rapport V2` est le corpus historique existant à inventorier.
+
+Le site BRVM courant est la source à comparer au manifeste pour identifier :
+
+- nouveaux documents ;
+- nouvelles années ;
+- corrections/remplacements ;
+- changements de catalogue ;
+- nouveaux émetteurs/slugs ;
+- documents distants absents du corpus historique.
+
+### Deltas déjà observés au 2026-08-09
+
+BOAC :
+
+- page courante : EF 2025 + T1 2026 visibles ;
+- Drive inventorié : 2025 T1/S1/T3, pas de dossier 2026 ;
+- statut : `REMOTE_DELTA_IDENTIFIED`.
+
+BOAM :
+
+- page courante : T3 2025 + EF 2025 + T1 2026 visibles, en plus de T1/S1 2025 ;
+- Drive inventorié : T1/S1 2025, pas de dossier 2026 ;
+- statut : `REMOTE_DELTA_IDENTIFIED`.
+
+Ces constats prouvent que le corpus historique doit être réconcilié périodiquement avec la source BRVM courante.
+
+## 3. Document de gouvernance conceptuelle historique
+
+Document Drive :
 
 `BRVM_RAW_DATABASE — Gouvernance, architecture et observations conceptuelles`
 
 URL : `https://docs.google.com/document/d/1eF6E0McUZQbgd2uGPIXEGSYEqjhI6crs0CRCQuZ1ST4`
 
-À compter de l'initialisation de `financialdata`, GitHub devient la mémoire persistante opérationnelle. Le document Drive reste une source historique de conception et ne doit pas être supprimé.
+GitHub `financialdata` est désormais la mémoire persistante opérationnelle. Le document Drive reste une source historique de conception.
 
-## 3. Pilote BOABF
+## 4. Pilote BOABF
 
 Dossier société :
 
 `https://drive.google.com/drive/folders/1hQwExoX3z7LZKg89inSre8bKGjFoZ-lP`
 
-Nom : `Bank of Africa Burkina Faso - BOABF`.
+Observations déjà établies : dossiers 2009–2025 + `divers`, années directes parfois vides, doublons binaires, scans et PDF texte natif, rapports d'activité, états financiers, CAC, fiches boursières.
 
-Observations déjà établies :
+## 5. Sources futures
 
-- dossiers directs 2009 à 2025 + `divers` ;
-- certains dossiers annuels directs peuvent être vides ;
-- des documents rangés dans `divers` peuvent combler des périodes historiques ;
-- présence de doublons binaires exacts ;
-- mélange de PDF avec texte natif et de scans ;
-- rapports d'activité, états financiers, attestations CAC, fiches boursières et documents divers.
+Le projet pourra intégrer, après documentation : publications BRVM officielles, sites investisseurs, régulateurs, bourses, documents officiels de sociétés et autres archives vérifiables.
 
-## 4. Sources futures
+Toute nouvelle source doit être enregistrée avant ou lors de sa première utilisation systématique.
 
-Le projet pourra intégrer, après documentation :
+## 6. Sources révisables et versionnées
 
-- publications BRVM officielles ;
-- sites investisseurs des émetteurs ;
-- régulateurs ;
-- bourses ;
-- documents officiels de sociétés ;
-- autres fichiers structurés ou archives vérifiables.
-
-Toute nouvelle source doit être ajoutée à ce fichier avant ou lors de sa première utilisation systématique.
-
-## 5. Sources révisables et versionnées
-
-Le registre des sources est **vivant**. À la longue, une source peut être revue si :
-
-- une version officielle plus récente apparaît ;
-- une meilleure source primaire est trouvée ;
-- le document a été corrigé ou republié ;
-- le classement initial était incomplet ou erroné ;
-- un doublon ou une version antérieure est identifié ;
-- la qualité ou le périmètre de la source est réévalué.
+Le registre des sources est vivant. Une source peut être revue, enrichie, reclassée, remplacée par une meilleure version ou dépréciée pour les usages futurs.
 
 Une révision ne supprime jamais l'historique.
 
 Statuts recommandés : `ACTIVE`, `UNDER_REVIEW`, `SUPERSEDED`, `DUPLICATE`, `DEPRECATED_FOR_FUTURE_USE`, `REVIEW_REQUIRED`.
 
-Pour chaque révision, conserver autant que possible : identifiant, version, relation précédente/suivante, date et raison de revue, auteur/processus, date de disponibilité, hash et provenance historique.
+Les faits RAW existants restent liés à la version exacte de la source dont ils proviennent.
 
-Les faits RAW existants restent liés à la version exacte de la source dont ils proviennent. Une nouvelle source peut alimenter une nouvelle extraction ou une nouvelle validation, mais ne réécrit pas silencieusement l'ancienne provenance.
+## 7. Hiérarchie de preuve
 
-## 6. Hiérarchie de preuve
-
-Lorsque plusieurs sources publient la même donnée, ne pas choisir arbitrairement une valeur et supprimer les autres.
-
-Conserver chaque document, chaque observation, la provenance, les dates, le statut de certification/audit, la relation entre versions et les éventuelles incohérences.
+Lorsque plusieurs sources publient la même donnée, conserver chaque document, observation, provenance, date, statut d'audit/certification, relation de version et incohérence.
 
 La réconciliation appartient aux couches de contrôle/mapping/canonicalisation, pas à l'ingestion RAW.
 
-## 7. Métadonnées minimales par document
+## 8. Métadonnées minimales par document
 
 - fournisseur/source ;
 - identifiant externe ;
@@ -113,22 +131,24 @@ La réconciliation appartient aux couches de contrôle/mapping/canonicalisation,
 - hash ;
 - date de création/modification si disponible ;
 - date de publication si déterminable ;
+- première/dernière observation sur la source courante ;
 - période(s) économique(s) réellement couverte(s) ;
 - société/ticker ;
 - type documentaire ;
 - présence de texte natif ;
 - besoin éventuel de rendu/OCR ;
 - relation de version/doublon ;
-- statut de source/revue si applicable.
+- statut de source/revue ;
+- statut d'attribution à l'émetteur.
 
-## 8. Règle PDF
+## 9. Règle PDF
 
 Ordre : texte natif → inspection/rendu visuel → OCR uniquement en dernier recours.
 
 Un document sans texte natif n'est jamais considéré comme vide sur cette seule base.
 
-## 9. Règle de complétude
+## 10. Règle de complétude
 
-La complétude doit être mesurée à partir des **documents et périodes réellement présents**, et non seulement à partir des noms de fichiers, noms de dossiers, nombre de dossiers annuels ou ticker dans le nom.
+La complétude doit être mesurée à partir des documents et périodes réellement présents et comparée, lorsque nécessaire, au catalogue BRVM courant.
 
-Les recherches doivent être recoupées par l'arborescence exacte lorsque les tickers courts provoquent des résultats ambigus.
+Ne pas se fier uniquement aux noms de fichiers/dossiers ou au nombre de dossiers annuels.
