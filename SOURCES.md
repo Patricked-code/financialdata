@@ -17,16 +17,22 @@ Organisation observée :
 
 Un sous-dossier `divers` peut contenir des documents couvrant des périodes absentes des dossiers annuels.
 
-### Vérification du 2026-08-09 — scripts Python
+### Script Python présent à la racine
 
-Deux vérifications ont été effectuées :
+La liste directe de la racine `Rapport V2` confirme le fichier :
 
-1. racine exacte de `Rapport V2` : aucun fichier `.py`, ni nom contenant `python` ou `script` retourné ;
-2. recherche globale sur tout le Google Drive accessible avec le filtre `name contains '.py'` : **aucun fichier `.py` retourné**.
+- nom : `telecharger_rapports_brvm.py`
+- Drive ID : `1F1WRVMG4C27EOTMq5Gt9FT9Mosv-Rryz`
+- MIME : `text/x-python`
+- taille : `14546` octets
+- rôle déclaré : téléchargement automatique des rapports de sociétés cotées depuis `brvm.org`
+- mapping embarqué : `48` sociétés / slugs BRVM
 
-Conclusion actuelle : **aucun script Python n'est confirmé dans le Drive accessible**.
+Important : une recherche Drive antérieure n'avait pas retourné ce fichier. La liste directe du dossier est donc la preuve de référence pour la présence d'un objet dans cette arborescence.
 
-Conséquence : ne pas considérer comme acquis qu'un script Python existe dans le corpus. Si un script est découvert ultérieurement, ajouté au Drive ou stocké sous une extension différente, l'ajouter ici avec son identifiant exact, son emplacement, son hash si possible et son rôle.
+Le script est une **source historique de collecte**, pas une source de vérité pour les périodes économiques. Sa fonction `determine_year()` peut utiliser le nom de fichier puis, en dernier recours, les quatre premiers chiffres comme approximation. Le projet `financialdata` doit donc inventorier le classement existant mais résoudre les périodes économiques ultérieurement depuis le contenu réel des documents.
+
+Le script désactive aussi la vérification SSL (`verify=False`) : ne pas le réutiliser tel quel en production sans revue de sécurité et de robustesse.
 
 ## 2. Document de gouvernance conceptuelle historique
 
@@ -81,26 +87,9 @@ Le registre des sources est **vivant**. À la longue, une source peut être revu
 
 Une révision ne supprime jamais l'historique.
 
-Statuts recommandés :
+Statuts recommandés : `ACTIVE`, `UNDER_REVIEW`, `SUPERSEDED`, `DUPLICATE`, `DEPRECATED_FOR_FUTURE_USE`, `REVIEW_REQUIRED`.
 
-- `ACTIVE`
-- `UNDER_REVIEW`
-- `SUPERSEDED`
-- `DUPLICATE`
-- `DEPRECATED_FOR_FUTURE_USE`
-- `REVIEW_REQUIRED`
-
-Pour chaque révision, conserver autant que possible :
-
-- identifiant de source ;
-- version ;
-- source précédente/suivante ;
-- date de revue ;
-- raison de revue ;
-- auteur/processus de revue ;
-- date de disponibilité ;
-- hash ;
-- provenance historique.
+Pour chaque révision, conserver autant que possible : identifiant, version, relation précédente/suivante, date et raison de revue, auteur/processus, date de disponibilité, hash et provenance historique.
 
 Les faits RAW existants restent liés à la version exacte de la source dont ils proviennent. Une nouvelle source peut alimenter une nouvelle extraction ou une nouvelle validation, mais ne réécrit pas silencieusement l'ancienne provenance.
 
@@ -108,15 +97,7 @@ Les faits RAW existants restent liés à la version exacte de la source dont ils
 
 Lorsque plusieurs sources publient la même donnée, ne pas choisir arbitrairement une valeur et supprimer les autres.
 
-Conserver :
-
-- chaque document ;
-- chaque observation ;
-- la provenance ;
-- les dates ;
-- le statut de certification/audit ;
-- la relation entre versions ;
-- les éventuelles incohérences.
+Conserver chaque document, chaque observation, la provenance, les dates, le statut de certification/audit, la relation entre versions et les éventuelles incohérences.
 
 La réconciliation appartient aux couches de contrôle/mapping/canonicalisation, pas à l'ingestion RAW.
 
@@ -142,21 +123,12 @@ La réconciliation appartient aux couches de contrôle/mapping/canonicalisation,
 
 ## 8. Règle PDF
 
-Ordre :
-
-1. texte natif ;
-2. inspection/rendu visuel des pages ;
-3. OCR uniquement en dernier recours.
+Ordre : texte natif → inspection/rendu visuel → OCR uniquement en dernier recours.
 
 Un document sans texte natif n'est jamais considéré comme vide sur cette seule base.
 
 ## 9. Règle de complétude
 
-La complétude doit être mesurée à partir des **documents et périodes réellement présents**, et non seulement à partir :
-
-- des noms de fichiers ;
-- des noms de dossiers ;
-- du nombre de dossiers annuels ;
-- du ticker apparaissant dans le nom du fichier.
+La complétude doit être mesurée à partir des **documents et périodes réellement présents**, et non seulement à partir des noms de fichiers, noms de dossiers, nombre de dossiers annuels ou ticker dans le nom.
 
 Les recherches doivent être recoupées par l'arborescence exacte lorsque les tickers courts provoquent des résultats ambigus.
