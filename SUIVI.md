@@ -15,17 +15,21 @@ Git : `main` uniquement, aucune branche/PR normale.
 
 - sociétés : **48 / 48** ;
 - snapshot initial : **2 950 PDF** — `inventory/P1_48_ISSUERS_CHECKPOINT.md` ;
-- V2 après delta CBIBF : **2 957 PDF** ;
-- V3 après delta ORAC : **2 964 PDF** ;
-- état live courant V4 : **2 981 PDF** ;
-- checkpoint live : `inventory/P1_48_ISSUERS_CHECKPOINT_v4_20260809.md` ;
+- V2 après CBIBF : **2 957 PDF** ;
+- V3 après ORAC : **2 964 PDF** ;
+- V4 après SICC : **2 981 PDF** ;
+- V5 après MVSC : **2 996 PDF** ;
+- état live courant V6 après UNLC : **2 999 PDF** ;
+- checkpoint live : `inventory/P1_48_ISSUERS_CHECKPOINT_v6_20260809.md` ;
 - index live : `inventory/p1_issuer_manifest.csv`.
 
 ### Deltas live observés
 
 - CBIBF : **8 → 15 PDF** (`+7`) ;
 - ORAC : **14 → 21 PDF** (`+7`) ;
-- SICC : **19 → 36 PDF** (`+17`).
+- SICC : **19 → 36 PDF** (`+17`) ;
+- MVSC : **20 → 35 PDF** (`+15`) ;
+- UNLC : **20 → 23 PDF** (`+3`).
 
 Les snapshots antérieurs sont conservés dans Git. Aucun état SOURCE n'est réécrit silencieusement.
 
@@ -35,17 +39,19 @@ Schéma : `docs/P1_DOCUMENT_MANIFEST_SCHEMA.md`.
 Stratégie incrémentale : `docs/P1_MANIFEST_SHARDING.md`.
 
 - cible maître : `inventory/p1_document_manifest.csv` ;
-- lignes actuellement consolidées dans le maître : **14 / 2 981** ;
-- sources distinctes actuellement capturées dans le maître + shards compatibles : **48 / 2 981** ;
-- sources supplémentaires déjà identifiées et hashées SICC mais dont le backfill complet du shard reste à terminer : **36**.
+- lignes actuellement consolidées dans le maître : **14 / 2 999** ;
+- shards compatibles complets existants : CBIBF 15/15, ORAC 21/21 ;
+- SICC 36/36, MVSC 35/35 et UNLC 23/23 sont désormais indexés par Drive ID + taille + SHA mais nécessitent encore le backfill complet des métadonnées de shard avant consolidation canonique.
 
-### Couvertures document-level
+### Couvertures document-level déjà prouvées
 
 - TRITRAF : **8 / 8** dans le maître ;
 - BIIC : **2 / 2** dans le maître ;
 - CBIBF : **15 / 15** dans `inventory/manifests/CBIBF.csv` ;
 - ORAC : **21 / 21** dans `inventory/manifests/ORAC.csv` ;
-- SICC : **36 / 36 IDs + parents + tailles + SHA identifiés**, métadonnées temporelles du shard encore à backfiller ;
+- SICC : **36 / 36** IDs + parents + tailles + SHA ;
+- MVSC : **35 / 35** IDs + parents + tailles + SHA ;
+- UNLC : **23 / 23** IDs + parents + tailles + SHA ;
 - SNTS/ONATEL : 1 anomalie seed ;
 - BICC 2022 : 1 seed.
 
@@ -53,11 +59,13 @@ La consolidation finale refusera tout `source_drive_file_id` dupliqué entre ma�
 
 ## P1_TRANSVERSE — SHA256
 
-- SHA calculés : **80 / 2 981** ;
+- SHA calculés : **138 / 2 999** ;
 - TRITRAF : **8 / 8** ;
 - CBIBF : **15 / 15** ;
 - ORAC : **21 / 21** ;
-- SICC : **36 / 36**.
+- SICC : **36 / 36** ;
+- MVSC : **35 / 35** ;
+- UNLC : **23 / 23**.
 
 ### Doublons exacts
 
@@ -70,13 +78,12 @@ SHA commun :
 
 Groupe enregistré dans `inventory/p1_duplicate_groups.csv`.
 
-### SICC
+### Résultats récents
 
-Les **36 SHA sont tous distincts**. Les variantes `_2` / `_3` de 2007–2016 ne sont donc pas des doublons binaires. Leur relation sémantique/version reste non revue.
-
-### ORAC — contrôle qualité corrigé
-
-Les 21 SHA ont été revalidés sur les fichiers Drive matérialisés. Les valeurs de hash correspondaient, mais plusieurs `file_size_bytes` du registre initial étaient erronées. `inventory/hashes/ORAC.csv` a été corrigé avec les tailles revalidées et le statut `COMPUTED_SIZE_REVALIDATED`.
+- ORAC : 21 contenus uniques ; tailles du registre revalidées contre Drive ;
+- SICC : 36 contenus uniques ; aucune variante `_2/_3` n'est un doublon binaire ;
+- MVSC : 35 contenus uniques ; variantes historiques et deux états financiers 2019 distincts ;
+- UNLC : 23 contenus uniques ; les deux rapports annuels 2020 sont distincts (`ce8663…` vs `e910a2…`).
 
 ## P1-R
 
@@ -85,11 +92,12 @@ Deep pilots : BOABF, CIEC, NTLC, SNTS.
 
 ## Prochaine action exacte
 
-1. backfill des métadonnées temporelles du shard SICC ;
-2. continuer sur le prochain corpus court en **revérifiant d'abord son état live** : `MVSC` ;
-3. puis `UNLC` ;
-4. poursuivre SHA / manifeste / périodes / versions sans lancer P2 prématurément.
+1. poursuivre sur le prochain corpus court avec **revérification live préalable** : ORGT ;
+2. calculer son SHA complet et rechercher les doublons exacts ;
+3. poursuivre ensuite les corpus courts non hashés ;
+4. backfiller progressivement les shards SICC/MVSC/UNLC ;
+5. ne pas lancer P2 tant que la couverture P1/P1-R n'est pas jugée suffisante.
 
 ## Point de reprise exact
 
-`48/48 ISSUERS | LIVE_TOTAL=2981 | MASTER_CONSOLIDATED=14/2981 | MANIFEST_COMPATIBLE_CAPTURED=48/2981 | SICC_INDEXED_PENDING_SHARD_BACKFILL=36 | SHA256=80/2981 | EXACT_DUPLICATE_GROUPS=1 | NEXT=MVSC_LIVE_RECHECK`
+`48/48 ISSUERS | LIVE_TOTAL=2999 | MASTER_CONSOLIDATED=14/2999 | SHA256=138/2999 | EXACT_DUPLICATE_GROUPS=1 | SICC=36/36 | MVSC=35/35 | UNLC=23/23 | NEXT=ORGT_LIVE_RECHECK`
