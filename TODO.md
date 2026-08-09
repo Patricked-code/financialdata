@@ -20,68 +20,41 @@ Backlog canonique. Ne pas considérer une tâche terminée tant que le résultat
 - [x] activer `P1-R PDF_RECOGNITION_DISCOVERY` ;
 - [x] documenter les premières règles de reconnaissance vérifiées sur contenu réel.
 
-### Émetteurs inventoriés au niveau dossiers/fichiers
+### Progression P1
 
-- [x] SIVC — 53.
-- [x] BOABF — 57.
-- [x] BOAB — 59.
-- [x] BOAC — 60.
-- [x] BOAM — 44.
-- [x] BOAN — 60.
-- [x] BOAS — 43.
-- [x] BNBC — 78.
-- [x] BICC — 61.
-- [x] BIIC — 2.
-- [x] AGLC — 60.
-- [x] CFAC — 94.
-- [x] CIEC — 61.
-- [x] CBIBF — 8.
-- [x] SEMC — 54.
-- [x] ECOC — 32.
-- [x] ETIT — 81.
-- [x] FTSC — 88.
-- [x] MVSC — 20.
-- [x] NEIC — 86.
-- [x] NTLC — 81.
-- [x] NSBC — 38.
-- [x] ONTBF — 91.
-- [x] ORGT — 23.
-- [x] ORAC — 14.
-- [x] PALC — 75.
-- [x] SAFC — 73.
-- [x] SPHC — 28 dossiers 1998–2025, **124** PDF ; total vérifié par deux recherches strictement parentées, car la recherche ticker plafonnait à 100.
-- [x] ABJC — 28 dossiers 1998–2025, **82** PDF.
-- [x] STAC — 26 dossiers (25 années + `divers`), **38** PDF ; 2004/2007/2009 absents.
-- [x] SGBC — 27 dossiers 1999–2025, **87** PDF.
-- [x] SIBC — 10 dossiers 2016–2025, **46** PDF.
-- [ ] 16 autres émetteurs.
+- [x] **37 / 48 émetteurs** inventoriés au niveau dossiers/fichiers.
+- [x] **2 271 PDF** recensés.
+- [ ] **11 émetteurs** restent à inventorier.
 
-**Total recensé sur les 32 premiers émetteurs : 1 873 fichiers.**
+### Lot 33–37
+
+- [x] CABC — 29 dossiers (1998–2025 + `divers`), **90 PDF**.
+- [x] SICC — 25 dossiers, **19 PDF** ; 2014 absent, pas de dossier 2024/2025 observé.
+- [x] STBC — 29 dossiers (1998–2025 + `divers`), **91 PDF** ; plusieurs révisions 2025.
+- [x] SMBC — 28 dossiers 1998–2025, **106 PDF** ; total vérifié par scission 36 + 70 car la recherche ticker plafonnait à 100.
+- [x] SDCC — 29 dossiers (1998–2025 + `divers`), **92 PDF** ; total vérifié par scission 36 + 56 ; SYSCOHADA révisé + IFRS individuel + IFRS consolidé observés.
 
 ### P1-R — reconnaissance PDF
 
-- [x] stratégie générale : `docs/PDF_RECOGNITION_STRATEGY.md` ;
 - [x] profils BICC 2022, BIIC T2 2025, ETIT 2023 ;
-- [x] `DOCUMENT_METADATA_MISMATCH` ;
+- [x] métadonnées PDF non souveraines ;
 - [x] STOCK vs FLOW selon contexte ;
-- [x] variations publiées conservées en RAW ;
-- [x] tableau vs narratif conservés séparément ;
+- [x] variations publiées = RAW PUBLISHED ;
 - [x] framework comptable vs scope indépendants ;
-- [x] `ownership_attribution_raw` documenté comme candidat ;
-- [x] T1/T2/T3/T4/S1/S2 confirmés ;
 - [x] limites techniques de recherche ≠ total SOURCE ;
+- [x] T1/T2/T3/T4/S1/S2 supportés ;
 - [x] préserver les deep pilots BOABF/CIEC/NTLC/SNTS sans duplication ;
-- [ ] ajouter seulement les profils apportant un nouveau pattern réel.
+- [ ] créer de nouveaux profils uniquement sur nouveau pattern réel.
 
 ### Passes transversales P1 encore ouvertes
 
-- [ ] produire le manifeste machine-lisible consolidé ;
-- [ ] collecter/calculer les SHA-256 ;
-- [ ] établir doublons exacts et relations de version ;
-- [ ] résoudre les périodes économiques depuis le contenu ;
-- [ ] valider l'attribution émetteur/document ;
-- [ ] mesurer la couverture documentaire réelle ;
-- [ ] réconcilier l'historique avec la BRVM courante.
+- [ ] manifeste machine-lisible consolidé ;
+- [ ] SHA-256 globaux ;
+- [ ] doublons exacts et relations de version ;
+- [ ] périodes économiques depuis contenu ;
+- [ ] attribution émetteur/document ;
+- [ ] couverture documentaire réelle ;
+- [ ] réconciliation avec BRVM courante.
 
 ## P1-FRESH — Collecteur BRVM V2
 
