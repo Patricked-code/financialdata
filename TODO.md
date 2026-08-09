@@ -34,20 +34,27 @@ Backlog canonique. Ne pas considérer une tâche terminée tant que le résultat
 - [x] BIIC — 2 dossiers, 2 fichiers ; corpus sparse.
 - [x] AGLC — 28 dossiers 1998–2025, 60 fichiers.
 - [x] CFAC — 26 dossiers, 94 fichiers.
-- [ ] 36 autres émetteurs.
+- [x] CIEC — 29 dossiers, 61 fichiers ; deep pilot existant.
+- [x] CBIBF — 4 dossiers, 8 fichiers ; 2022 vide.
+- [x] SEMC — 25 dossiers, 54 fichiers ; `divers`, 2002 absent.
+- [x] ECOC — 9 dossiers 2017–2025, 32 fichiers ; couples `_rev` à réconcilier.
+- [x] ETIT — 23 dossiers 2003–2025, 81 fichiers ; corpus dense, multi-devise.
+- [ ] 31 autres émetteurs.
 
-**Total recensé sur les 12 premiers émetteurs : 671 fichiers.**
+**Total recensé sur les 17 premiers émetteurs : 907 fichiers.**
 
 ### P1-R — reconnaissance PDF
 
 - [x] stratégie générale : `docs/PDF_RECOGNITION_STRATEGY.md` ;
 - [x] profil BICC 2022 : états financiers bancaires, bilan/passif/hors-bilan/résultat ;
 - [x] profil BIIC T2 2025 : tableau d'activité + variations + narratif/perspectives ;
+- [x] profil ETIT 2023 : états consolidés IFRS, bi-devise USD/FCFA, attribution du résultat ;
 - [x] confirmer T2 sur le contenu visible ;
 - [x] documenter `DOCUMENT_METADATA_MISMATCH` ;
 - [x] documenter stock vs flow selon contexte de tableau ;
 - [x] documenter tableau vs narratif avec unités/arrondis différents ;
 - [x] documenter framework comptable vs scope indépendants ;
+- [x] documenter `ownership_attribution_raw` comme dimension candidate ;
 - [ ] multiplier les profils représentatifs hors banque : utility, industrie, télécom, agriculture, logistique, automobile, etc.
 
 ### Passes transversales P1 encore ouvertes
