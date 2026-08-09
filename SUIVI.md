@@ -15,128 +15,93 @@ Le dépôt `Patricked-code/financialdata` est la **mémoire persistante et le d�
 
 ### Règle universelle des agents
 
-Tout agent qui se connecte au dépôt doit **continuer le travail existant au point de reprise officiel, sans régression**.
-
-Il doit :
-
-1. lire la mémoire persistante ;
-2. vérifier `main` et le dernier commit ;
-3. reprendre les tâches restantes au lieu de recréer le projet ;
-4. préserver les décisions, sources, versions, extractions et structures déjà validées ;
-5. documenter toute évolution structurante avant de l'appliquer ;
-6. vérifier l'absence de perte de couverture ou de provenance après changement.
+Tout agent doit reprendre le projet au point officiel, préserver l'existant et continuer sans régression.
 
 ## P0 — Gouvernance initiale
 
 **STATUT : COMPLETE**
 
-Fichiers canoniques présents :
+## P1 — Inventaire documentaire exhaustif
 
-- `README.md`
-- `GOVERNANCE.md`
-- `AGENTS.md`
-- `CLAUDE.md`
-- `SUIVI.md`
-- `DECISIONS.md`
-- `TODO.md`
-- `ARCHITECTURE.md`
-- `DATA_MODEL.md`
-- `SOURCES.md`
-- `docs/BRVM_RAW_DATABASE_GOVERNANCE.md`
-- `docs/ISSUER_DISCOVERY_MATRIX.md`
+**STATUT : IN_PROGRESS**
 
-## Ce qui est déjà validé
+### Socle P1 terminé
 
-### Gouvernance des données
+- racine `RAPO / Rapport V2` vérifiée par liste directe ;
+- 48 dossiers société confirmés ;
+- dossier de gouvernance séparé confirmé ;
+- script `telecharger_rapports_brvm.py` confirmé à la racine ;
+- script inspecté : mapping de 48 sociétés, collecte depuis BRVM, classement historique par nom de fichier ;
+- méthode P1 documentée dans `inventory/README.md` et `inventory/P1_ROOT_MANIFEST.md`.
 
-- architecture par couches : SOURCE → RAW → MAPPED → CANONICAL → DERIVED → ANALYTICS ;
-- lineage/versioning et data quality sont transversaux ;
-- le RAW est immuable/versionné ;
+### Correction importante sur le script
+
+Une recherche Drive textuelle avait initialement manqué le script. La liste directe du dossier l'a ensuite confirmé.
+
+Source de vérité actuelle :
+
+- fichier : `telecharger_rapports_brvm.py`
+- Drive ID : `1F1WRVMG4C27EOTMq5Gt9FT9Mosv-Rryz`
+- taille : 14546 octets
+- MIME : `text/x-python`
+
+La décision erronée historique est conservée comme `D021` mais marquée `SUPERSEDED_BY_D022` dans `DECISIONS.md`.
+
+### Émetteurs P1 déjà inventoriés
+
+#### 1. SIVC — Air Liquide Côte d'Ivoire
+
+- dossier Drive : `1TkwLDXla5LKvdpQ_KSEFrl_yNz-X1AB2`
+- 22 dossiers annuels observés ;
+- 53 fichiers inventoriés ;
+- dossier 2024 présent mais vide ;
+- dossier 2015 absent ;
+- au moins un document 2025 nommé explicitement `annule et remplace le precedent publie` ;
+- hash : en attente ;
+- registre : `inventory/SIVC.md`.
+
+#### 2. BOABF — Bank of Africa Burkina Faso
+
+- dossier Drive : `1hQwExoX3z7LZKg89inSre8bKGjFoZ-lP`
+- 18 sous-dossiers : 2009–2025 + `divers` ;
+- 57 fichiers inventoriés ;
+- dossiers directs 2015, 2017, 2018 vides ;
+- `divers` contient des sources couvrant notamment 2017 ;
+- une paire de doublons binaires `divers_Etats_Financiers_BOABF*.pdf` possède déjà un SHA-256 vérifié ;
+- hash global : incomplet ;
+- registre : `inventory/BOABF.md`.
+
+### Progression P1
+
+- émetteurs avec inventaire dossiers/fichiers documenté : **2 / 48** ;
+- émetteurs restant à inventorier : **46** ;
+- hash global : `NOT_COMPLETE` ;
+- résolution exhaustive des périodes économiques : `NOT_COMPLETE` ;
+- extraction RAW : toujours `NOT_STARTED_AS_P1_OUTPUT` / ne pas confondre avec les pilotes antérieurs.
+
+## Règles de données déjà validées
+
+- architecture : SOURCE → RAW → MAPPED → CANONICAL → DERIVED → ANALYTICS ;
 - une observation publiée = une observation RAW ;
-- les valeurs publiées et recalculées sont séparées ;
-- les périodes sont déterminées par le contenu réel, pas le nom du fichier ;
-- les doublons et versions sont conservés ;
-- aucune cellule illisible n'est inventée ;
-- aucune évolution de schéma n'est introduite sans observation source documentée ;
-- les sources peuvent être revues à la longue mais toute révision doit être historisée ;
-- aucune révision de source ne réécrit silencieusement les facts RAW historiques.
+- source, version et provenance historisées ;
+- périodes déterminées par contenu réel ;
+- doublons/versions conservés ;
+- source révisable mais historique immuable ;
+- aucune évolution de schéma sans observation documentée.
 
-### Corpus BRVM
+## Prochaine action exacte
 
-Source documentaire principale explorée : Google Drive `RAPO / Rapport V2`.
+**Continuer P1 à partir du 3e émetteur non inventorié.**
 
-- 48 dossiers sociétés ont fait l'objet d'une passe de découverte conceptuelle ;
-- cette passe est terminée : `DISCOVERY_PASS_48_ISSUERS_COMPLETE` ;
-- l'extraction RAW intégrale de tous les PDF n'est pas terminée : `RAW_EXTRACTION_ALL_DOCUMENTS = NOT_COMPLETE` ;
-- la liste exacte des 48 dossiers est conservée dans `docs/ISSUER_DISCOVERY_MATRIX.md`.
+Ordre de travail :
 
-### Vérification script Python Drive
-
-Vérification effectuée le 2026-08-09 sur la racine exacte de `RAPO / Rapport V2` :
-
-- aucun fichier `.py` retourné ;
-- aucun fichier nommé avec `python` retourné ;
-- aucun fichier nommé avec `script` retourné.
-
-**Conclusion actuelle : aucun script Python n'est confirmé à cette racine.**
-
-L'ancienne supposition inverse ne doit plus être propagée. Si un script est découvert ultérieurement dans un sous-dossier ou ajouté au corpus, enregistrer son identifiant exact dans `SOURCES.md`.
-
-### Pilotes approfondis
-
-- BOABF — banque : audit documentaire détaillé, inventaire 2009–2025 + divers, pilote RAW 2009 dans une base SQLite antérieure ;
-- NTLC — industrie/SYSCOHADA ;
-- SNTS — télécom/IFRS/KPI opérationnels ;
-- CIEC — utility/concession/périmètres économiques multiples.
-
-### Particularités transversales documentées
-
-- codes comptables de ligne ;
-- TAFIRE / flux / capitaux propres ;
-- ratios publiés ;
-- KPI opérationnels physiques ;
-- géographies et segments ;
-- contrats de concession ;
-- stock vs flow ;
-- scopes individuels vs consolidés ;
-- IFRS individuels possibles ;
-- campagnes agricoles et sites ;
-- projets/chantiers ;
-- produits, marques et données de marché externe ;
-- prévisions/guidance distinctes du réalisé ;
-- ratios prudentiels ;
-- audit vs examen limité vs attestation ;
-- changement de nom d'un émetteur ;
-- événements exceptionnels et corporate actions ;
-- statuts distincts comptes audités / rapport CAC ;
-- unités sectorielles : GWh, tonnes, KT, hectares, nombre, transactions, $/baril, etc.
-
-## Dernières actions réalisées
-
-- documentation initiale complète migrée dans GitHub ;
-- règles `main-only` inscrites dans la mémoire persistante ;
-- règle universelle de continuité sans régression ajoutée dans `AGENTS.md`, `GOVERNANCE.md` et `CLAUDE.md` ;
-- politique de révision/versioning des sources ajoutée à `GOVERNANCE.md`, `SOURCES.md` et `DECISIONS.md` ;
-- correction documentée concernant l'absence de script Python confirmé à la racine Drive ;
-- source Drive reliée dans `SOURCES.md` ;
-- gouvernance BRVM détaillée migrée sous `docs/` ;
-- matrice 48 sociétés créée ;
-- aucune branche créée pendant ces travaux.
-
-## Prochaine étape obligatoire
-
-La prochaine phase reste **P1 — Inventaire documentaire exhaustif**.
-
-Ordre :
-
-1. inventorier intégralement les dossiers et documents de chaque société ;
-2. calculer les hash et détecter versions/doublons ;
-3. déterminer les périodes économiques réelles ;
-4. classer les familles documentaires ;
-5. mesurer la couverture ;
-6. enregistrer le statut/version des sources ;
-7. seulement ensuite lancer l'extraction RAW exhaustive société par société ;
-8. mettre à jour ce fichier après chaque lot.
+1. ouvrir le dossier société ;
+2. lister les sous-dossiers directs ;
+3. inventorier tous les fichiers de ces parents ;
+4. écrire/mettre à jour `inventory/<TICKER>.md` ;
+5. ne pas conclure qu'un suffixe `_2/_3` est un doublon sans hash ;
+6. mettre à jour `TODO.md` et ce fichier après chaque lot ;
+7. ne pas démarrer P2/P3 prématurément.
 
 ## Règle anti-perte de contexte
 
@@ -148,9 +113,9 @@ Avant toute nouvelle session ou reprise :
 4. lire ce fichier ;
 5. vérifier le dernier commit sur `main` ;
 6. vérifier `DECISIONS.md` et `TODO.md` ;
-7. lire les documents techniques pertinents ;
-8. ne jamais repartir d'un souvenir de conversation lorsque le dépôt contient un état plus récent.
+7. lire `inventory/README.md` et les inventaires existants ;
+8. ne jamais refaire SIVC/BOABF depuis zéro sauf contrôle ciblé justifié.
 
 ## Point de reprise exact
 
-`P0_GOVERNANCE_COMPLETE → NEXT = P1_DOCUMENT_INVENTORY`
+`P1_IN_PROGRESS → INVENTORY_COMPLETE_2_OF_48 → NEXT = THIRD_UNINVENTORIED_ISSUER`
