@@ -15,15 +15,16 @@ Backlog canonique. Ne pas considérer une tâche terminée tant que le résultat
 - [x] **48 / 48 émetteurs** inventoriés.
 - [x] **2 950 PDF** recensés.
 - [x] checkpoint global : `inventory/P1_48_ISSUERS_CHECKPOINT.md`.
+- [x] index machine-lisible émetteurs : `inventory/p1_issuer_manifest.csv` — 48 lignes + total.
 
 ### Lot final 43–48
 
-- [x] TTLS — 11 dossiers (2016–2025 + `divers`), **45 PDF**.
-- [x] PRSC — 28 dossiers 1998–2025, **68 PDF**.
-- [x] TRITRAF — 7 dossiers 1998–2004, **8 PDF** ; corpus historique sparse.
-- [x] UNLC — 9 dossiers (2016–2023 + `divers`), **20 PDF** ; pas de dossier 2024/2025 observé.
-- [x] UNXC — 28 dossiers 1998–2025, **83 PDF**.
-- [x] SHEC — 10 dossiers 2016–2025, **37 PDF**.
+- [x] TTLS — **45 PDF**.
+- [x] PRSC — **68 PDF**.
+- [x] TRITRAF — **8 PDF**.
+- [x] UNLC — **20 PDF**.
+- [x] UNXC — **83 PDF**.
+- [x] SHEC — **37 PDF**.
 
 ### P1-R — reconnaissance PDF
 
@@ -38,10 +39,16 @@ Backlog canonique. Ne pas considérer une tâche terminée tant que le résultat
 - [x] deep pilots BOABF/CIEC/NTLC/SNTS conservés sans duplication ;
 - [ ] nouveaux profils uniquement lorsqu'un nouveau pattern réel apparaît.
 
-### P1 — passes transversales maintenant prioritaires
+### P1 — MACHINE_READABLE_MANIFEST
 
-- [ ] créer le manifeste machine-lisible document par document ;
-- [ ] enregistrer identifiant Drive, parent, émetteur attendu, nom, taille, type, dates source et statut d'attribution ;
+- [x] schéma document-level défini : `docs/P1_DOCUMENT_MANIFEST_SCHEMA.md` ;
+- [x] fichier manifeste créé : `inventory/p1_document_manifest.csv` ;
+- [x] seed vérifié : **3 / 2 950 lignes** — BICC 2022, BIIC T2 2025, SNTS/ONATEL anomalie ;
+- [ ] compléter le manifeste document par document jusqu'à **2 950 / 2 950** ;
+- [ ] contrôle final : `COUNT(rows)=2950` et `COUNT(distinct source_drive_file_id)=2950`.
+
+### P1 — autres passes transversales
+
 - [ ] collecter/calculer les SHA-256 des **2 950 PDF** ;
 - [ ] établir les doublons binaires ;
 - [ ] établir les relations `VERSION_OF / REVISED_BY / SUPERSEDES / POSSIBLE_DUPLICATE` ;
@@ -54,7 +61,7 @@ Backlog canonique. Ne pas considérer une tâche terminée tant que le résultat
 
 - [x] analyser la V1 ;
 - [x] définir le design incrémental/versionné ;
-- [ ] manifeste de référence ;
+- [ ] manifeste de référence complet ;
 - [ ] `--dry-run` ;
 - [ ] comparaison distante ;
 - [ ] SHA-256 / validation PDF ;
