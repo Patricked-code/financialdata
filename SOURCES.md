@@ -17,11 +17,16 @@ Organisation observée :
 
 Un sous-dossier `divers` peut contenir des documents couvrant des périodes absentes des dossiers annuels.
 
-### Vérification du 2026-08-09 — scripts à la racine
+### Vérification du 2026-08-09 — scripts Python
 
-Une vérification directe de la racine `Rapport V2` n'a retourné **aucun fichier `.py`**, ni fichier dont le nom contient `python` ou `script`.
+Deux vérifications ont été effectuées :
 
-Conséquence : ne pas considérer comme acquis qu'un script Python existe dans cette racine. Si un script est découvert ultérieurement dans un sous-dossier, dans une autre version du corpus ou après ajout au Drive, l'ajouter ici avec son identifiant exact et son rôle.
+1. racine exacte de `Rapport V2` : aucun fichier `.py`, ni nom contenant `python` ou `script` retourné ;
+2. recherche globale sur tout le Google Drive accessible avec le filtre `name contains '.py'` : **aucun fichier `.py` retourné**.
+
+Conclusion actuelle : **aucun script Python n'est confirmé dans le Drive accessible**.
+
+Conséquence : ne pas considérer comme acquis qu'un script Python existe dans le corpus. Si un script est découvert ultérieurement, ajouté au Drive ou stocké sous une extension différente, l'ajouter ici avec son identifiant exact, son emplacement, son hash si possible et son rôle.
 
 ## 2. Document de gouvernance conceptuelle historique
 
