@@ -110,12 +110,7 @@ Prévoir `issuer_assignment_status = VALIDATED | REVIEW_REQUIRED | OUT_OF_SCOPE_
 
 `telecharger_rapports_brvm.py` est reconnu comme **collecteur historique ayant servi à constituer le corpus Drive**.
 
-Décision :
-
-- conserver la V1 comme référence ;
-- ne pas la modifier silencieusement ;
-- ne pas utiliser une évolution future pour écraser l'historique ;
-- documenter toute V2 séparément et vérifier la non-régression avant usage.
+Décision : conserver la V1 comme référence ; ne pas la modifier silencieusement ; ne pas utiliser une évolution future pour écraser l'historique ; documenter toute V2 séparément et vérifier la non-régression avant usage.
 
 ## D026 — 2026-08-09 — Collecteur V2 incrémental et versionné
 
@@ -125,29 +120,46 @@ Principe :
 
 `DISCOVER → COMPARE_MANIFEST → DOWNLOAD_DELTA → HASH → VALIDATE → VERSION_LINK → STORE → REPORT`.
 
-Il doit détecter : nouveaux documents, nouvelles années, même URL avec contenu révisé, documents `annule/remplace/corrige`, doublons par hash, changements de catalogue et nouveaux/slugs modifiés.
-
-Il doit préserver `first_seen_at`, `last_seen_at`, URL source, titre BRVM, nom source, hash, taille, métadonnées HTTP, provenance et relations de version.
+Il doit détecter nouveaux documents, nouvelles années, même URL avec contenu révisé, documents `annule/remplace/corrige`, doublons par hash, changements de catalogue et nouveaux/slugs modifiés.
 
 ## D027 — 2026-08-09 — P1 avant activation du collecteur V2
 
-Le plan V2 est documenté mais **pas implémenté** pendant le lot actuel.
-
-Ordre :
-
-1. terminer P1 ;
-2. créer le manifeste machine-lisible de l'existant ;
-3. développer V2 en `dry-run` ;
-4. comparer le delta ;
-5. valider ;
-6. seulement ensuite autoriser le téléchargement incrémental.
+Ordre : terminer P1 → créer le manifeste machine-lisible → développer V2 en dry-run → comparer/valider le delta → seulement ensuite autoriser le téléchargement incrémental.
 
 Document : `docs/BRVM_COLLECTOR_V2_PLAN.md`.
 
 ## D028 — 2026-08-09 — Réconciliation de fraîcheur avec la BRVM courante
 
-P1 peut enregistrer un statut `REMOTE_DELTA_IDENTIFIED` lorsqu'une comparaison directe avec la page BRVM officielle révèle des publications absentes du corpus Drive.
+P1 peut enregistrer `REMOTE_DELTA_IDENTIFIED` lorsqu'une comparaison directe avec la page BRVM officielle révèle des publications absentes du corpus Drive.
 
-Ces documents ne sont pas automatiquement téléchargés pendant P1 : le delta est documenté et sera traité par le mécanisme incrémental validé.
+Ces documents ne sont pas automatiquement téléchargés pendant P1.
 
 Premiers cas vérifiés : BOAC et BOAM.
+
+## D029 — 2026-08-09 — Roadmap canonique du projet
+
+Le plan complet est fixé dans `ROADMAP.md`.
+
+Phases :
+
+- `P0` gouvernance ;
+- `P1` inventaire SOURCE historique ;
+- `P1-FRESH` réconciliation et maintien à jour via collecteur V2 ;
+- `P2` schéma RAW v1 ;
+- `P3` extraction RAW exhaustive ;
+- `P4` contrôle / qualité / lineage ;
+- `P5` MAPPED ;
+- `P6` CANONICAL ;
+- `P7` DERIVED ;
+- `P8` ANALYTICS.
+
+Cette séparation ne change pas l'architecture de données à six couches ; elle explicite seulement les phases de réalisation.
+
+## D030 — 2026-08-09 — Deltas de fraîcheur BOAN et BOAS
+
+La comparaison P1 avec le catalogue BRVM courant confirme aussi `REMOTE_DELTA_IDENTIFIED` pour :
+
+- BOAN : publications S2/annuelles 2025 et T1 2026 au minimum non représentées par leur équivalent évident dans le Drive ;
+- BOAS : publications T1 2026 / états financiers T1 2026 au minimum, sans dossier Drive 2026.
+
+Ces éléments restent des deltas documentés ; aucun téléchargement automatique n'est déclenché pendant P1.
