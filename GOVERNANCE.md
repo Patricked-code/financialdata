@@ -23,18 +23,38 @@ Cette règle est volontaire et spécifique à ce dépôt. Elle prévaut sur tout
 Tout agent humain ou IA doit lire avant intervention :
 
 1. `GOVERNANCE.md`
-2. `CLAUDE.md`
-3. `SUIVI.md`
-4. `DECISIONS.md`
-5. `TODO.md`
-6. `ARCHITECTURE.md`
-7. `DATA_MODEL.md`
-8. `SOURCES.md`
-9. les documents pertinents sous `docs/`
+2. `AGENTS.md`
+3. `CLAUDE.md`
+4. `SUIVI.md`
+5. `DECISIONS.md`
+6. `TODO.md`
+7. `ARCHITECTURE.md`
+8. `DATA_MODEL.md`
+9. `SOURCES.md`
+10. les documents pertinents sous `docs/`
 
 Si une règle du projet évolue, la mémoire persistante doit être mise à jour dans le même travail.
 
-## 3. Hiérarchie des vérités
+## 3. Obligation de continuité et de non-régression
+
+Tout agent qui intervient doit **continuer le travail existant** depuis le point de reprise officiel de `SUIVI.md`.
+
+Un agent ne peut pas :
+
+- repartir de zéro parce qu'il préfère une autre architecture ;
+- créer un modèle parallèle sans justification ;
+- supprimer une décision validée ;
+- écraser une extraction, une source, une version ou une provenance déjà conservée ;
+- modifier silencieusement une convention existante ;
+- considérer la conversation courante comme plus fiable que la mémoire persistante du dépôt.
+
+Toute évolution structurante suit obligatoirement :
+
+`LECTURE ÉTAT EXISTANT → VÉRIFICATION → PREUVE → ANALYSE D'IMPACT → DÉCISION DOCUMENTÉE → IMPLÉMENTATION COMPATIBLE → TEST NON-RÉGRESSION → MISE À JOUR SUIVI`
+
+Une amélioration est acceptable seulement si elle préserve l'historique, la provenance, les faits validés et la capacité de reproduire l'état précédent.
+
+## 4. Hiérarchie des vérités
 
 Ordre de priorité pour les données :
 
@@ -48,7 +68,7 @@ Ordre de priorité pour les données :
 
 Une couche aval ne doit jamais écraser la vérité d'une couche amont.
 
-## 4. Principe RAW
+## 5. Principe RAW
 
 **Une observation réellement publiée = une observation RAW.**
 
@@ -70,7 +90,7 @@ Le RAW doit préserver au minimum :
 - confiance ;
 - versions/doublons/restatements.
 
-## 5. Interdictions de données
+## 6. Interdictions de données
 
 Il est interdit de :
 
@@ -84,7 +104,7 @@ Il est interdit de :
 - présenter comme `PUBLISHED` une valeur calculée par le système ;
 - considérer qu'un dossier annuel vide implique l'absence de données pour cette année.
 
-## 6. Données publiées vs calculées
+## 7. Données publiées vs calculées
 
 `fact_origin` doit séparer au minimum :
 
@@ -93,7 +113,7 @@ Il est interdit de :
 
 Un ROE, PER, rendement, variation ou autre ratio publié reste `PUBLISHED`. Le même ratio recalculé par le système est une observation différente dans `DERIVED`.
 
-## 7. Périodes
+## 8. Périodes
 
 Distinguer lorsque pertinent :
 
@@ -109,7 +129,7 @@ Distinguer lorsque pertinent :
 
 La base doit permettre une lecture **point-in-time** : une information n'est pas réputée disponible avant sa publication/attestation effective.
 
-## 8. Versions et doublons
+## 9. Versions et doublons
 
 Toute source doit pouvoir être identifiée par hash.
 
@@ -118,7 +138,36 @@ Toute source doit pouvoir être identifiée par hash.
 - un restatement n'efface pas la version précédente ;
 - une correction d'extraction crée une nouvelle version/supersession au lieu d'une mutation silencieuse.
 
-## 9. Couverture sectorielle
+## 10. Cycle de vie des sources
+
+Les sources du projet **ne sont pas figées pour toujours**. Elles peuvent être revues à mesure que le corpus s'améliore ou que de meilleures preuves deviennent disponibles.
+
+Une source peut notamment être :
+
+- ajoutée ;
+- enrichie ;
+- reclassée ;
+- réévaluée ;
+- remplacée par une version plus récente ;
+- marquée comme doublon ;
+- marquée comme superseded ;
+- marquée comme deprecated pour les usages futurs.
+
+Mais aucune de ces opérations ne doit effacer l'historique.
+
+Le registre des sources doit pouvoir conserver au minimum :
+
+- `source_status` ;
+- `source_version` ;
+- `supersedes_source_id` ou relation équivalente ;
+- `reviewed_at` ;
+- `review_reason` ;
+- `valid_from` / `valid_to` si pertinent ;
+- provenance originale.
+
+Les faits RAW déjà extraits restent reliés à la source exacte qui les a produits. Une source révisée ne réécrit jamais silencieusement les anciennes observations.
+
+## 11. Couverture sectorielle
 
 Le modèle RAW doit rester universel. Il doit pouvoir absorber sans refonte :
 
@@ -137,7 +186,7 @@ Le modèle RAW doit rester universel. Il doit pouvoir absorber sans refonte :
 - catering ;
 - données réglementaires, audit, gouvernance, corporate actions et événements.
 
-## 10. Changement du modèle
+## 12. Changement du modèle
 
 Aucune nouvelle table, colonne ou règle de mapping ne doit être ajoutée uniquement par intuition.
 
@@ -147,21 +196,23 @@ Procédure :
 
 Toute nouvelle particularité conceptuelle est d'abord consignée dans `DECISIONS.md` ou dans un document de gouvernance dédié sous `docs/`.
 
-## 11. Sécurité et non-régression
+## 13. Sécurité et non-régression
 
 - Ne jamais stocker de secret ou mot de passe dans le dépôt.
 - Ne jamais supprimer une source ou une donnée sans preuve et décision documentée.
 - Les migrations doivent préserver l'historique et la traçabilité.
 - Toute transformation doit être reproductible.
 - Toute extraction automatisée doit produire des logs/rapports de contrôle.
+- Toute nouvelle étape doit être comparée à l'état antérieur pour détecter une perte de couverture, de provenance ou de faits.
 
-## 12. Definition of Done documentaire
+## 14. Definition of Done documentaire
 
 Une étape n'est terminée que si :
 
 - le travail réel a été vérifié ;
 - les sources sont citées ;
 - les ambiguïtés sont signalées ;
+- l'absence de régression a été contrôlée ;
 - `SUIVI.md` reflète l'état réel ;
 - les décisions nouvelles sont dans `DECISIONS.md` ;
 - `TODO.md` reflète le reste à faire ;
