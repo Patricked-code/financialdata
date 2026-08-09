@@ -29,39 +29,45 @@ Backlog canonique. Ne pas considérer une tâche terminée tant que le résultat
 - [x] BOAM — 44 fichiers.
 - [x] BOAN — 60 fichiers.
 - [x] BOAS — 43 fichiers.
-- [x] BNBC — 28 dossiers 1998–2025, 78 fichiers.
-- [x] BICC — 28 dossiers 1998–2025, 61 fichiers.
-- [x] BIIC — 2 dossiers, 2 fichiers ; corpus sparse.
-- [x] AGLC — 28 dossiers 1998–2025, 60 fichiers.
-- [x] CFAC — 26 dossiers, 94 fichiers.
-- [x] CIEC — 29 dossiers, 61 fichiers ; deep pilot existant.
-- [x] CBIBF — 4 dossiers, 8 fichiers ; 2022 vide.
-- [x] SEMC — 25 dossiers, 54 fichiers ; `divers`, 2002 absent.
-- [x] ECOC — 9 dossiers 2017–2025, 32 fichiers ; couples `_rev` à réconcilier.
-- [x] ETIT — 23 dossiers 2003–2025, 81 fichiers ; corpus dense, multi-devise.
-- [x] FTSC — 28 dossiers 1998–2025, 88 fichiers.
-- [x] MVSC — 24 dossiers 1998–2020 + `divers`, 20 fichiers.
-- [x] NEIC — 27 dossiers, 86 fichiers ; 2015 absent.
-- [x] NTLC — 28 dossiers 1998–2025, 81 fichiers ; deep pilot existant.
-- [x] NSBC — 10 dossiers 2017–2025 + `divers`, 38 fichiers ; EF 2021 révisés.
-- [ ] 26 autres émetteurs.
+- [x] BNBC — 78 fichiers.
+- [x] BICC — 61 fichiers.
+- [x] BIIC — 2 fichiers.
+- [x] AGLC — 60 fichiers.
+- [x] CFAC — 94 fichiers.
+- [x] CIEC — 61 fichiers.
+- [x] CBIBF — 8 fichiers.
+- [x] SEMC — 54 fichiers.
+- [x] ECOC — 32 fichiers.
+- [x] ETIT — 81 fichiers.
+- [x] FTSC — 88 fichiers.
+- [x] MVSC — 20 fichiers.
+- [x] NEIC — 86 fichiers.
+- [x] NTLC — 81 fichiers.
+- [x] NSBC — 38 fichiers.
+- [x] ONTBF — 19 dossiers (2008–2025 + `divers`), 91 fichiers.
+- [x] ORGT — 8 dossiers (2018–2025), 23 fichiers.
+- [x] ORAC — 4 dossiers (2022–2025), 14 fichiers.
+- [x] PALC — 25 dossiers, 75 fichiers ; 2000 et 2002 absents.
+- [x] SAFC — 27 dossiers, 73 fichiers ; 2015 absent.
+- [ ] 21 autres émetteurs.
 
-**Total recensé sur les 22 premiers émetteurs : 1 220 fichiers.**
+**Total recensé sur les 27 premiers émetteurs : 1 496 fichiers.**
 
 ### P1-R — reconnaissance PDF
 
 - [x] stratégie générale : `docs/PDF_RECOGNITION_STRATEGY.md` ;
-- [x] profil BICC 2022 : états financiers bancaires, bilan/passif/hors-bilan/résultat ;
-- [x] profil BIIC T2 2025 : tableau d'activité + variations + narratif/perspectives ;
-- [x] profil ETIT 2023 : états consolidés IFRS, bi-devise USD/FCFA, attribution du résultat ;
-- [x] confirmer T2 sur le contenu visible ;
-- [x] documenter `DOCUMENT_METADATA_MISMATCH` ;
-- [x] documenter stock vs flow selon contexte de tableau ;
-- [x] documenter tableau vs narratif avec unités/arrondis différents ;
-- [x] documenter framework comptable vs scope indépendants ;
-- [x] documenter `ownership_attribution_raw` comme dimension candidate ;
-- [x] préserver les deep pilots CIEC et NTLC sans duplication d'analyse ;
-- [ ] multiplier les profils représentatifs hors banque uniquement lorsqu'un nouveau pattern est réellement découvert.
+- [x] profil BICC 2022 ;
+- [x] profil BIIC T2 2025 ;
+- [x] profil ETIT 2023 ;
+- [x] `DOCUMENT_METADATA_MISMATCH` ;
+- [x] STOCK vs FLOW selon contexte ;
+- [x] variations publiées conservées en RAW ;
+- [x] tableau vs narratif conservés séparément ;
+- [x] framework comptable vs scope indépendants ;
+- [x] `ownership_attribution_raw` documenté comme candidat ;
+- [x] T1/T2/T3/T4/S1/S2 confirmés dans le corpus ;
+- [x] préserver les deep pilots BOABF/CIEC/NTLC/SNTS sans duplication ;
+- [ ] ajouter seulement les nouveaux profils apportant un pattern réellement nouveau.
 
 ### Passes transversales P1 encore ouvertes
 
