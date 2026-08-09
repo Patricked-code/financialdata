@@ -32,25 +32,25 @@ Architecture : `SOURCE → RAW → MAPPED → CANONICAL → DERIVED → ANALYTIC
 
 ### Progression
 
-Émetteurs inventoriés : **32 / 48**.
+- émetteurs inventoriés : **37 / 48** ;
+- PDF recensés : **2 271** ;
+- restant : **11 émetteurs**.
 
-Fichiers recensés : **1 873**.
+### Lot 33–37
 
-Restant : **16 émetteurs**.
+- CABC : 29 dossiers 1998–2025 + `divers`, **90 PDF** ;
+- SICC : 25 dossiers, **19 PDF**, 2014 absent et pas de dossier 2024/2025 observé ;
+- STBC : 29 dossiers 1998–2025 + `divers`, **91 PDF**, plusieurs révisions candidates 2025 ;
+- SMBC : 28 dossiers 1998–2025, **106 PDF**, total corrigé par scission parentée 36 + 70 ;
+- SDCC : 29 dossiers 1998–2025 + `divers`, **92 PDF**, total corrigé par scission parentée 36 + 56.
 
-### Totaux individuels 1–32
+### SDCC — confirmation P1-R
 
-`SIVC 53 | BOABF 57 | BOAB 59 | BOAC 60 | BOAM 44 | BOAN 60 | BOAS 43 | BNBC 78 | BICC 61 | BIIC 2 | AGLC 60 | CFAC 94 | CIEC 61 | CBIBF 8 | SEMC 54 | ECOC 32 | ETIT 81 | FTSC 88 | MVSC 20 | NEIC 86 | NTLC 81 | NSBC 38 | ONTBF 91 | ORGT 23 | ORAC 14 | PALC 75 | SAFC 73 | SPHC 124 | ABJC 82 | STAC 38 | SGBC 87 | SIBC 46`.
+Le corpus 2019 contient des documents SYSCOHADA révisé, IFRS individuel et IFRS consolidé. Cela confirme une règle déjà acquise : `accounting_framework_raw` et `consolidation_scope_raw` sont des dimensions indépendantes. Aucune nouvelle colonne n'est créée.
 
-### Lot 28–32 — anomalies/patterns utiles
+### Règle renforcée
 
-- SPHC : 28 dossiers 1998–2025, **124 PDF**. La recherche ticker plafonnait à 100 ; total corrigé par deux recherches strictement filtrées sur les parents (32 + 92). Variantes nombreuses EF/CAC 2019–2024 ;
-- ABJC : 28 dossiers 1998–2025, **82 PDF** ; S1 2023 plain/_2/_rev et double EF 2023 ;
-- STAC : 26 dossiers = 25 années + `divers`, **38 PDF** ; 2004/2007/2009 absents ; `divers_Etats_Financiers_STAC.pdf` à résoudre par contenu ;
-- SGBC : 27 dossiers 1999–2025, **87 PDF** ; nombreuses variantes historiques/S1 ;
-- SIBC : 10 dossiers 2016–2025, **46 PDF** ; corpus bancaire récent.
-
-Règle renforcée : **une limite technique de recherche n'est jamais un total SOURCE**.
+Les recherches ticker atteignant 100 résultats doivent être considérées comme potentiellement plafonnées. Toujours vérifier par dossiers parents avant de retenir un total SOURCE.
 
 ## P1-R — PDF_RECOGNITION_DISCOVERY
 
@@ -63,8 +63,6 @@ Profils vérifiés :
 - `docs/recognition_profiles/TRANSNATIONAL_BANKING_ETIT_2023_FINANCIAL_STATEMENTS.md`
 
 Deep pilots acquis : BOABF, CIEC, NTLC, SNTS.
-
-Aucune nouvelle dimension de schéma pour le lot 28–32 : versions, lacunes, métadonnées incohérentes et géométrie sont déjà couvertes.
 
 ## P1-FRESH
 
@@ -81,11 +79,11 @@ Design V2 documenté mais non activé. Aucun delta distant n'est téléchargé a
 
 ## Prochaine action exacte
 
-Continuer immédiatement P1 en mode batch avec :
+Continuer immédiatement P1 avec :
 
-`CABC → SICC → STBC → SMBC → SDCC`
+`SOGC → SLBC → SNTS → SCRC → TTLC`
 
-Puis poursuivre : `SOGC → SLBC → SNTS → SCRC → TTLC → TTLS → PRSC → TRITRAF → UNLC → UNXC → SHEC`.
+Puis : `TTLS → PRSC → TRITRAF → UNLC → UNXC → SHEC`.
 
 ## Ordre de reprise obligatoire
 
@@ -102,4 +100,4 @@ Puis poursuivre : `SOGC → SLBC → SNTS → SCRC → TTLC → TTLS → PRSC �
 
 ## Point de reprise exact
 
-`P1_BATCH_FAST → INVENTORY_COMPLETE_32_OF_48 → 1873_FILES → NEXT_BATCH = CABC,SICC,STBC,SMBC,SDCC + P1-R ACTIVE`
+`P1_BATCH_FAST → INVENTORY_COMPLETE_37_OF_48 → 2271_FILES → NEXT_BATCH = SOGC,SLBC,SNTS,SCRC,TTLC + P1-R ACTIVE`
