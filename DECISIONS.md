@@ -163,3 +163,24 @@ La comparaison P1 avec le catalogue BRVM courant confirme aussi `REMOTE_DELTA_ID
 - BOAS : publications T1 2026 / états financiers T1 2026 au minimum, sans dossier Drive 2026.
 
 Ces éléments restent des deltas documentés ; aucun téléchargement automatique n'est déclenché pendant P1.
+
+## D031 — 2026-08-09 — Accélération P1 et reconnaissance PDF en parallèle
+
+L'inventaire n'est pas la finalité du projet. Il sert à construire des bases de données à partir des données reconnues dans les PDF.
+
+Décision : P1 passe en mode `BATCH_FAST` pour les tâches répétitives de métadonnées et ajoute une sous-phase parallèle `P1-R PDF_RECOGNITION_DISCOVERY`.
+
+P1-R est autorisée avant P2/P3 uniquement pour apprendre/documenter les structures récurrentes et exceptions ; elle ne doit pas être présentée comme extraction RAW exhaustive.
+
+Méthode :
+
+- inventorier les émetteurs par lots ;
+- réduire les descriptions Markdown répétitives ;
+- réserver les revues manuelles aux anomalies ;
+- examiner en parallèle des PDF représentatifs (annuel ancien/récent, états détaillés, T1/T3/S1/S2, CAC, divers/révision) ;
+- construire des profils de reconnaissance réutilisables pour tableaux, lignes, périodes, unités, devises, scopes et familles de faits ;
+- utiliser ensuite ces profils pour accélérer P2/P3.
+
+Document de référence : `docs/PDF_RECOGNITION_STRATEGY.md`.
+
+Le but est de produire un moteur générique de reconnaissance/extraction, pas 48 parseurs indépendants.
