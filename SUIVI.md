@@ -24,59 +24,75 @@ Architecture : `SOURCE → RAW → MAPPED → CANONICAL → DERIVED → ANALYTIC
 
 ## P1 — Inventaire SOURCE
 
-**IN_PROGRESS / BATCH_FAST**
+**IN_PROGRESS / INVENTORY_48_COMPLETE / TRANSVERSE_PASSES_OPEN**
 
-### Progression
+### Checkpoint majeur
 
-- émetteurs inventoriés : **42 / 48** ;
-- PDF recensés : **2 689** ;
-- restant : **6 émetteurs**.
+- sociétés inventoriées : **48 / 48** ;
+- PDF recensés au niveau dossiers/fichiers : **2 950** ;
+- inventaires individuels : `inventory/<TICKER>.md` ;
+- checkpoint consolidé : `inventory/P1_48_ISSUERS_CHECKPOINT.md`.
 
-### Lot 38–42
+`INVENTORY_COMPLETE_48_OF_48` ne signifie pas que P1 est entièrement terminé et ne signifie surtout pas que les 2 950 PDF sont déjà extraits en RAW.
 
-- SOGC : 28 dossiers 1998–2025, **106 PDF**, total vérifié par scission 37 + 69 ;
-- SLBC : 28 dossiers 1998–2025, **65 PDF** ;
-- SNTS : 27 dossiers, **101 PDF**, 2016 absent ; deep pilot existant ;
-- SCRC : 11 dossiers 2016–2025 + `divers`, **45 PDF** ;
-- TTLC : 28 dossiers 1998–2025, **101 PDF**, total vérifié par scission 34 + 67.
+### Lot final 43–48
 
-### Anomalie d'attribution SNTS
+- TTLS : 11 dossiers 2016–2025 + `divers`, **45 PDF** ;
+- PRSC : 28 dossiers 1998–2025, **68 PDF** ;
+- TRITRAF : 7 dossiers 1998–2004, **8 PDF** ; corpus historique sparse ;
+- UNLC : 9 dossiers 2016–2023 + `divers`, **20 PDF** ; pas de dossier 2024/2025 observé ;
+- UNXC : 28 dossiers 1998–2025, **83 PDF** ;
+- SHEC : 10 dossiers 2016–2025, **37 PDF**.
 
-Le dossier Sonatel 2017 contient `20170721-resultats_au_premier_semestre_2017_onatel-sa_1.pdf` (Drive ID `1sIl2VvXcjKZA2CFM-9bwGO6EQB-uqX9c`). Le nom indique ONATEL. Le document reste conservé en SOURCE et doit recevoir `issuer_assignment_status = REVIEW_REQUIRED` dans le manifeste futur. Aucune suppression/réattribution silencieuse.
+### Règles de comptage validées
 
-### Règles renforcées
+- une réponse plafonnée à 100 n'est jamais un total SOURCE ;
+- les recherches sont bornées par dossiers parents lorsque nécessaire ;
+- les résultats hors dossier société sont exclus ;
+- `_2/_3/...` et `_rev` restent des documents distincts jusqu'à preuve hash/contenu ;
+- dossier vide/corpus court/lacune annuelle = état SOURCE valide ;
+- présence physique sous un dossier ≠ attribution émetteur validée.
 
-- un plafond de recherche n'est jamais un total SOURCE ;
-- présence physique sous un dossier émetteur ≠ attribution validée ;
-- `divers` et noms de fichiers ne déterminent jamais seuls la période économique ;
-- deep pilots ne sont pas refaits sans nouveau pattern réel.
+### Anomalie d'attribution déjà ouverte
+
+SNTS 2017 contient `20170721-resultats_au_premier_semestre_2017_onatel-sa_1.pdf` alors que le fichier est rangé sous Sonatel. À inscrire dans le manifeste document par document avec `issuer_assignment_status = REVIEW_REQUIRED`.
 
 ## P1-R — PDF_RECOGNITION_DISCOVERY
 
 **ACTIVE_IN_PARALLEL**
 
-Profils vérifiés : BICC 2022, BIIC T2 2025, ETIT 2023.
+Profils vérifiés :
+
+- `docs/recognition_profiles/BANKING_FINANCIAL_STATEMENTS_BICC_2022.md`
+- `docs/recognition_profiles/BANKING_ACTIVITY_BIIC_T2_2025.md`
+- `docs/recognition_profiles/TRANSNATIONAL_BANKING_ETIT_2023_FINANCIAL_STATEMENTS.md`
+
 Deep pilots acquis : BOABF, CIEC, NTLC, SNTS.
 
-Aucune nouvelle dimension conceptuelle n'a été nécessaire sur le lot 38–42 : attribution, versions, périodes et faits opérationnels sont déjà couverts.
+Aucune nouvelle dimension conceptuelle n'a été requise par le lot final. Les règles existantes couvrent versions, périodes, lacunes, scopes et faits opérationnels.
 
-## Passes transversales encore ouvertes
+## P1 — Passes transversales prioritaires
 
-- hash global ;
-- manifeste machine-lisible ;
-- versions/doublons ;
-- périodes économiques exhaustives ;
-- attribution et couverture documentaire ;
-- réconciliation BRVM courante.
+1. **MACHINE_READABLE_MANIFEST** : manifeste document par document des 2 950 PDF ;
+2. **SHA256** : hash de chaque fichier ;
+3. **DUPLICATES / VERSIONS** : doublons binaires et relations de révision ;
+4. **ECONOMIC_PERIODS** : période réellement publiée dans le contenu ;
+5. **ISSUER_ASSIGNMENT** : validation de l'émetteur réel ;
+6. **COVERAGE** : mesure de la couverture documentaire ;
+7. **FRESHNESS** : réconciliation avec la BRVM courante et P1-FRESH.
+
+## P1-FRESH
+
+Le design V2 est documenté mais aucun téléchargement automatique n'est activé avant manifeste/dry-run/validation.
 
 ## Prochaine action exacte
 
-Terminer P1 avec les 6 derniers émetteurs :
+Commencer immédiatement :
 
-`TTLS → PRSC → TRITRAF → UNLC → UNXC → SHEC`
+`P1_TRANSVERSE → MACHINE_READABLE_MANIFEST`
 
-Puis verrouiller `INVENTORY_COMPLETE_48_OF_48` avant de lancer les passes transversales P1/P1-FRESH.
+Le manifeste doit devenir la source machine-lisible unique de la couche SOURCE, tout en conservant les inventaires Markdown comme mémoire humaine/audit.
 
 ## Point de reprise exact
 
-`P1_BATCH_FAST → INVENTORY_COMPLETE_42_OF_48 → 2689_FILES → FINAL_BATCH = TTLS,PRSC,TRITRAF,UNLC,UNXC,SHEC + P1-R ACTIVE`
+`P1_TRANSVERSE → INVENTORY_COMPLETE_48_OF_48 → 2950_PDFS → MACHINE_READABLE_MANIFEST_START`
