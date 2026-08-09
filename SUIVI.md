@@ -11,7 +11,7 @@ Le dépôt `Patricked-code/financialdata` est désormais initialisé comme **mé
 - branche autorisée : `main` uniquement ;
 - création de branche : interdite ;
 - Pull Request : non requise / ne pas en créer pour ce projet ;
-- toute écriture future doit respecter `GOVERNANCE.md` et `CLAUDE.md`.
+- toute écriture future doit respecter `GOVERNANCE.md`, `AGENTS.md` et `CLAUDE.md`.
 
 ## P0 — Gouvernance initiale
 
@@ -21,6 +21,7 @@ Fichiers canoniques présents :
 
 - `README.md`
 - `GOVERNANCE.md`
+- `AGENTS.md`
 - `CLAUDE.md`
 - `SUIVI.md`
 - `DECISIONS.md`
@@ -86,7 +87,7 @@ Source documentaire principale explorée : Google Drive `RAPO / Rapport V2`.
 ## Dernières actions réalisées
 
 - documentation initiale complète migrée dans GitHub ;
-- règles `main-only` inscrites dans `README.md`, `GOVERNANCE.md`, `CLAUDE.md`, `TODO.md` et la documentation détaillée ;
+- règles `main-only` inscrites dans `README.md`, `GOVERNANCE.md`, `AGENTS.md`, `CLAUDE.md`, `TODO.md` et la documentation détaillée ;
 - source Drive reliée dans `SOURCES.md` ;
 - gouvernance BRVM détaillée migrée sous `docs/` ;
 - matrice 48 sociétés créée ;
@@ -111,12 +112,13 @@ Ordre :
 Avant toute nouvelle session ou reprise :
 
 1. lire `GOVERNANCE.md` ;
-2. lire `CLAUDE.md` ;
-3. lire ce fichier ;
-4. vérifier le dernier commit sur `main` ;
-5. vérifier `DECISIONS.md` et `TODO.md` ;
-6. lire les documents techniques pertinents ;
-7. ne jamais repartir d'un souvenir de conversation lorsque le dépôt contient un état plus récent.
+2. lire `AGENTS.md` ;
+3. lire `CLAUDE.md` ;
+4. lire ce fichier ;
+5. vérifier le dernier commit sur `main` ;
+6. vérifier `DECISIONS.md` et `TODO.md` ;
+7. lire les documents techniques pertinents ;
+8. ne jamais repartir d'un souvenir de conversation lorsque le dépôt contient un état plus récent.
 
 ## Point de reprise exact
 
