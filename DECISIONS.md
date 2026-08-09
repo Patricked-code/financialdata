@@ -25,7 +25,7 @@ Registre canonique des décisions validées. Une décision ne doit pas être ré
 
 **Décision** : les fichiers `.md` du dépôt constituent la mémoire persistante opérationnelle.
 
-**Ordre de lecture** : `GOVERNANCE.md` → `CLAUDE.md` → `SUIVI.md` → `DECISIONS.md` → `TODO.md` → documents techniques et `docs/`.
+**Ordre de lecture** : `GOVERNANCE.md` → `AGENTS.md` → `CLAUDE.md` → `SUIVI.md` → `DECISIONS.md` → `TODO.md` → documents techniques et `docs/`.
 
 ## D004 — 2026-08-09 — Source avant analytics
 
@@ -113,3 +113,23 @@ Valeurs envisagées : `ACTUAL`, `FORECAST`, `GUIDANCE`, `TARGET`.
 **Décision** : les ratios prudentiels et normes réglementaires publiés doivent être conservés comme faits `PUBLISHED`.
 
 `regulatory_facts_raw` est une table candidate à confirmer selon le volume observé.
+
+## D019 — 2026-08-09 — Sources révisables mais historisées
+
+**Décision** : le registre des sources est vivant. Une source peut être revue, enrichie, reclassée, superseded ou dépréciée pour les usages futurs.
+
+**Règle non négociable** : une révision de source ne réécrit jamais silencieusement l'historique et ne détache pas les facts RAW de la version exacte de leur source d'origine.
+
+## D020 — 2026-08-09 — Continuité obligatoire pour tous les agents
+
+**Décision** : tout agent qui se connecte à `financialdata` doit reprendre au point de reprise officiel dans `SUIVI.md` et continuer le travail existant sans régression.
+
+**Interdit** : repartir de zéro, créer une architecture parallèle, supprimer silencieusement une décision ou écraser une extraction/source/version validée.
+
+**Processus** : `ÉTAT EXISTANT → PREUVE → IMPACT → DÉCISION → CHANGEMENT COMPATIBLE → TEST NON-RÉGRESSION → SUIVI`.
+
+## D021 — 2026-08-09 — Vérification du script Python Drive
+
+**Décision factuelle** : la vérification directe de la racine `RAPO / Rapport V2` effectuée le 2026-08-09 n'a retrouvé aucun fichier `.py`, ni nom contenant `python` ou `script`.
+
+**Conséquence** : ne pas propager comme fait établi l'ancienne supposition qu'un script Python serait présent à cette racine. Si un script est retrouvé plus tard, l'enregistrer avec son identifiant source exact et son emplacement.
