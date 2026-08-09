@@ -20,8 +20,9 @@ Git : `main` uniquement, aucune branche/PR normale.
 - V4 après SICC : **2 981 PDF** ;
 - V5 après MVSC : **2 996 PDF** ;
 - V6 après UNLC : **2 999 PDF** ;
-- état live courant V7 après ORGT : **3 011 PDF** ;
-- checkpoint live : `inventory/P1_48_ISSUERS_CHECKPOINT_v7_20260809.md` ;
+- V7 après ORGT : **3 011 PDF** ;
+- état live courant V8 après SHEC : **3 013 PDF** ;
+- checkpoint live : `inventory/P1_48_ISSUERS_CHECKPOINT_v8_20260809.md` ;
 - index live : `inventory/p1_issuer_manifest.csv`.
 
 ### Deltas live observés
@@ -31,7 +32,8 @@ Git : `main` uniquement, aucune branche/PR normale.
 - SICC : **19 → 36 PDF** (`+17`) ;
 - MVSC : **20 → 35 PDF** (`+15`) ;
 - UNLC : **20 → 23 PDF** (`+3`) ;
-- ORGT : **23 → 35 PDF** (`+12`).
+- ORGT : **23 → 35 PDF** (`+12`) ;
+- SHEC : **37 → 39 PDF** (`+2`).
 
 Les snapshots antérieurs sont conservés dans Git. Aucun état SOURCE n'est réécrit silencieusement.
 
@@ -41,54 +43,39 @@ Schéma : `docs/P1_DOCUMENT_MANIFEST_SCHEMA.md`.
 Stratégie incrémentale : `docs/P1_MANIFEST_SHARDING.md`.
 
 - cible maître : `inventory/p1_document_manifest.csv` ;
-- lignes actuellement consolidées dans le maître : **14 / 3 011** ;
+- lignes actuellement consolidées dans le maître : **14 / 3 013** ;
 - shards compatibles complets existants : CBIBF 15/15, ORAC 21/21 ;
-- SICC 36/36, MVSC 35/35, UNLC 23/23 et ORGT 35/35 sont indexés par Drive ID + taille + SHA mais nécessitent encore le backfill complet des métadonnées de shard avant consolidation canonique.
-
-### Couvertures document-level déjà prouvées
-
-- TRITRAF : **8 / 8** dans le maître ;
-- BIIC : **2 / 2** dans le maître ;
-- CBIBF : **15 / 15** dans `inventory/manifests/CBIBF.csv` ;
-- ORAC : **21 / 21** dans `inventory/manifests/ORAC.csv` ;
-- SICC : **36 / 36** IDs + parents + tailles + SHA ;
-- MVSC : **35 / 35** IDs + parents + tailles + SHA ;
-- UNLC : **23 / 23** IDs + parents + tailles + SHA ;
-- ORGT : **35 / 35** IDs + parents + tailles + SHA ;
-- SNTS/ONATEL : 1 anomalie seed ;
-- BICC 2022 : 1 seed.
-
-La consolidation finale refusera tout `source_drive_file_id` dupliqué entre maître et shards.
+- SICC 36/36, MVSC 35/35, UNLC 23/23, ORGT 35/35 et SHEC 39/39 sont indexés par Drive ID + taille + SHA mais nécessitent encore le backfill complet des métadonnées de shard avant consolidation canonique.
 
 ## P1_TRANSVERSE — SHA256
 
-- SHA calculés : **173 / 3 011** ;
+- SHA calculés : **212 / 3 013** ;
 - TRITRAF : **8 / 8** ;
 - CBIBF : **15 / 15** ;
 - ORAC : **21 / 21** ;
 - SICC : **36 / 36** ;
 - MVSC : **35 / 35** ;
 - UNLC : **23 / 23** ;
-- ORGT : **35 / 35**.
+- ORGT : **35 / 35** ;
+- SHEC : **39 / 39**.
 
 ### Doublons exacts
 
-Un seul groupe exact actuellement trouvé :
+Groupes exacts actuellement trouvés : **3**.
 
-`2024_Rapport_S1_CBIBF.pdf` / `2024_Rapport_S1_CBIBF_2.pdf`
+1. CBIBF 2024 S1 plain / `_2` — SHA `8fb042a2d9fe05d6881c4496dedf54a68900159f2a4fcc1c6ae8bfeaf661bc05`.
+2. SHEC 2022 états financiers `_2` / `_3` — SHA `acdab75be25743dc0837258d686cfc5f2e2c6f76518078e6becc9a94ddb40f86`.
+3. SHEC 2025 états financiers plain / `_2` — SHA `b88401ae19d81d9dcd4a1723cd1929bad8c0269dfa811c06e7c9b878b58b61c0`.
 
-SHA commun :
-`8fb042a2d9fe05d6881c4496dedf54a68900159f2a4fcc1c6ae8bfeaf661bc05`.
-
-Groupe enregistré dans `inventory/p1_duplicate_groups.csv`.
+Tous les objets physiques restent conservés dans SOURCE. Les groupes sont enregistrés dans `inventory/p1_duplicate_groups.csv`.
 
 ### Résultats récents
 
-- ORAC : 21 contenus uniques ; tailles du registre revalidées contre Drive ;
-- SICC : 36 contenus uniques ; aucune variante `_2/_3` n'est un doublon binaire ;
-- MVSC : 35 contenus uniques ; variantes historiques et deux états financiers 2019 distincts ;
-- UNLC : 23 contenus uniques ; les deux rapports annuels 2020 sont distincts ;
-- ORGT : 35 contenus uniques ; toutes les paires d'états financiers/CAC proches sont binaires distinctes.
+- ORGT : 35 contenus uniques ;
+- SHEC : **39 fichiers / 37 contenus uniques** ;
+- SHEC 2021 plain / `_2` : binaires distincts ;
+- SHEC 2023 plain / `_2` : binaires distincts ;
+- SHEC contient aussi un `rapport_de_carence_-_ifrs_-_vivo_energy_ci.pdf`, conservé comme famille documentaire SOURCE distincte.
 
 ## P1-R
 
@@ -97,12 +84,12 @@ Deep pilots : BOABF, CIEC, NTLC, SNTS.
 
 ## Prochaine action exacte
 
-1. poursuivre sur le prochain corpus court avec **revérification live préalable** : SHEC ;
+1. poursuivre sur `STAC` avec revérification live préalable ;
 2. calculer son SHA complet et rechercher les doublons exacts ;
-3. poursuivre ensuite les corpus courts non hashés ;
-4. backfiller progressivement les shards SICC/MVSC/UNLC/ORGT ;
+3. poursuivre les autres corpus courts non hashés ;
+4. backfiller progressivement les shards SICC/MVSC/UNLC/ORGT/SHEC ;
 5. ne pas lancer P2 tant que la couverture P1/P1-R n'est pas jugée suffisante.
 
 ## Point de reprise exact
 
-`48/48 ISSUERS | LIVE_TOTAL=3011 | MASTER_CONSOLIDATED=14/3011 | SHA256=173/3011 | EXACT_DUPLICATE_GROUPS=1 | SICC=36/36 | MVSC=35/35 | UNLC=23/23 | ORGT=35/35 | NEXT=SHEC_LIVE_RECHECK`
+`48/48 ISSUERS | LIVE_TOTAL=3013 | MASTER_CONSOLIDATED=14/3013 | SHA256=212/3013 | EXACT_DUPLICATE_GROUPS=3 | SHEC=39/39 | NEXT=STAC_LIVE_RECHECK`
