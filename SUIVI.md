@@ -22,7 +22,7 @@ Le plan complet est dans `ROADMAP.md`.
 
 Séquence :
 
-`P0 GOUVERNANCE → P1 SOURCE/INVENTAIRE → P1-FRESH COLLECTEUR → P2 RAW SCHEMA → P3 RAW EXTRACTION → P4 QUALITY/LINEAGE → P5 MAPPED → P6 CANONICAL → P7 DERIVED → P8 ANALYTICS`.
+`P0 GOUVERNANCE → P1 SOURCE/INVENTAIRE + P1-R RECOGNITION → P1-FRESH COLLECTEUR → P2 RAW SCHEMA → P3 RAW EXTRACTION → P4 QUALITY/LINEAGE → P5 MAPPED → P6 CANONICAL → P7 DERIVED → P8 ANALYTICS`.
 
 Architecture de données inchangée : `SOURCE → RAW → MAPPED → CANONICAL → DERIVED → ANALYTICS`.
 
@@ -32,7 +32,47 @@ Architecture de données inchangée : `SOURCE → RAW → MAPPED → CANONICAL �
 
 ## P1 — Inventaire documentaire exhaustif
 
-**STATUT : IN_PROGRESS**
+**STATUT : IN_PROGRESS / BATCH_FAST**
+
+### Changement de cadence validé
+
+Décision `D031` : l'inventaire est un moyen, pas la finalité.
+
+Dorénavant :
+
+- traiter les métadonnées Drive par lots d'émetteurs ;
+- éviter la rédaction répétitive lorsqu'aucune anomalie n'existe ;
+- réserver la revue détaillée aux dossiers vides, versions, doublons, erreurs d'attribution et autres exceptions ;
+- poursuivre jusqu'à 48/48 plus rapidement.
+
+### P1-R — PDF_RECOGNITION_DISCOVERY
+
+**STATUT : ACTIVE_IN_PARALLEL**
+
+Référence : `docs/PDF_RECOGNITION_STRATEGY.md`.
+
+But : reconnaître les structures nécessaires à la future création automatique des bases de données sans prétendre avoir déjà réalisé P3.
+
+À profiler en parallèle :
+
+- rapports annuels anciens/récents ;
+- états financiers détaillés ;
+- T1/T3/S1/S2 ;
+- CAC/attestations ;
+- documents divers/révisés.
+
+À reconnaître :
+
+- type de document/état ;
+- pages/sections/tableaux ;
+- géométrie lignes/colonnes/cellules ;
+- labels et codes source ;
+- périodes/comparatifs ;
+- unités/multiplicateurs/devises ;
+- scopes ;
+- faits financiers, opérationnels, corporate, audit, réglementaires et textuels.
+
+Objectif : produire un moteur générique `PDF → reconnaissance → faits candidats → validation → RAW database`, pas 48 parseurs spécifiques.
 
 ### Socle P1 terminé
 
@@ -42,15 +82,8 @@ Architecture de données inchangée : `SOURCE → RAW → MAPPED → CANONICAL �
 - méthode d'inventaire directe documentée ;
 - règle d'attribution émetteur documentée ;
 - plan collecteur V2 documenté ;
-- roadmap de bout en bout créée.
-
-### Collecteur V1 — compréhension validée
-
-La V1 contient 48 slugs historiques, parcourt les pages BRVM et leur pagination, récupère les PDF, classe par année candidate, normalise certains noms et ignore un fichier local existant/non vide.
-
-Limite critique : pas de manifeste/hash/versioning distant ; une correction derrière la même URL peut être manquée.
-
-Décision : V1 conservée ; future V2 incrémentale après P1/manifeste et dry-run validé.
+- roadmap de bout en bout créée ;
+- stratégie de reconnaissance PDF créée.
 
 ### Émetteurs P1 inventoriés
 
@@ -79,23 +112,14 @@ Aucun de ces deltas n'est téléchargé automatiquement pendant P1.
 - restant : **41** ;
 - hash global : `NOT_COMPLETE` ;
 - périodes économiques exhaustives : `NOT_COMPLETE` ;
-- manifeste machine-lisible consolidé : `NOT_COMPLETE`.
+- manifeste machine-lisible consolidé : `NOT_COMPLETE` ;
+- profils PDF réutilisables : `IN_PROGRESS`.
 
 ## Prochaine action exacte
 
-Continuer P1 sans refaire les sept premiers inventaires.
+Continuer P1 en **lots de plusieurs émetteurs**, à partir de **BNBC — Bernabé Côte d'Ivoire**, sans refaire les sept premiers.
 
-Prochain émetteur dans l'ordre historique du collecteur V1 : **BNBC — Bernabé Côte d'Ivoire**.
-
-Procédure :
-
-1. lister le dossier BNBC ;
-2. inventorier tous les sous-dossiers ;
-3. inventorier tous les fichiers ;
-4. créer `inventory/BNBC.md` ;
-5. signaler dossiers vides, `divers`, collisions, versions et anomalies d'attribution ;
-6. comparer au catalogue BRVM courant si utile ;
-7. mettre à jour `TODO.md` et `SUIVI.md`.
+En parallèle, enrichir les profils de reconnaissance uniquement lorsqu'un nouveau type de document/tableau/metric/scope est découvert.
 
 ## Règle anti-perte de contexte
 
@@ -110,8 +134,9 @@ Avant toute reprise, lire dans cet ordre :
 7. `TODO.md`
 8. `SOURCES.md`
 9. `inventory/README.md`
-10. `docs/BRVM_COLLECTOR_V2_PLAN.md`
+10. `docs/PDF_RECOGNITION_STRATEGY.md`
+11. `docs/BRVM_COLLECTOR_V2_PLAN.md`
 
 ## Point de reprise exact
 
-`P1_IN_PROGRESS → INVENTORY_COMPLETE_7_OF_48 → NEXT = BNBC`
+`P1_BATCH_FAST → INVENTORY_COMPLETE_7_OF_48 → NEXT_BATCH_START = BNBC + P1-R ACTIVE`
