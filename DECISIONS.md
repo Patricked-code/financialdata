@@ -194,3 +194,16 @@ Profils de preuve :
 
 - `docs/recognition_profiles/BANKING_FINANCIAL_STATEMENTS_BICC_2022.md`
 - `docs/recognition_profiles/BANKING_ACTIVITY_BIIC_T2_2025.md`
+
+## D033 — 2026-08-09 — ETIT : bi-devise publiée et attribution du résultat consolidé
+
+Le PDF `2023_Etats_Financiers_ETIT.pdf` a été rendu visuellement et vérifié en texte natif.
+
+Décisions :
+
+1. lorsqu'un même tableau publie une métrique simultanément en USD et en FCFA, chaque représentation monétaire est une observation RAW distincte avec `source_currency`, `source_unit_raw` et `source_multiplier` ;
+2. des variations publiées différentes selon USD/FCFA restent des observations `PUBLISHED` distinctes ; aucune conversion interne ne doit les remplacer en RAW ;
+3. un résultat consolidé peut être ventilé entre part du Groupe, détenteurs d'autres capitaux propres et intérêts minoritaires ; ne jamais attribuer automatiquement le total aux actionnaires du Groupe ;
+4. `ownership_attribution_raw` est une dimension **candidate documentée**, à n'implémenter en SQL qu'en P2 si les champs existants ne représentent pas proprement cette information.
+
+Profil de preuve : `docs/recognition_profiles/TRANSNATIONAL_BANKING_ETIT_2023_FINANCIAL_STATEMENTS.md`.
