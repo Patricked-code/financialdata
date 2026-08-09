@@ -4,88 +4,71 @@ Dernière mise à jour : 2026-08-09
 
 ## Point de reprise courant
 
-Le dépôt `Patricked-code/financialdata` est la mémoire persistante et le dépôt canonique du chantier.
-
-### Règle Git active
-
-- `main` uniquement ;
-- aucune branche ;
-- aucune PR normale.
-
-## Roadmap canonique
-
-`P0 GOUVERNANCE → P1 SOURCE/INVENTAIRE + P1-R RECOGNITION → P1-FRESH → P2 RAW SCHEMA → P3 RAW EXTRACTION → P4 QUALITY/LINEAGE → P5 MAPPED → P6 CANONICAL → P7 DERIVED → P8 ANALYTICS`.
-
-Architecture : `SOURCE → RAW → MAPPED → CANONICAL → DERIVED → ANALYTICS`.
+Dépôt canonique : `Patricked-code/financialdata`.
+Git : `main` uniquement, aucune branche/PR normale.
 
 ## P1 — SOURCE
 
-**IN_PROGRESS / INVENTORY_48_COMPLETE / TRANSVERSE_PASSES_ACTIVE**
+**IN_PROGRESS / INVENTORY_48_COMPLETE / LIVE_SOURCE_REFRESH / TRANSVERSE_PASSES_ACTIVE**
 
-### Inventaire société
+### Inventaire 48 sociétés
 
 - sociétés : **48 / 48** ;
-- PDF recensés : **2 950** ;
-- checkpoint : `inventory/P1_48_ISSUERS_CHECKPOINT.md` ;
-- index machine-lisible : `inventory/p1_issuer_manifest.csv`.
+- snapshot initial : **2 950 PDF** — conservé dans `inventory/P1_48_ISSUERS_CHECKPOINT.md` ;
+- état live revérifié : **2 957 PDF** ;
+- checkpoint live v2 : `inventory/P1_48_ISSUERS_CHECKPOINT_v2_20260809.md` ;
+- index live : `inventory/p1_issuer_manifest.csv`.
 
-L'inventaire dossiers/fichiers 48/48 est terminé. P1 reste ouvert pour les passes transversales.
+### Pourquoi 2 950 → 2 957
+
+CBIBF est passé de **8 à 15 PDF** pendant la même session. Sept fichiers ont été ajoutés dans Drive avec des `created_time` vers 06:36–06:37Z :
+
+- 2022 : +3 ;
+- 2024 : +2 S1 ;
+- 2025 : +2.
+
+L'ancien état n'est pas supprimé : il reste un snapshot historique.
 
 ## P1_TRANSVERSE — DOCUMENT MANIFEST
 
 - schéma : `docs/P1_DOCUMENT_MANIFEST_SCHEMA.md` ;
-- fichier : `inventory/p1_document_manifest.csv` ;
-- couverture actuelle : **12 / 2 950 lignes SOURCE**.
+- manifeste : `inventory/p1_document_manifest.csv` ;
+- couverture : **14 / 2 957 sources**.
 
-Émetteurs/cas déjà présents :
-
-- BICC 2022 : 1 source ;
-- BIIC : **2 / 2 sources** ;
-- SNTS : anomalie ONATEL seed ;
-- TRITRAF : **8 / 8 sources**.
-
-Le cas SNTS/ONATEL reste `issuer_assignment_status = REVIEW_REQUIRED`.
+Présents : BICC seed, BIIC 2/2, SNTS anomalie seed, TRITRAF 8/8, paire CBIBF S1 2024.
 
 ## P1_TRANSVERSE — SHA256
 
-- SHA-256 calculés : **8 / 2 950** ;
-- premier émetteur complet : **TRITRAF 8 / 8**.
+- SHA calculés : **10 / 2 957** ;
+- TRITRAF : **8 / 8** ;
+- CBIBF : **2 / 15**.
 
-Hashes TRITRAF enregistrés dans `inventory/p1_document_manifest.csv` et `inventory/TRITRAF.md`.
+### Doublon exact CBIBF
 
-### Verdict TRITRAF 2004
+`2024_Rapport_S1_CBIBF.pdf` et `2024_Rapport_S1_CBIBF_2.pdf` :
 
-- `2004_Rapport_Annuel_TRITRAF.pdf` : 11 000 341 octets ;
-- `2004_Rapport_Annuel_TRITRAF_2.pdf` : 49 279 octets ;
-- SHA-256 différents.
+- même taille : 1 549 372 octets ;
+- même SHA-256 : `8fb042a2d9fe05d6881c4496dedf54a68900159f2a4fcc1c6ae8bfeaf661bc05` ;
+- verdict : `EXACT_DUPLICATE`.
 
-Conclusion : **pas de doublon binaire**. La relation éventuelle de version/contenu reste à examiner ; `_2` n'est jamais utilisé comme preuve de doublon.
+Les deux lignes SOURCE sont conservées. Groupe enregistré dans `inventory/p1_duplicate_groups.csv`.
 
-## P1-R — reconnaissance
+### TRITRAF 2004
+
+Les deux variantes 2004 ont des SHA différents : doublon binaire exclu ; relation sémantique/version encore non revue.
+
+## P1-R
 
 Profils vérifiés : BICC 2022, BIIC T2 2025, ETIT 2023.
-Deep pilots acquis : BOABF, CIEC, NTLC, SNTS.
-
-Règles acquises : métadonnées PDF non souveraines ; STOCK/FLOW contextuel ; variations publiées = RAW ; T1/T2/T3/T4/S1/S2 ; framework vs scope indépendants ; recherche plafonnée ≠ total SOURCE ; attribution dossier ≠ attribution émetteur.
-
-## Passes transversales restantes
-
-1. compléter le manifeste jusqu'à **2 950 / 2 950** ;
-2. SHA-256 jusqu'à **2 950 / 2 950** ;
-3. doublons/versions ;
-4. périodes économiques ;
-5. attribution émetteur ;
-6. couverture ;
-7. fraîcheur BRVM / P1-FRESH.
+Deep pilots : BOABF, CIEC, NTLC, SNTS.
 
 ## Prochaine action exacte
 
-Continuer `EXPAND_DOCUMENT_MANIFEST` par les corpus courts, puis calculer leurs hashes :
-
-`CBIBF (8) → ORAC (14) → SICC (19) → MVSC (20) → UNLC (20)`.
-
-Ne pas revenir sur TRITRAF sauf pour la comparaison sémantique des deux documents 2004.
+1. compléter les **13 autres lignes CBIBF** dans `p1_document_manifest.csv` ;
+2. calculer les 13 SHA restants CBIBF ;
+3. poursuivre par ORAC, SICC, MVSC, UNLC ;
+4. maintenir le total live et `first_seen_at/last_seen_at` à chaque delta.
 
 ## Point de reprise exact
 
-`INVENTORY_48_OF_48 = COMPLETE | 2950_PDFS | DOCUMENT_MANIFEST = 12/2950 | SHA256 = 8/2950 | NEXT = CBIBF`
+`48/48 ISSUERS | LIVE_TOTAL=2957 | DOCUMENT_MANIFEST=14/2957 | SHA256=10/2957 | EXACT_DUPLICATE_GROUPS=1 | NEXT=COMPLETE_CBIBF`
