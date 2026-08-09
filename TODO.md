@@ -1,103 +1,60 @@
 # TODO — financialdata
 
-Backlog canonique. Ne pas considérer une tâche terminée tant que le résultat n'est pas vérifié et que `SUIVI.md` n'est pas mis à jour.
+Backlog canonique. Tout travail se fait directement sur `main`.
 
-## P0 — Gouvernance initiale
+## P0 — Gouvernance
 
-**Statut : COMPLETE.**
+**COMPLETE**
 
-## P1 — Inventaire documentaire exhaustif
+## P1 — SOURCE
 
-**Statut : IN_PROGRESS / INVENTORY_48_COMPLETE / TRANSVERSE_PASSES_OPEN**
+**IN_PROGRESS / INVENTORY_48_COMPLETE / TRANSVERSE_PASSES_ACTIVE**
 
-### Inventaire dossiers/fichiers par émetteur
+### Inventaire émetteurs
 
-- [x] **48 / 48 émetteurs** inventoriés.
-- [x] **2 950 PDF** recensés.
-- [x] checkpoint global : `inventory/P1_48_ISSUERS_CHECKPOINT.md`.
-- [x] index machine-lisible émetteurs : `inventory/p1_issuer_manifest.csv` — 48 lignes + total.
+- [x] 48 / 48 émetteurs.
+- [x] 2 950 PDF recensés.
+- [x] `inventory/P1_48_ISSUERS_CHECKPOINT.md`.
+- [x] `inventory/p1_issuer_manifest.csv`.
 
-### Lot final 43–48
+### Document manifest
 
-- [x] TTLS — **45 PDF**.
-- [x] PRSC — **68 PDF**.
-- [x] TRITRAF — **8 PDF**.
-- [x] UNLC — **20 PDF**.
-- [x] UNXC — **83 PDF**.
-- [x] SHEC — **37 PDF**.
+- [x] schéma : `docs/P1_DOCUMENT_MANIFEST_SCHEMA.md`.
+- [x] fichier : `inventory/p1_document_manifest.csv`.
+- [x] seed puis expansion initiale : **12 / 2 950** lignes.
+- [x] BIIC : **2 / 2** documents présents dans le manifeste.
+- [x] TRITRAF : **8 / 8** documents présents dans le manifeste.
+- [ ] compléter jusqu'à **2 950 / 2 950**.
 
-### P1-R — reconnaissance PDF
+### SHA-256
 
-- [x] profils BICC 2022, BIIC T2 2025, ETIT 2023 ;
-- [x] métadonnées PDF non souveraines ;
-- [x] STOCK vs FLOW selon contexte ;
-- [x] variations publiées = RAW PUBLISHED ;
-- [x] framework comptable vs scope indépendants ;
-- [x] limites techniques de recherche ≠ total SOURCE ;
-- [x] T1/T2/T3/T4/S1/S2 supportés ;
-- [x] attribution émetteur peut être `REVIEW_REQUIRED` ;
-- [x] deep pilots BOABF/CIEC/NTLC/SNTS conservés sans duplication ;
-- [ ] nouveaux profils uniquement lorsqu'un nouveau pattern réel apparaît.
+- [x] TRITRAF : **8 / 8** hashes calculés et enregistrés.
+- [x] les deux variantes TRITRAF 2004 ont des hashes différents : doublon binaire exclu.
+- [ ] SHA global : **8 / 2 950**.
 
-### P1 — MACHINE_READABLE_MANIFEST
+### Prochains corpus à traiter
 
-- [x] schéma document-level défini : `docs/P1_DOCUMENT_MANIFEST_SCHEMA.md` ;
-- [x] fichier manifeste créé : `inventory/p1_document_manifest.csv` ;
-- [x] seed vérifié : **3 / 2 950 lignes** — BICC 2022, BIIC T2 2025, SNTS/ONATEL anomalie ;
-- [ ] compléter le manifeste document par document jusqu'à **2 950 / 2 950** ;
-- [ ] contrôle final : `COUNT(rows)=2950` et `COUNT(distinct source_drive_file_id)=2950`.
+- [ ] CBIBF — 8 PDF.
+- [ ] ORAC — 14 PDF.
+- [ ] SICC — 19 PDF.
+- [ ] MVSC — 20 PDF.
+- [ ] UNLC — 20 PDF.
 
-### P1 — autres passes transversales
+### Autres passes transversales
 
-- [ ] collecter/calculer les SHA-256 des **2 950 PDF** ;
-- [ ] établir les doublons binaires ;
-- [ ] établir les relations `VERSION_OF / REVISED_BY / SUPERSEDES / POSSIBLE_DUPLICATE` ;
-- [ ] résoudre les périodes économiques depuis le contenu ;
-- [ ] valider l'attribution émetteur/document ;
-- [ ] calculer la couverture documentaire réelle ;
-- [ ] réconcilier avec la BRVM courante.
+- [ ] relations de versions/révisions ;
+- [ ] périodes économiques depuis contenu ;
+- [ ] attribution émetteur/document ;
+- [ ] couverture documentaire ;
+- [ ] réconciliation BRVM courante / P1-FRESH.
 
-## P1-FRESH — Collecteur BRVM V2
+## P1-R
 
-- [x] analyser la V1 ;
-- [x] définir le design incrémental/versionné ;
-- [ ] manifeste de référence complet ;
-- [ ] `--dry-run` ;
-- [ ] comparaison distante ;
-- [ ] SHA-256 / validation PDF ;
-- [ ] `first_seen_at` / `last_seen_at` ;
-- [ ] gestion révisions/doublons/nouveaux slugs ;
-- [ ] tests de non-régression ;
-- [ ] téléchargement incrémental seulement après validation.
+Profils vérifiés : BICC 2022, BIIC T2 2025, ETIT 2023.
+Deep pilots : BOABF, CIEC, NTLC, SNTS.
 
-## P2 — Schéma RAW v1
+## P2 → P8
 
-À figer après couverture suffisante des passes P1 transversales et P1-R.
+Ne pas démarrer l'extraction RAW exhaustive avant couverture P1/P1-R suffisante.
 
-## P3 — Extraction RAW exhaustive
-
-Appliquer les profils/règles à tous les documents SOURCE validés.
-
-## P4 — Contrôle / qualité / lineage
-
-Contrôles sans correction silencieuse de la source.
-
-## P5 — MAPPED
-
-Mapping sémantique explicite et versionné.
-
-## P6 — CANONICAL
-
-Harmonisation multi-sociétés/périodes/unités/scopes.
-
-## P7 — DERIVED
-
-Calculs internes reproductibles avec formule et IDs d'entrée.
-
-## P8 — ANALYTICS
-
-Ratios, valorisation, rankings, screener, alertes, scoring et IA/NLP.
-
-## Rappel permanent
-
-**Ne jamais créer de branche. Tout travail se fait sur `main`.**
+Séquence : `P2 RAW SCHEMA → P3 RAW EXTRACTION → P4 QUALITY/LINEAGE → P5 MAPPED → P6 CANONICAL → P7 DERIVED → P8 ANALYTICS`.
