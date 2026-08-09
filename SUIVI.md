@@ -54,20 +54,25 @@ Architecture : `SOURCE → RAW → MAPPED → CANONICAL → DERIVED → ANALYTIC
 20. NEIC — 86
 21. NTLC — 81
 22. NSBC — 38
+23. ONTBF — 91
+24. ORGT — 23
+25. ORAC — 14
+26. PALC — 75
+27. SAFC — 73
 
-**Total : 1 220 fichiers recensés sur 22/48 émetteurs.**
+**Total : 1 496 fichiers recensés sur 27/48 émetteurs.**
 
-Restant : **26 émetteurs**.
+Restant : **21 émetteurs**.
 
-### Lot 18–22 — anomalies/patterns utiles
+### Lot 23–27 — anomalies/patterns utiles
 
-- FTSC : 28 dossiers 1998–2025, 88 PDF ; historique long et publications modernes T1/S1/T3/EF/CAC ;
-- MVSC : 24 dossiers 1998–2020 + `divers`, 20 PDF ; couverture fichier faible par rapport à l'arborescence, `divers` EF ;
-- NEIC : 27 dossiers, 86 PDF ; 2015 absent, collisions historiques et double EF 2024 ;
-- NTLC : 28 dossiers 1998–2025, 81 PDF ; deep pilot déjà existant, EF 2024 original + révision ;
-- NSBC : 10 dossiers 2017–2025 + `divers`, 38 PDF ; EF 2021 original + révision.
+- ONTBF : 19 dossiers 2008–2025 + `divers`, 91 PDF ; collisions historiques et doubles états financiers ;
+- ORGT : 8 dossiers 2018–2025, 23 PDF ; corpus récent T1/S1/T3/EF/CAC ;
+- ORAC : 4 dossiers 2022–2025, 14 PDF ; corpus télécom récent ;
+- PALC : 25 dossiers, 75 PDF ; 2000/2002 absents, annuel 2009 révisé, S2 présents ;
+- SAFC : 27 dossiers, 73 PDF ; 2015 absent, T2 et T4 explicitement présents.
 
-Aucune nouvelle dimension conceptuelle n'a été ajoutée pour ce lot : les anomalies observées sont déjà couvertes par les règles de version, lacune SOURCE, périodes depuis contenu et conservation des deep pilots.
+Aucune nouvelle dimension conceptuelle n'a été nécessaire pour ce lot : les règles de période, versions, lacunes SOURCE et faits opérationnels sectoriels couvrent les observations.
 
 ## P1-R — PDF_RECOGNITION_DISCOVERY
 
@@ -79,9 +84,9 @@ Profils vérifiés :
 - `docs/recognition_profiles/BANKING_ACTIVITY_BIIC_T2_2025.md`
 - `docs/recognition_profiles/TRANSNATIONAL_BANKING_ETIT_2023_FINANCIAL_STATEMENTS.md`
 
-Deep pilots déjà acquis et à ne pas refaire : CIEC, NTLC, SNTS, BOABF.
+Deep pilots acquis : BOABF, CIEC, NTLC, SNTS.
 
-Décision `D033` reste la dernière extension conceptuelle : `ownership_attribution_raw` candidate, documentée dans GitHub et dans le document Drive canonique, non implémentée SQL.
+Règles acquises incluent désormais la reconnaissance réelle de T1/T2/T3/T4/S1/S2 dans le corpus.
 
 ## P1-FRESH
 
@@ -100,9 +105,9 @@ Design V2 documenté mais non activé. Aucun delta distant n'est téléchargé a
 
 Continuer immédiatement P1 en mode batch avec :
 
-`ONTBF → ORGT → ORAC → PALC → SAFC`
+`SPHC → ABJC → STAC → SGBC → SIBC`
 
-Puis poursuivre dans l'ordre V1 sans refaire les deep pilots déjà étudiés.
+Puis poursuivre dans l'ordre V1.
 
 ## Ordre de reprise obligatoire
 
@@ -119,4 +124,4 @@ Puis poursuivre dans l'ordre V1 sans refaire les deep pilots déjà étudiés.
 
 ## Point de reprise exact
 
-`P1_BATCH_FAST → INVENTORY_COMPLETE_22_OF_48 → 1220_FILES → NEXT_BATCH = ONTBF,ORGT,ORAC,PALC,SAFC + P1-R ACTIVE`
+`P1_BATCH_FAST → INVENTORY_COMPLETE_27_OF_48 → 1496_FILES → NEXT_BATCH = SPHC,ABJC,STAC,SGBC,SIBC + P1-R ACTIVE`
