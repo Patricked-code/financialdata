@@ -39,9 +39,14 @@ Backlog canonique. Ne pas considérer une tâche terminée tant que le résultat
 - [x] SEMC — 25 dossiers, 54 fichiers ; `divers`, 2002 absent.
 - [x] ECOC — 9 dossiers 2017–2025, 32 fichiers ; couples `_rev` à réconcilier.
 - [x] ETIT — 23 dossiers 2003–2025, 81 fichiers ; corpus dense, multi-devise.
-- [ ] 31 autres émetteurs.
+- [x] FTSC — 28 dossiers 1998–2025, 88 fichiers.
+- [x] MVSC — 24 dossiers 1998–2020 + `divers`, 20 fichiers.
+- [x] NEIC — 27 dossiers, 86 fichiers ; 2015 absent.
+- [x] NTLC — 28 dossiers 1998–2025, 81 fichiers ; deep pilot existant.
+- [x] NSBC — 10 dossiers 2017–2025 + `divers`, 38 fichiers ; EF 2021 révisés.
+- [ ] 26 autres émetteurs.
 
-**Total recensé sur les 17 premiers émetteurs : 907 fichiers.**
+**Total recensé sur les 22 premiers émetteurs : 1 220 fichiers.**
 
 ### P1-R — reconnaissance PDF
 
@@ -55,7 +60,8 @@ Backlog canonique. Ne pas considérer une tâche terminée tant que le résultat
 - [x] documenter tableau vs narratif avec unités/arrondis différents ;
 - [x] documenter framework comptable vs scope indépendants ;
 - [x] documenter `ownership_attribution_raw` comme dimension candidate ;
-- [ ] multiplier les profils représentatifs hors banque : utility, industrie, télécom, agriculture, logistique, automobile, etc.
+- [x] préserver les deep pilots CIEC et NTLC sans duplication d'analyse ;
+- [ ] multiplier les profils représentatifs hors banque uniquement lorsqu'un nouveau pattern est réellement découvert.
 
 ### Passes transversales P1 encore ouvertes
 
