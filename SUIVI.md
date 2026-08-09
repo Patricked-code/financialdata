@@ -4,7 +4,7 @@ Dernière mise à jour : 2026-08-09
 
 ## Point de reprise courant
 
-Le dépôt `Patricked-code/financialdata` est désormais initialisé comme **mémoire persistante et dépôt canonique** du chantier de données financières.
+Le dépôt `Patricked-code/financialdata` est la **mémoire persistante et le dépôt canonique** du chantier de données financières.
 
 ### Règle Git active
 
@@ -12,6 +12,19 @@ Le dépôt `Patricked-code/financialdata` est désormais initialisé comme **mé
 - création de branche : interdite ;
 - Pull Request : non requise / ne pas en créer pour ce projet ;
 - toute écriture future doit respecter `GOVERNANCE.md`, `AGENTS.md` et `CLAUDE.md`.
+
+### Règle universelle des agents
+
+Tout agent qui se connecte au dépôt doit **continuer le travail existant au point de reprise officiel, sans régression**.
+
+Il doit :
+
+1. lire la mémoire persistante ;
+2. vérifier `main` et le dernier commit ;
+3. reprendre les tâches restantes au lieu de recréer le projet ;
+4. préserver les décisions, sources, versions, extractions et structures déjà validées ;
+5. documenter toute évolution structurante avant de l'appliquer ;
+6. vérifier l'absence de perte de couverture ou de provenance après changement.
 
 ## P0 — Gouvernance initiale
 
@@ -44,7 +57,9 @@ Fichiers canoniques présents :
 - les périodes sont déterminées par le contenu réel, pas le nom du fichier ;
 - les doublons et versions sont conservés ;
 - aucune cellule illisible n'est inventée ;
-- aucune évolution de schéma n'est introduite sans observation source documentée.
+- aucune évolution de schéma n'est introduite sans observation source documentée ;
+- les sources peuvent être revues à la longue mais toute révision doit être historisée ;
+- aucune révision de source ne réécrit silencieusement les facts RAW historiques.
 
 ### Corpus BRVM
 
@@ -54,6 +69,18 @@ Source documentaire principale explorée : Google Drive `RAPO / Rapport V2`.
 - cette passe est terminée : `DISCOVERY_PASS_48_ISSUERS_COMPLETE` ;
 - l'extraction RAW intégrale de tous les PDF n'est pas terminée : `RAW_EXTRACTION_ALL_DOCUMENTS = NOT_COMPLETE` ;
 - la liste exacte des 48 dossiers est conservée dans `docs/ISSUER_DISCOVERY_MATRIX.md`.
+
+### Vérification script Python Drive
+
+Vérification effectuée le 2026-08-09 sur la racine exacte de `RAPO / Rapport V2` :
+
+- aucun fichier `.py` retourné ;
+- aucun fichier nommé avec `python` retourné ;
+- aucun fichier nommé avec `script` retourné.
+
+**Conclusion actuelle : aucun script Python n'est confirmé à cette racine.**
+
+L'ancienne supposition inverse ne doit plus être propagée. Si un script est découvert ultérieurement dans un sous-dossier ou ajouté au corpus, enregistrer son identifiant exact dans `SOURCES.md`.
 
 ### Pilotes approfondis
 
@@ -87,15 +114,18 @@ Source documentaire principale explorée : Google Drive `RAPO / Rapport V2`.
 ## Dernières actions réalisées
 
 - documentation initiale complète migrée dans GitHub ;
-- règles `main-only` inscrites dans `README.md`, `GOVERNANCE.md`, `AGENTS.md`, `CLAUDE.md`, `TODO.md` et la documentation détaillée ;
+- règles `main-only` inscrites dans la mémoire persistante ;
+- règle universelle de continuité sans régression ajoutée dans `AGENTS.md`, `GOVERNANCE.md` et `CLAUDE.md` ;
+- politique de révision/versioning des sources ajoutée à `GOVERNANCE.md`, `SOURCES.md` et `DECISIONS.md` ;
+- correction documentée concernant l'absence de script Python confirmé à la racine Drive ;
 - source Drive reliée dans `SOURCES.md` ;
 - gouvernance BRVM détaillée migrée sous `docs/` ;
 - matrice 48 sociétés créée ;
-- aucune branche créée pendant cette initialisation.
+- aucune branche créée pendant ces travaux.
 
 ## Prochaine étape obligatoire
 
-La prochaine phase est **P1 — Inventaire documentaire exhaustif**.
+La prochaine phase reste **P1 — Inventaire documentaire exhaustif**.
 
 Ordre :
 
@@ -104,8 +134,9 @@ Ordre :
 3. déterminer les périodes économiques réelles ;
 4. classer les familles documentaires ;
 5. mesurer la couverture ;
-6. seulement ensuite lancer l'extraction RAW exhaustive société par société ;
-7. mettre à jour ce fichier après chaque lot.
+6. enregistrer le statut/version des sources ;
+7. seulement ensuite lancer l'extraction RAW exhaustive société par société ;
+8. mettre à jour ce fichier après chaque lot.
 
 ## Règle anti-perte de contexte
 
