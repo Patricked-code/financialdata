@@ -13,6 +13,7 @@ Le projet doit être capable de :
 - conserver tous les documents sources par société et période ;
 - récupérer à terme automatiquement les nouvelles publications BRVM ;
 - ne jamais perdre une version historique ;
+- reconnaître automatiquement les structures et données contenues dans les PDF ;
 - extraire exhaustivement les valeurs publiées, tableaux, textes, données opérationnelles, corporate, audit, réglementaire et autres faits documentaires ;
 - conserver la valeur et le libellé tels que publiés ;
 - préserver page, tableau, cellule, unité, devise, période, scope et provenance ;
@@ -41,6 +42,7 @@ Les couches 0 et 1 sont prioritaires. Les couches 2 à 5 ne doivent pas être ut
 
 `PDF / SOURCES`
 → `INVENTAIRE DOCUMENTAIRE`
+→ `RECONNAISSANCE DES STRUCTURES PDF`
 → `MISE À JOUR / RÉCONCILIATION DES SOURCES`
 → `EXTRACTION EXHAUSTIVE`
 → `RAW STRUCTURÉ`
@@ -79,9 +81,11 @@ Livrables principaux :
 
 ## P1 — Inventaire documentaire exhaustif du corpus existant
 
-**Statut : IN_PROGRESS**
+**Statut : IN_PROGRESS / BATCH_FAST**
 
 But : établir la couche SOURCE réelle avant extraction.
+
+P1 est désormais traité par lots afin d'éviter que la documentation manuelle répétitive ne ralentisse l'objectif principal.
 
 Pour chacune des 48 sociétés historiques :
 
@@ -96,15 +100,17 @@ Pour chacune des 48 sociétés historiques :
 9. résoudre les périodes économiques depuis le contenu ;
 10. mesurer la couverture documentaire réelle.
 
-P1 n'est pas l'extraction financière.
+P1 n'est pas encore l'extraction RAW exhaustive.
 
 ### P1-A — Inventaire arborescence/fichiers
 
-Objectif : 48/48 sociétés documentées dans `inventory/`.
+Objectif : 48/48 sociétés documentées dans `inventory/`, de préférence par lots de plusieurs émetteurs.
 
 ### P1-B — Manifeste machine-lisible
 
 Produire un registre consolidé document par document avec identifiants et métadonnées SOURCE.
+
+Le manifeste machine-lisible doit devenir le support principal des opérations répétitives ; les `.md` conservent gouvernance, résumé, décisions et anomalies.
 
 ### P1-C — Hash / versions / doublons
 
@@ -125,6 +131,47 @@ Valider :
 - type documentaire ;
 - scope ;
 - classement historique vs contenu réel.
+
+### P1-R — PDF_RECOGNITION_DISCOVERY
+
+**Statut : ACTIVE_IN_PARALLEL**
+
+Objectif : comprendre suffisamment les PDF pour construire ensuite un moteur générique de reconnaissance/extraction de données.
+
+Cette sous-phase ne constitue pas encore P3 : elle étudie les patterns récurrents et les exceptions.
+
+Échantillons prioritaires :
+
+- rapport annuel ancien ;
+- rapport annuel récent ;
+- états financiers détaillés ;
+- T1/T3/S1/S2 ;
+- CAC/attestation ;
+- document `divers` ;
+- document révisé ou `annule et remplace`.
+
+Le système doit apprendre à reconnaître :
+
+- type de document et d'état ;
+- pages, sections, tableaux ;
+- lignes, colonnes et cellules ;
+- codes source/SYSCOHADA ;
+- périodes et comparatifs ;
+- unités, multiplicateurs et devises ;
+- scopes individuel/consolidé/segment/géographie/concession/marché ;
+- valeurs monétaires et physiques ;
+- faits financiers ;
+- faits opérationnels ;
+- corporate actions ;
+- audit/CAC ;
+- réglementaire ;
+- événements et narratifs significatifs.
+
+Chaîne cible :
+
+`PDF → CLASSIFICATION → PAGE/SECTION → TABLE DETECTION → CELLS → PERIOD/UNIT/SCOPE → FACT CANDIDATES → VALIDATION → RAW DATABASE`
+
+Référence : `docs/PDF_RECOGNITION_STRATEGY.md`.
 
 ## P1-FRESH — Maintien du corpus à jour / collecteur BRVM V2
 
@@ -148,7 +195,7 @@ Référence : `docs/BRVM_COLLECTOR_V2_PLAN.md`.
 
 ## P2 — Schéma RAW v1
 
-Définir puis implémenter le modèle universel à partir des particularités documentées sur les 48 sociétés.
+Définir puis implémenter le modèle universel à partir des particularités documentées sur les 48 sociétés et des profils P1-R.
 
 Noyau prévu :
 
@@ -176,15 +223,18 @@ Contraintes :
 
 Pour chaque document validé SOURCE :
 
+- classifier le PDF ;
+- appliquer les profils/règles de reconnaissance ;
 - extraire tout tableau et toute observation utile ;
 - conserver comparatifs et périodes multiples ;
 - conserver textes significatifs ;
 - conserver audit, corporate actions, événements, données opérationnelles et réglementaires ;
 - rendre les scans visuellement ;
 - OCR uniquement en dernier recours ;
-- ne jamais inventer une valeur illisible ou absente.
+- ne jamais inventer une valeur illisible ou absente ;
+- soumettre les ambiguïtés à `REVIEW_REQUIRED`.
 
-Ordre conseillé : travailler société par société avec lots vérifiables, tout en réutilisant le même moteur/schema.
+L'objectif n'est pas un parseur par société, mais un moteur générique avec règles universelles, profils documentaires, extensions sectorielles et exceptions documentées.
 
 ## P4 — Contrôle, qualité et lineage
 
@@ -267,14 +317,15 @@ Le projet est réussi lorsque :
 
 1. chaque document source possède une identité/provenance stable ;
 2. le corpus historique est inventorié et peut être maintenu à jour ;
-3. chaque valeur RAW est traçable à une source réelle ;
-4. aucune donnée source n'est silencieusement écrasée ;
-5. les 48 sociétés historiques et les futurs émetteurs peuvent utiliser la même architecture ;
-6. les particularités sectorielles sont préservées ;
-7. toute normalisation est explicite ;
-8. tout calcul est reproductible depuis ses inputs ;
-9. tout analytics peut être audité jusqu'au PDF original ;
-10. tout agent peut reprendre le travail via les fichiers `.md` sans perdre ni réinventer l'historique.
+3. les PDF peuvent être classifiés et leurs structures reconnues de façon réutilisable ;
+4. chaque valeur RAW est traçable à une source réelle ;
+5. aucune donnée source n'est silencieusement écrasée ;
+6. les 48 sociétés historiques et les futurs émetteurs peuvent utiliser la même architecture ;
+7. les particularités sectorielles sont préservées ;
+8. toute normalisation est explicite ;
+9. tout calcul est reproductible depuis ses inputs ;
+10. tout analytics peut être audité jusqu'au PDF original ;
+11. tout agent peut reprendre le travail via les fichiers `.md` sans perdre ni réinventer l'historique.
 
 ## 5. Discipline permanente
 
@@ -285,3 +336,4 @@ Le projet est réussi lorsque :
 - Toute source nouvelle/révisée : historiser.
 - Toute extraction : source d'abord, analytics plus tard.
 - Toute modification : vérifier la non-régression.
+- Toute tâche répétitive doit être automatisée/machine-lisible dès que possible.
