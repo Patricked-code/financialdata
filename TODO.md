@@ -10,12 +10,15 @@ Backlog canonique. Ne pas considérer une tâche terminée tant que le résultat
 - [x] Créer `CLAUDE.md`.
 - [x] Créer `SUIVI.md`.
 - [x] Créer `DECISIONS.md`.
-- [ ] Créer `ARCHITECTURE.md`.
-- [ ] Créer `DATA_MODEL.md`.
-- [ ] Créer `SOURCES.md`.
-- [ ] Créer la gouvernance BRVM détaillée sous `docs/`.
-- [ ] Créer la matrice de découverte des sociétés sous `docs/`.
-- [ ] Vérifier l'ensemble du kit documentaire sur `main`.
+- [x] Créer `TODO.md`.
+- [x] Créer `ARCHITECTURE.md`.
+- [x] Créer `DATA_MODEL.md`.
+- [x] Créer `SOURCES.md`.
+- [x] Créer la gouvernance BRVM détaillée sous `docs/`.
+- [x] Créer la matrice de découverte des 48 sociétés sous `docs/`.
+- [x] Vérifier la présence du kit documentaire sur `main`.
+
+**Statut P0 : COMPLETE.**
 
 ## P1 — Inventaire documentaire exhaustif
 
