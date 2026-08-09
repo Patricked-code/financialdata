@@ -172,15 +172,25 @@ Décision : P1 passe en mode `BATCH_FAST` pour les tâches répétitives de mét
 
 P1-R est autorisée avant P2/P3 uniquement pour apprendre/documenter les structures récurrentes et exceptions ; elle ne doit pas être présentée comme extraction RAW exhaustive.
 
-Méthode :
-
-- inventorier les émetteurs par lots ;
-- réduire les descriptions Markdown répétitives ;
-- réserver les revues manuelles aux anomalies ;
-- examiner en parallèle des PDF représentatifs (annuel ancien/récent, états détaillés, T1/T3/S1/S2, CAC, divers/révision) ;
-- construire des profils de reconnaissance réutilisables pour tableaux, lignes, périodes, unités, devises, scopes et familles de faits ;
-- utiliser ensuite ces profils pour accélérer P2/P3.
-
 Document de référence : `docs/PDF_RECOGNITION_STRATEGY.md`.
 
-Le but est de produire un moteur générique de reconnaissance/extraction, pas 48 parseurs indépendants.
+## D032 — 2026-08-09 — Règles de reconnaissance vérifiées sur BICC/BIIC et lot 8–12
+
+Des PDF ont été rendus visuellement et leur texte natif vérifié dans P1-R.
+
+Décisions :
+
+1. **Métadonnées PDF non souveraines** : les métadonnées internes sont conservées mais ne peuvent pas déterminer seules l'émetteur, la période ou le type documentaire. BIIC T2 2025 contient une métadonnée `Title` incompatible avec le contenu visible. Contradiction → `DOCUMENT_METADATA_MISMATCH / REVIEW_REQUIRED`.
+2. **T2 est supporté** : le document BIIC confirme explicitement `DEUXIEME TRIMESTRE 2025`. Le classifieur doit reconnaître T1/T2/T3/T4/S1/S2 et autres périodes publiées.
+3. **Stock vs flow dépend du contexte de tableau** : le libellé de période `juin-25` est un stock pour les indicateurs de bilan et un cumul/flux pour les indicateurs de compte de résultat.
+4. **Variations publiées = RAW** : colonnes `Variation Valeur` et `Variation %` sont conservées comme observations publiées, même recalculables.
+5. **Tableau et narratif peuvent republier la même réalité sous unités/arrondis différents** : ne pas fusionner silencieusement en RAW.
+6. **Géométrie nécessaire** : BICC 2022 montre ACTIF/PASSIF et engagements donné/reçu côte à côte ; la position des cellules fait partie de la sémantique.
+7. **Filename ≠ identité** : collisions jusqu'à `_11` observées. `_2/_3/...` n'est pas un doublon ; `_rev` déclenche `VERSION_REVIEW_REQUIRED` mais ne suffit pas à établir la supersession.
+8. **Framework et scope indépendants** : AGLC 2020 publie séparément des comptes individuels IFRS et consolidés IFRS ; `accounting_framework_raw` et `consolidation_scope_raw` sont deux dimensions distinctes.
+9. **Corpus sparse autorisé** : BIIC possède un historique Drive très court ; aucune période/document ne doit être synthétisé pour combler une lacune SOURCE.
+
+Profils de preuve :
+
+- `docs/recognition_profiles/BANKING_FINANCIAL_STATEMENTS_BICC_2022.md`
+- `docs/recognition_profiles/BANKING_ACTIVITY_BIIC_T2_2025.md`
