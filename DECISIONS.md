@@ -4,7 +4,7 @@ Registre canonique des décisions validées. Une décision ne doit pas être ré
 
 ## D001 — 2026-08-09 — Dépôt canonique
 
-**Décision** : `Patricked-code/financialdata` devient le dépôt canonique de mémoire persistante et de construction du projet de données financières.
+`Patricked-code/financialdata` est le dépôt canonique de mémoire persistante et de construction du projet.
 
 ## D002 — 2026-08-09 — Politique Git main-only
 
@@ -102,13 +102,52 @@ Un suffixe `_2`, `_3`, etc. n'est pas une preuve de doublon binaire.
 
 ## D024 — 2026-08-09 — Validation de l'attribution émetteur
 
-**Observation** : l'inventaire BOAB contient dans le dossier 2021 un fichier nommé `avis_ndeg232_brvmdg_-_premiere_cotation_-_tpci_590_2021-2031_1.pdf`, dont le titre ne démontre pas de lien avec BOA Bénin.
+La présence physique d'un fichier sous un dossier société ne suffit pas à valider son attribution à cet émetteur.
 
-**Décision** : la présence physique d'un fichier dans le dossier d'un émetteur ne suffit pas à valider son attribution économique/documentaire à cet émetteur.
+Prévoir `issuer_assignment_status = VALIDATED | REVIEW_REQUIRED | OUT_OF_SCOPE_CONFIRMED` ou équivalent.
 
-Prévoir dans le registre SOURCE des statuts de validation tels que :
+## D025 — 2026-08-09 — Statut du collecteur historique V1
 
-- `issuer_assignment_status = VALIDATED | REVIEW_REQUIRED | OUT_OF_SCOPE_CONFIRMED` ;
-- `scope_validation_status` si nécessaire.
+`telecharger_rapports_brvm.py` est reconnu comme **collecteur historique ayant servi à constituer le corpus Drive**.
 
-Un fichier suspect reste conservé avec son chemin historique jusqu'à revue. Une correction de classement doit être historisée, jamais silencieuse.
+Décision :
+
+- conserver la V1 comme référence ;
+- ne pas la modifier silencieusement ;
+- ne pas utiliser une évolution future pour écraser l'historique ;
+- documenter toute V2 séparément et vérifier la non-régression avant usage.
+
+## D026 — 2026-08-09 — Collecteur V2 incrémental et versionné
+
+Le futur collecteur doit comparer la source BRVM courante à un manifeste persistant.
+
+Principe :
+
+`DISCOVER → COMPARE_MANIFEST → DOWNLOAD_DELTA → HASH → VALIDATE → VERSION_LINK → STORE → REPORT`.
+
+Il doit détecter : nouveaux documents, nouvelles années, même URL avec contenu révisé, documents `annule/remplace/corrige`, doublons par hash, changements de catalogue et nouveaux/slugs modifiés.
+
+Il doit préserver `first_seen_at`, `last_seen_at`, URL source, titre BRVM, nom source, hash, taille, métadonnées HTTP, provenance et relations de version.
+
+## D027 — 2026-08-09 — P1 avant activation du collecteur V2
+
+Le plan V2 est documenté mais **pas implémenté** pendant le lot actuel.
+
+Ordre :
+
+1. terminer P1 ;
+2. créer le manifeste machine-lisible de l'existant ;
+3. développer V2 en `dry-run` ;
+4. comparer le delta ;
+5. valider ;
+6. seulement ensuite autoriser le téléchargement incrémental.
+
+Document : `docs/BRVM_COLLECTOR_V2_PLAN.md`.
+
+## D028 — 2026-08-09 — Réconciliation de fraîcheur avec la BRVM courante
+
+P1 peut enregistrer un statut `REMOTE_DELTA_IDENTIFIED` lorsqu'une comparaison directe avec la page BRVM officielle révèle des publications absentes du corpus Drive.
+
+Ces documents ne sont pas automatiquement téléchargés pendant P1 : le delta est documenté et sera traité par le mécanisme incrémental validé.
+
+Premiers cas vérifiés : BOAC et BOAM.
