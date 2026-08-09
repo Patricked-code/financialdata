@@ -18,6 +18,7 @@ Backlog canonique. Ne pas considérer une tâche terminée tant que le résultat
 - [x] Identifier et documenter `telecharger_rapports_brvm.py`.
 - [x] Analyser complètement le fonctionnement du collecteur V1.
 - [x] Documenter le plan d'évolution incrémental dans `docs/BRVM_COLLECTOR_V2_PLAN.md`.
+- [x] Créer `ROADMAP.md` avec le plan canonique de bout en bout.
 - [x] Définir la méthode d'inventaire direct depuis Drive.
 - [x] Documenter la règle d'attribution émetteur (`D024`).
 - [x] Documenter le statut `REMOTE_DELTA_IDENTIFIED` (`D028`).
@@ -29,7 +30,9 @@ Backlog canonique. Ne pas considérer une tâche terminée tant que le résultat
 - [x] BOAB — 29 dossiers, 59 fichiers ; anomalie d'attribution à revoir ; hash en attente.
 - [x] BOAC — 19 dossiers, 60 fichiers ; delta BRVM courant identifié ; hash en attente.
 - [x] BOAM — 16 dossiers, 44 fichiers ; delta BRVM courant identifié ; hash en attente.
-- [ ] 43 autres émetteurs.
+- [x] BOAN — 28 dossiers (1999–2025 + `divers`), 60 fichiers ; delta BRVM courant identifié ; hash en attente.
+- [x] BOAS — 17 dossiers (2010–2025 + `divers`), 43 fichiers ; delta BRVM courant identifié ; hash en attente.
+- [ ] 41 autres émetteurs.
 
 ### Travail à réaliser pour chaque société
 
@@ -54,7 +57,7 @@ Backlog canonique. Ne pas considérer une tâche terminée tant que le résultat
 - [ ] résoudre les périodes économiques depuis le contenu ;
 - [ ] réconcilier l'inventaire historique avec les documents BRVM courants.
 
-## Collecteur BRVM V2 — après P1
+## P1-FRESH — Collecteur BRVM V2 / maintien à jour
 
 - [x] analyser la V1 historique ;
 - [x] définir le design incrémental/versionné ;
@@ -77,17 +80,25 @@ Backlog canonique. Ne pas considérer une tâche terminée tant que le résultat
 
 À commencer seulement après couverture P1 suffisante.
 
-## P4 — Contrôles qualité
+## P4 — Contrôle / qualité / lineage
 
 À développer avec l'extraction RAW, sans corriger silencieusement la source.
 
-## P5 — MAPPED / CANONICAL
+## P5 — MAPPED
 
-À ne commencer qu'après couverture RAW suffisante.
+Mapping sémantique explicite, versionné, sans modifier RAW.
 
-## P6 — DERIVED / ANALYTICS
+## P6 — CANONICAL
 
-À traiter ultérieurement.
+Harmonisation multi-sociétés / périodes / unités / scopes avec lien conservé vers RAW.
+
+## P7 — DERIVED
+
+Calculs internes reproductibles avec formule et IDs d'entrée.
+
+## P8 — ANALYTICS
+
+Ratios, valorisation, rankings, screener, alertes, scoring et IA/NLP après données canoniques suffisantes.
 
 ## Rappel permanent
 
