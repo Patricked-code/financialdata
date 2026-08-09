@@ -54,7 +54,7 @@ Pour chaque grand type d'émetteur/document, examiner un échantillon représent
 - rapport annuel ancien ;
 - rapport annuel récent ;
 - états financiers détaillés récents ;
-- publication T1/T3/S1/S2 ;
+- publication T1/T2/T3/T4/S1/S2 ;
 - rapport/attestation CAC ;
 - document `divers` ou atypique ;
 - version révisée/annule-remplace lorsqu'elle existe.
@@ -250,3 +250,80 @@ Le projet doit privilégier :
 - revue humaine uniquement sur ambiguïtés/anomalies.
 
 Le Markdown documente les décisions et anomalies ; il ne doit pas remplacer les futurs manifestes et bases machine-lisibles.
+
+## 14. Patterns P1-R vérifiés sur contenu réel
+
+### 14.1 BICC 2022 — états financiers bancaires
+
+Profil : `docs/recognition_profiles/BANKING_FINANCIAL_STATEMENTS_BICC_2022.md`.
+
+Le PDF vérifié visuellement contient sur une seule page :
+
+- ACTIF et PASSIF côte à côte ;
+- HORS BILAN donné/reçu côte à côte ;
+- COMPTE DE RESULTAT ;
+- deux dates comparatives ;
+- unité héritée `Millions de FCFA` ;
+- agrégats et sous-lignes publiés.
+
+Conséquence : la géométrie de tableau est nécessaire. Deux cellules placées à la même hauteur sur la page peuvent appartenir à deux sous-tableaux différents.
+
+### 14.2 BIIC T2 2025 — rapport d'activité
+
+Profil : `docs/recognition_profiles/BANKING_ACTIVITY_BIIC_T2_2025.md`.
+
+Le contenu visible confirme :
+
+- période `deuxième trimestre 2025` ;
+- tableaux avec `juin-25`, `déc.-24`, `juin-24` ;
+- colonnes `Variation Valeur` et `Variation %` publiées ;
+- bloc bilan et bloc compte de résultat ;
+- commentaire de direction ;
+- perspectives.
+
+Conséquences :
+
+- `T2` est une période documentaire à reconnaître ;
+- une date `juin-25` peut désigner un STOCK dans un tableau de bilan et un FLOW/cumul dans un tableau de résultat ;
+- les variations publiées restent RAW `PUBLISHED` ;
+- une même information peut apparaître en tableau en millions et dans le narratif en milliards/arrondi : conserver les deux observations documentaires avant toute réconciliation.
+
+### 14.3 Métadonnées PDF non fiables comme vérité unique
+
+Le PDF BIIC T2 2025 possède une métadonnée interne `Title` qui fait référence à Société Générale CI / 3e trimestre 2025, en contradiction avec le contenu visible BIIC / deuxième trimestre 2025.
+
+Règle :
+
+- conserver `pdf_metadata_raw` ;
+- comparer nom de fichier, métadonnées, contenu visible et contexte source ;
+- ne jamais attribuer automatiquement émetteur/période/type à partir des métadonnées seules ;
+- contradiction → `DOCUMENT_METADATA_MISMATCH` / `REVIEW_REQUIRED` ;
+- ne pas effacer la métadonnée erronée.
+
+### 14.4 Noms de fichiers et versions
+
+Le lot BNBC/BICC/AGLC/CFAC contient des collisions jusqu'à `_11` et plusieurs fichiers `_rev`.
+
+Règles :
+
+- le nom local n'est pas un identifiant documentaire ;
+- `_2/_3/...` = collision historique jusqu'à preuve contraire ;
+- `_rev` = signal fort de `VERSION_REVIEW_REQUIRED`, pas preuve suffisante pour supprimer/superseder automatiquement ;
+- hash + contenu + contexte source déterminent les relations de version/doublon.
+
+### 14.5 Framework comptable et scope sont indépendants
+
+AGLC 2020 présente séparément des rapports CAC pour comptes individuels IFRS et comptes consolidés IFRS.
+
+Donc :
+
+- `accounting_framework_raw = IFRS` ;
+- `consolidation_scope_raw = INDIVIDUAL | CONSOLIDATED` ;
+
+sont deux dimensions distinctes et doivent être reconnues séparément.
+
+### 14.6 Corpus sparse
+
+BIIC ne possède actuellement dans le Drive inventorié que deux dossiers annuels (2024, 2025) et deux PDF, tous deux en 2025.
+
+Le système doit représenter cette absence/lacune telle quelle. Ne jamais fabriquer des documents, périodes ou données pour combler un historique court.
