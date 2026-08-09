@@ -8,89 +8,90 @@ Backlog canonique. Ne pas considérer une tâche terminée tant que le résultat
 
 ## P1 — Inventaire documentaire exhaustif
 
-**Statut : IN_PROGRESS**
+**Statut : IN_PROGRESS / BATCH_FAST**
 
 ### Socle P1
 
-- [x] Créer `inventory/README.md`.
-- [x] Créer `inventory/P1_ROOT_MANIFEST.md`.
-- [x] Vérifier les 48 dossiers société à la racine.
-- [x] Identifier et documenter `telecharger_rapports_brvm.py`.
-- [x] Analyser complètement le fonctionnement du collecteur V1.
-- [x] Documenter le plan d'évolution incrémental dans `docs/BRVM_COLLECTOR_V2_PLAN.md`.
-- [x] Créer `ROADMAP.md` avec le plan canonique de bout en bout.
-- [x] Définir la méthode d'inventaire direct depuis Drive.
-- [x] Documenter la règle d'attribution émetteur (`D024`).
-- [x] Documenter le statut `REMOTE_DELTA_IDENTIFIED` (`D028`).
+- [x] créer le socle `inventory/` ;
+- [x] vérifier les 48 dossiers société ;
+- [x] identifier/analyser `telecharger_rapports_brvm.py` ;
+- [x] documenter le collecteur V2 futur ;
+- [x] créer `ROADMAP.md` ;
+- [x] activer `P1-R PDF_RECOGNITION_DISCOVERY` ;
+- [x] documenter les premières règles de reconnaissance vérifiées sur contenu réel.
 
 ### Émetteurs inventoriés au niveau dossiers/fichiers
 
-- [x] SIVC — 22 dossiers annuels, 53 fichiers ; hash en attente.
-- [x] BOABF — 18 dossiers dont `divers`, 57 fichiers ; hash partiel.
-- [x] BOAB — 29 dossiers, 59 fichiers ; anomalie d'attribution à revoir ; hash en attente.
-- [x] BOAC — 19 dossiers, 60 fichiers ; delta BRVM courant identifié ; hash en attente.
-- [x] BOAM — 16 dossiers, 44 fichiers ; delta BRVM courant identifié ; hash en attente.
-- [x] BOAN — 28 dossiers (1999–2025 + `divers`), 60 fichiers ; delta BRVM courant identifié ; hash en attente.
-- [x] BOAS — 17 dossiers (2010–2025 + `divers`), 43 fichiers ; delta BRVM courant identifié ; hash en attente.
-- [ ] 41 autres émetteurs.
+- [x] SIVC — 53 fichiers.
+- [x] BOABF — 57 fichiers.
+- [x] BOAB — 59 fichiers.
+- [x] BOAC — 60 fichiers.
+- [x] BOAM — 44 fichiers.
+- [x] BOAN — 60 fichiers.
+- [x] BOAS — 43 fichiers.
+- [x] BNBC — 28 dossiers 1998–2025, 78 fichiers.
+- [x] BICC — 28 dossiers 1998–2025, 61 fichiers.
+- [x] BIIC — 2 dossiers, 2 fichiers ; corpus sparse.
+- [x] AGLC — 28 dossiers 1998–2025, 60 fichiers.
+- [x] CFAC — 26 dossiers, 94 fichiers.
+- [ ] 36 autres émetteurs.
 
-### Travail à réaliser pour chaque société
+**Total recensé sur les 12 premiers émetteurs : 671 fichiers.**
 
-- [ ] inventorier tous les dossiers ;
-- [ ] inventorier tous les fichiers ;
-- [ ] enregistrer identifiant source, chemin, nom, taille, hash, dates et type ;
-- [ ] détecter doublons binaires ;
-- [ ] détecter versions/révisions probables ;
-- [ ] déterminer les périodes économiques réellement couvertes ;
-- [ ] identifier les années couvertes par des fichiers rangés dans `divers` ;
-- [ ] valider l'attribution du document à l'émetteur ;
-- [ ] mesurer la couverture documentaire réelle ;
-- [ ] lorsque pertinent, comparer au catalogue BRVM courant et enregistrer le delta.
+### P1-R — reconnaissance PDF
 
-### Sous-étapes transversales encore ouvertes
+- [x] stratégie générale : `docs/PDF_RECOGNITION_STRATEGY.md` ;
+- [x] profil BICC 2022 : états financiers bancaires, bilan/passif/hors-bilan/résultat ;
+- [x] profil BIIC T2 2025 : tableau d'activité + variations + narratif/perspectives ;
+- [x] confirmer T2 sur le contenu visible ;
+- [x] documenter `DOCUMENT_METADATA_MISMATCH` ;
+- [x] documenter stock vs flow selon contexte de tableau ;
+- [x] documenter tableau vs narratif avec unités/arrondis différents ;
+- [x] documenter framework comptable vs scope indépendants ;
+- [ ] multiplier les profils représentatifs hors banque : utility, industrie, télécom, agriculture, logistique, automobile, etc.
 
-- [ ] produire un inventaire machine lisible consolidé des 48 sociétés ;
-- [ ] collecter/calculer les hash de tous les fichiers ;
-- [ ] rapprocher les candidats `_2/_3/...` par hash/contenu ;
-- [ ] relier les documents explicitement `annule et remplace` ;
-- [ ] revoir les fichiers potentiellement hors périmètre ;
+### Passes transversales P1 encore ouvertes
+
+- [ ] produire le manifeste machine-lisible consolidé ;
+- [ ] collecter/calculer les SHA-256 ;
+- [ ] établir doublons exacts et relations de version ;
 - [ ] résoudre les périodes économiques depuis le contenu ;
-- [ ] réconcilier l'inventaire historique avec les documents BRVM courants.
+- [ ] valider l'attribution émetteur/document ;
+- [ ] mesurer la couverture documentaire réelle ;
+- [ ] réconcilier l'historique avec la BRVM courante.
 
-## P1-FRESH — Collecteur BRVM V2 / maintien à jour
+## P1-FRESH — Collecteur BRVM V2
 
-- [x] analyser la V1 historique ;
+- [x] analyser la V1 ;
 - [x] définir le design incrémental/versionné ;
-- [ ] créer le manifeste machine-lisible de référence ;
-- [ ] implémenter un mode `--dry-run` ;
-- [ ] comparer source distante et manifeste sans télécharger ;
-- [ ] ajouter SHA-256 / validation PDF ;
-- [ ] ajouter `first_seen_at` / `last_seen_at` ;
-- [ ] gérer même URL / nouveau hash ;
-- [ ] gérer `annule/remplace/corrige` ;
-- [ ] détecter nouveaux émetteurs/slugs ;
-- [ ] valider la non-régression ;
-- [ ] seulement ensuite activer le téléchargement incrémental.
+- [ ] manifeste de référence ;
+- [ ] `--dry-run` ;
+- [ ] comparaison distante ;
+- [ ] SHA-256 / validation PDF ;
+- [ ] `first_seen_at` / `last_seen_at` ;
+- [ ] gestion révisions/doublons/nouveaux slugs ;
+- [ ] tests de non-régression ;
+- [ ] téléchargement incrémental seulement après validation.
 
 ## P2 — Schéma RAW v1
 
-À ne pas commencer avant couverture P1 suffisante.
+À figer après couverture P1/P1-R suffisante.
 
 ## P3 — Extraction RAW exhaustive
 
-À commencer seulement après couverture P1 suffisante.
+Appliquer les profils/règles à tous les documents SOURCE validés.
 
 ## P4 — Contrôle / qualité / lineage
 
-À développer avec l'extraction RAW, sans corriger silencieusement la source.
+Contrôles sans correction silencieuse de la source.
 
 ## P5 — MAPPED
 
-Mapping sémantique explicite, versionné, sans modifier RAW.
+Mapping sémantique explicite et versionné.
 
 ## P6 — CANONICAL
 
-Harmonisation multi-sociétés / périodes / unités / scopes avec lien conservé vers RAW.
+Harmonisation multi-sociétés/périodes/unités/scopes.
 
 ## P7 — DERIVED
 
@@ -98,8 +99,8 @@ Calculs internes reproductibles avec formule et IDs d'entrée.
 
 ## P8 — ANALYTICS
 
-Ratios, valorisation, rankings, screener, alertes, scoring et IA/NLP après données canoniques suffisantes.
+Ratios, valorisation, rankings, screener, alertes, scoring et IA/NLP.
 
 ## Rappel permanent
 
-**Ne jamais créer de branche. Tout travail de ce dépôt se fait sur `main`.**
+**Ne jamais créer de branche. Tout travail se fait sur `main`.**
