@@ -21,8 +21,9 @@ Git : `main` uniquement, aucune branche/PR normale.
 - V5 après MVSC : **2 996 PDF** ;
 - V6 après UNLC : **2 999 PDF** ;
 - V7 après ORGT : **3 011 PDF** ;
-- état live courant V8 après SHEC : **3 013 PDF** ;
-- checkpoint live : `inventory/P1_48_ISSUERS_CHECKPOINT_v8_20260809.md` ;
+- V8 après SHEC : **3 013 PDF** ;
+- état live courant V9 après STAC : **3 028 PDF** ;
+- checkpoint live : `inventory/P1_48_ISSUERS_CHECKPOINT_v9_20260809.md` ;
 - index live : `inventory/p1_issuer_manifest.csv`.
 
 ### Deltas live observés
@@ -33,7 +34,8 @@ Git : `main` uniquement, aucune branche/PR normale.
 - MVSC : **20 → 35 PDF** (`+15`) ;
 - UNLC : **20 → 23 PDF** (`+3`) ;
 - ORGT : **23 → 35 PDF** (`+12`) ;
-- SHEC : **37 → 39 PDF** (`+2`).
+- SHEC : **37 → 39 PDF** (`+2`) ;
+- STAC : **38 → 53 PDF** (`+15`).
 
 Les snapshots antérieurs sont conservés dans Git. Aucun état SOURCE n'est réécrit silencieusement.
 
@@ -43,13 +45,13 @@ Schéma : `docs/P1_DOCUMENT_MANIFEST_SCHEMA.md`.
 Stratégie incrémentale : `docs/P1_MANIFEST_SHARDING.md`.
 
 - cible maître : `inventory/p1_document_manifest.csv` ;
-- lignes actuellement consolidées dans le maître : **14 / 3 013** ;
+- lignes actuellement consolidées dans le maître : **14 / 3 028** ;
 - shards compatibles complets existants : CBIBF 15/15, ORAC 21/21 ;
-- SICC 36/36, MVSC 35/35, UNLC 23/23, ORGT 35/35 et SHEC 39/39 sont indexés par Drive ID + taille + SHA mais nécessitent encore le backfill complet des métadonnées de shard avant consolidation canonique.
+- SICC 36/36, MVSC 35/35, UNLC 23/23, ORGT 35/35, SHEC 39/39 et STAC 53/53 sont indexés par Drive ID + taille + SHA mais nécessitent encore le backfill complet des métadonnées de shard avant consolidation canonique.
 
 ## P1_TRANSVERSE — SHA256
 
-- SHA calculés : **212 / 3 013** ;
+- SHA calculés : **265 / 3 028** ;
 - TRITRAF : **8 / 8** ;
 - CBIBF : **15 / 15** ;
 - ORAC : **21 / 21** ;
@@ -57,7 +59,8 @@ Stratégie incrémentale : `docs/P1_MANIFEST_SHARDING.md`.
 - MVSC : **35 / 35** ;
 - UNLC : **23 / 23** ;
 - ORGT : **35 / 35** ;
-- SHEC : **39 / 39**.
+- SHEC : **39 / 39** ;
+- STAC : **53 / 53**.
 
 ### Doublons exacts
 
@@ -71,11 +74,12 @@ Tous les objets physiques restent conservés dans SOURCE. Les groupes sont enreg
 
 ### Résultats récents
 
-- ORGT : 35 contenus uniques ;
-- SHEC : **39 fichiers / 37 contenus uniques** ;
-- SHEC 2021 plain / `_2` : binaires distincts ;
-- SHEC 2023 plain / `_2` : binaires distincts ;
-- SHEC contient aussi un `rapport_de_carence_-_ifrs_-_vivo_energy_ci.pdf`, conservé comme famille documentaire SOURCE distincte.
+- SHEC : 39 fichiers / 37 contenus uniques, deux groupes exacts ;
+- STAC : **53 fichiers / 53 contenus uniques**, aucune duplication binaire ;
+- STAC 2012 plain / `_2` / `_3` / `_4` : quatre SHA distincts ;
+- STAC 2013 plain / `_2` / `_3` : trois SHA distincts ;
+- STAC 2014 plain / `_2` / `_3` : trois SHA distincts ;
+- STAC 2019 états financiers plain / `_rev` : deux SHA distincts.
 
 ## P1-R
 
@@ -84,12 +88,12 @@ Deep pilots : BOABF, CIEC, NTLC, SNTS.
 
 ## Prochaine action exacte
 
-1. poursuivre sur `STAC` avec revérification live préalable ;
+1. poursuivre sur `NSBC` avec revérification live préalable ;
 2. calculer son SHA complet et rechercher les doublons exacts ;
 3. poursuivre les autres corpus courts non hashés ;
-4. backfiller progressivement les shards SICC/MVSC/UNLC/ORGT/SHEC ;
+4. backfiller progressivement les shards SICC/MVSC/UNLC/ORGT/SHEC/STAC ;
 5. ne pas lancer P2 tant que la couverture P1/P1-R n'est pas jugée suffisante.
 
 ## Point de reprise exact
 
-`48/48 ISSUERS | LIVE_TOTAL=3013 | MASTER_CONSOLIDATED=14/3013 | SHA256=212/3013 | EXACT_DUPLICATE_GROUPS=3 | SHEC=39/39 | NEXT=STAC_LIVE_RECHECK`
+`48/48 ISSUERS | LIVE_TOTAL=3028 | MASTER_CONSOLIDATED=14/3028 | SHA256=265/3028 | EXACT_DUPLICATE_GROUPS=3 | STAC=53/53 | NEXT=NSBC_LIVE_RECHECK`
