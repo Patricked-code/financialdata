@@ -7,6 +7,7 @@ Backlog canonique. Ne pas considérer une tâche terminée tant que le résultat
 - [x] Initialiser `README.md`.
 - [x] Fixer la règle Git `main` uniquement.
 - [x] Créer `GOVERNANCE.md`.
+- [x] Créer `AGENTS.md`.
 - [x] Créer `CLAUDE.md`.
 - [x] Créer `SUIVI.md`.
 - [x] Créer `DECISIONS.md`.
@@ -17,6 +18,7 @@ Backlog canonique. Ne pas considérer une tâche terminée tant que le résultat
 - [x] Créer la gouvernance BRVM détaillée sous `docs/`.
 - [x] Créer la matrice de découverte des 48 sociétés sous `docs/`.
 - [x] Vérifier la présence du kit documentaire sur `main`.
+- [x] Vérifier qu'aucune branche de travail n'a été créée pendant l'initialisation.
 
 **Statut P0 : COMPLETE.**
 
