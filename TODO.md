@@ -10,29 +10,19 @@ Backlog canonique. Ne pas considérer une tâche terminée tant que le résultat
 
 **Statut : IN_PROGRESS / BATCH_FAST**
 
-### Socle P1
-
-- [x] créer le socle `inventory/` ;
-- [x] vérifier les 48 dossiers société ;
-- [x] identifier/analyser `telecharger_rapports_brvm.py` ;
-- [x] documenter le collecteur V2 futur ;
-- [x] créer `ROADMAP.md` ;
-- [x] activer `P1-R PDF_RECOGNITION_DISCOVERY` ;
-- [x] documenter les premières règles de reconnaissance vérifiées sur contenu réel.
-
 ### Progression P1
 
-- [x] **37 / 48 émetteurs** inventoriés au niveau dossiers/fichiers.
-- [x] **2 271 PDF** recensés.
-- [ ] **11 émetteurs** restent à inventorier.
+- [x] **42 / 48 émetteurs** inventoriés au niveau dossiers/fichiers.
+- [x] **2 689 PDF** recensés.
+- [ ] **6 émetteurs** restent à inventorier : `TTLS`, `PRSC`, `TRITRAF`, `UNLC`, `UNXC`, `SHEC`.
 
-### Lot 33–37
+### Lot 38–42
 
-- [x] CABC — 29 dossiers (1998–2025 + `divers`), **90 PDF**.
-- [x] SICC — 25 dossiers, **19 PDF** ; 2014 absent, pas de dossier 2024/2025 observé.
-- [x] STBC — 29 dossiers (1998–2025 + `divers`), **91 PDF** ; plusieurs révisions 2025.
-- [x] SMBC — 28 dossiers 1998–2025, **106 PDF** ; total vérifié par scission 36 + 70 car la recherche ticker plafonnait à 100.
-- [x] SDCC — 29 dossiers (1998–2025 + `divers`), **92 PDF** ; total vérifié par scission 36 + 56 ; SYSCOHADA révisé + IFRS individuel + IFRS consolidé observés.
+- [x] SOGC — 28 dossiers 1998–2025, **106 PDF** ; total parenté 37 + 69.
+- [x] SLBC — 28 dossiers 1998–2025, **65 PDF**.
+- [x] SNTS — 27 dossiers, **101 PDF** ; 2016 absent ; fichier ONATEL rangé sous Sonatel 2017 → `issuer_assignment_status = REVIEW_REQUIRED`.
+- [x] SCRC — 11 dossiers (2016–2025 + `divers`), **45 PDF** ; T4 2017 observé et `divers` CAC à dater par contenu.
+- [x] TTLC — 28 dossiers 1998–2025, **101 PDF** ; total parenté 34 + 67.
 
 ### P1-R — reconnaissance PDF
 
@@ -43,6 +33,7 @@ Backlog canonique. Ne pas considérer une tâche terminée tant que le résultat
 - [x] framework comptable vs scope indépendants ;
 - [x] limites techniques de recherche ≠ total SOURCE ;
 - [x] T1/T2/T3/T4/S1/S2 supportés ;
+- [x] attribution émetteur peut être `REVIEW_REQUIRED` même si le fichier est physiquement rangé dans un dossier société ;
 - [x] préserver les deep pilots BOABF/CIEC/NTLC/SNTS sans duplication ;
 - [ ] créer de nouveaux profils uniquement sur nouveau pattern réel.
 
