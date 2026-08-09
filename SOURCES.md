@@ -17,6 +17,12 @@ Organisation observée :
 
 Un sous-dossier `divers` peut contenir des documents couvrant des périodes absentes des dossiers annuels.
 
+### Vérification du 2026-08-09 — scripts à la racine
+
+Une vérification directe de la racine `Rapport V2` n'a retourné **aucun fichier `.py`**, ni fichier dont le nom contient `python` ou `script`.
+
+Conséquence : ne pas considérer comme acquis qu'un script Python existe dans cette racine. Si un script est découvert ultérieurement dans un sous-dossier, dans une autre version du corpus ou après ajout au Drive, l'ajouter ici avec son identifiant exact et son rôle.
+
 ## 2. Document de gouvernance conceptuelle historique
 
 Document Drive ayant servi à consolider les observations avant initialisation du présent dépôt :
@@ -57,7 +63,43 @@ Le projet pourra intégrer, après documentation :
 
 Toute nouvelle source doit être ajoutée à ce fichier avant ou lors de sa première utilisation systématique.
 
-## 5. Hiérarchie de preuve
+## 5. Sources révisables et versionnées
+
+Le registre des sources est **vivant**. À la longue, une source peut être revue si :
+
+- une version officielle plus récente apparaît ;
+- une meilleure source primaire est trouvée ;
+- le document a été corrigé ou republié ;
+- le classement initial était incomplet ou erroné ;
+- un doublon ou une version antérieure est identifié ;
+- la qualité ou le périmètre de la source est réévalué.
+
+Une révision ne supprime jamais l'historique.
+
+Statuts recommandés :
+
+- `ACTIVE`
+- `UNDER_REVIEW`
+- `SUPERSEDED`
+- `DUPLICATE`
+- `DEPRECATED_FOR_FUTURE_USE`
+- `REVIEW_REQUIRED`
+
+Pour chaque révision, conserver autant que possible :
+
+- identifiant de source ;
+- version ;
+- source précédente/suivante ;
+- date de revue ;
+- raison de revue ;
+- auteur/processus de revue ;
+- date de disponibilité ;
+- hash ;
+- provenance historique.
+
+Les faits RAW existants restent liés à la version exacte de la source dont ils proviennent. Une nouvelle source peut alimenter une nouvelle extraction ou une nouvelle validation, mais ne réécrit pas silencieusement l'ancienne provenance.
+
+## 6. Hiérarchie de preuve
 
 Lorsque plusieurs sources publient la même donnée, ne pas choisir arbitrairement une valeur et supprimer les autres.
 
@@ -73,7 +115,7 @@ Conserver :
 
 La réconciliation appartient aux couches de contrôle/mapping/canonicalisation, pas à l'ingestion RAW.
 
-## 6. Métadonnées minimales par document
+## 7. Métadonnées minimales par document
 
 - fournisseur/source ;
 - identifiant externe ;
@@ -90,9 +132,10 @@ La réconciliation appartient aux couches de contrôle/mapping/canonicalisation,
 - type documentaire ;
 - présence de texte natif ;
 - besoin éventuel de rendu/OCR ;
-- relation de version/doublon.
+- relation de version/doublon ;
+- statut de source/revue si applicable.
 
-## 7. Règle PDF
+## 8. Règle PDF
 
 Ordre :
 
@@ -102,7 +145,7 @@ Ordre :
 
 Un document sans texte natif n'est jamais considéré comme vide sur cette seule base.
 
-## 8. Règle de complétude
+## 9. Règle de complétude
 
 La complétude doit être mesurée à partir des **documents et périodes réellement présents**, et non seulement à partir :
 
