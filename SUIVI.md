@@ -16,6 +16,16 @@ Le dépôt `Patricked-code/financialdata` est la mémoire persistante et le dép
 
 Tout agent doit reprendre le projet au point officiel, préserver l'existant et continuer sans régression.
 
+## Roadmap canonique
+
+Le plan complet est dans `ROADMAP.md`.
+
+Séquence :
+
+`P0 GOUVERNANCE → P1 SOURCE/INVENTAIRE → P1-FRESH COLLECTEUR → P2 RAW SCHEMA → P3 RAW EXTRACTION → P4 QUALITY/LINEAGE → P5 MAPPED → P6 CANONICAL → P7 DERIVED → P8 ANALYTICS`.
+
+Architecture de données inchangée : `SOURCE → RAW → MAPPED → CANONICAL → DERIVED → ANALYTICS`.
+
 ## P0 — Gouvernance initiale
 
 **STATUT : COMPLETE**
@@ -31,33 +41,16 @@ Tout agent doit reprendre le projet au point officiel, préserver l'existant et 
 - script historique `telecharger_rapports_brvm.py` confirmé et analysé ;
 - méthode d'inventaire directe documentée ;
 - règle d'attribution émetteur documentée ;
-- comparaison possible avec la BRVM courante documentée ;
-- plan d'évolution du collecteur : `docs/BRVM_COLLECTOR_V2_PLAN.md`.
+- plan collecteur V2 documenté ;
+- roadmap de bout en bout créée.
 
 ### Collecteur V1 — compréhension validée
 
-La V1 :
-
-- contient 48 slugs historiques ;
-- parcourt les pages `rapports-societe-cotes/<slug>` ;
-- suit la pagination ;
-- récupère les PDF `/sites/default/files/` ;
-- déduit l'année depuis le nom ;
-- normalise certains noms ;
-- ajoute des suffixes en cas de collision ;
-- ignore un fichier local existant et non vide.
+La V1 contient 48 slugs historiques, parcourt les pages BRVM et leur pagination, récupère les PDF, classe par année candidate, normalise certains noms et ignore un fichier local existant/non vide.
 
 Limite critique : pas de manifeste/hash/versioning distant ; une correction derrière la même URL peut être manquée.
 
-Décision : V1 conservée comme référence ; future V2 incrémentale après P1.
-
-### Collecteur V2 — design seulement
-
-`DISCOVER → COMPARE_MANIFEST → DOWNLOAD_DELTA → HASH → VALIDATE → VERSION_LINK → STORE → REPORT`
-
-La V2 devra suivre URL source, titre BRVM, première/dernière observation, hash, métadonnées HTTP, versions, doublons et changements d'univers émetteur.
-
-**Ne pas implémenter/activer avant le manifeste P1 et un dry-run validé.**
+Décision : V1 conservée ; future V2 incrémentale après P1/manifeste et dry-run validé.
 
 ### Émetteurs P1 inventoriés
 
@@ -66,45 +59,59 @@ La V2 devra suivre URL source, titre BRVM, première/dernière observation, hash
 3. BOAB — 59 fichiers — `inventory/BOAB.md`
 4. BOAC — 60 fichiers — `inventory/BOAC.md`
 5. BOAM — 44 fichiers — `inventory/BOAM.md`
+6. BOAN — 60 fichiers — `inventory/BOAN.md`
+7. BOAS — 43 fichiers — `inventory/BOAS.md`
 
-### Deltas de fraîcheur déjà identifiés
+### Deltas de fraîcheur documentés
 
-BOAC : la BRVM courante publie EF 2025 et T1 2026 alors que le Drive inventorié ne possède pas leur équivalent évident.
-
-BOAM : la BRVM courante publie au minimum T3 2025, EF 2025 et T1 2026 absents de leur équivalent évident dans le Drive inventorié.
+- BOAC : EF 2025 et T1 2026 au minimum ;
+- BOAM : T3 2025, EF 2025 et T1 2026 au minimum ;
+- BOAN : S2/annuels 2025 et T1 2026 au minimum ;
+- BOAS : T1 2026 et états financiers T1 2026 au minimum.
 
 Statut : `REMOTE_DELTA_IDENTIFIED`.
 
-Ces documents ne sont pas encore téléchargés par le projet ; ils servent à valider le besoin du futur collecteur incrémental.
+Aucun de ces deltas n'est téléchargé automatiquement pendant P1.
 
 ### Progression P1
 
-- inventaires dossiers/fichiers documentés : **5 / 48** ;
-- restant : **43** ;
+- inventaires dossiers/fichiers documentés : **7 / 48** ;
+- restant : **41** ;
 - hash global : `NOT_COMPLETE` ;
 - périodes économiques exhaustives : `NOT_COMPLETE` ;
 - manifeste machine-lisible consolidé : `NOT_COMPLETE`.
 
 ## Prochaine action exacte
 
-Continuer P1 sans refaire les cinq premiers inventaires.
+Continuer P1 sans refaire les sept premiers inventaires.
 
-Prochain émetteur dans l'ordre historique : **BOAN — Bank of Africa Niger**.
+Prochain émetteur dans l'ordre historique du collecteur V1 : **BNBC — Bernabé Côte d'Ivoire**.
 
 Procédure :
 
-1. lister le dossier BOAN ;
-2. inventorier les sous-dossiers ;
+1. lister le dossier BNBC ;
+2. inventorier tous les sous-dossiers ;
 3. inventorier tous les fichiers ;
-4. créer `inventory/BOAN.md` ;
-5. signaler dossiers vides, `divers`, versions, anomalies d'attribution ;
-6. comparer au catalogue BRVM courant si utile pour la fraîcheur ;
+4. créer `inventory/BNBC.md` ;
+5. signaler dossiers vides, `divers`, collisions, versions et anomalies d'attribution ;
+6. comparer au catalogue BRVM courant si utile ;
 7. mettre à jour `TODO.md` et `SUIVI.md`.
 
 ## Règle anti-perte de contexte
 
-Avant toute reprise : lire `GOVERNANCE.md`, `AGENTS.md`, `CLAUDE.md`, ce fichier, `DECISIONS.md`, `TODO.md`, `SOURCES.md`, `inventory/README.md` et `docs/BRVM_COLLECTOR_V2_PLAN.md`.
+Avant toute reprise, lire dans cet ordre :
+
+1. `GOVERNANCE.md`
+2. `AGENTS.md`
+3. `CLAUDE.md`
+4. `ROADMAP.md`
+5. `SUIVI.md`
+6. `DECISIONS.md`
+7. `TODO.md`
+8. `SOURCES.md`
+9. `inventory/README.md`
+10. `docs/BRVM_COLLECTOR_V2_PLAN.md`
 
 ## Point de reprise exact
 
-`P1_IN_PROGRESS → INVENTORY_COMPLETE_5_OF_48 → NEXT = BOAN`
+`P1_IN_PROGRESS → INVENTORY_COMPLETE_7_OF_48 → NEXT = BNBC`
