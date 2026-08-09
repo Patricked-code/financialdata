@@ -8,21 +8,22 @@ Backlog canonique. Ne pas considérer une tâche terminée tant que le résultat
 
 ## P1 — Inventaire documentaire exhaustif
 
-**Statut : IN_PROGRESS / BATCH_FAST**
+**Statut : IN_PROGRESS / INVENTORY_48_COMPLETE / TRANSVERSE_PASSES_OPEN**
 
-### Progression P1
+### Inventaire dossiers/fichiers par émetteur
 
-- [x] **42 / 48 émetteurs** inventoriés au niveau dossiers/fichiers.
-- [x] **2 689 PDF** recensés.
-- [ ] **6 émetteurs** restent à inventorier : `TTLS`, `PRSC`, `TRITRAF`, `UNLC`, `UNXC`, `SHEC`.
+- [x] **48 / 48 émetteurs** inventoriés.
+- [x] **2 950 PDF** recensés.
+- [x] checkpoint global : `inventory/P1_48_ISSUERS_CHECKPOINT.md`.
 
-### Lot 38–42
+### Lot final 43–48
 
-- [x] SOGC — 28 dossiers 1998–2025, **106 PDF** ; total parenté 37 + 69.
-- [x] SLBC — 28 dossiers 1998–2025, **65 PDF**.
-- [x] SNTS — 27 dossiers, **101 PDF** ; 2016 absent ; fichier ONATEL rangé sous Sonatel 2017 → `issuer_assignment_status = REVIEW_REQUIRED`.
-- [x] SCRC — 11 dossiers (2016–2025 + `divers`), **45 PDF** ; T4 2017 observé et `divers` CAC à dater par contenu.
-- [x] TTLC — 28 dossiers 1998–2025, **101 PDF** ; total parenté 34 + 67.
+- [x] TTLS — 11 dossiers (2016–2025 + `divers`), **45 PDF**.
+- [x] PRSC — 28 dossiers 1998–2025, **68 PDF**.
+- [x] TRITRAF — 7 dossiers 1998–2004, **8 PDF** ; corpus historique sparse.
+- [x] UNLC — 9 dossiers (2016–2023 + `divers`), **20 PDF** ; pas de dossier 2024/2025 observé.
+- [x] UNXC — 28 dossiers 1998–2025, **83 PDF**.
+- [x] SHEC — 10 dossiers 2016–2025, **37 PDF**.
 
 ### P1-R — reconnaissance PDF
 
@@ -33,19 +34,21 @@ Backlog canonique. Ne pas considérer une tâche terminée tant que le résultat
 - [x] framework comptable vs scope indépendants ;
 - [x] limites techniques de recherche ≠ total SOURCE ;
 - [x] T1/T2/T3/T4/S1/S2 supportés ;
-- [x] attribution émetteur peut être `REVIEW_REQUIRED` même si le fichier est physiquement rangé dans un dossier société ;
-- [x] préserver les deep pilots BOABF/CIEC/NTLC/SNTS sans duplication ;
-- [ ] créer de nouveaux profils uniquement sur nouveau pattern réel.
+- [x] attribution émetteur peut être `REVIEW_REQUIRED` ;
+- [x] deep pilots BOABF/CIEC/NTLC/SNTS conservés sans duplication ;
+- [ ] nouveaux profils uniquement lorsqu'un nouveau pattern réel apparaît.
 
-### Passes transversales P1 encore ouvertes
+### P1 — passes transversales maintenant prioritaires
 
-- [ ] manifeste machine-lisible consolidé ;
-- [ ] SHA-256 globaux ;
-- [ ] doublons exacts et relations de version ;
-- [ ] périodes économiques depuis contenu ;
-- [ ] attribution émetteur/document ;
-- [ ] couverture documentaire réelle ;
-- [ ] réconciliation avec BRVM courante.
+- [ ] créer le manifeste machine-lisible document par document ;
+- [ ] enregistrer identifiant Drive, parent, émetteur attendu, nom, taille, type, dates source et statut d'attribution ;
+- [ ] collecter/calculer les SHA-256 des **2 950 PDF** ;
+- [ ] établir les doublons binaires ;
+- [ ] établir les relations `VERSION_OF / REVISED_BY / SUPERSEDES / POSSIBLE_DUPLICATE` ;
+- [ ] résoudre les périodes économiques depuis le contenu ;
+- [ ] valider l'attribution émetteur/document ;
+- [ ] calculer la couverture documentaire réelle ;
+- [ ] réconcilier avec la BRVM courante.
 
 ## P1-FRESH — Collecteur BRVM V2
 
@@ -62,7 +65,7 @@ Backlog canonique. Ne pas considérer une tâche terminée tant que le résultat
 
 ## P2 — Schéma RAW v1
 
-À figer après couverture P1/P1-R suffisante.
+À figer après couverture suffisante des passes P1 transversales et P1-R.
 
 ## P3 — Extraction RAW exhaustive
 
