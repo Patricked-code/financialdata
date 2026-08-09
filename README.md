@@ -29,15 +29,16 @@ Cette règle spécifique au dépôt `Patricked-code/financialdata` prévaut sur 
 Avant tout travail, lire dans cet ordre :
 
 1. [`GOVERNANCE.md`](GOVERNANCE.md) — règles non négociables du dépôt.
-2. [`CLAUDE.md`](CLAUDE.md) — instructions destinées aux agents IA et assistants de code.
-3. [`SUIVI.md`](SUIVI.md) — point de reprise opérationnel et état réel du chantier.
-4. [`DECISIONS.md`](DECISIONS.md) — décisions validées et leur justification.
-5. [`TODO.md`](TODO.md) — travaux restant à exécuter.
-6. [`ARCHITECTURE.md`](ARCHITECTURE.md) — architecture des couches et flux de données.
-7. [`DATA_MODEL.md`](DATA_MODEL.md) — principes de modélisation et tables cibles.
-8. [`SOURCES.md`](SOURCES.md) — sources, corpus et règles de provenance.
-9. [`docs/BRVM_RAW_DATABASE_GOVERNANCE.md`](docs/BRVM_RAW_DATABASE_GOVERNANCE.md) — observations conceptuelles détaillées issues du corpus BRVM.
-10. [`docs/ISSUER_DISCOVERY_MATRIX.md`](docs/ISSUER_DISCOVERY_MATRIX.md) — couverture de la passe de découverte des sociétés.
+2. [`AGENTS.md`](AGENTS.md) — règles universelles de tous les agents automatisés.
+3. [`CLAUDE.md`](CLAUDE.md) — instructions complémentaires destinées aux agents Claude/IA.
+4. [`SUIVI.md`](SUIVI.md) — point de reprise opérationnel et état réel du chantier.
+5. [`DECISIONS.md`](DECISIONS.md) — décisions validées et leur justification.
+6. [`TODO.md`](TODO.md) — travaux restant à exécuter.
+7. [`ARCHITECTURE.md`](ARCHITECTURE.md) — architecture des couches et flux de données.
+8. [`DATA_MODEL.md`](DATA_MODEL.md) — principes de modélisation et tables cibles.
+9. [`SOURCES.md`](SOURCES.md) — sources, corpus et règles de provenance.
+10. [`docs/BRVM_RAW_DATABASE_GOVERNANCE.md`](docs/BRVM_RAW_DATABASE_GOVERNANCE.md) — observations conceptuelles détaillées issues du corpus BRVM.
+11. [`docs/ISSUER_DISCOVERY_MATRIX.md`](docs/ISSUER_DISCOVERY_MATRIX.md) — couverture de la passe de découverte des sociétés.
 
 ## État initial
 
