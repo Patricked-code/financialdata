@@ -1,7 +1,7 @@
 # P1 SOURCE — Orange Côte d'Ivoire / ORAC
 
 Date : 2026-08-09
-Statut : `P1_INVENTORIED / LIVE_SOURCE_DELTA_DETECTED`
+Statut : `P1_INVENTORIED / LIVE_SOURCE_DELTA_DETECTED / MANIFEST_COMPLETE_FOR_ISSUER / SHA256_COMPLETE_FOR_ISSUER`
 
 - Ticker : `ORAC`
 - Dossier Drive : `1BgjEsarpAEHdhsD1pzvTgNFrT9q4aRjj`
@@ -9,6 +9,8 @@ Statut : `P1_INVENTORIED / LIVE_SOURCE_DELTA_DETECTED`
 - Premier inventaire de session : **14 PDF**
 - État Drive live revérifié : **21 PDF**
 - Delta live : **+7 PDF**
+- manifeste shard : `inventory/manifests/ORAC.csv` — **21 / 21**
+- registre hash : `inventory/hashes/ORAC.csv` — **21 / 21**
 
 ## État live par année
 
@@ -19,22 +21,23 @@ Statut : `P1_INVENTORIED / LIVE_SOURCE_DELTA_DETECTED`
 
 ## Delta live observé
 
-Les sept fichiers absents du premier inventaire mais présents lors de la revérification sont :
+Les sept fichiers absents du premier inventaire sont apparus avec des `created_time` Drive autour de 06:33–06:34Z : deux annuels 2022, trois documents 2023 et deux documents 2024.
 
-- `2022_Rapport_Annuel_ORAC.pdf` ;
-- `2022_Rapport_Annuel_ORAC_rev.pdf` ;
-- `resultats_financiers_consolides_2023_-_orange_ci.pdf` ;
-- `2023_Rapport_Annuel_ORAC.pdf` ;
-- `2023_Rapport_Annuel_ORAC_2.pdf` ;
-- `2024_Rapport_Annuel_ORAC.pdf` ;
-- `rapport_rse_2024_-_orange_ci.pdf`.
+## Résultat SHA-256
 
-Leurs `created_time` Drive observés se situent autour de `2026-08-09T06:33–06:34Z`, après le premier passage d'inventaire.
+- SHA calculés : **21 / 21** ;
+- contenus binaires uniques : **21 / 21** ;
+- aucun groupe de doublon exact ORAC.
+
+En particulier :
+
+- `2022_Rapport_Annuel_ORAC.pdf` et `2022_Rapport_Annuel_ORAC_rev.pdf` ont des SHA différents : `_rev` reste `REVISION_CANDIDATE`, sans supersession silencieuse ;
+- `2023_Rapport_Annuel_ORAC.pdf` et `_2.pdf` ont des SHA différents : doublon binaire exclu, relation sémantique non revue.
 
 ## P1-R
 
-Les dimensions télécom/abonnés/data/mobile/technologie sont déjà couvertes par le deep pilot SNTS. La présence d'un rapport RSE est une nouvelle famille documentaire SOURCE à classifier, mais elle ne justifie pas à elle seule une nouvelle table RAW avant inspection de son contenu.
+Le rapport RSE 2024 est classé comme famille documentaire `RSE_REPORT` dans le shard SOURCE. Cette classification n'entraîne aucune nouvelle table RAW avant inspection de contenu et preuve conceptuelle.
 
 ## Restant transversal ORAC
 
-`DOCUMENT_MANIFEST_ORAC = IN_PROGRESS` ; `SHA256_ORAC = NOT_COMPLETE` ; `VERSION_LINKS = NOT_COMPLETE` ; `ECONOMIC_PERIODS = NOT_COMPLETE` ; `REMOTE_FRESHNESS = ACTIVE_DELTA_OBSERVED`.
+`VERSION_SEMANTIC_REVIEW = NOT_COMPLETE` ; `ECONOMIC_PERIODS_CONTENT_REVIEW = NOT_COMPLETE` ; `REMOTE_FRESHNESS = ACTIVE_DELTA_OBSERVED`.
