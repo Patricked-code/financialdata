@@ -22,40 +22,38 @@ Tout agent doit reprendre le projet au point officiel, préserver l'existant et 
 
 Architecture : `SOURCE → RAW → MAPPED → CANONICAL → DERIVED → ANALYTICS`.
 
-## P1 — Inventaire SOURCE
+## P1 — SOURCE
 
 **IN_PROGRESS / INVENTORY_48_COMPLETE / TRANSVERSE_PASSES_OPEN**
 
-### Checkpoint majeur
+### Inventaire société terminé
 
-- sociétés inventoriées : **48 / 48** ;
-- PDF recensés au niveau dossiers/fichiers : **2 950** ;
-- inventaires individuels : `inventory/<TICKER>.md` ;
-- checkpoint consolidé : `inventory/P1_48_ISSUERS_CHECKPOINT.md`.
+- sociétés : **48 / 48** ;
+- PDF recensés : **2 950** ;
+- checkpoint humain : `inventory/P1_48_ISSUERS_CHECKPOINT.md` ;
+- index machine-lisible : `inventory/p1_issuer_manifest.csv`.
 
-`INVENTORY_COMPLETE_48_OF_48` ne signifie pas que P1 est entièrement terminé et ne signifie surtout pas que les 2 950 PDF sont déjà extraits en RAW.
+Le total 2 950 est vérifié par addition des 48 inventaires. Il ne signifie pas extraction RAW complète.
 
 ### Lot final 43–48
 
-- TTLS : 11 dossiers 2016–2025 + `divers`, **45 PDF** ;
-- PRSC : 28 dossiers 1998–2025, **68 PDF** ;
-- TRITRAF : 7 dossiers 1998–2004, **8 PDF** ; corpus historique sparse ;
-- UNLC : 9 dossiers 2016–2023 + `divers`, **20 PDF** ; pas de dossier 2024/2025 observé ;
-- UNXC : 28 dossiers 1998–2025, **83 PDF** ;
-- SHEC : 10 dossiers 2016–2025, **37 PDF**.
+`TTLS 45 | PRSC 68 | TRITRAF 8 | UNLC 20 | UNXC 83 | SHEC 37`.
 
-### Règles de comptage validées
+## P1_TRANSVERSE — MACHINE_READABLE_MANIFEST
 
-- une réponse plafonnée à 100 n'est jamais un total SOURCE ;
-- les recherches sont bornées par dossiers parents lorsque nécessaire ;
-- les résultats hors dossier société sont exclus ;
-- `_2/_3/...` et `_rev` restent des documents distincts jusqu'à preuve hash/contenu ;
-- dossier vide/corpus court/lacune annuelle = état SOURCE valide ;
-- présence physique sous un dossier ≠ attribution émetteur validée.
+**STARTED**
 
-### Anomalie d'attribution déjà ouverte
+- schéma : `docs/P1_DOCUMENT_MANIFEST_SCHEMA.md` ;
+- fichier : `inventory/p1_document_manifest.csv` ;
+- couverture actuelle : **3 / 2 950 fichiers SOURCE**.
 
-SNTS 2017 contient `20170721-resultats_au_premier_semestre_2017_onatel-sa_1.pdf` alors que le fichier est rangé sous Sonatel. À inscrire dans le manifeste document par document avec `issuer_assignment_status = REVIEW_REQUIRED`.
+Seed initial vérifié :
+
+1. BICC 2022 — états financiers — attribution validée — période annuelle résolue ;
+2. BIIC T2 2025 — rapport d'activité — période résolue — `DOCUMENT_METADATA_MISMATCH` confirmé ;
+3. SNTS/ONATEL 2017 — fichier physiquement sous Sonatel mais nom ONATEL — `issuer_assignment_status = REVIEW_REQUIRED`.
+
+Les SHA-256 restent `NOT_COMPUTED` tant qu'ils ne sont pas réellement calculés. Les relations de version restent `NOT_REVIEWED` tant qu'elles ne sont pas prouvées.
 
 ## P1-R — PDF_RECOGNITION_DISCOVERY
 
@@ -69,17 +67,15 @@ Profils vérifiés :
 
 Deep pilots acquis : BOABF, CIEC, NTLC, SNTS.
 
-Aucune nouvelle dimension conceptuelle n'a été requise par le lot final. Les règles existantes couvrent versions, périodes, lacunes, scopes et faits opérationnels.
+## Passes transversales restantes
 
-## P1 — Passes transversales prioritaires
-
-1. **MACHINE_READABLE_MANIFEST** : manifeste document par document des 2 950 PDF ;
-2. **SHA256** : hash de chaque fichier ;
-3. **DUPLICATES / VERSIONS** : doublons binaires et relations de révision ;
-4. **ECONOMIC_PERIODS** : période réellement publiée dans le contenu ;
-5. **ISSUER_ASSIGNMENT** : validation de l'émetteur réel ;
-6. **COVERAGE** : mesure de la couverture documentaire ;
-7. **FRESHNESS** : réconciliation avec la BRVM courante et P1-FRESH.
+1. compléter `p1_document_manifest.csv` jusqu'à **2 950 / 2 950** ;
+2. SHA-256 ;
+3. doublons binaires / versions / révisions ;
+4. périodes économiques depuis contenu ;
+5. attribution émetteur/document ;
+6. couverture documentaire ;
+7. fraîcheur BRVM / P1-FRESH.
 
 ## P1-FRESH
 
@@ -87,12 +83,10 @@ Le design V2 est documenté mais aucun téléchargement automatique n'est activ�
 
 ## Prochaine action exacte
 
-Commencer immédiatement :
+`P1_TRANSVERSE → EXPAND_DOCUMENT_MANIFEST_FROM_DRIVE`
 
-`P1_TRANSVERSE → MACHINE_READABLE_MANIFEST`
-
-Le manifeste doit devenir la source machine-lisible unique de la couche SOURCE, tout en conservant les inventaires Markdown comme mémoire humaine/audit.
+Ordre recommandé par lots d'émetteurs, en commençant par les corpus courts/simples pour fiabiliser le mécanisme avant les corpus >100 documents.
 
 ## Point de reprise exact
 
-`P1_TRANSVERSE → INVENTORY_COMPLETE_48_OF_48 → 2950_PDFS → MACHINE_READABLE_MANIFEST_START`
+`INVENTORY_COMPLETE_48_OF_48 → 2950_PDFS → DOCUMENT_MANIFEST_3_OF_2950 → EXPAND_MANIFEST`
