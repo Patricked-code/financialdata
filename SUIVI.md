@@ -4,7 +4,7 @@ Dernière mise à jour : 2026-08-09
 
 ## Point de reprise courant
 
-Le dépôt `Patricked-code/financialdata` vient d'être initialisé comme mémoire persistante et dépôt canonique du chantier de données financières.
+Le dépôt `Patricked-code/financialdata` est désormais initialisé comme **mémoire persistante et dépôt canonique** du chantier de données financières.
 
 ### Règle Git active
 
@@ -13,9 +13,27 @@ Le dépôt `Patricked-code/financialdata` vient d'être initialisé comme mémoi
 - Pull Request : non requise / ne pas en créer pour ce projet ;
 - toute écriture future doit respecter `GOVERNANCE.md` et `CLAUDE.md`.
 
+## P0 — Gouvernance initiale
+
+**STATUT : COMPLETE**
+
+Fichiers canoniques présents :
+
+- `README.md`
+- `GOVERNANCE.md`
+- `CLAUDE.md`
+- `SUIVI.md`
+- `DECISIONS.md`
+- `TODO.md`
+- `ARCHITECTURE.md`
+- `DATA_MODEL.md`
+- `SOURCES.md`
+- `docs/BRVM_RAW_DATABASE_GOVERNANCE.md`
+- `docs/ISSUER_DISCOVERY_MATRIX.md`
+
 ## Ce qui est déjà validé
 
-### Gouvernance
+### Gouvernance des données
 
 - architecture par couches : SOURCE → RAW → MAPPED → CANONICAL → DERIVED → ANALYTICS ;
 - lineage/versioning et data quality sont transversaux ;
@@ -24,7 +42,8 @@ Le dépôt `Patricked-code/financialdata` vient d'être initialisé comme mémoi
 - les valeurs publiées et recalculées sont séparées ;
 - les périodes sont déterminées par le contenu réel, pas le nom du fichier ;
 - les doublons et versions sont conservés ;
-- aucune cellule illisible n'est inventée.
+- aucune cellule illisible n'est inventée ;
+- aucune évolution de schéma n'est introduite sans observation source documentée.
 
 ### Corpus BRVM
 
@@ -32,16 +51,17 @@ Source documentaire principale explorée : Google Drive `RAPO / Rapport V2`.
 
 - 48 dossiers sociétés ont fait l'objet d'une passe de découverte conceptuelle ;
 - cette passe est terminée : `DISCOVERY_PASS_48_ISSUERS_COMPLETE` ;
-- l'extraction RAW intégrale de tous les PDF n'est pas terminée : `RAW_EXTRACTION_ALL_DOCUMENTS = NOT_COMPLETE`.
+- l'extraction RAW intégrale de tous les PDF n'est pas terminée : `RAW_EXTRACTION_ALL_DOCUMENTS = NOT_COMPLETE` ;
+- la liste exacte des 48 dossiers est conservée dans `docs/ISSUER_DISCOVERY_MATRIX.md`.
 
 ### Pilotes approfondis
 
-- BOABF — banque : audit documentaire détaillé, inventaire 2009–2025 + divers, pilote RAW 2009 dans une base SQLite locale antérieure ;
+- BOABF — banque : audit documentaire détaillé, inventaire 2009–2025 + divers, pilote RAW 2009 dans une base SQLite antérieure ;
 - NTLC — industrie/SYSCOHADA ;
 - SNTS — télécom/IFRS/KPI opérationnels ;
 - CIEC — utility/concession/périmètres économiques multiples.
 
-### Particularités transversales déjà détectées
+### Particularités transversales documentées
 
 - codes comptables de ligne ;
 - TAFIRE / flux / capitaux propres ;
@@ -57,31 +77,47 @@ Source documentaire principale explorée : Google Drive `RAPO / Rapport V2`.
 - produits, marques et données de marché externe ;
 - prévisions/guidance distinctes du réalisé ;
 - ratios prudentiels ;
-- audit vs examen limité ;
+- audit vs examen limité vs attestation ;
 - changement de nom d'un émetteur ;
-- événements exceptionnels et corporate actions.
+- événements exceptionnels et corporate actions ;
+- statuts distincts comptes audités / rapport CAC ;
+- unités sectorielles : GWh, tonnes, KT, hectares, nombre, transactions, $/baril, etc.
 
-## Dernières actions réalisées dans ce dépôt
+## Dernières actions réalisées
 
-- `README.md` initialisé ;
-- `GOVERNANCE.md` créé ;
-- `CLAUDE.md` créé ;
-- mémoire persistante en cours de consolidation ;
-- aucune branche créée.
+- documentation initiale complète migrée dans GitHub ;
+- règles `main-only` inscrites dans `README.md`, `GOVERNANCE.md`, `CLAUDE.md`, `TODO.md` et la documentation détaillée ;
+- source Drive reliée dans `SOURCES.md` ;
+- gouvernance BRVM détaillée migrée sous `docs/` ;
+- matrice 48 sociétés créée ;
+- aucune branche créée pendant cette initialisation.
 
 ## Prochaine étape obligatoire
 
-1. terminer la documentation initiale du dépôt ;
-2. consolider le document détaillé de gouvernance BRVM sous `docs/` ;
-3. consigner la matrice des 48 sociétés ;
-4. seulement ensuite commencer l'inventaire exhaustif et l'extraction RAW société par société ;
-5. mettre à jour ce fichier après chaque lot.
+La prochaine phase est **P1 — Inventaire documentaire exhaustif**.
+
+Ordre :
+
+1. inventorier intégralement les dossiers et documents de chaque société ;
+2. calculer les hash et détecter versions/doublons ;
+3. déterminer les périodes économiques réelles ;
+4. classer les familles documentaires ;
+5. mesurer la couverture ;
+6. seulement ensuite lancer l'extraction RAW exhaustive société par société ;
+7. mettre à jour ce fichier après chaque lot.
 
 ## Règle anti-perte de contexte
 
 Avant toute nouvelle session ou reprise :
 
-1. lire ce fichier ;
-2. vérifier le dernier commit sur `main` ;
-3. vérifier `DECISIONS.md` et `TODO.md` ;
-4. ne jamais repartir d'un souvenir de conversation lorsque le dépôt contient un état plus récent.
+1. lire `GOVERNANCE.md` ;
+2. lire `CLAUDE.md` ;
+3. lire ce fichier ;
+4. vérifier le dernier commit sur `main` ;
+5. vérifier `DECISIONS.md` et `TODO.md` ;
+6. lire les documents techniques pertinents ;
+7. ne jamais repartir d'un souvenir de conversation lorsque le dépôt contient un état plus récent.
+
+## Point de reprise exact
+
+`P0_GOVERNANCE_COMPLETE → NEXT = P1_DOCUMENT_INVENTORY`
