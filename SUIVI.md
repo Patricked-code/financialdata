@@ -30,49 +30,27 @@ Architecture : `SOURCE → RAW → MAPPED → CANONICAL → DERIVED → ANALYTIC
 
 **IN_PROGRESS / BATCH_FAST**
 
-### Émetteurs inventoriés
+### Progression
 
-1. SIVC — 53
-2. BOABF — 57
-3. BOAB — 59
-4. BOAC — 60
-5. BOAM — 44
-6. BOAN — 60
-7. BOAS — 43
-8. BNBC — 78
-9. BICC — 61
-10. BIIC — 2
-11. AGLC — 60
-12. CFAC — 94
-13. CIEC — 61
-14. CBIBF — 8
-15. SEMC — 54
-16. ECOC — 32
-17. ETIT — 81
-18. FTSC — 88
-19. MVSC — 20
-20. NEIC — 86
-21. NTLC — 81
-22. NSBC — 38
-23. ONTBF — 91
-24. ORGT — 23
-25. ORAC — 14
-26. PALC — 75
-27. SAFC — 73
+Émetteurs inventoriés : **32 / 48**.
 
-**Total : 1 496 fichiers recensés sur 27/48 émetteurs.**
+Fichiers recensés : **1 873**.
 
-Restant : **21 émetteurs**.
+Restant : **16 émetteurs**.
 
-### Lot 23–27 — anomalies/patterns utiles
+### Totaux individuels 1–32
 
-- ONTBF : 19 dossiers 2008–2025 + `divers`, 91 PDF ; collisions historiques et doubles états financiers ;
-- ORGT : 8 dossiers 2018–2025, 23 PDF ; corpus récent T1/S1/T3/EF/CAC ;
-- ORAC : 4 dossiers 2022–2025, 14 PDF ; corpus télécom récent ;
-- PALC : 25 dossiers, 75 PDF ; 2000/2002 absents, annuel 2009 révisé, S2 présents ;
-- SAFC : 27 dossiers, 73 PDF ; 2015 absent, T2 et T4 explicitement présents.
+`SIVC 53 | BOABF 57 | BOAB 59 | BOAC 60 | BOAM 44 | BOAN 60 | BOAS 43 | BNBC 78 | BICC 61 | BIIC 2 | AGLC 60 | CFAC 94 | CIEC 61 | CBIBF 8 | SEMC 54 | ECOC 32 | ETIT 81 | FTSC 88 | MVSC 20 | NEIC 86 | NTLC 81 | NSBC 38 | ONTBF 91 | ORGT 23 | ORAC 14 | PALC 75 | SAFC 73 | SPHC 124 | ABJC 82 | STAC 38 | SGBC 87 | SIBC 46`.
 
-Aucune nouvelle dimension conceptuelle n'a été nécessaire pour ce lot : les règles de période, versions, lacunes SOURCE et faits opérationnels sectoriels couvrent les observations.
+### Lot 28–32 — anomalies/patterns utiles
+
+- SPHC : 28 dossiers 1998–2025, **124 PDF**. La recherche ticker plafonnait à 100 ; total corrigé par deux recherches strictement filtrées sur les parents (32 + 92). Variantes nombreuses EF/CAC 2019–2024 ;
+- ABJC : 28 dossiers 1998–2025, **82 PDF** ; S1 2023 plain/_2/_rev et double EF 2023 ;
+- STAC : 26 dossiers = 25 années + `divers`, **38 PDF** ; 2004/2007/2009 absents ; `divers_Etats_Financiers_STAC.pdf` à résoudre par contenu ;
+- SGBC : 27 dossiers 1999–2025, **87 PDF** ; nombreuses variantes historiques/S1 ;
+- SIBC : 10 dossiers 2016–2025, **46 PDF** ; corpus bancaire récent.
+
+Règle renforcée : **une limite technique de recherche n'est jamais un total SOURCE**.
 
 ## P1-R — PDF_RECOGNITION_DISCOVERY
 
@@ -86,7 +64,7 @@ Profils vérifiés :
 
 Deep pilots acquis : BOABF, CIEC, NTLC, SNTS.
 
-Règles acquises incluent désormais la reconnaissance réelle de T1/T2/T3/T4/S1/S2 dans le corpus.
+Aucune nouvelle dimension de schéma pour le lot 28–32 : versions, lacunes, métadonnées incohérentes et géométrie sont déjà couvertes.
 
 ## P1-FRESH
 
@@ -105,9 +83,9 @@ Design V2 documenté mais non activé. Aucun delta distant n'est téléchargé a
 
 Continuer immédiatement P1 en mode batch avec :
 
-`SPHC → ABJC → STAC → SGBC → SIBC`
+`CABC → SICC → STBC → SMBC → SDCC`
 
-Puis poursuivre dans l'ordre V1.
+Puis poursuivre : `SOGC → SLBC → SNTS → SCRC → TTLC → TTLS → PRSC → TRITRAF → UNLC → UNXC → SHEC`.
 
 ## Ordre de reprise obligatoire
 
@@ -124,4 +102,4 @@ Puis poursuivre dans l'ordre V1.
 
 ## Point de reprise exact
 
-`P1_BATCH_FAST → INVENTORY_COMPLETE_27_OF_48 → 1496_FILES → NEXT_BATCH = SPHC,ABJC,STAC,SGBC,SIBC + P1-R ACTIVE`
+`P1_BATCH_FAST → INVENTORY_COMPLETE_32_OF_48 → 1873_FILES → NEXT_BATCH = CABC,SICC,STBC,SMBC,SDCC + P1-R ACTIVE`
