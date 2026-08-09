@@ -19,15 +19,42 @@ Si un outil, agent ou procédure suggère automatiquement une branche, cette sug
 Lire obligatoirement :
 
 1. `GOVERNANCE.md`
-2. `SUIVI.md`
-3. `DECISIONS.md`
-4. `TODO.md`
-5. `ARCHITECTURE.md`
-6. `DATA_MODEL.md`
-7. `SOURCES.md`
-8. les documents utiles dans `docs/`
+2. `AGENTS.md`
+3. `SUIVI.md`
+4. `DECISIONS.md`
+5. `TODO.md`
+6. `ARCHITECTURE.md`
+7. `DATA_MODEL.md`
+8. `SOURCES.md`
+9. les documents utiles dans `docs/`
 
 Ne jamais répondre ou modifier le projet sur la seule base de la mémoire conversationnelle si les fichiers du dépôt donnent un état plus récent.
+
+## Continuité obligatoire / zéro régression
+
+Tout agent doit reprendre exactement au point indiqué par `SUIVI.md`.
+
+Avant de proposer ou d'appliquer une modification :
+
+- vérifier ce qui existe déjà ;
+- vérifier le dernier commit `main` ;
+- vérifier les décisions actives ;
+- vérifier le backlog restant ;
+- déterminer si le besoin est déjà couvert ;
+- mesurer l'impact sur l'historique, la provenance, le RAW et les interfaces existantes.
+
+Ne jamais :
+
+- redémarrer le projet de zéro ;
+- créer un deuxième modèle parallèle ;
+- effacer une décision antérieure ;
+- écraser une extraction ou une version précédente ;
+- réduire la couverture documentaire déjà obtenue ;
+- perdre des champs, des sources, des relations ou des preuves lors d'une évolution.
+
+Toute évolution suit :
+
+`ÉTAT EXISTANT → PREUVE → IMPACT → DÉCISION DOCUMENTÉE → MODIFICATION COMPATIBLE → VÉRIFICATION NON-RÉGRESSION → SUIVI`
 
 ## Objet du projet
 
@@ -52,6 +79,20 @@ Ne pas inverser cet ordre pour gagner du temps.
 - Conserver les doublons documentaires et les versions.
 - Une cellule illisible reste `NULL` et doit générer une issue d'extraction.
 - Une valeur calculée n'est jamais enregistrée comme publiée.
+
+## Sources révisables
+
+Les sources peuvent être réévaluées ou remplacées par de meilleures versions au fil du projet.
+
+Mais toute révision doit être historisée :
+
+- conserver l'ancienne source ;
+- enregistrer la nouvelle source/version ;
+- documenter le motif ;
+- préserver les facts RAW liés à l'ancienne source ;
+- utiliser une relation de version/supersession plutôt qu'un écrasement.
+
+Consulter `SOURCES.md` avant de modifier le statut ou la priorité d'une source.
 
 ## PDF et documents
 
@@ -82,7 +123,7 @@ Après une étape significative :
 - mettre à jour `SUIVI.md` ;
 - ajouter toute décision dans `DECISIONS.md` ;
 - retirer/ajouter les tâches dans `TODO.md` ;
-- mettre à jour `SOURCES.md` si une source ou un corpus nouveau est utilisé ;
+- mettre à jour `SOURCES.md` si une source ou un corpus nouveau est utilisé ou révisé ;
 - mettre à jour la documentation conceptuelle si une nouvelle particularité apparaît.
 
 ## Interdictions
@@ -95,7 +136,8 @@ Ne pas :
 - corriger un chiffre source sans conserver la valeur publiée ;
 - supprimer une version antérieure ;
 - dériver des ratios pendant l'ingestion RAW sauf si le ratio est explicitement publié ;
-- prétendre qu'une extraction est exhaustive sans contrôle de couverture documentaire.
+- prétendre qu'une extraction est exhaustive sans contrôle de couverture documentaire ;
+- propager une information non vérifiée comme vérité persistante.
 
 ## État de reprise initial
 
@@ -105,4 +147,6 @@ Au 2026-08-09 :
 - extraction RAW complète des documents : non terminée ;
 - BOABF : premier pilote RAW partiel et audit documentaire approfondi ;
 - règles transversales et particularités sectorielles documentées dans `docs/` ;
-- GitHub `financialdata` devient la mémoire persistante opérationnelle du chantier.
+- GitHub `financialdata` est la mémoire persistante opérationnelle du chantier ;
+- prochaine phase : `P1_DOCUMENT_INVENTORY` ;
+- vérification Drive : aucun script `.py` confirmé à la racine de `RAPO / Rapport V2` au 2026-08-09.
