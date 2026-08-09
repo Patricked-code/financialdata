@@ -30,8 +30,6 @@ Architecture : `SOURCE → RAW → MAPPED → CANONICAL → DERIVED → ANALYTIC
 
 **IN_PROGRESS / BATCH_FAST**
 
-Méthode : inventorier par lots, réserver la revue détaillée aux anomalies et faire progresser P1-R en parallèle.
-
 ### Émetteurs inventoriés
 
 1. SIVC — 53
@@ -46,41 +44,48 @@ Méthode : inventorier par lots, réserver la revue détaillée aux anomalies et
 10. BIIC — 2
 11. AGLC — 60
 12. CFAC — 94
+13. CIEC — 61
+14. CBIBF — 8
+15. SEMC — 54
+16. ECOC — 32
+17. ETIT — 81
 
-**Total : 671 fichiers recensés sur 12/48 émetteurs.**
+**Total : 907 fichiers recensés sur 17/48 émetteurs.**
 
-Restant : **36 émetteurs**.
+Restant : **31 émetteurs**.
 
-### Lot 8–12 — anomalies/patterns utiles
+### Lot 13–17 — anomalies/patterns utiles
 
-- BNBC : 28 dossiers 1998–2025, nombreuses collisions historiques ;
-- BICC : 28 dossiers 1998–2025, `2019_Etats_Financiers_BICC_rev.pdf`, T2 présent ;
-- BIIC : seulement dossiers 2024/2025 et 2 PDF en 2025 ; 2024 vide ;
-- AGLC : 28 dossiers 1998–2025, comptes IFRS individuels/consolidés distincts, T1 2025 + T1 2025 rev ;
-- CFAC : 26 dossiers, 94 PDF, collisions jusqu'à `_11`, EF 2023 rev, faits émetteur + contexte marché à distinguer.
+- CIEC : 29 dossiers (1998–2025 + `divers`), 61 PDF ; deep pilot conceptuel déjà existant ; EF 2017 révisés ;
+- CBIBF : 4 dossiers 2022–2025, 8 PDF ; 2022 vide ;
+- SEMC : 25 dossiers, 54 PDF ; 2002 absent, pas de dossier 2024/2025 dans le corpus observé, `divers` CAC ;
+- ECOC : 9 dossiers 2017–2025, 32 PDF ; couples T1 2023/T1 rev et T3 2024/T3 rev ;
+- ETIT : 23 dossiers 2003–2025, 81 PDF ; collisions historiques importantes et corpus multi-devise/consolidé.
 
 ## P1-R — PDF_RECOGNITION_DISCOVERY
 
 **ACTIVE_IN_PARALLEL**
 
-Premiers profils vérifiés sur contenu réel :
+Profils vérifiés :
 
 - `docs/recognition_profiles/BANKING_FINANCIAL_STATEMENTS_BICC_2022.md`
 - `docs/recognition_profiles/BANKING_ACTIVITY_BIIC_T2_2025.md`
+- `docs/recognition_profiles/TRANSNATIONAL_BANKING_ETIT_2023_FINANCIAL_STATEMENTS.md`
 
-### Règles de reconnaissance désormais vérifiées
+### ETIT 2023 — nouvelles preuves
 
-- BICC 2022 : ACTIF/PASSIF côte à côte + hors-bilan + résultat ; géométrie de tableau nécessaire ;
-- BIIC : le contenu visible confirme `DEUXIEME TRIMESTRE 2025` ; T2 est supporté ;
-- PDF BIIC : métadonnée interne `Title` incohérente avec le contenu visible → `DOCUMENT_METADATA_MISMATCH` ;
-- `juin-25` peut être STOCK dans le bilan et FLOW/cumul dans le résultat ;
-- variations valeur/% explicitement publiées = RAW `PUBLISHED` ;
-- tableau en millions et narratif en milliards/arrondi = observations documentaires distinctes avant réconciliation ;
-- `_2/_3/...` = collision, pas doublon ; `_rev` = version à revoir ;
-- framework IFRS et scope individuel/consolidé sont indépendants ;
-- un corpus court/lacunaire est un état SOURCE valide, jamais à compléter artificiellement.
+Le PDF `2023_Etats_Financiers_ETIT.pdf` a été rendu visuellement :
 
-Référence complète : `docs/PDF_RECOGNITION_STRATEGY.md` et décision `D032`.
+- 6 pages, Excel natif ;
+- consolidé IFRS ;
+- états détaillés en milliers USD ;
+- tableau de synthèse simultanément en milliers USD et millions FCFA ;
+- variations publiées distinctes selon la devise ;
+- résultat consolidé ventilé entre part du Groupe, autres détenteurs de capitaux propres et intérêts minoritaires.
+
+Décision `D033` : `source_currency` au niveau fact et nouvelle dimension candidate `ownership_attribution_raw`, documentée mais non implémentée SQL.
+
+La même observation a été ajoutée au document Drive canonique `BRVM_RAW_DATABASE — Gouvernance, architecture et observations conceptuelles` avant toute évolution de schéma.
 
 ## P1-FRESH
 
@@ -97,13 +102,11 @@ Design V2 documenté mais non activé. Aucun delta distant n'est téléchargé a
 
 ## Prochaine action exacte
 
-Continuer P1 en mode batch à partir du **13e émetteur : CIE - CIEC**.
+Continuer immédiatement P1 en mode batch avec :
 
-Important : CIEC a déjà servi de deep pilot conceptuel. Ne pas refaire l'analyse de zéro. Faire son inventaire SOURCE P1 rapidement puis utiliser un PDF utility représentatif seulement si cela apporte un pattern P1-R non encore documenté.
+`FTSC → MVSC → NEIC → NTLC → NSBC`
 
-Puis poursuivre dans l'ordre V1 :
-
-`CIEC → CBIBF → SEMC → ECOC → ETIT ...`
+Puis poursuivre dans l'ordre V1 sans refaire les deep pilots déjà étudiés.
 
 ## Ordre de reprise obligatoire
 
@@ -120,4 +123,4 @@ Puis poursuivre dans l'ordre V1 :
 
 ## Point de reprise exact
 
-`P1_BATCH_FAST → INVENTORY_COMPLETE_12_OF_48 → 671_FILES → NEXT = CIEC + P1-R ACTIVE`
+`P1_BATCH_FAST → INVENTORY_COMPLETE_17_OF_48 → 907_FILES → NEXT_BATCH = FTSC,MVSC,NEIC,NTLC,NSBC + P1-R ACTIVE`
