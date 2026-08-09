@@ -12,124 +12,109 @@ Registre canonique des décisions validées. Une décision ne doit pas être ré
 
 **Décision** : tout travail se fait directement sur `main`.
 
-**Règles** :
-
-- aucune branche nouvelle ;
-- aucune PR nécessaire ;
-- ne pas appliquer automatiquement les conventions Git d'autres projets ;
-- ne pas contourner la règle avec une branche temporaire.
-
-**Motif** : règle explicite du propriétaire du projet.
+**Règles** : aucune branche nouvelle ; aucune PR nécessaire ; ne pas appliquer automatiquement les conventions Git d'autres projets ; ne pas contourner la règle avec une branche temporaire.
 
 ## D003 — 2026-08-09 — Mémoire persistante Markdown
 
 **Décision** : les fichiers `.md` du dépôt constituent la mémoire persistante opérationnelle.
 
-**Ordre de lecture** : `GOVERNANCE.md` → `AGENTS.md` → `CLAUDE.md` → `SUIVI.md` → `DECISIONS.md` → `TODO.md` → documents techniques et `docs/`.
+Ordre : `GOVERNANCE.md` → `AGENTS.md` → `CLAUDE.md` → `SUIVI.md` → `DECISIONS.md` → `TODO.md` → documents techniques et `docs/`.
 
 ## D004 — 2026-08-09 — Source avant analytics
 
-**Décision** : le projet doit d'abord extraire et structurer les données sources avant normalisation, calculs et analytics.
-
-Pipeline :
-
-`SOURCE → INVENTAIRE → EXTRACTION EXHAUSTIVE → RAW → CONTRÔLE → MAPPED → CANONICAL → DERIVED → ANALYTICS`
+**Décision** : `SOURCE → INVENTAIRE → EXTRACTION EXHAUSTIVE → RAW → CONTRÔLE → MAPPED → CANONICAL → DERIVED → ANALYTICS`.
 
 ## D005 — 2026-08-09 — Granularité RAW
 
-**Décision** : une observation réellement publiée devient une observation RAW distincte.
-
-Le RAW conserve la représentation publiée et la représentation machine, sans écrasement.
+Une observation réellement publiée devient une observation RAW distincte.
 
 ## D006 — 2026-08-09 — PUBLISHED vs DERIVED
 
-**Décision** : une valeur explicitement publiée reste `PUBLISHED`, même s'il s'agit d'un ratio. Toute reconstruction/calcul interne est `DERIVED`.
+Une valeur explicitement publiée reste `PUBLISHED`; toute reconstruction/calcul interne est `DERIVED`.
 
 ## D007 — 2026-08-09 — Périodes
 
-**Décision** : le nom d'un fichier/dossier ne suffit jamais pour déterminer la période économique. La période est résolue depuis le contenu du document et conservée séparément du libellé source.
+Le nom d'un fichier/dossier ne suffit jamais pour déterminer la période économique.
 
 ## D008 — 2026-08-09 — Versions et doublons
 
-**Décision** : les doublons, versions, fichiers révisés et restatements sont conservés et reliés ; ils ne sont pas supprimés de la couche source/RAW.
+Les doublons, versions, fichiers révisés et restatements sont conservés et reliés ; ils ne sont pas supprimés de SOURCE/RAW.
 
 ## D009 — 2026-08-09 — Modèle sectoriellement neutre
 
-**Décision** : le cœur RAW ne doit pas être spécifique à la banque, à l'industrie ou à un autre secteur.
-
-Les différences sectorielles sont portées par les types de faits et dimensions, pas par une rupture de traçabilité.
+Le cœur RAW ne doit pas être spécifique à un secteur.
 
 ## D010 — 2026-08-09 — Étendre le schéma uniquement sur preuve
 
-**Décision** : aucune nouvelle table/colonne ne doit être ajoutée uniquement par anticipation. Toute extension doit être reliée à une particularité documentée dans une source.
+Aucune nouvelle table/colonne ne doit être ajoutée uniquement par anticipation.
 
 ## D011 — 2026-08-09 — Passe conceptuelle 48 sociétés
 
-**Décision** : la passe de découverte des 48 dossiers sociétés BRVM est considérée terminée pour la conception initiale.
-
-**Important** : cela ne signifie pas que tous les PDF ont été extraits.
-
-Statuts :
-
-- `DISCOVERY_PASS_48_ISSUERS_COMPLETE`
-- `RAW_EXTRACTION_ALL_DOCUMENTS = NOT_COMPLETE`
+Statuts : `DISCOVERY_PASS_48_ISSUERS_COMPLETE` ; `RAW_EXTRACTION_ALL_DOCUMENTS = NOT_COMPLETE`.
 
 ## D012 — 2026-08-09 — Sources externes et GitHub
 
-**Décision** : GitHub conserve la gouvernance et la mémoire opérationnelle ; les fichiers originaux externes restent les preuves primaires.
-
-Les références Drive/PDF/sites officiels doivent être conservées dans la provenance et `SOURCES.md`.
+GitHub conserve la gouvernance et la mémoire opérationnelle ; les fichiers originaux externes restent les preuves primaires.
 
 ## D013 — 2026-08-09 — PDF scanné
 
-**Décision** : absence de texte natif ≠ document vide.
-
-Ordre : texte natif → inspection/rendu PDF → OCR en dernier recours.
+Absence de texte natif ≠ document vide. Ordre : texte natif → rendu visuel → OCR en dernier recours.
 
 ## D014 — 2026-08-09 — Données contextuelles externes dans un rapport
 
-**Décision** : une donnée publiée dans le rapport d'un émetteur peut concerner le marché, un produit, une marque ou une autre entité.
-
-Prévoir des dimensions comme `subject_scope_raw`, `reference_entity_raw`, `reference_product_raw` afin de ne pas attribuer automatiquement le fait à l'émetteur.
+Prévoir `subject_scope_raw`, `reference_entity_raw`, `reference_product_raw` lorsque nécessaire.
 
 ## D015 — 2026-08-09 — Réalisé vs prévision
 
-**Décision** : les prévisions, guidances et targets publiées sont des faits source, mais doivent être distinguées du réalisé via `fact_nature_raw` ou équivalent.
-
-Valeurs envisagées : `ACTUAL`, `FORECAST`, `GUIDANCE`, `TARGET`.
+Les prévisions/guidances/targets publiées sont source mais distinctes du réalisé.
 
 ## D016 — 2026-08-09 — Audit et assurance
 
-**Décision** : distinguer audit, attestation, examen limité et autres formes d'assurance. Le statut des comptes et celui du rapport d'audit doivent être stockés séparément lorsque publiés.
+Distinguer audit, attestation, examen limité et autres formes d'assurance.
 
 ## D017 — 2026-08-09 — Événements
 
-**Décision** : les événements chiffrés ou datés expliquant les comptes (cession, augmentation de capital, changement de contrôle, corporate action, événement post-clôture, etc.) doivent être conservés avec leur statut et leur source.
-
-`event_facts_raw` est une table candidate à confirmer lors de l'implémentation du schéma.
+Les événements chiffrés ou datés expliquant les comptes doivent être conservés avec statut et source. `event_facts_raw` reste une table candidate.
 
 ## D018 — 2026-08-09 — Réglementaire
 
-**Décision** : les ratios prudentiels et normes réglementaires publiés doivent être conservés comme faits `PUBLISHED`.
-
-`regulatory_facts_raw` est une table candidate à confirmer selon le volume observé.
+Les ratios prudentiels/normes publiés restent `PUBLISHED`. `regulatory_facts_raw` reste une table candidate.
 
 ## D019 — 2026-08-09 — Sources révisables mais historisées
 
-**Décision** : le registre des sources est vivant. Une source peut être revue, enrichie, reclassée, superseded ou dépréciée pour les usages futurs.
-
-**Règle non négociable** : une révision de source ne réécrit jamais silencieusement l'historique et ne détache pas les facts RAW de la version exacte de leur source d'origine.
+Le registre des sources est vivant ; une révision ne réécrit jamais silencieusement l'historique.
 
 ## D020 — 2026-08-09 — Continuité obligatoire pour tous les agents
 
-**Décision** : tout agent qui se connecte à `financialdata` doit reprendre au point de reprise officiel dans `SUIVI.md` et continuer le travail existant sans régression.
+Tout agent reprend au point officiel de `SUIVI.md` sans régression.
 
-**Interdit** : repartir de zéro, créer une architecture parallèle, supprimer silencieusement une décision ou écraser une extraction/source/version validée.
+Processus : `ÉTAT EXISTANT → PREUVE → IMPACT → DÉCISION → CHANGEMENT COMPATIBLE → TEST NON-RÉGRESSION → SUIVI`.
 
-**Processus** : `ÉTAT EXISTANT → PREUVE → IMPACT → DÉCISION → CHANGEMENT COMPATIBLE → TEST NON-RÉGRESSION → SUIVI`.
+## D021 — 2026-08-09 — Vérification initiale du script Python Drive
 
-## D021 — 2026-08-09 — Vérification du script Python Drive
+**Ancien constat** : une recherche Drive textuelle n'avait retrouvé aucun fichier `.py` ni nom contenant `python` ou `script`.
 
-**Décision factuelle** : la vérification directe de la racine `RAPO / Rapport V2` effectuée le 2026-08-09 n'a retrouvé aucun fichier `.py`, ni nom contenant `python` ou `script`.
+**Statut** : `SUPERSEDED_BY_D022`.
 
-**Conséquence** : ne pas propager comme fait établi l'ancienne supposition qu'un script Python serait présent à cette racine. Si un script est retrouvé plus tard, l'enregistrer avec son identifiant source exact et son emplacement.
+Cette entrée est conservée pour documenter l'erreur de méthode ; elle ne doit plus être utilisée comme vérité actuelle.
+
+## D022 — 2026-08-09 — Correction : script Python confirmé à la racine
+
+**Preuve supérieure** : la liste directe du dossier `RAPO / Rapport V2` confirme `telecharger_rapports_brvm.py`.
+
+- Drive ID : `1F1WRVMG4C27EOTMq5Gt9FT9Mosv-Rryz`
+- taille : `14546` octets
+- MIME : `text/x-python`
+- mapping embarqué : 48 sociétés
+
+**Décision** : pour établir la présence/contenu direct d'un dossier Drive, privilégier `list_folder`/inventaire direct plutôt qu'une recherche textuelle qui peut omettre un objet.
+
+Le script est une provenance du processus de collecte, mais **pas** la source de vérité pour les périodes économiques.
+
+## D023 — 2026-08-09 — Méthode P1 d'inventaire
+
+P1 est construit à partir de l'arborescence réelle :
+
+`RACINE → DOSSIER SOCIÉTÉ → SOUS-DOSSIERS DIRECTS → FICHIERS → MÉTADONNÉES/HASH → VERSIONS/DOUBLONS → PÉRIODES RÉELLES`.
+
+Un suffixe de fichier `_2`, `_3`, etc. indique seulement une collision de nom historique jusqu'à preuve par hash ; il ne suffit pas à conclure à un doublon.
