@@ -18,112 +18,94 @@ Tout agent doit reprendre le projet au point officiel, préserver l'existant et 
 
 ## Roadmap canonique
 
-Le plan complet est dans `ROADMAP.md`.
-
-Séquence :
-
 `P0 GOUVERNANCE → P1 SOURCE/INVENTAIRE + P1-R RECOGNITION → P1-FRESH COLLECTEUR → P2 RAW SCHEMA → P3 RAW EXTRACTION → P4 QUALITY/LINEAGE → P5 MAPPED → P6 CANONICAL → P7 DERIVED → P8 ANALYTICS`.
 
-Architecture de données inchangée : `SOURCE → RAW → MAPPED → CANONICAL → DERIVED → ANALYTICS`.
+Architecture : `SOURCE → RAW → MAPPED → CANONICAL → DERIVED → ANALYTICS`.
 
-## P0 — Gouvernance initiale
+## P0 — Gouvernance
 
-**STATUT : COMPLETE**
+**COMPLETE**
 
-## P1 — Inventaire documentaire exhaustif
+## P1 — Inventaire SOURCE
 
-**STATUT : IN_PROGRESS / BATCH_FAST**
+**IN_PROGRESS / BATCH_FAST**
 
-### Changement de cadence validé
+Méthode : inventorier par lots, réserver la revue détaillée aux anomalies et faire progresser P1-R en parallèle.
 
-Décision `D031` : l'inventaire est un moyen, pas la finalité.
+### Émetteurs inventoriés
 
-Dorénavant :
+1. SIVC — 53
+2. BOABF — 57
+3. BOAB — 59
+4. BOAC — 60
+5. BOAM — 44
+6. BOAN — 60
+7. BOAS — 43
+8. BNBC — 78
+9. BICC — 61
+10. BIIC — 2
+11. AGLC — 60
+12. CFAC — 94
 
-- traiter les métadonnées Drive par lots d'émetteurs ;
-- éviter la rédaction répétitive lorsqu'aucune anomalie n'existe ;
-- réserver la revue détaillée aux dossiers vides, versions, doublons, erreurs d'attribution et autres exceptions ;
-- poursuivre jusqu'à 48/48 plus rapidement.
+**Total : 671 fichiers recensés sur 12/48 émetteurs.**
 
-### P1-R — PDF_RECOGNITION_DISCOVERY
+Restant : **36 émetteurs**.
 
-**STATUT : ACTIVE_IN_PARALLEL**
+### Lot 8–12 — anomalies/patterns utiles
 
-Référence : `docs/PDF_RECOGNITION_STRATEGY.md`.
+- BNBC : 28 dossiers 1998–2025, nombreuses collisions historiques ;
+- BICC : 28 dossiers 1998–2025, `2019_Etats_Financiers_BICC_rev.pdf`, T2 présent ;
+- BIIC : seulement dossiers 2024/2025 et 2 PDF en 2025 ; 2024 vide ;
+- AGLC : 28 dossiers 1998–2025, comptes IFRS individuels/consolidés distincts, T1 2025 + T1 2025 rev ;
+- CFAC : 26 dossiers, 94 PDF, collisions jusqu'à `_11`, EF 2023 rev, faits émetteur + contexte marché à distinguer.
 
-But : reconnaître les structures nécessaires à la future création automatique des bases de données sans prétendre avoir déjà réalisé P3.
+## P1-R — PDF_RECOGNITION_DISCOVERY
 
-À profiler en parallèle :
+**ACTIVE_IN_PARALLEL**
 
-- rapports annuels anciens/récents ;
-- états financiers détaillés ;
-- T1/T3/S1/S2 ;
-- CAC/attestations ;
-- documents divers/révisés.
+Premiers profils vérifiés sur contenu réel :
 
-À reconnaître :
+- `docs/recognition_profiles/BANKING_FINANCIAL_STATEMENTS_BICC_2022.md`
+- `docs/recognition_profiles/BANKING_ACTIVITY_BIIC_T2_2025.md`
 
-- type de document/état ;
-- pages/sections/tableaux ;
-- géométrie lignes/colonnes/cellules ;
-- labels et codes source ;
-- périodes/comparatifs ;
-- unités/multiplicateurs/devises ;
-- scopes ;
-- faits financiers, opérationnels, corporate, audit, réglementaires et textuels.
+### Règles de reconnaissance désormais vérifiées
 
-Objectif : produire un moteur générique `PDF → reconnaissance → faits candidats → validation → RAW database`, pas 48 parseurs spécifiques.
+- BICC 2022 : ACTIF/PASSIF côte à côte + hors-bilan + résultat ; géométrie de tableau nécessaire ;
+- BIIC : le contenu visible confirme `DEUXIEME TRIMESTRE 2025` ; T2 est supporté ;
+- PDF BIIC : métadonnée interne `Title` incohérente avec le contenu visible → `DOCUMENT_METADATA_MISMATCH` ;
+- `juin-25` peut être STOCK dans le bilan et FLOW/cumul dans le résultat ;
+- variations valeur/% explicitement publiées = RAW `PUBLISHED` ;
+- tableau en millions et narratif en milliards/arrondi = observations documentaires distinctes avant réconciliation ;
+- `_2/_3/...` = collision, pas doublon ; `_rev` = version à revoir ;
+- framework IFRS et scope individuel/consolidé sont indépendants ;
+- un corpus court/lacunaire est un état SOURCE valide, jamais à compléter artificiellement.
 
-### Socle P1 terminé
+Référence complète : `docs/PDF_RECOGNITION_STRATEGY.md` et décision `D032`.
 
-- racine `RAPO / Rapport V2` vérifiée ;
-- 48 dossiers société confirmés ;
-- script historique `telecharger_rapports_brvm.py` confirmé et analysé ;
-- méthode d'inventaire directe documentée ;
-- règle d'attribution émetteur documentée ;
-- plan collecteur V2 documenté ;
-- roadmap de bout en bout créée ;
-- stratégie de reconnaissance PDF créée.
+## P1-FRESH
 
-### Émetteurs P1 inventoriés
+Design V2 documenté mais non activé. Aucun delta distant n'est téléchargé automatiquement pendant P1.
 
-1. SIVC — 53 fichiers — `inventory/SIVC.md`
-2. BOABF — 57 fichiers — `inventory/BOABF.md`
-3. BOAB — 59 fichiers — `inventory/BOAB.md`
-4. BOAC — 60 fichiers — `inventory/BOAC.md`
-5. BOAM — 44 fichiers — `inventory/BOAM.md`
-6. BOAN — 60 fichiers — `inventory/BOAN.md`
-7. BOAS — 43 fichiers — `inventory/BOAS.md`
+## Passes transversales encore ouvertes
 
-### Deltas de fraîcheur documentés
-
-- BOAC : EF 2025 et T1 2026 au minimum ;
-- BOAM : T3 2025, EF 2025 et T1 2026 au minimum ;
-- BOAN : S2/annuels 2025 et T1 2026 au minimum ;
-- BOAS : T1 2026 et états financiers T1 2026 au minimum.
-
-Statut : `REMOTE_DELTA_IDENTIFIED`.
-
-Aucun de ces deltas n'est téléchargé automatiquement pendant P1.
-
-### Progression P1
-
-- inventaires dossiers/fichiers documentés : **7 / 48** ;
-- restant : **41** ;
-- hash global : `NOT_COMPLETE` ;
-- périodes économiques exhaustives : `NOT_COMPLETE` ;
-- manifeste machine-lisible consolidé : `NOT_COMPLETE` ;
-- profils PDF réutilisables : `IN_PROGRESS`.
+- hash global ;
+- manifeste machine-lisible ;
+- versions/doublons ;
+- périodes économiques exhaustives ;
+- attribution et couverture documentaire ;
+- réconciliation BRVM courante.
 
 ## Prochaine action exacte
 
-Continuer P1 en **lots de plusieurs émetteurs**, à partir de **BNBC — Bernabé Côte d'Ivoire**, sans refaire les sept premiers.
+Continuer P1 en mode batch à partir du **13e émetteur : CIE - CIEC**.
 
-En parallèle, enrichir les profils de reconnaissance uniquement lorsqu'un nouveau type de document/tableau/metric/scope est découvert.
+Important : CIEC a déjà servi de deep pilot conceptuel. Ne pas refaire l'analyse de zéro. Faire son inventaire SOURCE P1 rapidement puis utiliser un PDF utility représentatif seulement si cela apporte un pattern P1-R non encore documenté.
 
-## Règle anti-perte de contexte
+Puis poursuivre dans l'ordre V1 :
 
-Avant toute reprise, lire dans cet ordre :
+`CIEC → CBIBF → SEMC → ECOC → ETIT ...`
+
+## Ordre de reprise obligatoire
 
 1. `GOVERNANCE.md`
 2. `AGENTS.md`
@@ -133,10 +115,9 @@ Avant toute reprise, lire dans cet ordre :
 6. `DECISIONS.md`
 7. `TODO.md`
 8. `SOURCES.md`
-9. `inventory/README.md`
-10. `docs/PDF_RECOGNITION_STRATEGY.md`
-11. `docs/BRVM_COLLECTOR_V2_PLAN.md`
+9. `docs/PDF_RECOGNITION_STRATEGY.md`
+10. inventaires existants
 
 ## Point de reprise exact
 
-`P1_BATCH_FAST → INVENTORY_COMPLETE_7_OF_48 → NEXT_BATCH_START = BNBC + P1-R ACTIVE`
+`P1_BATCH_FAST → INVENTORY_COMPLETE_12_OF_48 → 671_FILES → NEXT = CIEC + P1-R ACTIVE`
