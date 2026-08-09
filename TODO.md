@@ -24,7 +24,23 @@ Backlog canonique. Ne pas considérer une tâche terminée tant que le résultat
 
 ## P1 — Inventaire documentaire exhaustif
 
-Pour chaque société du corpus :
+**Statut : IN_PROGRESS**
+
+### Socle P1
+
+- [x] Créer `inventory/README.md`.
+- [x] Créer `inventory/P1_ROOT_MANIFEST.md`.
+- [x] Vérifier les 48 dossiers société à la racine.
+- [x] Identifier et documenter `telecharger_rapports_brvm.py`.
+- [x] Définir la méthode d'inventaire direct depuis Drive.
+
+### Émetteurs inventoriés au niveau dossiers/fichiers
+
+- [x] SIVC — Air Liquide Côte d'Ivoire : 22 dossiers annuels, 53 fichiers ; hash en attente.
+- [x] BOABF — Bank of Africa Burkina Faso : 18 dossiers (dont `divers`), 57 fichiers ; hash partiel.
+- [ ] 46 autres émetteurs.
+
+### Travail à réaliser pour chaque société
 
 - [ ] inventorier tous les dossiers ;
 - [ ] inventorier tous les fichiers ;
@@ -34,6 +50,14 @@ Pour chaque société du corpus :
 - [ ] déterminer les périodes économiques réellement couvertes ;
 - [ ] identifier les années couvertes par des fichiers rangés dans `divers` ;
 - [ ] mesurer la couverture documentaire réelle.
+
+### Sous-étapes transversales encore ouvertes
+
+- [ ] produire un inventaire machine lisible consolidé des 48 sociétés ;
+- [ ] collecter/calculer les hash de tous les fichiers ;
+- [ ] rapprocher les candidats `_2/_3/...` par hash/contenu ;
+- [ ] relier les documents explicitement `annule et remplace` ;
+- [ ] résoudre les périodes économiques depuis le contenu, pas le classement.
 
 ## P2 — Schéma RAW v1
 
@@ -50,64 +74,19 @@ Pour chaque société du corpus :
 
 ## P3 — Extraction RAW exhaustive
 
-Ordre recommandé : procéder société par société et document par document, sans sauter directement aux analytics.
-
-- [ ] BOABF : compléter toutes les années/documents après le pilote 2009 ;
-- [ ] autres banques ;
-- [ ] télécoms ;
-- [ ] utilities/concessions ;
-- [ ] industrie ;
-- [ ] agriculture/plantations ;
-- [ ] logistique/BTP/automobile/hydrocarbures/autres secteurs.
-
-Pour chaque document :
-
-- [ ] extraction native ;
-- [ ] rendu visuel si nécessaire ;
-- [ ] OCR seulement si nécessaire ;
-- [ ] extraction exhaustive des tableaux ;
-- [ ] extraction des textes/disclosures pertinents ;
-- [ ] validation ;
-- [ ] issues pour cellules ambiguës ;
-- [ ] contrôle des comparatifs ;
-- [ ] contrôle unité/devise/multiplicateur ;
-- [ ] contrôle période/scope.
+À commencer seulement après couverture P1 suffisante.
 
 ## P4 — Contrôles qualité
 
-- [ ] équilibre bilan actif/passif lorsqu'applicable ;
-- [ ] contrôles sous-totaux/totaux sans corriger le RAW ;
-- [ ] comparaison multi-documents ;
-- [ ] détection incohérences publiées ;
-- [ ] couverture par période ;
-- [ ] couverture par famille d'états ;
-- [ ] journal des anomalies.
+À développer parallèlement à l'extraction RAW, sans corriger silencieusement la source.
 
 ## P5 — MAPPED / CANONICAL
 
-À ne commencer qu'après couverture RAW suffisante :
-
-- [ ] dictionnaire de métriques ;
-- [ ] mapping libellés historiques ;
-- [ ] standards comptables ;
-- [ ] scopes ;
-- [ ] unités normalisées ;
-- [ ] référentiel sociétés/titres ;
-- [ ] validation multi-sectorielle.
+À ne commencer qu'après couverture RAW suffisante.
 
 ## P6 — DERIVED / ANALYTICS
 
-À traiter ultérieurement :
-
-- [ ] croissance ;
-- [ ] trimestres autonomes ;
-- [ ] TTM ;
-- [ ] CAGR ;
-- [ ] marges ;
-- [ ] ratios ;
-- [ ] valorisations ;
-- [ ] classements/screeners ;
-- [ ] analyses quantitatives/IA.
+À traiter ultérieurement.
 
 ## Rappel permanent
 
