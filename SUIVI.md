@@ -49,18 +49,25 @@ Architecture : `SOURCE → RAW → MAPPED → CANONICAL → DERIVED → ANALYTIC
 15. SEMC — 54
 16. ECOC — 32
 17. ETIT — 81
+18. FTSC — 88
+19. MVSC — 20
+20. NEIC — 86
+21. NTLC — 81
+22. NSBC — 38
 
-**Total : 907 fichiers recensés sur 17/48 émetteurs.**
+**Total : 1 220 fichiers recensés sur 22/48 émetteurs.**
 
-Restant : **31 émetteurs**.
+Restant : **26 émetteurs**.
 
-### Lot 13–17 — anomalies/patterns utiles
+### Lot 18–22 — anomalies/patterns utiles
 
-- CIEC : 29 dossiers (1998–2025 + `divers`), 61 PDF ; deep pilot conceptuel déjà existant ; EF 2017 révisés ;
-- CBIBF : 4 dossiers 2022–2025, 8 PDF ; 2022 vide ;
-- SEMC : 25 dossiers, 54 PDF ; 2002 absent, pas de dossier 2024/2025 dans le corpus observé, `divers` CAC ;
-- ECOC : 9 dossiers 2017–2025, 32 PDF ; couples T1 2023/T1 rev et T3 2024/T3 rev ;
-- ETIT : 23 dossiers 2003–2025, 81 PDF ; collisions historiques importantes et corpus multi-devise/consolidé.
+- FTSC : 28 dossiers 1998–2025, 88 PDF ; historique long et publications modernes T1/S1/T3/EF/CAC ;
+- MVSC : 24 dossiers 1998–2020 + `divers`, 20 PDF ; couverture fichier faible par rapport à l'arborescence, `divers` EF ;
+- NEIC : 27 dossiers, 86 PDF ; 2015 absent, collisions historiques et double EF 2024 ;
+- NTLC : 28 dossiers 1998–2025, 81 PDF ; deep pilot déjà existant, EF 2024 original + révision ;
+- NSBC : 10 dossiers 2017–2025 + `divers`, 38 PDF ; EF 2021 original + révision.
+
+Aucune nouvelle dimension conceptuelle n'a été ajoutée pour ce lot : les anomalies observées sont déjà couvertes par les règles de version, lacune SOURCE, périodes depuis contenu et conservation des deep pilots.
 
 ## P1-R — PDF_RECOGNITION_DISCOVERY
 
@@ -72,20 +79,9 @@ Profils vérifiés :
 - `docs/recognition_profiles/BANKING_ACTIVITY_BIIC_T2_2025.md`
 - `docs/recognition_profiles/TRANSNATIONAL_BANKING_ETIT_2023_FINANCIAL_STATEMENTS.md`
 
-### ETIT 2023 — nouvelles preuves
+Deep pilots déjà acquis et à ne pas refaire : CIEC, NTLC, SNTS, BOABF.
 
-Le PDF `2023_Etats_Financiers_ETIT.pdf` a été rendu visuellement :
-
-- 6 pages, Excel natif ;
-- consolidé IFRS ;
-- états détaillés en milliers USD ;
-- tableau de synthèse simultanément en milliers USD et millions FCFA ;
-- variations publiées distinctes selon la devise ;
-- résultat consolidé ventilé entre part du Groupe, autres détenteurs de capitaux propres et intérêts minoritaires.
-
-Décision `D033` : `source_currency` au niveau fact et nouvelle dimension candidate `ownership_attribution_raw`, documentée mais non implémentée SQL.
-
-La même observation a été ajoutée au document Drive canonique `BRVM_RAW_DATABASE — Gouvernance, architecture et observations conceptuelles` avant toute évolution de schéma.
+Décision `D033` reste la dernière extension conceptuelle : `ownership_attribution_raw` candidate, documentée dans GitHub et dans le document Drive canonique, non implémentée SQL.
 
 ## P1-FRESH
 
@@ -104,7 +100,7 @@ Design V2 documenté mais non activé. Aucun delta distant n'est téléchargé a
 
 Continuer immédiatement P1 en mode batch avec :
 
-`FTSC → MVSC → NEIC → NTLC → NSBC`
+`ONTBF → ORGT → ORAC → PALC → SAFC`
 
 Puis poursuivre dans l'ordre V1 sans refaire les deep pilots déjà étudiés.
 
@@ -123,4 +119,4 @@ Puis poursuivre dans l'ordre V1 sans refaire les deep pilots déjà étudiés.
 
 ## Point de reprise exact
 
-`P1_BATCH_FAST → INVENTORY_COMPLETE_17_OF_48 → 907_FILES → NEXT_BATCH = FTSC,MVSC,NEIC,NTLC,NSBC + P1-R ACTIVE`
+`P1_BATCH_FAST → INVENTORY_COMPLETE_22_OF_48 → 1220_FILES → NEXT_BATCH = ONTBF,ORGT,ORAC,PALC,SAFC + P1-R ACTIVE`
