@@ -17,8 +17,9 @@ Dépôt canonique : `Patricked-code/financialdata`. Travail direct sur `main` un
 - [x] V6 : **2 999 PDF** après UNLC `+3`.
 - [x] V7 : **3 011 PDF** après ORGT `+12`.
 - [x] V8 : **3 013 PDF** après SHEC `+2`.
-- [x] V9 courant : **3 028 PDF** après STAC `+15`.
-- [x] checkpoint courant : `inventory/P1_48_ISSUERS_CHECKPOINT_v9_20260809.md`.
+- [x] V9 : **3 028 PDF** après STAC `+15`.
+- [x] V10 courant : **3 031 PDF** après NSBC `+3`.
+- [x] checkpoint courant : `inventory/P1_48_ISSUERS_CHECKPOINT_v10_20260810.md`.
 - [x] index live : `inventory/p1_issuer_manifest.csv`.
 - [ ] continuer la revérification live société par société pendant les passes transversales.
 
@@ -27,7 +28,7 @@ Dépôt canonique : `Patricked-code/financialdata`. Travail direct sur `main` un
 - [x] schéma : `docs/P1_DOCUMENT_MANIFEST_SCHEMA.md`.
 - [x] stratégie shards : `docs/P1_MANIFEST_SHARDING.md`.
 - [x] maître créé : `inventory/p1_document_manifest.csv`.
-- [x] maître consolidé : **14 / 3 028** lignes.
+- [x] maître consolidé : **14 / 3 031** lignes.
 - [x] BIIC 2/2.
 - [x] TRITRAF 8/8.
 - [x] CBIBF 15/15 dans `inventory/manifests/CBIBF.csv`.
@@ -38,8 +39,9 @@ Dépôt canonique : `Patricked-code/financialdata`. Travail direct sur `main` un
 - [x] ORGT : 35/35 Drive IDs, parents, tailles et SHA identifiés.
 - [x] SHEC : 39/39 Drive IDs, parents, tailles et SHA identifiés.
 - [x] STAC : 53/53 Drive IDs, parents, tailles et SHA identifiés.
-- [ ] backfill métadonnées temporelles + shards compatibles SICC/MVSC/UNLC/ORGT/SHEC/STAC.
-- [ ] NSBC : revérifier le total live avant hash.
+- [x] NSBC : **41/41 Drive IDs, parents et tailles identifiés ; 41/41 fichiers matérialisés**.
+- [ ] NSBC : calculer SHA 41/41 dès rétablissement d'un runtime binaire exécutable.
+- [ ] backfill métadonnées temporelles + shards compatibles SICC/MVSC/UNLC/ORGT/SHEC/STAC/NSBC.
 - [ ] poursuivre ensuite tous les autres émetteurs.
 
 ### SHA-256
@@ -53,9 +55,9 @@ Dépôt canonique : `Patricked-code/financialdata`. Travail direct sur `main` un
 - [x] ORGT 35/35 — `inventory/hashes/ORGT.csv`.
 - [x] SHEC 39/39 — `inventory/hashes/SHEC.csv`.
 - [x] STAC 53/53 — `inventory/hashes/STAC.csv`.
-- [x] total SHA : **265 / 3 028**.
-- [x] groupes de doublons exacts : **3** dans `inventory/p1_duplicate_groups.csv`.
-- [ ] poursuivre NSBC puis corpus courts suivants.
+- [x] total SHA effectivement calculés : **265 / 3 031**.
+- [x] groupes de doublons exacts prouvés : **3** dans `inventory/p1_duplicate_groups.csv`.
+- [ ] NSBC SHA 41/41 — `BLOCKED_RUNTIME_NOT_COMPUTED`, ne pas inventer les hashes.
 
 ### Doublons / versions
 
@@ -70,14 +72,20 @@ Dépôt canonique : `Patricked-code/financialdata`. Travail direct sur `main` un
 - [x] ORGT : paires EF/CAC proches non fusionnées.
 - [x] SHEC EF 2021 plain / `_2` et EF 2023 plain / `_2` : binaires distincts.
 - [x] STAC séries `_2/_3/_4` et EF 2019 `_rev` : tous binaires distincts.
+- [x] NSBC T1 2019 plain → `_rev` : `CORRECTED_VERSION_OF / SUPERSEDES` validé par le contenu.
+- [x] NSBC EF 2021 plain → `_rev` : `SUPERSEDES` validé par la mention « annule et remplace » et valeurs corrigées.
+- [x] NSBC EF 2019 plain / `_2` : tailles différentes, donc pas de doublon binaire exact.
+- [ ] NSBC EF 2019 plain / `_2` : relation sémantique à qualifier par revue visuelle, aucun texte natif exposé.
 - [ ] relations sémantiques/version restantes.
 
 ### Qualité / cohérence
 
 - [x] ORAC : tailles du registre SHA revalidées contre Drive ; hashes confirmés.
 - [x] MVSC/UNLC/ORGT/SHEC/STAC : contrôle taille Drive ↔ fichier hashé appliqué pendant la passe.
+- [x] NSBC : total live 41 validé strictement par parents + MIME ; tailles Drive relevées pendant matérialisation.
+- [x] NSBC : nouvelles règles de correction/supersession documentées dans le Google Doc canonique de gouvernance le 2026-08-10.
 - [ ] backfill des métadonnées temporelles des shards incomplets.
-- [ ] appliquer systématiquement taille Drive ↔ taille du fichier hashé avant statut final.
+- [ ] appliquer systématiquement taille Drive ↔ taille du fichier hashé avant statut SHA final.
 
 ### Autres passes
 
@@ -85,6 +93,7 @@ Dépôt canonique : `Patricked-code/financialdata`. Travail direct sur `main` un
 - [ ] attribution émetteur/document ;
 - [ ] couverture documentaire ;
 - [ ] P1-FRESH / réconciliation BRVM courante.
+- [ ] poursuivre `ECOC` : revérification live stricte avant hash/métadonnées.
 
 ## P1-R
 
