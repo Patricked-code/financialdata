@@ -23,8 +23,9 @@ Git : `main` uniquement, aucune branche/PR normale.
 - V7 après ORGT : **3 011 PDF** ;
 - V8 après SHEC : **3 013 PDF** ;
 - V9 après STAC : **3 028 PDF** ;
-- état live courant V10 après NSBC : **3 031 PDF** ;
-- checkpoint live : `inventory/P1_48_ISSUERS_CHECKPOINT_v10_20260810.md` ;
+- V10 après NSBC : **3 031 PDF** ;
+- état live courant V11 après ECOC : **3 041 PDF** ;
+- checkpoint live : `inventory/P1_48_ISSUERS_CHECKPOINT_v11_20260810.md` ;
 - index live : `inventory/p1_issuer_manifest.csv`.
 
 ### Deltas live observés
@@ -37,7 +38,8 @@ Git : `main` uniquement, aucune branche/PR normale.
 - ORGT : **23 → 35 PDF** (`+12`) ;
 - SHEC : **37 → 39 PDF** (`+2`) ;
 - STAC : **38 → 53 PDF** (`+15`) ;
-- NSBC : **38 → 41 PDF** (`+3`).
+- NSBC : **38 → 41 PDF** (`+3`) ;
+- ECOC : **32 → 42 PDF** (`+10`).
 
 Les snapshots antérieurs sont conservés dans Git. Aucun état SOURCE n'est réécrit silencieusement.
 
@@ -47,14 +49,14 @@ Schéma : `docs/P1_DOCUMENT_MANIFEST_SCHEMA.md`.
 Stratégie incrémentale : `docs/P1_MANIFEST_SHARDING.md`.
 
 - cible maître : `inventory/p1_document_manifest.csv` ;
-- lignes actuellement consolidées dans le maître : **14 / 3 031** ;
+- lignes actuellement consolidées dans le maître : **14 / 3 041** ;
 - shards compatibles complets existants : CBIBF 15/15, ORAC 21/21 ;
-- SICC 36/36, MVSC 35/35, UNLC 23/23, ORGT 35/35, SHEC 39/39 et STAC 53/53 sont indexés par Drive ID + taille + SHA mais nécessitent encore le backfill complet des métadonnées de shard avant consolidation canonique ;
-- NSBC : **41 / 41 sources live identifiées et matérialisées**, Drive IDs/parents/tailles connus ; SHA encore non calculés à cause d'un blocage technique du runtime local.
+- SICC 36/36, MVSC 35/35, UNLC 23/23, ORGT 35/35, SHEC 39/39, STAC 53/53 et NSBC 41/41 disposent de Drive IDs + tailles + SHA ; backfill métadonnées temporelles encore requis avant consolidation canonique complète ;
+- ECOC : **42 sources live** bornées par parents + MIME ; revue de versions et hash en cours.
 
 ## P1_TRANSVERSE — SHA256
 
-- SHA calculés et vérifiés : **265 / 3 031** ;
+- SHA calculés et vérifiés : **306 / 3 041** ;
 - TRITRAF : **8 / 8** ;
 - CBIBF : **15 / 15** ;
 - ORAC : **21 / 21** ;
@@ -64,7 +66,7 @@ Stratégie incrémentale : `docs/P1_MANIFEST_SHARDING.md`.
 - ORGT : **35 / 35** ;
 - SHEC : **39 / 39** ;
 - STAC : **53 / 53** ;
-- NSBC : **0 / 41 SHA calculés dans la passe actuelle** ; 41/41 fichiers matérialisés mais le runtime local a échoué avant exécution du calcul. Aucun hash n'est inventé.
+- NSBC : **41 / 41** — 41 tailles Drive ↔ locales validées, 41 SHA uniques, zéro doublon exact ; registre `inventory/hashes/NSBC.csv`.
 
 ### Doublons exacts
 
@@ -79,11 +81,14 @@ Tous les objets physiques restent conservés dans SOURCE. Les groupes sont enreg
 ### Résultats récents
 
 - STAC : **53 fichiers / 53 contenus uniques**, aucune duplication binaire ;
-- NSBC : live **41 fichiers**, tous matérialisés ;
-- NSBC T1 2019 `_rev` : **correction/supersession sémantique validée** par mention « Version corrigée » et correction explicite des comparatifs 2018 ;
-- NSBC EF 2021 `_rev` : **supersession sémantique validée** par mention « annule et remplace la parution du 04 avril 2022 » ; résultat net 2021 20 998 → 23 713 M FCFA ;
-- NSBC EF 2019 plain / `_2` : tailles distinctes (1 325 452 vs 8 069 372 octets), donc pas un doublon binaire exact ; relation sémantique à contrôler visuellement car aucun texte natif n'est exposé ;
-- ces deux cas de version NSBC ont été ajoutés au document canonique Drive de gouvernance le 2026-08-10.
+- NSBC : **41 fichiers / 41 contenus uniques**, aucune duplication binaire ;
+- NSBC T1 2019 `_rev` : correction/supersession validée par mention « Version corrigée » et correction explicite des comparatifs 2018 ;
+- NSBC EF 2021 `_rev` : supersession validée par mention « annule et remplace la parution du 04 avril 2022 » ; résultat net 2021 20 998 → 23 713 M FCFA ;
+- NSBC EF 2019 plain / `_2` : hashes différents ; relation sémantique encore `VISUAL_REVIEW_REQUIRED` ;
+- ECOC : live **42 PDF**, contre 32 auparavant ; 2017 contient bien un PDF T3, invalidant l'ancien constat d'absence ;
+- ECOC T1 2023 plain / `_rev` : tailles 779 465 / 730 440 octets, texte natif non exposé, donc pas de doublon exact et revue visuelle requise ;
+- ECOC T3 2024 plain / `_rev` : texte extrait matériellement identique, tailles 189 741 / 189 006 octets ; aucune supersession sémantique démontrée ;
+- ECOC annuel 2024 plain / `_rev` : extraction texte partielle similaire ; revue binaire/visuelle en cours.
 
 ## P1-R
 
@@ -92,12 +97,13 @@ Deep pilots : BOABF, CIEC, NTLC, SNTS.
 
 ## Prochaine action exacte
 
-1. retenter le SHA-256 NSBC 41/41 dès qu'un runtime binaire exécutable est disponible ;
-2. pendant ce blocage local, poursuivre sans arrêt les contrôles SOURCE réalisables via Drive : revérification live des prochains corpus courts non hashés, relations de version explicites et métadonnées documentaires ;
-3. prochain corpus prioritaire : `ECOC` (ancien snapshot 32 PDF), à recompter strictement par dossiers parents + MIME avant toute conclusion ;
-4. backfiller progressivement les shards SICC/MVSC/UNLC/ORGT/SHEC/STAC/NSBC ;
-5. ne pas lancer P2 tant que la couverture P1/P1-R n'est pas jugée suffisante.
+1. terminer ECOC 42/42 : matérialisation, tailles, SHA-256, doublons exacts ;
+2. rendre visuellement les couples ECOC 2023 T1 et 2024 annuel lorsque le texte natif ne suffit pas ;
+3. qualifier les relations `_rev` uniquement sur preuve ;
+4. poursuivre ensuite les autres corpus non hashés avec revérification live préalable ;
+5. backfiller progressivement les shards document-level ;
+6. ne pas lancer P2 tant que la couverture P1/P1-R n'est pas jugée suffisante.
 
 ## Point de reprise exact
 
-`48/48 ISSUERS | LIVE_TOTAL=3031 | MASTER_CONSOLIDATED=14/3031 | SHA256_VERIFIED=265/3031 | EXACT_DUPLICATE_GROUPS=3 | NSBC_LIVE=41/41_MATERIALIZED | NSBC_SHA=BLOCKED_RUNTIME_NOT_COMPUTED | NSBC_VERSION_LINKS=2_VALIDATED | NEXT=ECOC_LIVE_RECHECK`
+`48/48 ISSUERS | LIVE_TOTAL=3041 | MASTER_CONSOLIDATED=14/3041 | SHA256_VERIFIED=306/3041 | EXACT_DUPLICATE_GROUPS=3 | NSBC=41/41_SHA_COMPLETE | ECOC_LIVE=42 | NEXT=ECOC_HASH_AND_VISUAL_VERSION_REVIEW`
