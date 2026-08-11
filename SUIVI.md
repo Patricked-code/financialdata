@@ -1,6 +1,6 @@
 # SUIVI — financialdata
 
-Dernière mise à jour : 2026-08-10
+Dernière mise à jour : 2026-08-11
 
 ## Point de reprise courant
 
@@ -51,12 +51,12 @@ Stratégie incrémentale : `docs/P1_MANIFEST_SHARDING.md`.
 - cible maître : `inventory/p1_document_manifest.csv` ;
 - lignes actuellement consolidées dans le maître : **14 / 3 041** ;
 - shards compatibles complets existants : CBIBF 15/15, ORAC 21/21 ;
-- SICC 36/36, MVSC 35/35, UNLC 23/23, ORGT 35/35, SHEC 39/39, STAC 53/53 et NSBC 41/41 disposent de Drive IDs + tailles + SHA ; backfill métadonnées temporelles encore requis avant consolidation canonique complète ;
-- ECOC : **42 sources live** bornées par parents + MIME ; revue de versions et hash en cours.
+- SICC 36/36, MVSC 35/35, UNLC 23/23, ORGT 35/35, SHEC 39/39, STAC 53/53, NSBC 41/41 et ECOC 42/42 disposent de Drive IDs + tailles + SHA ; backfill métadonnées temporelles encore requis avant consolidation canonique complète ;
+- ECOC : **42 sources live**, SHA 42/42 et revue des variantes explicites terminés.
 
 ## P1_TRANSVERSE — SHA256
 
-- SHA calculés et vérifiés : **306 / 3 041** ;
+- SHA calculés et vérifiés : **348 / 3 041** ;
 - TRITRAF : **8 / 8** ;
 - CBIBF : **15 / 15** ;
 - ORAC : **21 / 21** ;
@@ -66,15 +66,17 @@ Stratégie incrémentale : `docs/P1_MANIFEST_SHARDING.md`.
 - ORGT : **35 / 35** ;
 - SHEC : **39 / 39** ;
 - STAC : **53 / 53** ;
-- NSBC : **41 / 41** — 41 tailles Drive ↔ locales validées, 41 SHA uniques, zéro doublon exact ; registre `inventory/hashes/NSBC.csv`.
+- NSBC : **41 / 41** — 41 tailles Drive ↔ locales validées, 41 SHA uniques, zéro doublon exact ; registre `inventory/hashes/NSBC.csv` ;
+- ECOC : **42 / 42** — 42 tailles Drive ↔ locales validées, 41 SHA uniques, 1 groupe de doublon exact ; registre `inventory/hashes/ECOC.csv`.
 
 ### Doublons exacts
 
-Groupes exacts actuellement prouvés : **3**.
+Groupes exacts actuellement prouvés : **4**.
 
 1. CBIBF 2024 S1 plain / `_2` — SHA `8fb042a2d9fe05d6881c4496dedf54a68900159f2a4fcc1c6ae8bfeaf661bc05`.
 2. SHEC 2022 états financiers `_2` / `_3` — SHA `acdab75be25743dc0837258d686cfc5f2e2c6f76518078e6becc9a94ddb40f86`.
 3. SHEC 2025 états financiers plain / `_2` — SHA `b88401ae19d81d9dcd4a1723cd1929bad8c0269dfa811c06e7c9b878b58b61c0`.
+4. ECOC 2021 états financiers plain / `_2` — SHA `ca091608d953102461797fb13924c9bfb14357505a149bc20f924e41cde2ce7a`.
 
 Tous les objets physiques restent conservés dans SOURCE. Les groupes sont enregistrés dans `inventory/p1_duplicate_groups.csv`.
 
@@ -86,9 +88,11 @@ Tous les objets physiques restent conservés dans SOURCE. Les groupes sont enreg
 - NSBC EF 2021 `_rev` : supersession validée par mention « annule et remplace la parution du 04 avril 2022 » ; résultat net 2021 20 998 → 23 713 M FCFA ;
 - NSBC EF 2019 plain / `_2` : hashes différents ; relation sémantique encore `VISUAL_REVIEW_REQUIRED` ;
 - ECOC : live **42 PDF**, contre 32 auparavant ; 2017 contient bien un PDF T3, invalidant l'ancien constat d'absence ;
-- ECOC T1 2023 plain / `_rev` : tailles 779 465 / 730 440 octets, texte natif non exposé, donc pas de doublon exact et revue visuelle requise ;
-- ECOC T3 2024 plain / `_rev` : texte extrait matériellement identique, tailles 189 741 / 189 006 octets ; aucune supersession sémantique démontrée ;
-- ECOC annuel 2024 plain / `_rev` : extraction texte partielle similaire ; revue binaire/visuelle en cours.
+- ECOC 2021 EF plain / `_2` : **doublon binaire exact**, SHA `ca091608d953102461797fb13924c9bfb14357505a149bc20f924e41cde2ce7a` ;
+- ECOC T1 2023 plain → `_rev` : `CORRECTED_VERSION_OF / SUPERSEDES` validé visuellement ; commentaire PNB 16,9 → 25,8 Md FCFA et hausse des dépôts 26,5 % → 14,9 % ;
+- ECOC T3 2024 plain / `_rev` : hashes distincts, texte matériellement identique, différences de composition seulement ; `NO_SEMANTIC_SUPERSESSION_PROVEN` ;
+- ECOC annuel 2024 plain → `_rev` : `CORRECTED_VERSION_OF / SUPERSEDES` ; comparaison de rendu des 10 pages, seule la page 9 diffère avec correction **(55 320) → (52 320)** ;
+- rapport de preuve : `inventory/reviews/ECOC_VERSION_REVIEW_20260811.md`.
 
 ## P1-R
 
@@ -97,13 +101,13 @@ Deep pilots : BOABF, CIEC, NTLC, SNTS.
 
 ## Prochaine action exacte
 
-1. terminer ECOC 42/42 : matérialisation, tailles, SHA-256, doublons exacts ;
-2. rendre visuellement les couples ECOC 2023 T1 et 2024 annuel lorsque le texte natif ne suffit pas ;
-3. qualifier les relations `_rev` uniquement sur preuve ;
-4. poursuivre ensuite les autres corpus non hashés avec revérification live préalable ;
+1. vérifier en live le plus petit corpus restant sans registre SHA complet, en commençant par BIIC dont le snapshot historique ne compte que 2 PDF ;
+2. si le total BIIC live est confirmé ou corrigé, versionner immédiatement le nouveau snapshot avant hash ;
+3. matérialiser et hasher 100 % du corpus BIIC avec contrôle taille Drive ↔ fichier ;
+4. poursuivre ensuite les autres corpus non hashés par taille croissante, avec revérification live préalable ;
 5. backfiller progressivement les shards document-level ;
 6. ne pas lancer P2 tant que la couverture P1/P1-R n'est pas jugée suffisante.
 
 ## Point de reprise exact
 
-`48/48 ISSUERS | LIVE_TOTAL=3041 | MASTER_CONSOLIDATED=14/3041 | SHA256_VERIFIED=306/3041 | EXACT_DUPLICATE_GROUPS=3 | NSBC=41/41_SHA_COMPLETE | ECOC_LIVE=42 | NEXT=ECOC_HASH_AND_VISUAL_VERSION_REVIEW`
+`48/48 ISSUERS | LIVE_TOTAL=3041 | MASTER_CONSOLIDATED=14/3041 | SHA256_VERIFIED=348/3041 | EXACT_DUPLICATE_GROUPS=4 | ECOC=42/42_SHA_COMPLETE | ECOC_EXPLICIT_VERSION_REVIEW=COMPLETE | NEXT=BIIC_LIVE_RECHECK_AND_SHA`
