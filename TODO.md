@@ -30,7 +30,7 @@ Dépôt canonique : `Patricked-code/financialdata`. Travail direct sur `main` un
 - [x] stratégie shards : `docs/P1_MANIFEST_SHARDING.md`.
 - [x] maître créé : `inventory/p1_document_manifest.csv`.
 - [x] maître consolidé : **14 / 3 041** lignes.
-- [x] BIIC 2/2.
+- [x] BIIC 2/2 dans le snapshot historique — fraîcheur live à revérifier avant SHA.
 - [x] TRITRAF 8/8.
 - [x] CBIBF 15/15 dans `inventory/manifests/CBIBF.csv`.
 - [x] ORAC 21/21 dans `inventory/manifests/ORAC.csv`.
@@ -40,10 +40,10 @@ Dépôt canonique : `Patricked-code/financialdata`. Travail direct sur `main` un
 - [x] ORGT : 35/35 Drive IDs, parents, tailles et SHA identifiés.
 - [x] SHEC : 39/39 Drive IDs, parents, tailles et SHA identifiés.
 - [x] STAC : 53/53 Drive IDs, parents, tailles et SHA identifiés.
-- [x] NSBC : **41/41 Drive IDs, parents, tailles et SHA identifiés** ; registre `inventory/hashes/NSBC.csv`.
-- [x] ECOC : **42 PDF live bornés** par parents + MIME.
-- [ ] ECOC : matérialiser/hash 42/42 et qualifier les variantes.
-- [ ] backfill métadonnées temporelles + shards compatibles SICC/MVSC/UNLC/ORGT/SHEC/STAC/NSBC.
+- [x] NSBC : 41/41 Drive IDs, parents, tailles et SHA identifiés ; registre `inventory/hashes/NSBC.csv`.
+- [x] ECOC : **42/42 Drive IDs, tailles et SHA identifiés** ; registre `inventory/hashes/ECOC.csv` ; revue `inventory/reviews/ECOC_VERSION_REVIEW_20260811.md`.
+- [ ] BIIC : revérifier le total live puis calculer SHA 100 %.
+- [ ] backfill métadonnées temporelles + shards compatibles SICC/MVSC/UNLC/ORGT/SHEC/STAC/NSBC/ECOC.
 - [ ] poursuivre ensuite tous les autres émetteurs.
 
 ### SHA-256
@@ -57,16 +57,18 @@ Dépôt canonique : `Patricked-code/financialdata`. Travail direct sur `main` un
 - [x] ORGT 35/35 — `inventory/hashes/ORGT.csv`.
 - [x] SHEC 39/39 — `inventory/hashes/SHEC.csv`.
 - [x] STAC 53/53 — `inventory/hashes/STAC.csv`.
-- [x] NSBC 41/41 — `inventory/hashes/NSBC.csv`, **41 SHA uniques / 0 doublon exact**.
-- [x] total SHA effectivement calculés : **306 / 3 041**.
-- [x] groupes de doublons exacts prouvés : **3** dans `inventory/p1_duplicate_groups.csv`.
-- [ ] ECOC SHA 42/42.
+- [x] NSBC 41/41 — `inventory/hashes/NSBC.csv`, 41 SHA uniques / 0 doublon exact.
+- [x] ECOC 42/42 — `inventory/hashes/ECOC.csv`, **41 SHA uniques / 1 groupe exact**.
+- [x] total SHA effectivement calculés : **348 / 3 041**.
+- [x] groupes de doublons exacts prouvés : **4** dans `inventory/p1_duplicate_groups.csv`.
+- [ ] BIIC : SHA après revérification live.
 
 ### Doublons / versions
 
 - [x] CBIBF S1 2024 plain + `_2` : `EXACT_DUPLICATE`.
 - [x] SHEC EF 2022 `_2` + `_3` : `EXACT_DUPLICATE`.
 - [x] SHEC EF 2025 plain + `_2` : `EXACT_DUPLICATE`.
+- [x] ECOC EF 2021 plain + `_2` : `EXACT_DUPLICATE`, SHA `ca091608d953102461797fb13924c9bfb14357505a149bc20f924e41cde2ce7a`.
 - [x] TRITRAF 2004 plain + `_2` : SHA différents.
 - [x] ORAC : annuels `_rev` / `_2` non fusionnés.
 - [x] SICC : variantes `_2` / `_3` non fusionnées.
@@ -78,17 +80,19 @@ Dépôt canonique : `Patricked-code/financialdata`. Travail direct sur `main` un
 - [x] NSBC T1 2019 plain → `_rev` : `CORRECTED_VERSION_OF / SUPERSEDES` validé par le contenu et hashes distincts.
 - [x] NSBC EF 2021 plain → `_rev` : `SUPERSEDES` validé par la mention « annule et remplace » et hashes distincts.
 - [x] NSBC EF 2019 plain / `_2` : hashes différents ; relation sémantique encore à qualifier visuellement.
-- [x] ECOC T1 2023 plain / `_rev` : tailles différentes ; pas un doublon binaire exact ; revue visuelle requise.
-- [x] ECOC T3 2024 plain / `_rev` : texte extrait matériellement identique, tailles différentes ; aucune supersession prouvée.
-- [ ] ECOC annuel 2024 plain / `_rev` : comparer binaire + visuel.
-- [ ] relations sémantiques/version restantes.
+- [x] ECOC EF 2018 plain / `_2` : hashes différents, aucune fusion.
+- [x] ECOC T1 2023 plain → `_rev` : `CORRECTED_VERSION_OF / SUPERSEDES` validé visuellement.
+- [x] ECOC T3 2024 plain / `_rev` : hashes différents, aucune supersession sémantique démontrée.
+- [x] ECOC annuel 2024 plain → `_rev` : `CORRECTED_VERSION_OF / SUPERSEDES`, correction page 9 `(55 320) → (52 320)`.
+- [ ] relations sémantiques/version restantes hors variantes ECOC explicites.
 
 ### Qualité / cohérence
 
 - [x] ORAC : tailles du registre SHA revalidées contre Drive ; hashes confirmés.
-- [x] MVSC/UNLC/ORGT/SHEC/STAC/NSBC : contrôle taille Drive ↔ fichier hashé appliqué pendant la passe.
+- [x] MVSC/UNLC/ORGT/SHEC/STAC/NSBC/ECOC : contrôle taille Drive ↔ fichier hashé appliqué pendant la passe.
 - [x] NSBC : nouvelles règles de correction/supersession documentées dans le Google Doc canonique de gouvernance le 2026-08-10.
 - [x] ECOC : ancien constat d'absence 2017 invalidé ; un T3 2017 est présent dans le corpus live.
+- [x] ECOC : revue binaire + visuelle des variantes explicites documentée dans `inventory/reviews/ECOC_VERSION_REVIEW_20260811.md`.
 - [ ] backfill des métadonnées temporelles des shards incomplets.
 - [ ] appliquer systématiquement taille Drive ↔ taille du fichier hashé avant statut SHA final.
 
@@ -97,8 +101,8 @@ Dépôt canonique : `Patricked-code/financialdata`. Travail direct sur `main` un
 - [ ] périodes économiques depuis contenu ;
 - [ ] attribution émetteur/document ;
 - [ ] couverture documentaire ;
-- [ ] P1-FRESH / réconciliation BRVM courante.
-- [ ] poursuivre ECOC 42/42 puis le prochain corpus court non hashé.
+- [ ] P1-FRESH / réconciliation BRVM courante ;
+- [ ] revérifier BIIC live et le hasher, puis continuer les corpus non hashés par taille croissante.
 
 ## P1-R
 
