@@ -39,7 +39,7 @@ ordinal,ticker,pdf_count,inventory_path,status
 38,SOGC,106,inventory/SOGC.md,INVENTORIED
 39,SLBC,65,inventory/SLBC.md,INVENTORIED
 40,SNTS,101,inventory/SNTS.md,INVENTORIED
-41,SCRC,45,inventory/SCRC.md,INVENTORIED
+41,SCRC,45,inventory/SCRC.md,SHA256_COMPLETE
 42,TTLC,101,inventory/TTLC.md,INVENTORIED
 43,TTLS,45,inventory/TTLS.md,INVENTORIED
 44,PRSC,68,inventory/PRSC.md,INVENTORIED
