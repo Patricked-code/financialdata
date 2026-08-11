@@ -15,31 +15,32 @@ Dépôt canonique : `Patricked-code/financialdata`. Travail direct sur `main` un
 ### Document manifest
 
 - [x] schéma/sharding/maître créés ; maître consolidé **14 / 3 041**.
-- [x] BIIC 2/2, BOAS 43/43, BOAM 44/44, ECOC 42/42 : Drive IDs, tailles et SHA disponibles.
+- [x] BIIC 2/2, BOAS 43/43, BOAM 44/44, ECOC 42/42, SCRC 45/45 : Drive IDs, tailles et SHA disponibles.
 - [ ] backfill métadonnées temporelles et shards compatibles pour les corpus hashés.
 - [ ] poursuivre tous les émetteurs.
 
 ### SHA-256
 
-- [x] TRITRAF 8/8 ; CBIBF 15/15 ; ORAC 21/21 ; SICC 36/36 ; MVSC 35/35 ; UNLC 23/23 ; ORGT 35/35 ; SHEC 39/39 ; STAC 53/53 ; NSBC 41/41 ; ECOC 42/42 ; BIIC 2/2 ; BOAS 43/43 ; BOAM 44/44.
-- [x] total SHA calculés : **437 / 3 041**.
+- [x] TRITRAF 8/8 ; CBIBF 15/15 ; ORAC 21/21 ; SICC 36/36 ; MVSC 35/35 ; UNLC 23/23 ; ORGT 35/35 ; SHEC 39/39 ; STAC 53/53 ; NSBC 41/41 ; ECOC 42/42 ; BIIC 2/2 ; BOAS 43/43 ; BOAM 44/44 ; SCRC 45/45.
+- [x] total SHA calculés : **482 / 3 041**.
 - [x] groupes exacts : **6**.
-- [ ] prochain : SCRC ou TTLS, 45 PDF chacun, après revérification live.
+- [ ] prochain : TTLS 45 PDF après revérification live.
 
 ### Doublons / versions
 
-- [x] quatre groupes exacts antérieurs CBIBF/SHEC/ECOC.
-- [x] BOAM EF 2023 / rapport CAC annuel 2023 : `EXACT_DUPLICATE`, SHA `77f20998d8b1def30299a400bbe4584093fb54a6e40d05f7ab5fa7721896e31e`.
-- [x] BOAM CAC annuels 2024 plain / `_2` : `EXACT_DUPLICATE`, SHA `dc403fad3b516f6a94eecefafb56db518987c5fb3097edd0d68a7ffe8077f207`.
-- [x] BOAM T3/T4 2019 : même taille mais SHA différents.
-- [x] BOAM `2021_Etats_Financiers_BOAM_rev.pdf` : prédécesseur non retrouvé, aucune supersession démontrée ; revue `inventory/reviews/BOAM_VERSION_REVIEW_20260811.md`.
-- [ ] relations sémantiques/version restantes.
+- [x] six groupes exacts actuellement documentés dans `inventory/p1_duplicate_groups.csv`.
+- [x] BOAM EF 2023 / rapport CAC annuel 2023 et CAC annuels 2024 : doublons exacts.
+- [x] BOAM T3/T4 2019 : même taille, SHA différents.
+- [x] BOAM `_rev` 2021 : prédécesseur non retrouvé, aucune supersession prouvée.
+- [x] SCRC : **45 SHA uniques** ; toutes les variantes EF `plain/_2/_3` observées sont binaires distinctes.
+- [ ] relations sémantiques/version restantes hors verdict binaire.
 
 ### Périodes / qualité
 
 - [x] BOAS `divers_Rapport_S1_BOAS.pdf` = S1 2019, preuve visuelle.
-- [x] BOAM : 2013/2014 sans PDF direct et 2015 absent restent des constats de classement, pas des absences économiques inférées.
-- [ ] périodes économiques fines depuis contenu pour l'ensemble du corpus.
+- [x] SCRC `divers_Attestation_CAC_Annuel_SCRC.pdf` = **attestation CAC S1 2017**, période 01/01–30/06/2017, datée 20/10/2017 ; le libellé `Annuel` du nom est contredit par le contenu.
+- [x] règle renforcée : noms/dossiers ne dictent jamais la période ; le contenu source prévaut.
+- [ ] périodes économiques fines pour l'ensemble du corpus.
 - [ ] P1-FRESH / réconciliation BRVM et collecteur V2 pour les deltas distants.
 
 ## P1-R
@@ -52,4 +53,4 @@ Ne pas démarrer l'extraction RAW exhaustive avant couverture P1/P1-R suffisante
 
 ## Prochaine action
 
-`SCRC_OR_TTLS_LIVE_RECHECK_AND_SHA` puis poursuite par taille croissante.
+`TTLS_LIVE_RECHECK_AND_SHA` puis poursuite par taille croissante.
