@@ -1,7 +1,7 @@
 # P1 SOURCE — Ecobank Côte d'Ivoire / ECOC
 
-Date : 2026-08-10
-Statut : `P1_INVENTORIED / LIVE_SOURCE_DELTA_DETECTED / VERSION_REVIEW_IN_PROGRESS`
+Date : 2026-08-11
+Statut : `P1_INVENTORIED / LIVE_SOURCE_DELTA_DETECTED / SHA256_COMPLETE / VERSION_REVIEW_COMPLETE_FOR_EXPLICIT_VARIANTS`
 
 - Ticker : `ECOC`
 - Dossier Drive : `1L41JW3u29dJu1VSI6XRFeR-97ycVO50x`
@@ -13,7 +13,7 @@ Statut : `P1_INVENTORIED / LIVE_SOURCE_DELTA_DETECTED / VERSION_REVIEW_IN_PROGRE
 
 ## Particularités SOURCE
 
-- 2017 contient bien un PDF T3 (`rapport_dactivites_3e_trimestre_-ecobank_ci_0.pdf`) : l'ancien constat « aucun PDF 2017 » est donc invalidé par la revérification live ;
+- 2017 contient bien un PDF T3 (`rapport_dactivites_3e_trimestre_-ecobank_ci_0.pdf`) : l'ancien constat « aucun PDF 2017 » est invalidé par la revérification live ;
 - 2018 : `2018_Etats_Financiers_ECOC.pdf` + `_2.pdf` ;
 - 2021 : `2021_Etats_Financiers_ECOC.pdf` + `_2.pdf` ;
 - 2023 : `2023_Rapport_T1_ECOC.pdf` + `2023_Rapport_T1_ECOC_rev.pdf` ;
@@ -25,10 +25,29 @@ Statut : `P1_INVENTORIED / LIVE_SOURCE_DELTA_DETECTED / VERSION_REVIEW_IN_PROGRE
 
 Le total live est obtenu sans filtre de nom, exclusivement par les 9 dossiers parents + `mimeType = application/pdf`. Les couples `_rev` et `_2` restent des objets SOURCE séparés jusqu'à preuve de correction/supersession ou verdict binaire. Aucune relation n'est inférée du suffixe seul.
 
-## Hash / runtime
+## SHA-256
 
-Le runtime local de calcul de la session est actuellement indisponible. Aucun SHA ECOC n'est déclaré sans calcul réel. Les contrôles de contenu et de métadonnées Drive continuent indépendamment.
+- **42 / 42 PDF matérialisés et hashés** ;
+- **42 / 42 tailles Drive ↔ fichiers hashés validées** ;
+- **41 SHA uniques** ;
+- registre : `inventory/hashes/ECOC.csv` ;
+- **1 groupe de doublon binaire exact** dans ECOC :
+  - `2021_Etats_Financiers_ECOC.pdf` ;
+  - `2021_Etats_Financiers_ECOC_2.pdf` ;
+  - 333 711 octets chacun ;
+  - SHA commun `ca091608d953102461797fb13924c9bfb14357505a149bc20f924e41cde2ce7a` ;
+  - groupe `SHA256:ca091608d953102461797fb13924c9bfb14357505a149bc20f924e41cde2ce7a`.
 
-## Restant transversal
+## Revue des variantes
 
-`DOCUMENT_MANIFEST_ECOC = IN_PROGRESS` ; `SHA256_ECOC = BLOCKED_RUNTIME_NOT_COMPUTED` ; `VERSION_LINKS = IN_PROGRESS` ; `ECONOMIC_PERIODS = NOT_COMPLETE` ; `REMOTE_FRESHNESS = ACTIVE_DELTA_OBSERVED`.
+Rapport détaillé : `inventory/reviews/ECOC_VERSION_REVIEW_20260811.md`.
+
+- 2018 EF plain / `_2` : `BINARY_DISTINCT`, aucune fusion ;
+- 2021 EF plain / `_2` : `EXACT_DUPLICATE` ;
+- 2023 T1 plain → `_rev` : `CORRECTED_VERSION_OF / SUPERSEDES` validé visuellement ; le commentaire PNB est corrigé de 16,9 Md FCFA à 25,8 Md FCFA et la hausse des dépôts de 26,5 % à 14,9 % ;
+- 2024 T3 plain / `_rev` : hashes distincts, contenu textuel matériellement identique et différences de mise en page seulement ; `NO_SEMANTIC_SUPERSESSION_PROVEN` ;
+- 2024 annuel plain → `_rev` : `CORRECTED_VERSION_OF / SUPERSEDES` ; comparaison des 10 pages : seule la page 9 comporte une correction visible, **(55 320) → (52 320)**.
+
+## État transversal
+
+`DOCUMENT_MANIFEST_ECOC = SOURCE_IDENTIFIERS_COMPLETE_HASH_BACKFILL_AVAILABLE` ; `SHA256_ECOC = COMPLETE_42_OF_42` ; `VERSION_LINKS_EXPLICIT_VARIANTS = REVIEWED` ; `ECONOMIC_PERIODS = NOT_COMPLETE` ; `REMOTE_FRESHNESS = ACTIVE_DELTA_OBSERVED`.
