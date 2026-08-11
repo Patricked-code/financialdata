@@ -14,53 +14,44 @@ Git : `main` uniquement, aucune branche/PR normale.
 ### Inventaire 48 sociétés
 
 - sociétés : **48 / 48** ;
-- snapshot initial : **2 950 PDF** — `inventory/P1_48_ISSUERS_CHECKPOINT.md` ;
-- V2 après CBIBF : **2 957 PDF** ; V3 ORAC : **2 964** ; V4 SICC : **2 981** ; V5 MVSC : **2 996** ; V6 UNLC : **2 999** ; V7 ORGT : **3 011** ; V8 SHEC : **3 013** ; V9 STAC : **3 028** ; V10 NSBC : **3 031** ; V11 ECOC : **3 041 PDF** ;
-- checkpoint live : `inventory/P1_48_ISSUERS_CHECKPOINT_v11_20260810.md` ;
-- index live : `inventory/p1_issuer_manifest.csv`.
+- état live courant V11 : **3 041 PDF** ;
+- checkpoint : `inventory/P1_48_ISSUERS_CHECKPOINT_v11_20260810.md` ;
+- index : `inventory/p1_issuer_manifest.csv`.
 
-### Deltas live observés
-
-CBIBF `+7`, ORAC `+7`, SICC `+17`, MVSC `+15`, UNLC `+3`, ORGT `+12`, SHEC `+2`, STAC `+15`, NSBC `+3`, ECOC `+10`.
-
-- BIIC : 2 → 2, aucun delta ;
-- BOAS : 43 → 43, aucun delta.
-
-Les snapshots antérieurs sont conservés dans Git. Aucun état SOURCE n'est réécrit silencieusement.
+Deltas live documentés : CBIBF +7, ORAC +7, SICC +17, MVSC +15, UNLC +3, ORGT +12, SHEC +2, STAC +15, NSBC +3, ECOC +10. BIIC, BOAS et BOAM ont été revérifiés sans nouveau delta.
 
 ## P1_TRANSVERSE — DOCUMENT MANIFEST
 
-Schéma : `docs/P1_DOCUMENT_MANIFEST_SCHEMA.md`. Stratégie : `docs/P1_MANIFEST_SHARDING.md`.
-
-- cible maître : `inventory/p1_document_manifest.csv` ;
-- lignes actuellement consolidées : **14 / 3 041** ;
-- CBIBF 15/15, ORAC 21/21, SICC 36/36, MVSC 35/35, UNLC 23/23, ORGT 35/35, SHEC 39/39, STAC 53/53, NSBC 41/41, ECOC 42/42, BIIC 2/2 et BOAS 43/43 disposent de Drive IDs + tailles + SHA ;
-- backfill métadonnées temporelles encore requis avant consolidation canonique complète.
+- maître : `inventory/p1_document_manifest.csv` ;
+- consolidé : **14 / 3 041** ;
+- les corpus déjà hashés disposent de Drive IDs + tailles + SHA ; backfill des métadonnées temporelles/shards encore requis.
 
 ## P1_TRANSVERSE — SHA256
 
-- SHA calculés et vérifiés : **393 / 3 041** ;
-- TRITRAF 8/8 ; CBIBF 15/15 ; ORAC 21/21 ; SICC 36/36 ; MVSC 35/35 ; UNLC 23/23 ; ORGT 35/35 ; SHEC 39/39 ; STAC 53/53 ; NSBC 41/41 ; ECOC 42/42 ; BIIC 2/2 ; BOAS **43/43**.
-- BOAS : 43 tailles Drive ↔ fichiers validées, **43 SHA uniques, zéro doublon exact** ; registre `inventory/hashes/BOAS.csv`.
+- SHA calculés et vérifiés : **437 / 3 041** ;
+- TRITRAF 8/8 ; CBIBF 15/15 ; ORAC 21/21 ; SICC 36/36 ; MVSC 35/35 ; UNLC 23/23 ; ORGT 35/35 ; SHEC 39/39 ; STAC 53/53 ; NSBC 41/41 ; ECOC 42/42 ; BIIC 2/2 ; BOAS 43/43 ; BOAM **44/44**.
 
 ### Doublons exacts
 
-Groupes exacts prouvés : **4**.
+Groupes exacts prouvés : **6**.
 
 1. CBIBF 2024 S1 plain / `_2` — SHA `8fb042a2d9fe05d6881c4496dedf54a68900159f2a4fcc1c6ae8bfeaf661bc05`.
 2. SHEC 2022 EF `_2` / `_3` — SHA `acdab75be25743dc0837258d686cfc5f2e2c6f76518078e6becc9a94ddb40f86`.
 3. SHEC 2025 EF plain / `_2` — SHA `b88401ae19d81d9dcd4a1723cd1929bad8c0269dfa811c06e7c9b878b58b61c0`.
 4. ECOC 2021 EF plain / `_2` — SHA `ca091608d953102461797fb13924c9bfb14357505a149bc20f924e41cde2ce7a`.
+5. BOAM 2023 EF / rapport CAC annuel — SHA `77f20998d8b1def30299a400bbe4584093fb54a6e40d05f7ab5fa7721896e31e`.
+6. BOAM 2024 rapports CAC annuels plain / `_2` — SHA `dc403fad3b516f6a94eecefafb56db518987c5fb3097edd0d68a7ffe8077f207`.
 
-Tous les objets physiques restent conservés dans SOURCE ; groupes dans `inventory/p1_duplicate_groups.csv`.
+Tous les objets physiques restent conservés dans SOURCE ; registre `inventory/p1_duplicate_groups.csv`.
 
-### Résultats récents
+### Résultats récents BOAM
 
-- ECOC : 42/42 SHA, 41 contenus uniques, 1 groupe exact ; revue `inventory/reviews/ECOC_VERSION_REVIEW_20260811.md`.
-- BIIC : live 2 PDF, SHA 2/2, aucun doublon.
-- BOAS : live **43 PDF**, SHA **43/43**, 43 contenus uniques, aucun doublon exact ; anciennes variantes `_2/_3` toutes binaires distinctes.
-- BOAS `divers_Rapport_S1_BOAS.pdf` : période résolue visuellement comme **premier semestre 2019**, date visible **09/09/2019** ; preuve que le dossier `divers` ne dicte jamais la période.
-- BOAS : dossier 2013 toujours sans PDF direct ; nouveautés BRVM 2026 restent `REMOTE_DELTA_IDENTIFIED` pour le collecteur V2.
+- live : **44 PDF**, aucun delta ;
+- 44/44 tailles validées, 42 SHA uniques, 2 groupes exacts ; registre `inventory/hashes/BOAM.csv` ;
+- T3/T4 2019 : même taille 86 241 octets mais SHA différents ; `BINARY_DISTINCT` ;
+- `2021_Etats_Financiers_BOAM_rev.pdf` : 4 pages image, états S1 2021 certifiés/signés ; aucun prédécesseur BOAM 2021 retrouvé dans Drive et aucune mention de correction/supersession visible ; verdict `PREDECESSOR_NOT_FOUND / NO_SUPERSESSION_PROVEN` ;
+- revue : `inventory/reviews/BOAM_VERSION_REVIEW_20260811.md` ;
+- dossiers 2013/2014 toujours sans PDF direct, 2015 absent ; delta BRVM 2025/2026 conservé comme `REMOTE_DELTA_IDENTIFIED`.
 
 ## P1-R
 
@@ -68,13 +59,12 @@ Profils vérifiés : BICC 2022, BIIC T2 2025, ETIT 2023. Deep pilots : BOABF, CI
 
 ## Prochaine action exacte
 
-1. passer à **BOAM** (snapshot historique 44 PDF), plus petit corpus non hashé suivant ;
-2. revérifier le total live exclusivement par dossiers parents + MIME ;
+1. traiter le prochain corpus non hashé de taille minimale : **SCRC ou TTLS (45 PDF chacun)** ;
+2. choisir après lecture de leur inventaire, puis revérifier le live par parents + MIME ;
 3. versionner tout delta avant hash ;
-4. matérialiser et hasher 100 % du corpus avec validation taille Drive ↔ fichier ;
-5. poursuivre ensuite les corpus non hashés par taille croissante ;
-6. ne pas lancer P2 tant que la couverture P1/P1-R n'est pas jugée suffisante.
+4. hash 100 % + validation taille Drive ↔ fichier + revue des collisions/versions ;
+5. poursuivre ensuite par taille croissante.
 
 ## Point de reprise exact
 
-`48/48 ISSUERS | LIVE_TOTAL=3041 | MASTER_CONSOLIDATED=14/3041 | SHA256_VERIFIED=393/3041 | EXACT_DUPLICATE_GROUPS=4 | BOAS=43/43_SHA_COMPLETE | NEXT=BOAM_LIVE_RECHECK_AND_SHA`
+`48/48 ISSUERS | LIVE_TOTAL=3041 | MASTER_CONSOLIDATED=14/3041 | SHA256_VERIFIED=437/3041 | EXACT_DUPLICATE_GROUPS=6 | BOAM=44/44_SHA_COMPLETE | NEXT=SCRC_OR_TTLS_LIVE_RECHECK`
