@@ -15,23 +15,16 @@ Git : `main` uniquement, aucune branche/PR normale.
 
 - sociétés : **48 / 48** ;
 - snapshot initial : **2 950 PDF** — `inventory/P1_48_ISSUERS_CHECKPOINT.md` ;
-- V2 après CBIBF : **2 957 PDF** ;
-- V3 après ORAC : **2 964 PDF** ;
-- V4 après SICC : **2 981 PDF** ;
-- V5 après MVSC : **2 996 PDF** ;
-- V6 après UNLC : **2 999 PDF** ;
-- V7 après ORGT : **3 011 PDF** ;
-- V8 après SHEC : **3 013 PDF** ;
-- V9 après STAC : **3 028 PDF** ;
-- V10 après NSBC : **3 031 PDF** ;
-- état live courant V11 après ECOC : **3 041 PDF** ;
+- V2 après CBIBF : **2 957 PDF** ; V3 ORAC : **2 964** ; V4 SICC : **2 981** ; V5 MVSC : **2 996** ; V6 UNLC : **2 999** ; V7 ORGT : **3 011** ; V8 SHEC : **3 013** ; V9 STAC : **3 028** ; V10 NSBC : **3 031** ; V11 ECOC : **3 041 PDF** ;
 - checkpoint live : `inventory/P1_48_ISSUERS_CHECKPOINT_v11_20260810.md` ;
 - index live : `inventory/p1_issuer_manifest.csv`.
 
 ### Deltas live observés
 
-- CBIBF : **8 → 15 PDF** (`+7`) ; ORAC : **14 → 21** (`+7`) ; SICC : **19 → 36** (`+17`) ; MVSC : **20 → 35** (`+15`) ; UNLC : **20 → 23** (`+3`) ; ORGT : **23 → 35** (`+12`) ; SHEC : **37 → 39** (`+2`) ; STAC : **38 → 53** (`+15`) ; NSBC : **38 → 41** (`+3`) ; ECOC : **32 → 42** (`+10`).
-- BIIC : snapshot **2 PDF**, revérification live 2026-08-11 **2 PDF**, donc aucun delta.
+CBIBF `+7`, ORAC `+7`, SICC `+17`, MVSC `+15`, UNLC `+3`, ORGT `+12`, SHEC `+2`, STAC `+15`, NSBC `+3`, ECOC `+10`.
+
+- BIIC : 2 → 2, aucun delta ;
+- BOAS : 43 → 43, aucun delta.
 
 Les snapshots antérieurs sont conservés dans Git. Aucun état SOURCE n'est réécrit silencieusement.
 
@@ -40,19 +33,19 @@ Les snapshots antérieurs sont conservés dans Git. Aucun état SOURCE n'est ré
 Schéma : `docs/P1_DOCUMENT_MANIFEST_SCHEMA.md`. Stratégie : `docs/P1_MANIFEST_SHARDING.md`.
 
 - cible maître : `inventory/p1_document_manifest.csv` ;
-- lignes actuellement consolidées dans le maître : **14 / 3 041** ;
-- CBIBF 15/15, ORAC 21/21, SICC 36/36, MVSC 35/35, UNLC 23/23, ORGT 35/35, SHEC 39/39, STAC 53/53, NSBC 41/41, ECOC 42/42 et BIIC 2/2 disposent désormais de Drive IDs + tailles + SHA ;
+- lignes actuellement consolidées : **14 / 3 041** ;
+- CBIBF 15/15, ORAC 21/21, SICC 36/36, MVSC 35/35, UNLC 23/23, ORGT 35/35, SHEC 39/39, STAC 53/53, NSBC 41/41, ECOC 42/42, BIIC 2/2 et BOAS 43/43 disposent de Drive IDs + tailles + SHA ;
 - backfill métadonnées temporelles encore requis avant consolidation canonique complète.
 
 ## P1_TRANSVERSE — SHA256
 
-- SHA calculés et vérifiés : **350 / 3 041** ;
-- TRITRAF 8/8 ; CBIBF 15/15 ; ORAC 21/21 ; SICC 36/36 ; MVSC 35/35 ; UNLC 23/23 ; ORGT 35/35 ; SHEC 39/39 ; STAC 53/53 ; NSBC 41/41 ; ECOC 42/42 ; BIIC **2/2**.
-- BIIC : T2 SHA `6dfb9d495eebaf39a2336aa6871498502c8d1a5f440b2a89d920f2dceeee6456`, T3 SHA `9f5e57270040e7fbcfa0a7d0b7367861e287b55d6b33b55a882cce78e176c10f` ; 2 contenus uniques ; registre `inventory/hashes/BIIC.csv`.
+- SHA calculés et vérifiés : **393 / 3 041** ;
+- TRITRAF 8/8 ; CBIBF 15/15 ; ORAC 21/21 ; SICC 36/36 ; MVSC 35/35 ; UNLC 23/23 ; ORGT 35/35 ; SHEC 39/39 ; STAC 53/53 ; NSBC 41/41 ; ECOC 42/42 ; BIIC 2/2 ; BOAS **43/43**.
+- BOAS : 43 tailles Drive ↔ fichiers validées, **43 SHA uniques, zéro doublon exact** ; registre `inventory/hashes/BOAS.csv`.
 
 ### Doublons exacts
 
-Groupes exacts actuellement prouvés : **4**.
+Groupes exacts prouvés : **4**.
 
 1. CBIBF 2024 S1 plain / `_2` — SHA `8fb042a2d9fe05d6881c4496dedf54a68900159f2a4fcc1c6ae8bfeaf661bc05`.
 2. SHEC 2022 EF `_2` / `_3` — SHA `acdab75be25743dc0837258d686cfc5f2e2c6f76518078e6becc9a94ddb40f86`.
@@ -63,11 +56,11 @@ Tous les objets physiques restent conservés dans SOURCE ; groupes dans `invento
 
 ### Résultats récents
 
-- ECOC : **42/42 SHA**, 41 contenus uniques, 1 groupe exact ; revue des variantes dans `inventory/reviews/ECOC_VERSION_REVIEW_20260811.md`.
-- ECOC T1 2023 `_rev` : vraie correction/supersession ; commentaire PNB 16,9 → 25,8 Md FCFA et dépôts 26,5 % → 14,9 %.
-- ECOC T3 2024 `_rev` : binaire distinct mais aucune supersession sémantique démontrée.
-- ECOC annuel 2024 `_rev` : correction/supersession ; page 9 `(55 320) → (52 320)`.
-- BIIC : live confirmé **2 PDF**, SHA **2/2**, aucun doublon exact ; le dossier 2024 ne contient toujours aucun PDF direct.
+- ECOC : 42/42 SHA, 41 contenus uniques, 1 groupe exact ; revue `inventory/reviews/ECOC_VERSION_REVIEW_20260811.md`.
+- BIIC : live 2 PDF, SHA 2/2, aucun doublon.
+- BOAS : live **43 PDF**, SHA **43/43**, 43 contenus uniques, aucun doublon exact ; anciennes variantes `_2/_3` toutes binaires distinctes.
+- BOAS `divers_Rapport_S1_BOAS.pdf` : période résolue visuellement comme **premier semestre 2019**, date visible **09/09/2019** ; preuve que le dossier `divers` ne dicte jamais la période.
+- BOAS : dossier 2013 toujours sans PDF direct ; nouveautés BRVM 2026 restent `REMOTE_DELTA_IDENTIFIED` pour le collecteur V2.
 
 ## P1-R
 
@@ -75,13 +68,13 @@ Profils vérifiés : BICC 2022, BIIC T2 2025, ETIT 2023. Deep pilots : BOABF, CI
 
 ## Prochaine action exacte
 
-1. passer au prochain corpus court non hashé : **BOAS** (snapshot historique 43 PDF) ;
-2. revérifier d'abord le total live BOAS exclusivement par dossiers parents + MIME ;
-3. versionner tout delta avant calcul SHA ;
-4. matérialiser/hash 100 % du corpus avec validation taille Drive ↔ fichier ;
+1. passer à **BOAM** (snapshot historique 44 PDF), plus petit corpus non hashé suivant ;
+2. revérifier le total live exclusivement par dossiers parents + MIME ;
+3. versionner tout delta avant hash ;
+4. matérialiser et hasher 100 % du corpus avec validation taille Drive ↔ fichier ;
 5. poursuivre ensuite les corpus non hashés par taille croissante ;
 6. ne pas lancer P2 tant que la couverture P1/P1-R n'est pas jugée suffisante.
 
 ## Point de reprise exact
 
-`48/48 ISSUERS | LIVE_TOTAL=3041 | MASTER_CONSOLIDATED=14/3041 | SHA256_VERIFIED=350/3041 | EXACT_DUPLICATE_GROUPS=4 | ECOC=42/42_SHA_COMPLETE | BIIC=2/2_SHA_COMPLETE | NEXT=BOAS_LIVE_RECHECK_AND_SHA`
+`48/48 ISSUERS | LIVE_TOTAL=3041 | MASTER_CONSOLIDATED=14/3041 | SHA256_VERIFIED=393/3041 | EXACT_DUPLICATE_GROUPS=4 | BOAS=43/43_SHA_COMPLETE | NEXT=BOAM_LIVE_RECHECK_AND_SHA`
