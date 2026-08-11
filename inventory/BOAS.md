@@ -1,10 +1,10 @@
 # P1 INVENTORY — Bank of Africa Sénégal / BOAS
 
-Date de vérification : 2026-08-09
+Date de vérification : 2026-08-11
 
 Drive folder : `1Yc_zVZwKHCKhmYZaUd1GsMZAX-mMz84-`
 
-Statut : `FILE_INVENTORIED / HASH_PENDING / REMOTE_DELTA_IDENTIFIED`
+Statut : `FILE_INVENTORIED / LIVE_FRESHNESS_RECHECKED / SHA256_COMPLETE / REMOTE_DELTA_IDENTIFIED`
 
 ## Sous-dossiers directs
 
@@ -13,6 +13,8 @@ Statut : `FILE_INVENTORIED / HASH_PENDING / REMOTE_DELTA_IDENTIFIED`
 Aucun dossier 1998–2009 n'est présent dans l'arborescence directe actuelle.
 
 ## Nombre de fichiers par dossier de classement
+
+Revérification live 2026-08-11, strictement par dossiers parents + MIME PDF :
 
 | Dossier | Fichiers |
 |---|---:|
@@ -35,6 +37,8 @@ Aucun dossier 1998–2009 n'est présent dans l'arborescence directe actuelle.
 | divers | 2 |
 | **TOTAL** | **43** |
 
+Le total live reste **43 PDF** : aucun delta par rapport au snapshot précédent.
+
 ## Familles documentaires observées
 
 - rapports annuels historiques ;
@@ -47,43 +51,57 @@ Aucun dossier 1998–2009 n'est présent dans l'arborescence directe actuelle.
 
 ## Dossier vide observé
 
-`2013` est présent mais aucun fichier direct n'a été retrouvé dans ce dossier.
+`2013` est présent mais aucun PDF direct n'a été retrouvé dans ce dossier lors de la revérification live.
 
 Règle : ne pas assimiler ce vide de classement à une absence de données économiques avant revue documentaire et catalogue distant.
 
 ## `divers`
 
-Deux fichiers observés :
+Deux fichiers :
 
 - `fiche_sn.pdf` ;
 - `divers_Rapport_S1_BOAS.pdf`.
 
-Le second confirme qu'un rapport périodique peut être classé hors dossier annuel ; sa période devra être résolue depuis son contenu/source, pas depuis `divers`.
+La période du second a été résolue depuis son contenu visuel, et non depuis le dossier de classement :
 
-## Candidats versions / collisions de noms
+- titre visible : **« RAPPORT D’ACTIVITE DU PREMIER SEMESTRE 2019 »** ;
+- colonnes : premier semestre 2019, premier semestre 2018, exercice 2018 ;
+- date visible : **« Fait à Dakar, le 09/09/2019 »** ;
+- période économique/documentaire résolue : `S1_2019`.
 
-Des suffixes historiques `_2`, `_3` existent notamment en 2010, 2011, 2014 et 2015.
+Cette observation confirme la règle SOURCE : un dossier `divers` ne doit jamais déterminer la période d'un document.
 
-Ils restent `DUPLICATE_REVIEW_PENDING` jusqu'à comparaison des hash et du contenu.
+## SHA-256
 
-## Delta BRVM courant observé le 2026-08-09
+- **43 / 43 PDF matérialisés et hashés** ;
+- **43 / 43 tailles Drive ↔ fichiers hashés validées** ;
+- **43 SHA uniques** ;
+- **zéro doublon binaire exact** ;
+- registre : `inventory/hashes/BOAS.csv`.
 
-La page officielle BRVM de BOA Sénégal publie actuellement notamment :
+Les variantes historiques `_2` / `_3` ne sont donc pas des doublons binaires exacts. En particulier :
+
+- 2011 rapports annuels `_2` / `_3` : hashes distincts ;
+- 2015 rapports annuels `_2` / `_3` : hashes distincts ;
+- 2017 états financiers plain / `_2` : hashes distincts.
+
+Aucune relation de supersession n'est inférée uniquement à partir du suffixe ; une revue de contenu serait nécessaire pour qualifier la relation sémantique précise.
+
+## Delta BRVM courant observé
+
+La page officielle BRVM de BOA Sénégal publiait déjà lors de la passe initiale des nouveautés 2026, notamment :
 
 - `Etats Financiers - 1er trimestre 2026` ;
 - `Rapport d'activités - 1er trimestre 2026` ;
 - `Etats financiers - Exercice 2025` ;
 - rapports T1/S1/T3/T4 2025.
 
-Le Drive 2025 contient déjà T1, S1, T3, T4 et états financiers 2025, mais aucun dossier 2026 n'est présent.
+Le Drive conserve actuellement les publications 2025 mais aucun dossier 2026 direct n'est présent.
 
-Statut : `REMOTE_DELTA_IDENTIFIED`, avec au moins les publications 2026 à récupérer lors de la future phase incrémentale.
+Statut : `REMOTE_DELTA_IDENTIFIED`. Les publications 2026 restent à récupérer lors de la phase incrémentale du collecteur V2 ; elles ne sont pas inventées ni ajoutées artificiellement au corpus Drive actuel.
 
 ## Points P1 restant à faire pour BOAS
 
-- calculer/collecter les hash ;
-- confirmer les collisions/versions ;
-- résoudre la période du rapport S1 rangé dans `divers` ;
-- expliquer l'absence directe 2013 ;
-- produire l'inventaire machine-lisible consolidé ;
-- rapprocher ultérieurement les nouveautés 2026 via le collecteur V2.
+- consolider le manifeste document-level dans le maître ;
+- compléter les métadonnées temporelles fines et les relations de versions historiques si nécessaire ;
+- rapprocher les nouveautés 2026 via le collecteur V2.
