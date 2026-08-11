@@ -3,7 +3,7 @@ ordinal,ticker,pdf_count,inventory_path,status
 2,BOABF,57,inventory/BOABF.md,INVENTORIED
 3,BOAB,59,inventory/BOAB.md,INVENTORIED
 4,BOAC,60,inventory/BOAC.md,INVENTORIED
-5,BOAM,44,inventory/BOAM.md,INVENTORIED
+5,BOAM,44,inventory/BOAM.md,SHA256_COMPLETE
 6,BOAN,60,inventory/BOAN.md,INVENTORIED
 7,BOAS,43,inventory/BOAS.md,SHA256_COMPLETE
 8,BNBC,78,inventory/BNBC.md,INVENTORIED
