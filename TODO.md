@@ -9,106 +9,55 @@ Dépôt canonique : `Patricked-code/financialdata`. Travail direct sur `main` un
 ### Inventaire
 
 - [x] 48 / 48 sociétés inventoriées.
-- [x] snapshot initial : **2 950 PDF**.
-- [x] V2 : **2 957 PDF** après CBIBF `+7`.
-- [x] V3 : **2 964 PDF** après ORAC `+7`.
-- [x] V4 : **2 981 PDF** après SICC `+17`.
-- [x] V5 : **2 996 PDF** après MVSC `+15`.
-- [x] V6 : **2 999 PDF** après UNLC `+3`.
-- [x] V7 : **3 011 PDF** après ORGT `+12`.
-- [x] V8 : **3 013 PDF** après SHEC `+2`.
-- [x] V9 : **3 028 PDF** après STAC `+15`.
-- [x] V10 : **3 031 PDF** après NSBC `+3`.
-- [x] V11 courant : **3 041 PDF** après ECOC `+10`.
+- [x] snapshot initial : 2 950 PDF ; V2 2 957 ; V3 2 964 ; V4 2 981 ; V5 2 996 ; V6 2 999 ; V7 3 011 ; V8 3 013 ; V9 3 028 ; V10 3 031 ; V11 courant **3 041 PDF**.
 - [x] checkpoint courant : `inventory/P1_48_ISSUERS_CHECKPOINT_v11_20260810.md`.
 - [x] index live : `inventory/p1_issuer_manifest.csv`.
 - [ ] continuer la revérification live société par société pendant les passes transversales.
 
 ### Document manifest
 
-- [x] schéma : `docs/P1_DOCUMENT_MANIFEST_SCHEMA.md`.
-- [x] stratégie shards : `docs/P1_MANIFEST_SHARDING.md`.
-- [x] maître créé : `inventory/p1_document_manifest.csv`.
+- [x] schéma : `docs/P1_DOCUMENT_MANIFEST_SCHEMA.md` ; stratégie shards : `docs/P1_MANIFEST_SHARDING.md` ; maître : `inventory/p1_document_manifest.csv`.
 - [x] maître consolidé : **14 / 3 041** lignes.
-- [x] BIIC 2/2 dans le snapshot historique — fraîcheur live à revérifier avant SHA.
-- [x] TRITRAF 8/8.
-- [x] CBIBF 15/15 dans `inventory/manifests/CBIBF.csv`.
-- [x] ORAC 21/21 dans `inventory/manifests/ORAC.csv`.
-- [x] SICC : 36/36 Drive IDs, parents, tailles et SHA identifiés.
-- [x] MVSC : 35/35 Drive IDs, parents, tailles et SHA identifiés.
-- [x] UNLC : 23/23 Drive IDs, parents, tailles et SHA identifiés.
-- [x] ORGT : 35/35 Drive IDs, parents, tailles et SHA identifiés.
-- [x] SHEC : 39/39 Drive IDs, parents, tailles et SHA identifiés.
-- [x] STAC : 53/53 Drive IDs, parents, tailles et SHA identifiés.
-- [x] NSBC : 41/41 Drive IDs, parents, tailles et SHA identifiés ; registre `inventory/hashes/NSBC.csv`.
-- [x] ECOC : **42/42 Drive IDs, tailles et SHA identifiés** ; registre `inventory/hashes/ECOC.csv` ; revue `inventory/reviews/ECOC_VERSION_REVIEW_20260811.md`.
-- [ ] BIIC : revérifier le total live puis calculer SHA 100 %.
-- [ ] backfill métadonnées temporelles + shards compatibles SICC/MVSC/UNLC/ORGT/SHEC/STAC/NSBC/ECOC.
-- [ ] poursuivre ensuite tous les autres émetteurs.
+- [x] BIIC : 2/2 Drive IDs, tailles et SHA ; registre `inventory/hashes/BIIC.csv`.
+- [x] BOAS : 43/43 Drive IDs, tailles et SHA ; registre `inventory/hashes/BOAS.csv`.
+- [x] ECOC : 42/42 Drive IDs, tailles et SHA ; revue `inventory/reviews/ECOC_VERSION_REVIEW_20260811.md`.
+- [ ] backfill métadonnées temporelles + shards compatibles des corpus hashés.
+- [ ] poursuivre tous les autres émetteurs.
 
 ### SHA-256
 
-- [x] TRITRAF 8/8.
-- [x] CBIBF 15/15 — `inventory/hashes/CBIBF.csv`.
-- [x] ORAC 21/21 — `inventory/hashes/ORAC.csv`.
-- [x] SICC 36/36 — `inventory/hashes/SICC.csv`.
-- [x] MVSC 35/35 — `inventory/hashes/MVSC.csv`.
-- [x] UNLC 23/23 — `inventory/hashes/UNLC.csv`.
-- [x] ORGT 35/35 — `inventory/hashes/ORGT.csv`.
-- [x] SHEC 39/39 — `inventory/hashes/SHEC.csv`.
-- [x] STAC 53/53 — `inventory/hashes/STAC.csv`.
-- [x] NSBC 41/41 — `inventory/hashes/NSBC.csv`, 41 SHA uniques / 0 doublon exact.
-- [x] ECOC 42/42 — `inventory/hashes/ECOC.csv`, **41 SHA uniques / 1 groupe exact**.
-- [x] total SHA effectivement calculés : **348 / 3 041**.
+- [x] TRITRAF 8/8 ; CBIBF 15/15 ; ORAC 21/21 ; SICC 36/36 ; MVSC 35/35 ; UNLC 23/23 ; ORGT 35/35 ; SHEC 39/39 ; STAC 53/53 ; NSBC 41/41 ; ECOC 42/42 ; BIIC 2/2 ; BOAS 43/43.
+- [x] total SHA effectivement calculés : **393 / 3 041**.
 - [x] groupes de doublons exacts prouvés : **4** dans `inventory/p1_duplicate_groups.csv`.
-- [ ] BIIC : SHA après revérification live.
+- [ ] BOAM : revérification live puis SHA 100 %.
 
 ### Doublons / versions
 
-- [x] CBIBF S1 2024 plain + `_2` : `EXACT_DUPLICATE`.
-- [x] SHEC EF 2022 `_2` + `_3` : `EXACT_DUPLICATE`.
-- [x] SHEC EF 2025 plain + `_2` : `EXACT_DUPLICATE`.
-- [x] ECOC EF 2021 plain + `_2` : `EXACT_DUPLICATE`, SHA `ca091608d953102461797fb13924c9bfb14357505a149bc20f924e41cde2ce7a`.
-- [x] TRITRAF 2004 plain + `_2` : SHA différents.
-- [x] ORAC : annuels `_rev` / `_2` non fusionnés.
-- [x] SICC : variantes `_2` / `_3` non fusionnées.
-- [x] MVSC : variantes `_2` / `_3` et EF 2019 non fusionnés.
-- [x] UNLC : annuels 2020 plain / `_2` non fusionnés.
-- [x] ORGT : paires EF/CAC proches non fusionnées.
-- [x] SHEC EF 2021 plain / `_2` et EF 2023 plain / `_2` : binaires distincts.
-- [x] STAC séries `_2/_3/_4` et EF 2019 `_rev` : tous binaires distincts.
-- [x] NSBC T1 2019 plain → `_rev` : `CORRECTED_VERSION_OF / SUPERSEDES` validé par le contenu et hashes distincts.
-- [x] NSBC EF 2021 plain → `_rev` : `SUPERSEDES` validé par la mention « annule et remplace » et hashes distincts.
-- [x] NSBC EF 2019 plain / `_2` : hashes différents ; relation sémantique encore à qualifier visuellement.
-- [x] ECOC EF 2018 plain / `_2` : hashes différents, aucune fusion.
-- [x] ECOC T1 2023 plain → `_rev` : `CORRECTED_VERSION_OF / SUPERSEDES` validé visuellement.
-- [x] ECOC T3 2024 plain / `_rev` : hashes différents, aucune supersession sémantique démontrée.
-- [x] ECOC annuel 2024 plain → `_rev` : `CORRECTED_VERSION_OF / SUPERSEDES`, correction page 9 `(55 320) → (52 320)`.
-- [ ] relations sémantiques/version restantes hors variantes ECOC explicites.
+- [x] CBIBF S1 2024 plain + `_2` : exact duplicate.
+- [x] SHEC EF 2022 `_2` + `_3` : exact duplicate.
+- [x] SHEC EF 2025 plain + `_2` : exact duplicate.
+- [x] ECOC EF 2021 plain + `_2` : exact duplicate.
+- [x] ECOC T1 2023 et annuel 2024 : corrections/supersessions validées ; T3 2024 : aucune supersession sémantique démontrée.
+- [x] BIIC : 2 SHA distincts, aucun doublon.
+- [x] BOAS : 43 SHA distincts ; variantes historiques `_2/_3` et EF 2017 binaires distinctes ; aucune fusion par nom.
+- [ ] relations sémantiques/version restantes.
 
-### Qualité / cohérence
+### Périodes / qualité
 
-- [x] ORAC : tailles du registre SHA revalidées contre Drive ; hashes confirmés.
-- [x] MVSC/UNLC/ORGT/SHEC/STAC/NSBC/ECOC : contrôle taille Drive ↔ fichier hashé appliqué pendant la passe.
-- [x] NSBC : nouvelles règles de correction/supersession documentées dans le Google Doc canonique de gouvernance le 2026-08-10.
-- [x] ECOC : ancien constat d'absence 2017 invalidé ; un T3 2017 est présent dans le corpus live.
-- [x] ECOC : revue binaire + visuelle des variantes explicites documentée dans `inventory/reviews/ECOC_VERSION_REVIEW_20260811.md`.
-- [ ] backfill des métadonnées temporelles des shards incomplets.
-- [ ] appliquer systématiquement taille Drive ↔ taille du fichier hashé avant statut SHA final.
-
-### Autres passes
-
-- [ ] périodes économiques depuis contenu ;
-- [ ] attribution émetteur/document ;
-- [ ] couverture documentaire ;
-- [ ] P1-FRESH / réconciliation BRVM courante ;
-- [ ] revérifier BIIC live et le hasher, puis continuer les corpus non hashés par taille croissante.
+- [x] BOAS `divers_Rapport_S1_BOAS.pdf` résolu visuellement comme **S1 2019**, daté du **09/09/2019**.
+- [x] BOAS dossier 2013 toujours vide en PDF direct ; ne pas inventer une absence économique.
+- [x] règle réaffirmée : le dossier `divers` ne dicte jamais la période.
+- [ ] périodes économiques fines depuis contenu pour l'ensemble du corpus.
+- [ ] P1-FRESH / réconciliation BRVM courante et collecteur V2 pour les nouveautés, dont BOAS 2026.
 
 ## P1-R
 
-Profils vérifiés : BICC 2022, BIIC T2 2025, ETIT 2023.
-Deep pilots : BOABF, CIEC, NTLC, SNTS.
+Profils vérifiés : BICC 2022, BIIC T2 2025, ETIT 2023. Deep pilots : BOABF, CIEC, NTLC, SNTS.
 
 ## P2 → P8
 
 Ne pas démarrer l'extraction RAW exhaustive avant couverture P1/P1-R suffisante.
+
+## Prochaine action
+
+`BOAM_LIVE_RECHECK_AND_SHA`, puis poursuivre les corpus non hashés par taille croissante.
