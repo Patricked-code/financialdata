@@ -1,10 +1,10 @@
 # P1 INVENTORY — Bank of Africa Mali / BOAM
 
-Date de vérification : 2026-08-09
+Date de vérification : 2026-08-11
 
 Drive folder : `127BPCvkfMC25L3hXZ4dKo1NEW_eg0FRK`
 
-Statut : `FILE_INVENTORIED / HASH_PENDING / REMOTE_DELTA_IDENTIFIED`
+Statut : `FILE_INVENTORIED / LIVE_FRESHNESS_RECHECKED / SHA256_COMPLETE / VERSION_REVIEW_COMPLETE / REMOTE_DELTA_IDENTIFIED`
 
 ## Sous-dossiers directs
 
@@ -13,6 +13,8 @@ Statut : `FILE_INVENTORIED / HASH_PENDING / REMOTE_DELTA_IDENTIFIED`
 Le dossier `2015` n'est pas présent.
 
 ## Nombre de fichiers par dossier de classement
+
+Revérification live 2026-08-11, strictement par dossiers parents + MIME PDF :
 
 | Dossier | Fichiers |
 |---|---:|
@@ -34,75 +36,72 @@ Le dossier `2015` n'est pas présent.
 | divers | 1 |
 | **TOTAL** | **44** |
 
-## Familles observées
-
-- rapports annuels historiques ;
-- états financiers ;
-- rapports T1/T3/T4 ;
-- rapports S1 ;
-- attestations CAC ;
-- rapports CAC annuels ;
-- rapport du conseil d'administration / assemblée générale ;
-- fiche boursière dans `divers` ;
-- documents avec noms source non standardisés.
+Le total live reste **44 PDF** : aucun delta par rapport au snapshot précédent.
 
 ## Dossiers vides / lacunes de classement
 
-- dossiers 2013 et 2014 présents mais vides ;
+- dossiers 2013 et 2014 présents mais sans PDF direct ;
 - dossier 2015 absent.
 
-Ne pas assimiler ces constats à l'absence de données économiques avant analyse des comparatifs, `divers` et sources distantes.
+Ne pas transformer ces constats de classement en absence économique sans analyse des comparatifs et sources distantes.
 
-## Version explicitement signalée
+## SHA-256
 
-`2021_Etats_Financiers_BOAM_rev.pdf`
+- **44 / 44 PDF matérialisés et hashés** ;
+- **44 / 44 tailles Drive ↔ fichiers hashés validées** ;
+- **42 SHA uniques** ;
+- **2 groupes de doublons binaires exacts** ;
+- registre : `inventory/hashes/BOAM.csv` ;
+- revue : `inventory/reviews/BOAM_VERSION_REVIEW_20260811.md`.
 
-Drive ID : `1EWdFXD8BAVYdiPDXGPmiTb6nKAhGRYFv`
+### Doublons exacts BOAM
 
-Le suffixe `_rev` provient du mécanisme historique de détection de mots comme `annule`, `remplace`, `corrige`, `revision` dans le nom source.
+1. `2023_Etats_Financiers_BOAM.pdf` = `2023_Rapport_CAC_Annuel_BOAM.pdf`
+   - 824 078 octets ;
+   - SHA `77f20998d8b1def30299a400bbe4584093fb54a6e40d05f7ab5fa7721896e31e`.
+2. `2024_Rapport_CAC_Annuel_BOAM.pdf` = `2024_Rapport_CAC_Annuel_BOAM_2.pdf`
+   - 742 080 octets ;
+   - SHA `dc403fad3b516f6a94eecefafb56db518987c5fb3097edd0d68a7ffe8077f207`.
 
-Statut : `VERSION_REVIEW_REQUIRED` jusqu'à identification de la version antérieure et comparaison de contenu/hash.
+Les quatre objets physiques sont conservés ; aucune suppression silencieuse.
+
+### Même taille mais contenus distincts
+
+- `2019_Rapport_T3_BOAM.pdf` et `2019_Rapport_T4_BOAM.pdf` font tous deux 86 241 octets mais ont des SHA différents ; verdict `BINARY_DISTINCT`.
+
+## Version explicitement nommée `_rev`
+
+`2021_Etats_Financiers_BOAM_rev.pdf` :
+
+- Drive ID `1EWdFXD8BAVYdiPDXGPmiTb6nKAhGRYFv` ;
+- 946 214 octets ;
+- SHA `ab2c020c621d63911d9611d22507931a617b72ac5fdcc0d32dfcd9d00d8c1a82` ;
+- PDF image de 4 pages ;
+- revue visuelle : états financiers S1 2021 certifiés/signés ;
+- aucune mention visible `annule et remplace`, `corrigé` ou `révision` ;
+- recherche Drive ciblée : aucun prédécesseur BOAM 2021 distinct retrouvé.
+
+Verdict : `PREDECESSOR_NOT_FOUND / NO_SUPERSESSION_PROVEN`. Le suffixe `_rev` seul ne constitue pas une preuve de supersession.
+
+## Variantes historiques
+
+- 2011 `_2/_3/_4` : tailles et SHA distincts ;
+- 2012 `_2/_3` : tailles et SHA distincts ;
+- elles restent des sources indépendantes tant qu'une revue sémantique dédiée n'établit pas leur relation.
 
 ## Documents de gouvernance/corporate
 
-Le dossier 2022 contient :
+Le document `rapport_du_conseil_dadministration_-_assemblee_generale_ordinaire_-_boa_mali.pdf` est conservé comme SOURCE corporate distincte et pourra alimenter plus tard `corporate_facts_raw` / `event_facts_raw` selon son contenu.
 
-`rapport_du_conseil_dadministration_-_assemblee_generale_ordinaire_-_boa_mali.pdf`
+## Delta BRVM courant
 
-Il doit être conservé dans SOURCE et pourra alimenter plus tard `corporate_facts_raw` / `event_facts_raw` selon son contenu.
+Le delta officiel identifié reste documenté : publications 2025 supplémentaires et T1 2026 visibles côté BRVM mais non représentées par leurs équivalents évidents dans le Drive actuel.
 
-## Delta BRVM courant identifié le 2026-08-09
+Statut : `REMOTE_DELTA_IDENTIFIED`. Ce delta sera traité par le collecteur V2 ; il n'est pas injecté artificiellement dans le corpus Drive historique.
 
-La page officielle BRVM BOA Mali publie actuellement au moins :
+## Points P1 restant
 
-- `Rapport d'activités - 1er trimestre 2026` ;
-- `Etats financiers - Exercice 2025` ;
-- `Rapport d'activités - 3ème trimestre 2025` ;
-- `Rapport d'activités - 1er semestre 2025` ;
-- `Rapport d'activités au 1er trimestre 2025`.
-
-Le corpus Drive BOAM contient pour 2025 seulement :
-
-- `2025_Rapport_T1_BOAM.pdf` ;
-- `2025_Rapport_S1_BOAM.pdf`.
-
-Aucun dossier 2026 n'est présent.
-
-Donc, au minimum, trois documents actuellement visibles sur la BRVM ne sont pas représentés par leur équivalent évident dans l'inventaire Drive :
-
-- T3 2025 ;
-- états financiers 2025 ;
-- T1 2026.
-
-Statut : `REMOTE_DELTA_IDENTIFIED`.
-
-P1 documente le delta sans écraser ni modifier le corpus historique.
-
-## Points P1 restant à faire pour BOAM
-
-- hash des 44 fichiers ;
-- rapprochement de `2021_Etats_Financiers_BOAM_rev.pdf` avec sa version antérieure ;
-- résolution des périodes économiques ;
-- validation des dossiers vides 2013/2014 et de l'absence 2015 ;
-- rapprochement contrôlé du delta BRVM courant ;
-- inventaire machine lisible complet avec tailles/dates/checksums.
+- consolidation du manifeste document-level dans le maître ;
+- périodes économiques fines ;
+- éventuelle revue sémantique des anciennes variantes historiques ;
+- rapprochement contrôlé du delta BRVM courant.
