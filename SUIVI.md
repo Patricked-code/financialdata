@@ -18,7 +18,7 @@ Git : `main` uniquement, aucune branche/PR normale.
 - checkpoint : `inventory/P1_48_ISSUERS_CHECKPOINT_v11_20260810.md` ;
 - index : `inventory/p1_issuer_manifest.csv`.
 
-Deltas live documentés : CBIBF +7, ORAC +7, SICC +17, MVSC +15, UNLC +3, ORGT +12, SHEC +2, STAC +15, NSBC +3, ECOC +10. BIIC, BOAS et BOAM ont été revérifiés sans nouveau delta.
+Deltas live documentés : CBIBF +7, ORAC +7, SICC +17, MVSC +15, UNLC +3, ORGT +12, SHEC +2, STAC +15, NSBC +3, ECOC +10. BIIC, BOAS, BOAM et SCRC ont été revérifiés sans nouveau delta.
 
 ## P1_TRANSVERSE — DOCUMENT MANIFEST
 
@@ -28,8 +28,8 @@ Deltas live documentés : CBIBF +7, ORAC +7, SICC +17, MVSC +15, UNLC +3, ORGT +
 
 ## P1_TRANSVERSE — SHA256
 
-- SHA calculés et vérifiés : **437 / 3 041** ;
-- TRITRAF 8/8 ; CBIBF 15/15 ; ORAC 21/21 ; SICC 36/36 ; MVSC 35/35 ; UNLC 23/23 ; ORGT 35/35 ; SHEC 39/39 ; STAC 53/53 ; NSBC 41/41 ; ECOC 42/42 ; BIIC 2/2 ; BOAS 43/43 ; BOAM **44/44**.
+- SHA calculés et vérifiés : **482 / 3 041** ;
+- TRITRAF 8/8 ; CBIBF 15/15 ; ORAC 21/21 ; SICC 36/36 ; MVSC 35/35 ; UNLC 23/23 ; ORGT 35/35 ; SHEC 39/39 ; STAC 53/53 ; NSBC 41/41 ; ECOC 42/42 ; BIIC 2/2 ; BOAS 43/43 ; BOAM 44/44 ; SCRC **45/45**.
 
 ### Doublons exacts
 
@@ -44,14 +44,13 @@ Groupes exacts prouvés : **6**.
 
 Tous les objets physiques restent conservés dans SOURCE ; registre `inventory/p1_duplicate_groups.csv`.
 
-### Résultats récents BOAM
+### Résultats récents SCRC
 
-- live : **44 PDF**, aucun delta ;
-- 44/44 tailles validées, 42 SHA uniques, 2 groupes exacts ; registre `inventory/hashes/BOAM.csv` ;
-- T3/T4 2019 : même taille 86 241 octets mais SHA différents ; `BINARY_DISTINCT` ;
-- `2021_Etats_Financiers_BOAM_rev.pdf` : 4 pages image, états S1 2021 certifiés/signés ; aucun prédécesseur BOAM 2021 retrouvé dans Drive et aucune mention de correction/supersession visible ; verdict `PREDECESSOR_NOT_FOUND / NO_SUPERSESSION_PROVEN` ;
-- revue : `inventory/reviews/BOAM_VERSION_REVIEW_20260811.md` ;
-- dossiers 2013/2014 toujours sans PDF direct, 2015 absent ; delta BRVM 2025/2026 conservé comme `REMOTE_DELTA_IDENTIFIED`.
+- live : **45 PDF**, aucun delta ;
+- 45/45 tailles Drive ↔ fichiers validées ; **45 SHA uniques**, zéro doublon exact ; registre `inventory/hashes/SCRC.csv` ;
+- variantes EF 2017 `plain/_2/_3`, 2018 `plain/_2`, 2020 `plain/_2`, 2021 `plain/_2`, 2022 `plain/_2/_3`, 2023 `plain/_2` : toutes binaires distinctes ;
+- `divers_Attestation_CAC_Annuel_SCRC.pdf` : le nom est trompeur ; revue visuelle prouve une attestation CAC **semestrielle au 30 juin 2017**, couvrant le 1er janvier–30 juin 2017 et datée du 20 octobre 2017 ; période résolue `S1_2017` ;
+- aucun nouveau champ conceptuel nécessaire : campagne/site/production agro sont déjà prévus.
 
 ## P1-R
 
@@ -59,12 +58,12 @@ Profils vérifiés : BICC 2022, BIIC T2 2025, ETIT 2023. Deep pilots : BOABF, CI
 
 ## Prochaine action exacte
 
-1. traiter le prochain corpus non hashé de taille minimale : **SCRC ou TTLS (45 PDF chacun)** ;
-2. choisir après lecture de leur inventaire, puis revérifier le live par parents + MIME ;
-3. versionner tout delta avant hash ;
-4. hash 100 % + validation taille Drive ↔ fichier + revue des collisions/versions ;
-5. poursuivre ensuite par taille croissante.
+1. traiter **TTLS** (snapshot historique 45 PDF), prochain corpus non hashé de même taille ;
+2. revérifier le live par dossiers parents + MIME avant hash ;
+3. versionner tout delta avant calcul SHA ;
+4. matérialiser/hash 100 % + validation taille Drive ↔ fichier + revue des collisions/versions ;
+5. poursuivre ensuite les corpus non hashés par taille croissante.
 
 ## Point de reprise exact
 
-`48/48 ISSUERS | LIVE_TOTAL=3041 | MASTER_CONSOLIDATED=14/3041 | SHA256_VERIFIED=437/3041 | EXACT_DUPLICATE_GROUPS=6 | BOAM=44/44_SHA_COMPLETE | NEXT=SCRC_OR_TTLS_LIVE_RECHECK`
+`48/48 ISSUERS | LIVE_TOTAL=3041 | MASTER_CONSOLIDATED=14/3041 | SHA256_VERIFIED=482/3041 | EXACT_DUPLICATE_GROUPS=6 | SCRC=45/45_SHA_COMPLETE | NEXT=TTLS_LIVE_RECHECK_AND_SHA`
