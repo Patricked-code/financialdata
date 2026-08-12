@@ -1,7 +1,7 @@
 # P1 SOURCE — Société Ivoirienne de Banque / SIBC
 
-Date : 2026-08-11
-Statut : `P1_INVENTORIED / LIVE_SOURCE_DELTA_DETECTED / SHA256_PENDING`
+Date : 2026-08-12
+Statut : `P1_INVENTORIED / LIVE_SOURCE_DELTA_DETECTED / SHA256_COMPLETE`
 
 - Ticker : `SIBC`
 - Dossier Drive : `1CRsJHHElXoRpB1VsdrQX5QrZW_iWDDbl`
@@ -25,10 +25,46 @@ Statut : `P1_INVENTORIED / LIVE_SOURCE_DELTA_DETECTED / SHA256_PENDING`
 - 2024 : T1/S1/CAC S1/T3/annuel ;
 - 2025 : T1/S1/T3.
 
+## SHA-256
+
+- **49 / 49 PDF matérialisés et hashés** ;
+- **49 / 49 tailles Drive ↔ fichiers hashés validées** ;
+- **46 SHA uniques** ;
+- **2 groupes de doublons binaires exacts** dans SIBC ;
+- registre : `inventory/hashes/SIBC.csv`.
+
+### Groupe exact SIBC — T1 2017
+
+- `2017_Rapport_T1_SIBC.pdf` ;
+- `2017_Rapport_T1_SIBC_2.pdf` ;
+- `2017_Rapport_T1_SIBC_3.pdf` ;
+- **60 027 octets** chacun ;
+- SHA commun `3446b816e1a15b4a8d2df8bfeff775dbaa7166b52823c0d8d2bf8f1b06fc6b23` ;
+- groupe `SHA256:3446b816e1a15b4a8d2df8bfeff775dbaa7166b52823c0d8d2bf8f1b06fc6b23`.
+
+### Groupe exact SIBC — S1 2022
+
+- `2022_Rapport_S1_SIBC.pdf` ;
+- `2022_Rapport_S1_SIBC_2.pdf` ;
+- **6 481 666 octets** chacun ;
+- SHA commun `b96ab01184f501d6f726250132108e742d8b5ede7ca862ce088b5aa29d7c88ec` ;
+- groupe `SHA256:b96ab01184f501d6f726250132108e742d8b5ede7ca862ce088b5aa29d7c88ec`.
+
+Tous les objets Drive restent conservés en SOURCE. Aucune suppression silencieuse.
+
+### Variantes binaires distinctes
+
+- les deux états financiers 2016 ont des tailles et SHA distincts ;
+- les deux rapports CAC annuels 2018 ont des tailles et SHA distincts ;
+- `2018_Etats_Financiers_SIBC_rev.pdf` et `_rev_2.pdf` sont binaires distincts ; le suffixe `_rev` ne prouve pas encore une relation de supersession ;
+- les deux rapports S1 2020 sont binaires distincts ;
+- les deux états financiers 2020 sont binaires distincts ;
+- aucun autre groupe exact n'a été trouvé parmi les 49 sources.
+
 ## Règle
 
-Les 49 objets restent des sources physiques distinctes jusqu'au verdict SHA/contenu. Les trois T1 2017 de même taille sont des candidats de duplication exacte, jamais une duplication supposée. Les suffixes `_rev`, `_2`, `_3` ne prouvent pas une relation de version.
+Les noms, dossiers et suffixes ne déterminent jamais seuls la période, le doublon ou la relation de version. Les objets physiques restent séparés jusqu'au verdict SHA/contenu.
 
 ## Restant transversal
 
-`SHA256 = IN_PROGRESS_0_OF_49_AFTER_V13_RECHECK` ; `VERSION_LINKS = NOT_COMPLETE` ; `ECONOMIC_PERIODS = NOT_COMPLETE` ; `REMOTE_FRESHNESS = RECHECKED_DELTA_PLUS_3`.
+`SHA256 = COMPLETE_49_OF_49` ; `VERSION_LINKS = CONTENT_REVIEW_REMAINING_FOR_BINARY_DISTINCT_VARIANTS` ; `ECONOMIC_PERIODS = PARTIAL` ; `REMOTE_FRESHNESS = RECHECKED_DELTA_PLUS_3`.
