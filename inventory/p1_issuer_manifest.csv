@@ -1,6 +1,6 @@
 ordinal,ticker,pdf_count,inventory_path,status
 1,SIVC,53,inventory/SIVC.md,SHA256_COMPLETE
-2,BOABF,57,inventory/BOABF.md,INVENTORIED
+2,BOABF,57,inventory/BOABF.md,SHA256_COMPLETE
 3,BOAB,59,inventory/BOAB.md,INVENTORIED
 4,BOAC,60,inventory/BOAC.md,INVENTORIED
 5,BOAM,44,inventory/BOAM.md,SHA256_COMPLETE
