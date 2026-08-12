@@ -1,16 +1,27 @@
-# P1 INVENTORY — Bank of Africa Burkina Faso / BOABF
+# P1 SOURCE — Bank of Africa Burkina Faso / BOABF
 
-Date de vérification : 2026-08-09
+Date de vérification : 2026-08-12
 
 Drive folder : `1hQwExoX3z7LZKg89inSre8bKGjFoZ-lP`
 
-Statut : `FILE_INVENTORIED / HASH_PARTIAL`
+Statut : `P1_INVENTORIED / LIVE_SOURCE_RECHECKED_NO_DELTA / SHA256_COMPLETE`
 
 ## Sous-dossiers directs
 
 18 dossiers :
 
 `2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, divers`
+
+## Revérification live 2026-08-12
+
+Les 18 dossiers directs ont été relus individuellement.
+
+- snapshot précédent : **57 PDF** ;
+- live strict : **57 PDF** ;
+- delta : **0** ;
+- total projet V13 inchangé : **3 046 PDF**.
+
+Les dossiers **2015, 2017 et 2018 sont toujours réellement vides** lors de la revérification live. Cela ne signifie pas absence de données économiques pour ces périodes : le contenu de `divers` couvre notamment FY 2017.
 
 ## Nombre de fichiers par dossier de classement
 
@@ -36,56 +47,65 @@ Statut : `FILE_INVENTORIED / HASH_PARTIAL`
 | divers | 3 |
 | **TOTAL** | **57** |
 
+## SHA-256
+
+- **57 / 57 PDF matérialisés et hashés** ;
+- **57 / 57 tailles Drive ↔ fichiers locaux validées** ;
+- **56 SHA uniques** ;
+- **1 groupe de doublons binaires exacts** ;
+- aucun autre doublon exact parmi les 57 sources ;
+- registre : `inventory/hashes/BOABF.csv`.
+
+### Groupe exact BOABF — états financiers FY 2017
+
+Les deux objets physiques :
+
+- `divers_Etats_Financiers_BOABF.pdf` — Drive `1mLDRIfTmxeeWNAE8xKfJGQVDvYVN8Ya5` ;
+- `divers_Etats_Financiers_BOABF_2.pdf` — Drive `1LWk4x6_lpIG8zq6piF-dxCYDC69ND98Y` ;
+
+ont exactement :
+
+- taille : **814 269 octets** chacun ;
+- SHA-256 : `cda4d28d932b4b1c715a83170279d312000cfce9e4f1b487597d3db1b3821979` ;
+- statut : `EXACT_DUPLICATE`.
+
+Les deux Drive IDs restent conservés comme sources physiques distinctes. Aucune suppression ni fusion SOURCE.
+
+## Période économique de la paire `divers`
+
+Le PDF a été rendu visuellement le 2026-08-12. La première page affiche explicitement :
+
+- `BOA-BF` ;
+- `Rapports des Commissaires aux comptes à l’Assemblée générale ordinaire des actionnaires` ;
+- **`Exercice clos le 31 décembre 2017`** ;
+- **`ANNEXES : Etats financiers au 31 décembre 2017`** ;
+- `Bilan et Hors bilan / Compte de résultat`.
+
+Verdict :
+
+`ECONOMIC_PERIOD = FY_2017 / CONTENT_VISUALLY_RESOLVED`
+
+La présence de ces états dans `divers` démontre une nouvelle fois que la couverture économique ne peut pas être inférée uniquement depuis l’existence ou l’absence d’un dossier annuel.
+
 ## Familles de documents observées
 
-- rapports annuels ;
+- rapports annuels historiques ;
 - états financiers ;
 - rapports T1 ;
 - rapports T3 ;
 - rapports S1 ;
 - rapports S2 ;
-- attestation CAC ;
+- rapports CAC ;
 - fiche boursière ;
 - documents historiques rangés dans `divers`.
 
-## Anomalies / règles confirmées
+## Règles confirmées
 
-### Dossiers annuels vides
+- suffixe `_2`, `_3`, `_4`, `_5` ≠ preuve de doublon/version ;
+- dossier vide ≠ absence de période économique ;
+- doublon binaire exact = preuve SHA, tout en conservant chaque objet physique SOURCE ;
+- contenu PDF > nom et dossier pour période/type.
 
-Les dossiers 2015, 2017 et 2018 ne contiennent pas de fichier direct lors de l'inventaire actuel.
+## Restant transversal
 
-Cela ne signifie pas absence de données économiques pour ces années.
-
-### `divers` peut combler une période
-
-`divers_Etats_Financiers_BOABF.pdf` contient des états portant sur l'exercice clos au 31 décembre 2017 avec comparatifs 2016/2017.
-
-Règle : mesurer la couverture par périodes contenues dans les documents, pas uniquement par dossiers.
-
-### Doublon binaire déjà vérifié
-
-Les deux fichiers :
-
-- `divers_Etats_Financiers_BOABF.pdf`
-- `divers_Etats_Financiers_BOABF_2.pdf`
-
-ont déjà été vérifiés comme doublons binaires exacts dans le pilote antérieur.
-
-SHA-256 connu :
-
-`cda4d28d932b4b1c715a83170279d312000cfce9e4f1b487597d3db1b3821979`
-
-Règle : conserver les deux `document_id` / Drive IDs et la relation `DUPLICATE`, mais ne pas double-compter un futur fait canonique.
-
-## État des hash
-
-- hash vérifié pour la paire de doublons `divers` ci-dessus ;
-- hash de l'ensemble des 57 fichiers : `NOT_COMPLETE`.
-
-## Points P1 restant à faire pour BOABF
-
-- collecter/calculer les hash des 55 autres fichiers ;
-- construire le registre machine lisible complet avec tailles/dates ;
-- classer versions/collisions de noms historiques ;
-- résoudre les périodes économiques de tous les documents ;
-- vérifier les dossiers vides contre `divers` et contre le contenu des publications comparatives.
+`SHA256 = COMPLETE_57_OF_57` ; `EXACT_DUPLICATES = ONE_GROUP_TWO_OBJECTS` ; `VERSION_LINKS = CONTENT_REVIEW_REMAINING_FOR_BINARY_DISTINCT_VARIANTS` ; `ECONOMIC_PERIODS = PARTIAL_WITH_DIVERS_FY2017_RESOLVED` ; `REMOTE_FRESHNESS = RECHECKED_NO_DELTA`.
