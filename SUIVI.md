@@ -20,7 +20,7 @@ Git : `main` uniquement, aucune branche/PR normale.
 
 Le passage V13 → V14 provient de BOAC : snapshot précédent **60**, live revérifié **74**, delta **+14** persisté avant calcul SHA.
 
-Deltas live déjà documentés : CBIBF +7, ORAC +7, SICC +17, MVSC +15, UNLC +3, ORGT +12, SHEC +2, STAC +15, NSBC +3, ECOC +10, TTLS +2, SIBC +3, BOAC +14. BIIC, BOAS, BOAM, SCRC, SIVC, SEMC, BOABF et BOAB ont été revérifiés sans nouveau delta lors de leur passe courante.
+Deltas live déjà documentés : CBIBF +7, ORAC +7, SICC +17, MVSC +15, UNLC +3, ORGT +12, SHEC +2, STAC +15, NSBC +3, ECOC +10, TTLS +2, SIBC +3, BOAC +14. BIIC, BOAS, BOAM, SCRC, SIVC, SEMC, BOABF, BOAB, BOAN et AGLC ont été revérifiés sans nouveau delta lors de leur passe courante.
 
 ## P1_TRANSVERSE — DOCUMENT MANIFEST
 
@@ -31,9 +31,9 @@ Deltas live déjà documentés : CBIBF +7, ORAC +7, SICC +17, MVSC +15, UNLC +3,
 
 ## P1_TRANSVERSE — SHA256
 
-- SHA calculés et vérifiés : **875 / 3 060** (**28,59 %**) ;
-- restant non hashé sur l'état V14 : **2 185 PDF** ;
-- TRITRAF 8/8 ; CBIBF 15/15 ; ORAC 21/21 ; SICC 36/36 ; MVSC 35/35 ; UNLC 23/23 ; ORGT 35/35 ; SHEC 39/39 ; STAC 53/53 ; NSBC 41/41 ; ECOC 42/42 ; BIIC 2/2 ; BOAS 43/43 ; BOAM 44/44 ; SCRC 45/45 ; TTLS 47/47 ; SIBC 49/49 ; SIVC 53/53 ; SEMC 54/54 ; BOABF 57/57 ; BOAB **59/59** ; BOAC **74/74**.
+- SHA calculés et vérifiés : **995 / 3 060** (**32,52 %**) ;
+- restant non hashé sur l'état V14 : **2 065 PDF** ;
+- TRITRAF 8/8 ; CBIBF 15/15 ; ORAC 21/21 ; SICC 36/36 ; MVSC 35/35 ; UNLC 23/23 ; ORGT 35/35 ; SHEC 39/39 ; STAC 53/53 ; NSBC 41/41 ; ECOC 42/42 ; BIIC 2/2 ; BOAS 43/43 ; BOAM 44/44 ; SCRC 45/45 ; TTLS 47/47 ; SIBC 49/49 ; SIVC 53/53 ; SEMC 54/54 ; BOABF 57/57 ; BOAB **59/59** ; BOAC **74/74** ; BOAN **60/60** ; AGLC **60/60**.
 
 ### Doublons exacts
 
@@ -56,24 +56,42 @@ Tous les objets physiques restent conservés dans SOURCE ; registre global `inve
 ### Résultats BOAB — 2026-08-17
 
 - live strict : **59 PDF**, delta **0** ;
-- 29 dossiers parents contrôlés avec `mimeType = application/pdf` ;
 - 59/59 fichiers matérialisés et signature PDF validée ;
 - **59 SHA uniques**, **0 groupe exact** ;
 - registre `inventory/hashes/BOAB.csv` ;
-- anomalie d'attribution confirmée : `avis_ndeg232...tpci_590_2021-2031...pdf` concerne le **Trésor Public de Côte d'Ivoire / TPCI 5,90 % 2021-2031**, pas BOAB ; la source physique reste conservée avec attribution à revoir.
+- anomalie d'attribution confirmée : `avis_ndeg232...tpci_590_2021-2031...pdf` concerne le Trésor Public de Côte d'Ivoire / TPCI 5,90 % 2021-2031, pas BOAB ; la source physique reste conservée avec attribution à revoir.
 
 ### Résultats BOAC — live V14 / 2026-08-17
 
 - snapshot V13 : **60 PDF** ; live Drive revérifié : **74 PDF** ; delta **+14** ;
-- nouveau total SOURCE : **3 060 PDF** ;
-- delta persisté avant SHA dans `inventory/P1_48_ISSUERS_CHECKPOINT_v14_20260817.md` ;
 - 74/74 fichiers matérialisés ; 74/74 PDF valides ; **73 SHA uniques** ;
 - registre `inventory/hashes/BOAC.csv` ;
-- un groupe exact : `2021_Rapport_S1_BOAC.pdf` / `_2`, 1 559 400 octets, SHA `7e69b8618e901a4bb72442989a23913f47f268b9093c0a380461d5626ede0c97` ;
-- `2019_Etats_Financiers_BOAC.pdf` / `_2` : même taille 314 350 octets mais SHA distincts, donc `NOT_EXACT_DUPLICATE` ;
-- `divers_Rapport_S1_BOAC.pdf` : contenu confirmé **S1 2022** ;
-- `fiche_ci_0.pdf` : contenu confirmé **information boursière S1 2017** ;
-- delta BRVM externe 2025/2026 reste documenté mais n'est pas importé automatiquement pendant P1.
+- un groupe exact : `2021_Rapport_S1_BOAC.pdf` / `_2` ;
+- `2019_Etats_Financiers_BOAC.pdf` / `_2` : même taille mais SHA distincts ;
+- `divers_Rapport_S1_BOAC.pdf` : contenu confirmé S1 2022 ;
+- `fiche_ci_0.pdf` : information boursière S1 2017.
+
+### Résultats BOAN — 2026-08-17
+
+- live strict : **60 PDF**, snapshot **60**, delta **0** ;
+- 28 dossiers parents `1999–2025 + divers` contrôlés ;
+- 60/60 tailles Drive ↔ local conformes ; 60/60 signatures PDF valides ;
+- **60 SHA uniques**, **0 groupe exact** ;
+- registre canonique : `inventory/hashes/BOAN.csv` ;
+- une erreur de transcription du premier registre a été détectée par revalidation post-écriture puis corrigée avant clôture ;
+- `fiche_ne_0.pdf` : contenu confirmé information boursière **S1 2017**.
+
+### Résultats AGLC — 2026-08-17
+
+- live strict : **60 PDF**, snapshot **60**, delta **0** ;
+- 28 dossiers annuels `1998–2025` contrôlés ;
+- 60/60 matérialisés ; 60/60 tailles conformes ; 60/60 signatures PDF valides ;
+- **60 SHA uniques**, **0 groupe exact** ;
+- registre : `inventory/hashes/AGLC.csv` ;
+- validation post-commit bit-for-bit : Git blob local = GitHub `4c25045ffeb194aad7929b3b106a6fe6b7c7241c` ;
+- 2020 : comptes IFRS individuels et consolidés conservés comme scopes distincts ;
+- T1 2025 plain / `_rev` : binaires distincts et versions de la même publication ; `_rev` corrige notamment la valeur comparative annuelle du résultat net 2024 de **17 138 527** à **21 068 974 KFCFA** ;
+- aucune formule explicite `annule et remplace` observée : ne pas renseigner automatiquement `supersedes_source_file_id`.
 
 ## P1-R
 
@@ -81,14 +99,14 @@ Profils vérifiés : BICC 2022, BIIC T2 2025, ETIT 2023. Deep pilots : BOABF, CI
 
 ## Prochaine action exacte
 
-1. traiter **BOAN** — snapshot actuel **60 PDF** ;
-2. revérifier les 28 dossiers parents (`1999` à `2025` + `divers`) et compter strictement les PDF live ;
+1. traiter **BICC** — snapshot actuel **61 PDF** ;
+2. revérifier strictement ses dossiers parents et compter les PDF live ;
 3. si delta : versionner le nouveau dénominateur avant tout SHA et mettre à jour le total global ;
-4. matérialiser/hash 100 % + validation taille Drive ↔ fichier + revue des collisions/versions ;
-5. mettre à jour `inventory/BOAN.md`, `inventory/hashes/BOAN.csv`, `p1_issuer_manifest.csv`, `p1_duplicate_groups.csv`, `SUIVI.md`, `TODO.md` et le checkpoint si nécessaire ;
-6. poursuivre ensuite **AGLC**, puis les autres corpus non hashés par taille croissante ;
+4. matérialiser/hash 100 % + validation taille Drive ↔ fichier + revue collisions/versions ;
+5. mettre à jour `inventory/BICC.md`, `inventory/hashes/BICC.csv`, `p1_issuer_manifest.csv`, `p1_duplicate_groups.csv`, `SUIVI.md`, `TODO.md` et checkpoint si nécessaire ;
+6. poursuivre ensuite **CIEC (61)** puis les autres corpus non hashés par taille croissante ;
 7. poursuivre en parallèle le backfill du manifeste documentaire et P1-R sans démarrer P3 exhaustif prématurément.
 
 ## Point de reprise exact
 
-`48/48 ISSUERS | LIVE_TOTAL=3060 | MASTER_CONSOLIDATED=14/3060 | SHA256_VERIFIED=875/3060 | SHA_COVERAGE=28.59% | EXACT_DUPLICATE_GROUPS=11 | BOAB=59/59_SHA_COMPLETE | BOAC=74/74_SHA_COMPLETE | NEXT=BOAN_LIVE_RECHECK_AND_SHA`
+`48/48 ISSUERS | LIVE_TOTAL=3060 | MASTER_CONSOLIDATED=14/3060 | SHA256_VERIFIED=995/3060 | SHA_COVERAGE=32.52% | EXACT_DUPLICATE_GROUPS=11 | BOAN=60/60_SHA_COMPLETE | AGLC=60/60_SHA_COMPLETE | NEXT=BICC_LIVE_RECHECK_AND_SHA`
