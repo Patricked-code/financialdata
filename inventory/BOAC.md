@@ -1,11 +1,11 @@
 # P1 INVENTORY — Bank of Africa Côte d'Ivoire / BOAC
 
 Date de vérification initiale : 2026-08-09  
-Dernière revérification live : 2026-08-17
+Dernière revérification live et SHA : 2026-08-17
 
 Drive folder : `1GNIORLdGneVshpR3oOBmq2_xDxKAu86g`
 
-Statut : `FILE_INVENTORIED / LIVE_SOURCE_DELTA_DETECTED / HASH_PENDING / REMOTE_DELTA_IDENTIFIED`
+Statut : `FILE_INVENTORIED / LIVE_SOURCE_DELTA_HASH_COMPLETE / REMOTE_DELTA_IDENTIFIED`
 
 ## Sous-dossiers directs
 
@@ -40,6 +40,35 @@ Checkpoint du delta : `inventory/P1_48_ISSUERS_CHECKPOINT_v14_20260817.md`.
 
 Le delta a été persisté avant tout calcul SHA BOAC. Aucun objet n'a été supprimé, déplacé, fusionné ou dédupliqué.
 
+## Résultat SHA-256
+
+- fichiers physiques live : **74** ;
+- fichiers matérialisés et contrôlés : **74 / 74** ;
+- signatures PDF valides : **74 / 74** ;
+- SHA-256 calculés : **74 / 74** ;
+- SHA-256 uniques : **73** ;
+- groupes `EXACT_DUPLICATE` : **1** ;
+- registre : `inventory/hashes/BOAC.csv`.
+
+### Groupe exact BOAC
+
+`2021_Rapport_S1_BOAC.pdf` et `2021_Rapport_S1_BOAC_2.pdf` sont binaires identiques :
+
+- taille : **1 559 400 octets** chacun ;
+- SHA-256 : `7e69b8618e901a4bb72442989a23913f47f268b9093c0a380461d5626ede0c97` ;
+- statut : `EXACT_DUPLICATE` ;
+- les deux objets physiques restent conservés dans SOURCE ;
+- groupe enregistré dans `inventory/p1_duplicate_groups.csv`.
+
+### Paire de même taille mais non identique
+
+`2019_Etats_Financiers_BOAC.pdf` et `2019_Etats_Financiers_BOAC_2.pdf` font tous deux **314 350 octets**, mais leurs SHA sont différents :
+
+- plain : `367077d13d7bc67231c4614bf104f6618ad0acc14d3177eee4e47f71b1a7fa68` ;
+- `_2` : `b801a64942b0611e6a24a39ce7800990d648817bfbfc3465565e69f9f835d044`.
+
+Conclusion : `NOT_EXACT_DUPLICATE`. Cette paire confirme que la taille ou le suffixe de nom ne constituent jamais une preuve de doublon.
+
 ## Familles observées
 
 - rapports annuels historiques ;
@@ -62,25 +91,20 @@ Plusieurs objets nouvellement visibles dans les dossiers historiques ont un `cre
 
 Règle : dossier vide ≠ absence de période économique ; l'état live doit être revérifié avant chaque passe transverse.
 
-## `divers`
+## `divers` — périodes résolues depuis le contenu
 
 Deux fichiers observés :
 
-- `fiche_ci_0.pdf` ;
-- `divers_Rapport_S1_BOAC.pdf`.
+- `fiche_ci_0.pdf` : fiche d'information boursière **S1 2017** de BANK OF AFRICA - CÔTE D'IVOIRE ;
+- `divers_Rapport_S1_BOAC.pdf` : rapport d'activité du **1er semestre 2022**, période confirmée depuis le contenu.
 
-Le second nécessite résolution de période depuis le contenu.
+La période n'est pas déduite du dossier ou du nom ; le contenu source prévaut.
 
 ## Candidats versions / collisions de noms
 
-Nombreux suffixes `_2`, `_3`, `_4`, `_5` sur les rapports annuels et certains états financiers historiques.
+Les nombreux suffixes `_2`, `_3`, `_4`, `_5` sur les rapports annuels historiques ont été conservés comme sources physiques distinctes. La passe SHA ne permet de qualifier `EXACT_DUPLICATE` que lorsqu'une égalité binaire est réellement démontrée.
 
-Deux paires nécessitent une attention particulière au SHA car leurs tailles Drive sont identiques :
-
-- `2019_Etats_Financiers_BOAC.pdf` / `_2` : **314 350 octets** chacun ;
-- `2021_Rapport_S1_BOAC.pdf` / `_2` : **1 559 400 octets** chacun.
-
-Statut : `DUPLICATE_REVIEW_PENDING` jusqu'à preuve SHA-256. La taille ou le nom seuls ne constituent pas une preuve de doublon.
+Pour BOAC, un seul groupe exact est prouvé : la paire S1 2021 décrite ci-dessus. Les autres variantes restent distinctes au niveau binaire et peuvent encore nécessiter une revue sémantique/versionnelle ultérieure.
 
 ## Delta BRVM courant identifié le 2026-08-09
 
@@ -118,13 +142,13 @@ Voir `docs/BRVM_COLLECTOR_V2_PLAN.md`.
 
 ## Points P1 restant à faire pour BOAC
 
-- hash des **74 fichiers live V14** ;
-- revue des collisions `_2/_3/...` ;
-- résolution de la période de `divers_Rapport_S1_BOAC.pdf` ;
-- validation détaillée des types documentaires ;
+- validation sémantique détaillée des types/versionnements historiques quand nécessaire ;
 - rapprochement contrôlé avec le delta BRVM courant ;
-- backfill du manifeste documentaire avec tailles/dates/checksums et métadonnées temporelles.
+- backfill du manifeste documentaire avec tailles/dates/checksums et métadonnées temporelles ;
+- intégration dans les shards du manifeste transverse.
+
+Le live recheck, la matérialisation binaire, le SHA-256 et la revue des doublons exacts sont terminés.
 
 ## Point de reprise BOAC
 
-`BOAC_LIVE=74 | V13=60 | DELTA=+14 | CHECKPOINT=V14 | HASH=PENDING`
+`BOAC_LIVE=74 | V13=60 | DELTA=+14 | CHECKPOINT=V14 | SHA=74/74 | UNIQUE_SHA=73 | EXACT_DUPLICATE_GROUPS=1 | STATUS=SHA256_COMPLETE`
