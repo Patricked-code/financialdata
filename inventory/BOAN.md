@@ -1,11 +1,11 @@
 # P1 INVENTORY — Bank of Africa Niger / BOAN
 
 Date de vérification initiale : 2026-08-09  
-Dernière revérification live : 2026-08-17
+Dernière revérification live et SHA : 2026-08-17
 
 Drive folder : `1qtb3jsPG28k_C3JNuEU35oKWhK5y41Xa`
 
-Statut : `FILE_INVENTORIED / LIVE_RECHECKED_NO_DELTA / HASH_PENDING / REMOTE_DELTA_IDENTIFIED`
+Statut : `FILE_INVENTORIED / LIVE_RECHECKED_NO_DELTA / SHA256_COMPLETE / REMOTE_DELTA_IDENTIFIED`
 
 ## Sous-dossiers directs
 
@@ -51,7 +51,20 @@ Aucun dossier `1998` n'a été observé dans l'arborescence directe actuelle.
 
 La revérification du 2026-08-17 a été faite depuis les 28 dossiers parents réels avec filtre strict `mimeType = application/pdf`, en quatre groupes couvrant exhaustivement `1999`–`2025` + `divers`.
 
-Résultat : **60 PDF live**, identique au snapshot. Aucun delta n'est donc ajouté au total global V14, qui reste **3 060 PDF**. Aucun checkpoint de delta supplémentaire n'est requis avant SHA.
+Résultat : **60 PDF live**, identique au snapshot. Aucun delta n'est donc ajouté au total global V14, qui reste **3 060 PDF**. Aucun checkpoint de delta supplémentaire n'était requis avant SHA.
+
+## Résultat SHA-256
+
+- fichiers physiques live : **60** ;
+- fichiers matérialisés depuis Drive : **60 / 60** ;
+- tailles Drive ↔ fichiers locaux concordantes : **60 / 60** ;
+- signatures PDF `%PDF` valides : **60 / 60** ;
+- SHA-256 calculés : **60 / 60** ;
+- SHA-256 uniques : **60** ;
+- groupes `EXACT_DUPLICATE` : **0** ;
+- registre canonique : `inventory/hashes/BOAN.csv`.
+
+Aucun des suffixes historiques `_2`, `_3`, `_4`, `_5` ne produit une collision SHA dans le corpus BOAN live. Toutes les variantes restent donc des sources binaires distinctes ; une éventuelle relation de version sémantique devra être établie séparément depuis le contenu, jamais depuis le suffixe seul.
 
 ## Familles documentaires observées
 
@@ -70,13 +83,21 @@ Résultat : **60 PDF live**, identique au snapshot. Aucun delta n'est donc ajout
 
 Règle : ne pas interpréter ces dossiers vides comme absence de données économiques sans revue du contenu des autres documents et du catalogue BRVM.
 
+## `divers` — période résolue depuis le contenu
+
+`fiche_ne_0.pdf` porte explicitement :
+
+- `BANK OF AFRICA-NIGER` ;
+- `INFORMATION BOURSIERE S1 2017` ;
+- données semestrielles / cours au `30/06/2017`.
+
+Qualification : **fiche d'information boursière S1 2017**.
+
+La période est déterminée depuis le contenu source, non depuis le nom `fiche_ne_0.pdf` ou le dossier `divers`.
+
 ## Candidats versions / collisions de nom
 
-Nombreux rapports annuels historiques portent des suffixes `_2`, `_3`, `_4`, `_5`.
-
-Ils restent `DUPLICATE_REVIEW_PENDING` tant que les hash et le contenu n'ont pas été comparés.
-
-Exemples :
+Nombreux rapports annuels historiques portent des suffixes `_2`, `_3`, `_4`, `_5` :
 
 - 2003 : rapport annuel + `_2` ;
 - 2005 : rapport annuel + `_2` ;
@@ -87,7 +108,7 @@ Exemples :
 - 2012 : `_2`, `_3`, `_4`, `_5` ;
 - 2014 : `_2`, `_3`, `_4`, `_5`.
 
-La taille, le nom et le suffixe ne suffisent pas pour déclarer un doublon ; seul le SHA-256 identique sur les octets matérialisés peut établir `EXACT_DUPLICATE`.
+La passe SHA établit qu'aucun de ces 60 objets n'est un doublon binaire exact d'un autre objet BOAN live. Ils doivent tous rester conservés dans SOURCE.
 
 ## Delta BRVM courant observé le 2026-08-09
 
@@ -111,14 +132,13 @@ Ces publications ne sont pas téléchargées automatiquement pendant P1. Elles s
 
 ## Points P1 restant à faire pour BOAN
 
-- matérialiser et calculer le SHA-256 des **60/60 fichiers live** ;
-- confirmer doublons et versions historiques ;
-- résoudre les périodes économiques ambiguës depuis le contenu ;
+- relations de versions sémantiques historiques quand le contenu le justifie ;
 - expliquer les trous 2009 et 2015–2017 via revue documentaire/P1-FRESH, sans supposition ;
-- produire `inventory/hashes/BOAN.csv` ;
-- mettre à jour le manifeste et les métriques globales après validation ;
-- plus tard, rapprocher le corpus Drive du catalogue BRVM courant via le collecteur V2.
+- backfill du manifeste transverse avec tailles, dates, checksums et métadonnées temporelles ;
+- rapprochement contrôlé avec le catalogue BRVM courant via le collecteur V2.
+
+Le live recheck, la matérialisation binaire, la validation taille/PDF, le SHA-256 et la revue des doublons exacts sont terminés.
 
 ## Point de reprise BOAN
 
-`BOAN_LIVE=60 | SNAPSHOT=60 | DELTA=0 | HASH=PENDING`
+`BOAN_LIVE=60 | SNAPSHOT=60 | DELTA=0 | SHA=60/60 | UNIQUE_SHA=60 | EXACT_DUPLICATE_GROUPS=0 | STATUS=SHA256_COMPLETE`
