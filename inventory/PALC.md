@@ -1,7 +1,7 @@
 # P1 SOURCE — Palm Côte d'Ivoire / PALC
 
 Date : 2026-08-17
-Statut : `FILE_INVENTORIED / LIVE_SOURCE_DELTA_DETECTED / HASH_PENDING / VERSION_REVIEW`
+Statut : `FILE_INVENTORIED / LIVE_SOURCE_DELTA_HASH_COMPLETE / SHA256_COMPLETE / VERSION_REVIEW_COMPLETE`
 
 - Ticker : `PALC`
 - Dossier Drive canonique : `1w2XGE38g12wfH6Dm0UdZKAraYmg7vzNZ`
@@ -14,31 +14,42 @@ Statut : `FILE_INVENTORIED / LIVE_SOURCE_DELTA_DETECTED / HASH_PENDING / VERSION
 - SOURCE global : **V19 = 3 100 PDF**
 - Checkpoint : `inventory/P1_48_ISSUERS_CHECKPOINT_v19_20260817.md`
 
-## Particularités SOURCE vérifiées au recheck 2026-08-17
+## Résultat binaire PALC — V19
 
-- historique long avec nombreuses collisions `_2/_3/_4/_5/_6` ;
-- `2009_Rapport_Annuel_PALC_rev.pdf` reste un candidat de révision, sans relation automatique avant SHA/contenu ;
-- le corpus live contient des fichiers génériques/non strictement normalisés, notamment `efp_-_palm_ci_-_2014.pdf` et `190430_rapport_dactivite_2nd_semestre_2018_-_palm_ci.pdf` ;
-- les périodes S2 sont explicitement présentes, notamment 2016 et 2019 ;
-- états financiers, T1/T3, CAC/attestations sont présents selon les années ;
-- 2025 contient au moins T1, T3 et attestation CAC S1 dans le corpus live ;
-- le périmètre SOURCE est défini par l'arborescence canonique parent-scoped, jamais par la seule présence de `PALC` dans un nom.
+- **98/98** objets matérialisés ;
+- **98/98** signatures `%PDF-` valides ;
+- **96 SHA-256 uniques** ;
+- **2 groupes de doublons exacts**, tous les objets physiques restant conservés :
+  1. `2007_Rapport_Annuel_PALC_2.pdf` / `2007_Rapport_Annuel_PALC_3.pdf` — SHA `5c7b218089532b8275bff06fc0c3e9199fc891b5c12c03cdf373f4c182982c1c` ;
+  2. `2018_Rapport_T3_PALC.pdf` / `2018_Rapport_T3_PALC_2.pdf` — SHA `ae8fd065f86a129033728594ecc5162eda448e2a99624c218b2e55c05e24fe00`.
+- registre : `inventory/hashes/PALC.csv` ;
+- validation post-commit bit-for-bit : blob local = GitHub `5dbe863af2b7b3854b0a6e20d29cb67c6a9f7a35`.
+
+## Revue de version 2009
+
+`2009_Rapport_Annuel_PALC.pdf` et `2009_Rapport_Annuel_PALC_rev.pdf` sont deux binaires distincts correspondant à la même publication économique 2009. La comparaison de contenu met en évidence des corrections de postes, notamment sur la valeur ajoutée, l'EBE et des transferts de charges. Aucune mention explicite de type `annule et remplace` n'a été trouvée.
+
+Verdict conservateur : **`VERSION_OF`**, pas `EXACT_DUPLICATE`, et aucun `SUPERSEDES` automatique.
+
+## Particularités SOURCE confirmées
+
+- les fichiers génériques `efp_-_palm_ci_-_2014.pdf` et `190430_rapport_dactivite_2nd_semestre_2018_-_palm_ci.pdf` font bien partie des 98 objets grâce au périmètre parent-scoped ;
+- les suffixes `_2/_3/_4/_5/_6` ne déterminent jamais seuls une relation ;
+- S2 est réellement présent en 2016 et 2019 ;
+- états financiers, T1/T3, CAC/attestations et rapports annuels sont conservés comme objets documentaires distincts ;
+- 2025 contient T1, T3 et attestation CAC S1 dans le corpus observé.
 
 ## P1-R
 
 Les dimensions agribusiness/production/campagne/prix/volumes envisagées dans la passe conceptuelle sont conservées. Aucun nouveau champ n'est ajouté sans preuve supplémentaire issue du contenu.
 
-## Passe suivante exacte
+## Suite exacte
 
-1. matérialiser les **98/98 PDF** de la liste live parent-scoped ;
-2. valider tailles et signatures `%PDF-` ;
-3. calculer SHA-256 sur 100 % ;
-4. identifier les groupes exacts sans supprimer aucun objet ;
-5. revoir les variantes historiques et `2009_Rapport_Annuel_PALC_rev.pdf` par contenu ;
-6. créer `inventory/hashes/PALC.csv` et valider son blob GitHub post-commit ;
-7. finaliser PALC, manifeste, doublons, `SUIVI.md` et `TODO.md` ;
-8. passer ensuite à `BNBC`.
+1. mettre à jour le registre global des doublons avec les deux groupes PALC ;
+2. basculer PALC en `SHA256_COMPLETE` dans le manifeste ;
+3. synchroniser `SUIVI.md` et `TODO.md` sur V19 ;
+4. passer à **BNBC**, snapshot manifeste 78 PDF, avec recheck live strict avant SHA.
 
 ## Restant transversal
 
-`SHA256 = IN_PROGRESS` ; `VERSION_LINKS = IN_PROGRESS` ; `ECONOMIC_PERIODS = NOT_COMPLETE` ; `REMOTE_FRESHNESS = NOT_COMPLETE`.
+`SHA256 = IN_PROGRESS_GLOBAL` ; `VERSION_LINKS = IN_PROGRESS` ; `ECONOMIC_PERIODS = NOT_COMPLETE` ; `REMOTE_FRESHNESS = NOT_COMPLETE`.
