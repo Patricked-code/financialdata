@@ -1,10 +1,11 @@
 # P1 INVENTORY — Bank of Africa Niger / BOAN
 
-Date de vérification : 2026-08-09
+Date de vérification initiale : 2026-08-09  
+Dernière revérification live : 2026-08-17
 
 Drive folder : `1qtb3jsPG28k_C3JNuEU35oKWhK5y41Xa`
 
-Statut : `FILE_INVENTORIED / HASH_PENDING / REMOTE_DELTA_IDENTIFIED`
+Statut : `FILE_INVENTORIED / LIVE_RECHECKED_NO_DELTA / HASH_PENDING / REMOTE_DELTA_IDENTIFIED`
 
 ## Sous-dossiers directs
 
@@ -12,39 +13,45 @@ Statut : `FILE_INVENTORIED / HASH_PENDING / REMOTE_DELTA_IDENTIFIED`
 
 Aucun dossier `1998` n'a été observé dans l'arborescence directe actuelle.
 
-## Nombre de fichiers par dossier de classement
+## Nombre de fichiers par dossier de classement — live 2026-08-17
 
-| Dossier | Fichiers |
-|---|---:|
-| 1999 | 1 |
-| 2000 | 1 |
-| 2001 | 1 |
-| 2002 | 1 |
-| 2003 | 2 |
-| 2004 | 1 |
-| 2005 | 2 |
-| 2006 | 2 |
-| 2007 | 2 |
-| 2008 | 1 |
-| 2009 | 0 |
-| 2010 | 2 |
-| 2011 | 3 |
-| 2012 | 4 |
-| 2013 | 2 |
-| 2014 | 4 |
-| 2015 | 0 |
-| 2016 | 0 |
-| 2017 | 0 |
-| 2018 | 4 |
-| 2019 | 3 |
-| 2020 | 4 |
-| 2021 | 5 |
-| 2022 | 3 |
-| 2023 | 3 |
-| 2024 | 4 |
-| 2025 | 4 |
-| divers | 1 |
-| **TOTAL** | **60** |
+| Dossier | Snapshot | Live | Delta |
+|---|---:|---:|---:|
+| 1999 | 1 | 1 | 0 |
+| 2000 | 1 | 1 | 0 |
+| 2001 | 1 | 1 | 0 |
+| 2002 | 1 | 1 | 0 |
+| 2003 | 2 | 2 | 0 |
+| 2004 | 1 | 1 | 0 |
+| 2005 | 2 | 2 | 0 |
+| 2006 | 2 | 2 | 0 |
+| 2007 | 2 | 2 | 0 |
+| 2008 | 1 | 1 | 0 |
+| 2009 | 0 | 0 | 0 |
+| 2010 | 2 | 2 | 0 |
+| 2011 | 3 | 3 | 0 |
+| 2012 | 4 | 4 | 0 |
+| 2013 | 2 | 2 | 0 |
+| 2014 | 4 | 4 | 0 |
+| 2015 | 0 | 0 | 0 |
+| 2016 | 0 | 0 | 0 |
+| 2017 | 0 | 0 | 0 |
+| 2018 | 4 | 4 | 0 |
+| 2019 | 3 | 3 | 0 |
+| 2020 | 4 | 4 | 0 |
+| 2021 | 5 | 5 | 0 |
+| 2022 | 3 | 3 | 0 |
+| 2023 | 3 | 3 | 0 |
+| 2024 | 4 | 4 | 0 |
+| 2025 | 4 | 4 | 0 |
+| divers | 1 | 1 | 0 |
+| **TOTAL** | **60** | **60** | **0** |
+
+### Règle de preuve du recheck
+
+La revérification du 2026-08-17 a été faite depuis les 28 dossiers parents réels avec filtre strict `mimeType = application/pdf`, en quatre groupes couvrant exhaustivement `1999`–`2025` + `divers`.
+
+Résultat : **60 PDF live**, identique au snapshot. Aucun delta n'est donc ajouté au total global V14, qui reste **3 060 PDF**. Aucun checkpoint de delta supplémentaire n'est requis avant SHA.
 
 ## Familles documentaires observées
 
@@ -57,7 +64,7 @@ Aucun dossier `1998` n'a été observé dans l'arborescence directe actuelle.
 - fiche boursière dans `divers` ;
 - noms source non standardisés sur certaines périodes.
 
-## Dossiers vides observés
+## Dossiers vides confirmés au live recheck
 
 `2009, 2015, 2016, 2017`.
 
@@ -80,6 +87,8 @@ Exemples :
 - 2012 : `_2`, `_3`, `_4`, `_5` ;
 - 2014 : `_2`, `_3`, `_4`, `_5`.
 
+La taille, le nom et le suffixe ne suffisent pas pour déclarer un doublon ; seul le SHA-256 identique sur les octets matérialisés peut établir `EXACT_DUPLICATE`.
+
 ## Delta BRVM courant observé le 2026-08-09
 
 La page officielle BRVM de BOA Niger publie actuellement, entre autres :
@@ -94,17 +103,22 @@ La page officielle BRVM de BOA Niger publie actuellement, entre autres :
 - rapport S1 2025 ;
 - rapport T1 2025.
 
-Le dossier Drive 2025 inventorié contient T1, S1, attestation CAC S1 et T3, mais pas les équivalents évidents des publications S2/annuelles/Conseil 2025, et il n'existe pas encore de dossier 2026.
+Le dossier Drive 2025 live contient T1, S1, attestation CAC S1 et T3, mais pas les équivalents évidents des publications S2/annuelles/Conseil 2025, et il n'existe pas encore de dossier 2026.
 
 Statut : `REMOTE_DELTA_IDENTIFIED`.
 
-Ces publications ne sont pas téléchargées pendant P1. Elles servent à valider le futur collecteur incrémental V2.
+Ces publications ne sont pas téléchargées automatiquement pendant P1. Elles servent à valider le futur collecteur incrémental V2.
 
 ## Points P1 restant à faire pour BOAN
 
-- calculer/collecter les hash de tous les fichiers ;
+- matérialiser et calculer le SHA-256 des **60/60 fichiers live** ;
 - confirmer doublons et versions historiques ;
-- résoudre les périodes économiques depuis le contenu ;
-- expliquer les trous 2009 et 2015–2017 ;
-- produire l'inventaire machine-lisible consolidé ;
+- résoudre les périodes économiques ambiguës depuis le contenu ;
+- expliquer les trous 2009 et 2015–2017 via revue documentaire/P1-FRESH, sans supposition ;
+- produire `inventory/hashes/BOAN.csv` ;
+- mettre à jour le manifeste et les métriques globales après validation ;
 - plus tard, rapprocher le corpus Drive du catalogue BRVM courant via le collecteur V2.
+
+## Point de reprise BOAN
+
+`BOAN_LIVE=60 | SNAPSHOT=60 | DELTA=0 | HASH=PENDING`
