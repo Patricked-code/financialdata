@@ -37,7 +37,7 @@ ordinal,ticker,pdf_count,inventory_path,status
 36,SMBC,106,inventory/SMBC.md,INVENTORIED
 37,SDCC,92,inventory/SDCC.md,INVENTORIED
 38,SOGC,106,inventory/SOGC.md,INVENTORIED
-39,SLBC,70,inventory/SLBC.md,LIVE_SOURCE_DELTA_DETECTED
+39,SLBC,70,inventory/SLBC.md,SHA256_COMPLETE
 40,SNTS,101,inventory/SNTS.md,INVENTORIED
 41,SCRC,45,inventory/SCRC.md,SHA256_COMPLETE
 42,TTLC,101,inventory/TTLC.md,INVENTORIED
