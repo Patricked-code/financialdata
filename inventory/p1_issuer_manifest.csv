@@ -9,7 +9,7 @@ ordinal,ticker,pdf_count,inventory_path,status
 8,BNBC,78,inventory/BNBC.md,INVENTORIED
 9,BICC,61,inventory/BICC.md,INVENTORIED
 10,BIIC,2,inventory/BIIC.md,SHA256_COMPLETE
-11,AGLC,60,inventory/AGLC.md,INVENTORIED
+11,AGLC,60,inventory/AGLC.md,SHA256_COMPLETE
 12,CFAC,94,inventory/CFAC.md,INVENTORIED
 13,CIEC,61,inventory/CIEC.md,INVENTORIED
 14,CBIBF,15,inventory/CBIBF.md,LIVE_SOURCE_DELTA_DETECTED
