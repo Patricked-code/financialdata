@@ -2,7 +2,7 @@ ordinal,ticker,pdf_count,inventory_path,status
 1,SIVC,53,inventory/SIVC.md,SHA256_COMPLETE
 2,BOABF,57,inventory/BOABF.md,SHA256_COMPLETE
 3,BOAB,59,inventory/BOAB.md,SHA256_COMPLETE
-4,BOAC,74,inventory/BOAC.md,LIVE_SOURCE_DELTA_DETECTED
+4,BOAC,74,inventory/BOAC.md,SHA256_COMPLETE
 5,BOAM,44,inventory/BOAM.md,SHA256_COMPLETE
 6,BOAN,60,inventory/BOAN.md,INVENTORIED
 7,BOAS,43,inventory/BOAS.md,SHA256_COMPLETE
