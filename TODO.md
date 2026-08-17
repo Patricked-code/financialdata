@@ -8,59 +8,45 @@ Dépôt canonique : `Patricked-code/financialdata`. Travail direct sur `main` un
 
 ### Inventaire
 
-- [x] 48 / 48 sociétés inventoriées ; état live V14 **3 060 PDF**.
-- [x] checkpoint `inventory/P1_48_ISSUERS_CHECKPOINT_v14_20260817.md` ; index `inventory/p1_issuer_manifest.csv`.
-- [x] SIBC revérifié : **49 PDF** au lieu de 46, delta `+3` persisté avant hash.
-- [x] SIVC revérifié : **53 PDF**, aucun delta.
-- [x] SEMC revérifié : **54 PDF**, aucun delta.
-- [x] BOABF revérifié : **57 PDF**, aucun delta.
-- [x] BOAB revérifié : **59 PDF**, aucun delta.
-- [x] BOAC revérifié : **74 PDF** au lieu de 60, delta `+14` persisté avant SHA dans V14.
-- [x] BOAN revérifié : **60 PDF**, aucun delta.
-- [x] AGLC revérifié : **60 PDF**, aucun delta.
-- [ ] continuer la revérification live société par société, prochain corpus : **BICC** (snapshot 61), puis **CIEC** (61).
+- [x] 48 / 48 sociétés inventoriées ; état live **V15 = 3 069 PDF**.
+- [x] checkpoint `inventory/P1_48_ISSUERS_CHECKPOINT_v15_20260817.md` ; index `inventory/p1_issuer_manifest.csv`.
+- [x] BOAC : 60 → 74, delta +14 versionné avant SHA (V14).
+- [x] BICC : 61 → **70**, delta **+9** versionné avant SHA (V15).
+- [x] BOAN 60, AGLC 60 : aucun delta lors de leur passe courante.
+- [ ] continuer la revérification live société par société, prochain corpus : **CIEC** (snapshot 61).
 
 ### Document manifest
 
-- [x] schéma/sharding/maître créés ; maître consolidé **14 / 3 060**.
-- [x] registres SHA avec Drive IDs + tailles disponibles pour les corpus hashés, y compris BOAB, BOAC, BOAN et AGLC.
+- [x] schéma/sharding/maître créés ; maître consolidé **14 / 3 069**.
+- [x] registres SHA avec Drive IDs + tailles disponibles pour les corpus hashés, y compris BOAB, BOAC, BOAN, AGLC et BICC.
 - [ ] backfill métadonnées temporelles et shards compatibles pour les corpus hashés.
 - [ ] poursuivre tous les émetteurs jusqu'à consolidation complète du manifeste.
 
 ### SHA-256
 
-- [x] TRITRAF 8/8 ; CBIBF 15/15 ; ORAC 21/21 ; SICC 36/36 ; MVSC 35/35 ; UNLC 23/23 ; ORGT 35/35 ; SHEC 39/39 ; STAC 53/53 ; NSBC 41/41 ; ECOC 42/42 ; BIIC 2/2 ; BOAS 43/43 ; BOAM 44/44 ; SCRC 45/45 ; TTLS 47/47 ; SIBC 49/49 ; SIVC 53/53 ; SEMC 54/54 ; BOABF 57/57 ; BOAB 59/59 ; BOAC 74/74 ; BOAN 60/60 ; AGLC 60/60.
-- [x] total SHA calculés : **995 / 3 060** (**32,52 %**).
-- [x] restant non hashé : **2 065 PDF**.
-- [x] groupes exacts : **11**.
-- [x] BOAN : **60 SHA uniques / 0 groupe exact**.
-- [x] AGLC : **60 SHA uniques / 0 groupe exact**.
-- [x] AGLC registre revalidé post-commit bit-for-bit via Git blob SHA `4c25045ffeb194aad7929b3b106a6fe6b7c7241c`.
-- [ ] prochain : **BICC** après revérification live stricte.
+- [x] BICC **70/70**, 69 SHA uniques, 1 groupe exact.
+- [x] total SHA calculés : **1 065 / 3 069 = 34,70 %**.
+- [x] restant non hashé : **2 004 PDF**.
+- [x] groupes exacts globaux : **12**.
+- [x] AGLC registre post-commit validé via blob `4c25045ffeb194aad7929b3b106a6fe6b7c7241c`.
+- [x] BICC registre post-commit validé via blob `25baddade1e9e0366f3bdabfa6cdb2f13a5993ae`.
+- [ ] prochain : **CIEC** après revérification live stricte.
 
 ### Doublons / versions
 
-- [x] onze groupes exacts documentés dans `inventory/p1_duplicate_groups.csv`.
-- [x] BOAC S1 2021 plain / `_2` : `EXACT_DUPLICATE`.
-- [x] BOAC EF 2019 plain / `_2` : même taille mais SHA différents.
-- [x] BOABF paire `divers` : `EXACT_DUPLICATE` FY2017.
-- [x] SIBC T1 2017 plain / `_2` / `_3` : `EXACT_DUPLICATE`.
-- [x] SIBC S1 2022 plain / `_2` : `EXACT_DUPLICATE`.
-- [x] SIVC, SEMC, BOAB, BOAN, AGLC : aucune duplication exacte dans leurs passes courantes.
-- [x] AGLC T1 2025 plain / `_rev` : versions distinctes de la même publication ; `_rev` corrige notamment le résultat net annuel comparatif 2024 de **17 138 527** à **21 068 974 KFCFA**.
-- [x] AGLC T1 2025 : ne pas renseigner automatiquement `supersedes_source_file_id` ; aucune formule explicite `annule et remplace` observée.
-- [x] SIVC T3 2025 : source explicitement `annule et remplace` ; cible précédente absente du Drive courant.
-- [ ] SIVC T3 2025 : retrouver la cible remplacée via P1-FRESH/BRVM puis renseigner `supersedes_source_file_id` sans supposition.
+- [x] douze groupes exacts documentés dans `inventory/p1_duplicate_groups.csv`.
+- [x] BICC T3 2022 plain / `_2` : `EXACT_DUPLICATE`, SHA `492df4551aa01c2e97415323331b50a3f4eed65e952d38e2e97b7a524b64fae0`.
+- [x] BICC EF 2019 plain / `_rev` : `VERSION_OF`, pas doublon exact ; mêmes valeurs économiques principales, variante révisée plus complète avec commentaire explicatif supplémentaire.
+- [x] BICC EF 2019 : ne pas renseigner automatiquement `supersedes_source_file_id`, aucune formule explicite `annule et remplace` trouvée.
+- [x] AGLC T1 2025 plain / `_rev` : versions distinctes ; pas de `SUPERSEDES` sans preuve explicite.
+- [x] SIVC T3 2025 : source explicitement `annule et remplace`, cible précédente encore à retrouver via P1-FRESH/BRVM.
 - [ ] relations sémantiques/version restantes hors verdict binaire.
 
 ### Identité / périodes / qualité
 
-- [x] BOAN `fiche_ne_0.pdf` = information boursière **S1 2017**.
-- [x] BOAC `divers_Rapport_S1_BOAC.pdf` = **S1 2022**.
-- [x] BOAC `fiche_ci_0.pdf` = information boursière **S1 2017**.
-- [x] BOAB anomalie TPCI 5,90 % 2021-2031 identifiée et préservée.
-- [x] AGLC 2020 : comptes IFRS **individuels** et **consolidés** à préserver comme scopes distincts.
-- [x] règle renforcée : noms/dossiers ne dictent jamais seuls la période, le scope ou la version ; le contenu source prévaut.
+- [x] BICC : T2 2022 et S1 2022 préservés comme périodes distinctes.
+- [x] BICC `bilan_et_compte_de_resultat_bicici_31_12_2022_.pdf` conservé comme profil P1-R utile.
+- [x] règle : noms/dossiers ne dictent jamais seuls période, scope, version ou doublon ; le contenu et les octets prévalent.
 - [ ] périodes économiques fines pour l'ensemble du corpus.
 - [ ] P1-FRESH / réconciliation BRVM et collecteur V2 pour les deltas distants.
 
@@ -74,4 +60,4 @@ Ne pas démarrer l'extraction RAW exhaustive avant couverture P1/P1-R suffisante
 
 ## Prochaine action
 
-`BICC_LIVE_RECHECK_AND_SHA` puis `CIEC_LIVE_RECHECK_AND_SHA`, ensuite poursuite par taille croissante.
+`CIEC_LIVE_RECHECK_AND_SHA`, puis poursuite des corpus non hashés par taille croissante.
