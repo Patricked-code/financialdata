@@ -1,10 +1,11 @@
 # P1 INVENTORY — Bank of Africa Bénin / BOAB
 
-Date de vérification : 2026-08-09
+Date de vérification initiale : 2026-08-09  
+Dernière revérification live + SHA-256 : 2026-08-17
 
 Drive folder : `1F_xz9lxMql3HH2OY9IQtLyo7vkxsO6YM`
 
-Statut : `FILE_INVENTORIED / HASH_PENDING / OUT_OF_SCOPE_REVIEW`
+Statut : `FILE_INVENTORIED / LIVE_RECHECK_COMPLETE / SHA256_COMPLETE / OUT_OF_SCOPE_CONFIRMED`
 
 ## Sous-dossiers directs
 
@@ -45,6 +46,27 @@ Statut : `FILE_INVENTORIED / HASH_PENDING / OUT_OF_SCOPE_REVIEW`
 | divers | 1 |
 | **TOTAL** | **59** |
 
+## Revérification live du 2026-08-17
+
+- contrôle strict des 29 dossiers parents ;
+- filtre MIME `application/pdf` ;
+- **59 PDF live**, identiques en nombre au snapshot V13 ;
+- **delta live : 0** ;
+- aucun fichier SOURCE supprimé ou déplacé.
+
+## SHA-256
+
+- 59 / 59 fichiers matérialisés depuis Google Drive ;
+- 59 / 59 signatures PDF valides (`%PDF`) ;
+- tailles des octets matérialisés enregistrées ;
+- 59 / 59 SHA-256 calculés ;
+- **59 SHA-256 uniques** ;
+- **0 groupe de doublon exact** ;
+- registre : `inventory/hashes/BOAB.csv` ;
+- statut registre : `COMPUTED_SIZE_VALIDATED`.
+
+Les variantes historiques suffixées `_2`, `_3`, `_4`, `_6` ne sont donc **pas des doublons binaires exacts** entre elles dans le corpus BOAB courant. Elles restent des sources distinctes jusqu'à une éventuelle revue sémantique/versioning.
+
 ## Familles observées
 
 - rapports annuels historiques ;
@@ -61,7 +83,7 @@ Statut : `FILE_INVENTORIED / HASH_PENDING / OUT_OF_SCOPE_REVIEW`
 
 Règle : ne pas conclure à l'absence de période économique avant vérification de `divers`, des comparatifs contenus dans d'autres documents et des sources futures.
 
-## Anomalie de périmètre détectée
+## Anomalie de périmètre confirmée
 
 Dans le dossier `2021`, l'inventaire contient :
 
@@ -69,29 +91,34 @@ Dans le dossier `2021`, l'inventaire contient :
 
 Drive ID : `1Kwjh33LePuBodRHQvErNqfReIIu8a6g-`
 
-Le titre concerne une première cotation `TPCI 5,90% 2021-2031` et ne permet pas de l'attribuer à BOA Bénin.
+La lecture du contenu source confirme qu'il s'agit de l'**Avis N°232–2021 / BRVM / DG**, relatif au **Trésor Public de Côte d'Ivoire** et à la première cotation de l'emprunt obligataire **TPCI 5,90 % 2021-2031**, symbole `TPCI.O66`. Le contenu ne concerne pas Bank of Africa Bénin.
 
-Statut : `OUT_OF_SCOPE_REVIEW`.
+Statut : `OUT_OF_SCOPE_CONFIRMED / ISSUER_ASSIGNMENT_REVIEW_REQUIRED`.
 
 Règle :
 
 - conserver le fichier et sa provenance actuelle ;
 - ne pas le supprimer pendant P1 ;
-- ne pas l'associer comme document BOAB validé tant que son contenu/contexte n'a pas confirmé le lien ;
+- ne pas l'associer comme document BOAB validé ;
 - prévoir `scope_validation_status` / `issuer_assignment_status` dans le registre documentaire ;
-- si le classement est erroné, documenter la correction et préserver l'ancien chemin comme provenance historique.
+- lors de la réconciliation du manifeste, documenter son attribution correcte sans effacer l'ancien chemin comme provenance historique.
 
 ## Candidats versions / collisions de noms
 
-Nombreux suffixes `_2`, `_3`, `_4`, `_6` dans les rapports annuels 2008–2014.
+Les suffixes `_2`, `_3`, `_4`, `_6` des rapports annuels 2008–2014 ont été comparés au niveau binaire lors de la passe SHA du 2026-08-17 : aucune collision SHA-256 n'a été trouvée parmi les 59 sources BOAB.
 
-Ils restent `DUPLICATE_REVIEW_PENDING` jusqu'à comparaison par hash/contenu.
+Verdict binaire : **0 `EXACT_DUPLICATE`** pour BOAB.
+
+Les relations sémantiques éventuelles (`VERSION_OF`, `SUPERSEDES`, etc.) restent à traiter séparément et ne sont pas déduites du nom de fichier.
 
 ## Points P1 restant à faire pour BOAB
 
-- hash de tous les fichiers ;
-- revue des candidats versions/doublons ;
-- validation du fichier TPCI hors périmètre probable ;
-- résolution des périodes économiques ;
-- vérification du rôle de `fiche_bj_0.pdf` ;
-- inventaire machine lisible avec tailles/dates/checksums.
+- résolution des périodes économiques fines pour l'ensemble des sources ;
+- vérification/documentation du rôle exact de `fiche_bj_0.pdf` ;
+- backfill du manifeste documentaire maître et des métadonnées temporelles/shards ;
+- revue sémantique des versions lorsque nécessaire ;
+- réconciliation de l'anomalie TPCI dans le manifeste sans perte de provenance.
+
+## Résultat de la passe
+
+`BOAB=59/59_SHA_COMPLETE | LIVE=59 | DELTA=0 | UNIQUE_SHA=59 | EXACT_DUPLICATE_GROUPS_ADDED=0 | OUT_OF_SCOPE_TPCI=CONFIRMED`
