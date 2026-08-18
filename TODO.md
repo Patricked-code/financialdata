@@ -8,43 +8,42 @@ Dépôt canonique : `Patricked-code/financialdata`. Travail direct sur `main` un
 
 ### Inventaire
 
-- [x] 48 / 48 sociétés inventoriées ; état live **V20 = 3 114 PDF**.
-- [x] checkpoint `inventory/P1_48_ISSUERS_CHECKPOINT_v20_20260818.md` ; index `inventory/p1_issuer_manifest.csv`.
-- [x] PALC : 75 → 98, delta +23 versionné avant SHA (V19).
-- [x] BNBC : **78 → 92**, delta **+14**, versionné avant SHA (V20).
-- [x] BNBC : 28 dossiers annuels `1998–2025` vérifiés parent-scoped.
+- [x] 48 / 48 sociétés inventoriées ; état live **V21 = 3 133 PDF**.
+- [x] checkpoint `inventory/P1_48_ISSUERS_CHECKPOINT_v21_20260818.md` ; index `inventory/p1_issuer_manifest.csv`.
+- [x] BNBC : **78 → 92**, delta **+14**, versionné avant SHA (V20), puis SHA 92/92 terminé.
+- [x] TRITRAF : hash historique 8/8 réconcilié avec un registre issuer-level manquant, sans double comptage.
+- [x] ETIT : **81 → 100**, delta **+19**, versionné avant SHA (V21).
 
 ### Document manifest
 
-- [x] schéma/sharding/maître créés ; maître consolidé **14 / 3 114** à ce stade.
+- [x] schéma/sharding/maître créés ; maître consolidé **14 / 3 133** à ce stade.
 - [x] registres SHA avec Drive IDs + tailles disponibles pour les corpus hashés.
 - [ ] backfill métadonnées temporelles et shards compatibles pour les corpus hashés.
 - [ ] poursuivre tous les émetteurs jusqu'à consolidation complète du manifeste.
 
 ### SHA-256
 
-- [x] PALC **98/98**, 96 SHA uniques, 2 groupes exacts, registre post-commit validé.
-- [x] BNBC **92/92**, **92 SHA uniques, 0 groupe exact**.
-- [x] BNBC registre post-commit validé : blob `fb567fcdbf57af2aa6bb017544d2c29583e8359f`.
-- [x] total SHA vérifiés : **1 530 / 3 114 = 49,13 %**.
-- [x] restant non hashé : **1 584 PDF**.
+- [x] BNBC **92/92**, 92 SHA uniques, 0 groupe exact, registre blob-validé `fb567fcdbf57af2aa6bb017544d2c29583e8359f`.
+- [x] TRITRAF **8/8** déjà calculés ; registre restauré depuis `p1_document_manifest.csv`, blob validé `c7a9c31558d4a9de5a1bea532d0cc4a2580876e6` ; aucun ajout au compteur global.
+- [x] total SHA vérifiés avant ETIT : **1 530 / 3 133 = 48,83 %**.
+- [x] restant non hashé avant ETIT : **1 603 PDF**.
 - [x] groupes exacts globaux : **16**.
-- [ ] vérifier l'existence d'un registre SHA pour **TRITRAF** avant tout nouveau travail ; si absent, recheck live strict puis SHA 100 %.
+- [ ] ETIT : matérialiser **100/100**, valider signatures/tailles et calculer SHA-256 exhaustif.
+- [ ] ETIT : créer `inventory/hashes/ETIT.csv` puis valider le blob GitHub post-commit.
 
 ### Doublons / versions
 
 - [x] seize groupes exacts documentés dans `inventory/p1_duplicate_groups.csv`.
-- [x] BNBC 2019 EF plain / `_2` : `VERSION_OF`, binaires distincts, correction de date d'arrêté/approbation ; pas `SUPERSEDES` sans preuve explicite.
-- [x] BNBC 2019 `_3/_4/_5` : formes de publication distinctes, aucune fusion.
-- [x] BNBC 2020 S1 : deux publications distinctes, dont une explicitement IFRS ; aucune fusion.
-- [x] BNBC n'ajoute aucun groupe exact ; registre global des doublons inchangé.
-- [ ] relations sémantiques/version restantes hors verdict binaire.
+- [x] BNBC 2019 EF plain / `_2` : `VERSION_OF`, pas `SUPERSEDES` sans preuve explicite.
+- [x] BNBC garde-fou période : `2024_Etats_Financiers_BNBC_2.pdf` porte sur l'exercice clos au 31/12/2023 malgré son nom physique.
+- [ ] ETIT : qualifier les collisions exactes puis seulement les relations sémantiques justifiées ; variantes historiques jusqu'à `_7`.
+- [ ] aucune relation `SUPERSEDES` sans preuve explicite.
 
 ### Identité / périodes / qualité
 
 - [x] règle : noms/dossiers/suffixes ne dictent jamais seuls période, scope, version ou doublon ; contenu et octets prévalent.
-- [x] BNBC : snapshot 78 rejeté comme vérité live après preuve parent-scoped de 92 objets.
-- [x] garde-fou BNBC : `2024_Etats_Financiers_BNBC_2.pdf` porte explicitement sur l'exercice clos au **31/12/2023** ; période économique 2023 malgré le nom physique.
+- [x] ETIT : cardinal live recompté en deux sous-périmètres disjoints (`51 + 49 = 100`) pour contourner proprement le plafond de 100 résultats du connecteur.
+- [x] ETIT : les noms génériques/de filiales ne sont pas exclus du périmètre SOURCE parent-scoped.
 - [ ] périodes économiques fines pour l'ensemble du corpus.
 - [ ] P1-FRESH / réconciliation BRVM et collecteur V2 pour les deltas distants.
 
@@ -58,4 +57,4 @@ Ne pas démarrer l'extraction RAW exhaustive avant couverture P1/P1-R suffisante
 
 ## Prochaine action
 
-`VERIFY_TRITRAF_HASH_STATE`, puis, uniquement si le registre n'existe pas, `TRITRAF_LIVE_RECHECK_AND_SHA`; poursuivre ensuite les corpus réellement non hashés par taille croissante.
+`ETIT_MATERIALIZE_AND_SHA_100`, puis validation blob, fermeture ETIT et poursuite des corpus réellement non hashés après vérification des registres existants.
