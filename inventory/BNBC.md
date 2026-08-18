@@ -1,7 +1,7 @@
 # P1 INVENTORY — Bernabé Côte d'Ivoire / BNBC
 
 Date : 2026-08-18
-Statut : `FILE_INVENTORIED / LIVE_SOURCE_DELTA_DETECTED / HASH_PENDING / VERSION_REVIEW`
+Statut : `P1_INVENTORIED / LIVE_RECHECK_COMPLETE / SHA256_COMPLETE / VERSION_REVIEW_PARTIAL`
 
 - Ticker : `BNBC`
 - Dossier Drive canonique : `10u65PBoBi1nWppgn1Ttm-r96iCwdzsKs`
@@ -17,25 +17,53 @@ Statut : `FILE_INVENTORIED / LIVE_SOURCE_DELTA_DETECTED / HASH_PENDING / VERSION
 
 `1998–2002: 1/an` ; `2003–2008: 2/an` ; `2009–2011: 4/an` ; `2012: 5` ; `2013: 4` ; `2014: 3` ; `2015: 2` ; `2016: 3` ; `2017: 4` ; `2018: 5` ; `2019: 9` ; `2020: 6` ; `2021: 5` ; `2022: 5` ; `2023: 3` ; `2024: 6` ; `2025: 3`.
 
-## Particularités SOURCE à revoir après SHA
+## SHA-256 / intégrité
 
-- nombreuses variantes historiques `_2/_3/_4/_5` ;
-- 2019 contient **5 variantes physiques** d'états financiers (`plain`, `_2`, `_3`, `_4`, `_5`) en plus des rapports T1/S1/T3 et de l'attestation CAC S1 ;
-- 2020 contient deux rapports S1 et deux états financiers ;
-- 2022 et 2024 contiennent chacun deux états financiers ;
-- aucun suffixe ne constitue une preuve de doublon ou de version ;
-- tous les objets physiques SOURCE sont conservés.
+- **92/92** objets live matérialisés ;
+- **92/92** signatures `%PDF-` valides ;
+- tailles contrôlées ;
+- **92 SHA-256 uniques** ;
+- **0 groupe `EXACT_DUPLICATE`** dans BNBC ;
+- aucun objet SOURCE supprimé, fusionné ou renommé ;
+- registre : `inventory/hashes/BNBC.csv` ;
+- registre local LF : **15 303 octets** ;
+- Git blob local calculé : `fb567fcdbf57af2aa6bb017544d2c29583e8359f` ;
+- blob GitHub post-commit : `fb567fcdbf57af2aa6bb017544d2c29583e8359f` ;
+- validation bit-for-bit : **OK**.
 
-## Passe suivante exacte
+## Revue de versions / périodes à haute valeur
 
-1. matérialiser les **92/92 PDF** de la liste live parent-scoped ;
-2. valider tailles et signatures `%PDF-` ;
-3. calculer SHA-256 sur 100 % ;
-4. identifier les groupes exacts sans supprimer aucun objet ;
-5. revoir les variantes 2019/2020/2022/2024 par contenu lorsque les SHA diffèrent ;
-6. créer `inventory/hashes/BNBC.csv` et valider son blob GitHub post-commit ;
-7. finaliser BNBC, manifeste, doublons, `SUIVI.md` et `TODO.md`.
+### États financiers 2019
+
+Les cinq objets physiques restent distincts.
+
+- `2019_Etats_Financiers_BNBC.pdf` et `2019_Etats_Financiers_BNBC_2.pdf` sont deux binaires distincts de 41 pages correspondant à la même publication économique IFRS annuelle 2019. Leur texte est quasi identique, avec notamment une correction de la date d'arrêté/approbation du Conseil (`08 Mai 2020` versus `08 juin 2020`). Relation conservatrice : `VERSION_OF`. Pas `EXACT_DUPLICATE`. Pas `SUPERSEDES` faute de preuve explicite de remplacement.
+- `_3` est une publication synthétique des résultats annuels 2019 ;
+- `_4` est un état financier de synthèse au 31/12/2019 ;
+- `_5` est une publication de résultats annuels provisoires 2019.
+
+Ces trois publications d'une page ne sont pas fusionnées avec les états IFRS complets ni entre elles.
+
+### Rapports S1 2020
+
+- `2020_Rapport_S1_BNBC.pdf` : publication explicitement présentée selon les normes IFRS ;
+- `2020_Rapport_S1_BNBC_2.pdf` : autre publication semestrielle, avec présentation et agrégats différents.
+
+Les deux binaires et leurs contenus sont distincts. Aucun doublon exact, aucune relation `SUPERSEDES` et aucun collapse sémantique n'est appliqué sans preuve supplémentaire.
+
+### États financiers 2024 — garde-fou de période
+
+- `2024_Etats_Financiers_BNBC.pdf` porte bien sur l'exercice clos au **31/12/2024** ;
+- `2024_Etats_Financiers_BNBC_2.pdf`, malgré son nom physique, porte explicitement dans son contenu sur l'exercice clos au **31/12/2023**.
+
+La période économique de `_2` doit donc être **2023**, et non 2024. Le nom de fichier ne prévaut jamais sur le contenu source.
+
+## Doublons globaux
+
+BNBC n'ajoute aucun groupe exact. `inventory/p1_duplicate_groups.csv` reste inchangé pour cette passe.
 
 ## Restant transversal
 
-`SHA256 = IN_PROGRESS` ; `VERSION_LINKS = IN_PROGRESS` ; `ECONOMIC_PERIODS = NOT_COMPLETE` ; `REMOTE_FRESHNESS = NOT_COMPLETE`.
+`SHA256 = COMPLETE` ; `LIVE_RECHECK = COMPLETE` ; `VERSION_LINKS = PARTIAL_REVIEW_COMPLETE` ; `ECONOMIC_PERIODS = PARTIAL` ; `REMOTE_FRESHNESS = NOT_COMPLETE`.
+
+La suite P1 pour BNBC consiste au backfill du manifeste documentaire et des périodes économiques fines, sans remettre en cause le registre SOURCE/SHA désormais verrouillé.
