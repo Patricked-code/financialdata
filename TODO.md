@@ -24,24 +24,27 @@ Dépôt canonique : `Patricked-code/financialdata`. Travail direct sur `main` un
 ### SHA-256
 
 - [x] PALC **98/98**, 96 SHA uniques, 2 groupes exacts, registre post-commit validé.
-- [x] total SHA actuellement vérifiés : **1 438 / 3 114 = 46,18 %**.
-- [x] restant non hashé après correction du dénominateur V20 : **1 676 PDF**.
-- [x] groupes exacts globaux actuellement prouvés : **16**.
-- [ ] BNBC : matérialiser **92/92**, valider signatures/tailles et calculer SHA-256.
-- [ ] BNBC : créer `inventory/hashes/BNBC.csv` puis valider le blob GitHub post-commit.
+- [x] BNBC **92/92**, **92 SHA uniques, 0 groupe exact**.
+- [x] BNBC registre post-commit validé : blob `fb567fcdbf57af2aa6bb017544d2c29583e8359f`.
+- [x] total SHA vérifiés : **1 530 / 3 114 = 49,13 %**.
+- [x] restant non hashé : **1 584 PDF**.
+- [x] groupes exacts globaux : **16**.
+- [ ] vérifier l'existence d'un registre SHA pour **TRITRAF** avant tout nouveau travail ; si absent, recheck live strict puis SHA 100 %.
 
 ### Doublons / versions
 
 - [x] seize groupes exacts documentés dans `inventory/p1_duplicate_groups.csv`.
-- [ ] BNBC 2019 : comparer cinq variantes d'états financiers (`plain`, `_2`, `_3`, `_4`, `_5`) d'abord par SHA puis par contenu si non exactes.
-- [ ] BNBC 2020 : comparer les deux rapports S1 et les deux états financiers.
-- [ ] BNBC 2022/2024 : comparer les variantes d'états financiers.
-- [ ] aucune relation `SUPERSEDES` sans preuve explicite.
+- [x] BNBC 2019 EF plain / `_2` : `VERSION_OF`, binaires distincts, correction de date d'arrêté/approbation ; pas `SUPERSEDES` sans preuve explicite.
+- [x] BNBC 2019 `_3/_4/_5` : formes de publication distinctes, aucune fusion.
+- [x] BNBC 2020 S1 : deux publications distinctes, dont une explicitement IFRS ; aucune fusion.
+- [x] BNBC n'ajoute aucun groupe exact ; registre global des doublons inchangé.
+- [ ] relations sémantiques/version restantes hors verdict binaire.
 
 ### Identité / périodes / qualité
 
 - [x] règle : noms/dossiers/suffixes ne dictent jamais seuls période, scope, version ou doublon ; contenu et octets prévalent.
 - [x] BNBC : snapshot 78 rejeté comme vérité live après preuve parent-scoped de 92 objets.
+- [x] garde-fou BNBC : `2024_Etats_Financiers_BNBC_2.pdf` porte explicitement sur l'exercice clos au **31/12/2023** ; période économique 2023 malgré le nom physique.
 - [ ] périodes économiques fines pour l'ensemble du corpus.
 - [ ] P1-FRESH / réconciliation BRVM et collecteur V2 pour les deltas distants.
 
@@ -55,4 +58,4 @@ Ne pas démarrer l'extraction RAW exhaustive avant couverture P1/P1-R suffisante
 
 ## Prochaine action
 
-`BNBC_MATERIALIZE_AND_SHA_92`, puis validation blob, fermeture BNBC et poursuite des corpus réellement non hashés par taille croissante.
+`VERIFY_TRITRAF_HASH_STATE`, puis, uniquement si le registre n'existe pas, `TRITRAF_LIVE_RECHECK_AND_SHA`; poursuivre ensuite les corpus réellement non hashés par taille croissante.
