@@ -1,7 +1,7 @@
 # P1 SOURCE — Ecobank Transnational Incorporated / ETIT
 
-Date : 2026-08-18
-Statut : `P1_INVENTORIED / P1-R_PROFILED / LIVE_SOURCE_DELTA_DETECTED / HASH_PENDING`
+Date : 2026-08-19
+Statut : `P1_INVENTORIED / P1-R_PROFILED / LIVE_SOURCE_DELTA_DETECTED / SHA256_COMPLETE`
 
 - Ticker : `ETIT`
 - Dossier Drive canonique : `183KoqvNUQNaj6kdfw80PkkIGupbvuSia`
@@ -20,17 +20,33 @@ Le résultat global atteint le plafond de 100 du connecteur. Le cardinal a donc 
 - années `2015–2025` : **49 PDF** ;
 - total live : **100 PDF**.
 
-Le corpus contient des noms non normalisés ou portant des identités de filiales du groupe, notamment `ra_-_ecobank_tg_-_excercice_2010.pdf`. Le périmètre est donc défini par les dossiers SOURCE réels, jamais par une recherche ticker seule.
+Le corpus contient des noms non normalisés ou portant des identités de filiales du groupe. Le périmètre reste défini par les dossiers SOURCE réels, jamais par une recherche ticker seule.
 
-## Particularités SOURCE
+## SHA-256 / intégrité
 
-- corpus historique dense ;
-- variantes historiques jusqu'à `_7` observées ;
-- familles : rapports annuels, états financiers, T1/S1/T3, CAC/attestations ;
-- 2024 contient notamment T1/S1/T3, rapport CAC annuel et attestation CAC annuelle ;
-- 2025 contient S1 et T3 dans le corpus observé ;
-- tous les objets physiques sont conservés ;
-- aucun suffixe ne constitue une preuve de doublon ou de version.
+- **100 / 100** objets matérialisés ;
+- **100 / 100** signatures `%PDF-` valides ;
+- tailles locales validées ;
+- **100 SHA-256 uniques** ;
+- **0 groupe de doublons binaires exacts ETIT** ;
+- registre : `inventory/hashes/ETIT.csv` ;
+- sérialisation registre : LF ;
+- taille registre : **16 796 octets** ;
+- SHA-256 du registre : `fdd32fb8839a9dc60f0cf5161b7926a45b3c0eefdb295bb88c10484526fb2d2d` ;
+- Git blob local attendu : `908ac3c78239e14204ea21849775ed2eb75eb292` ;
+- Git blob GitHub post-commit : `908ac3c78239e14204ea21849775ed2eb75eb292` ;
+- validation bit-for-bit : **OK**.
+
+Aucun objet SOURCE n'a été supprimé, fusionné ou renommé.
+
+## Revue sémantique ciblée
+
+- `2020_Rapport_S1_ETIT.pdf` et `2020_Rapport_S1_ETIT_2.pdf` : documents compagnons du même semestre, respectivement tableau d'activité et rapport d'examen limité ; pas des doublons, pas de `SUPERSEDES`.
+- `2021_Rapport_S1_ETIT.pdf` et `2021_Rapport_S1_ETIT_2.pdf` : même logique de documents compagnons ; pas des doublons, pas de `SUPERSEDES`.
+- `2021_Etats_Financiers_ETIT_2.pdf` publie des résultats 2021 **non audités** tandis que `2021_Etats_Financiers_ETIT.pdf` publie les résultats 2021 **audités**. Même exercice économique, publications distinctes conservées ; relation de famille/version possible, sans `SUPERSEDES` faute de preuve explicite d'annulation/remplacement.
+- `2022_Rapport_T3_ETIT.pdf` et `_2` couvrent le même troisième trimestre mais présentent de petites différences chiffrées ; ils appartiennent à une même famille de publication, sont non exacts et restent tous deux SOURCE ; aucun `SUPERSEDES` n'est inféré.
+- `2018_Etats_Financiers_ETIT.pdf` est une publication de résultats 2018 alors que `_2` contient les états financiers consolidés de l'exercice 2018 : même période, formes documentaires distinctes.
+- `2018_Rapport_Annuel_ETIT_2.pdf` porte sur Ecobank Côte d'Ivoire alors que le rapport annuel plain porte sur le Groupe Ecobank : l'identité/scope interne prévaut sur le suffixe ; ces deux fichiers ne sont pas traités comme versions l'un de l'autre.
 
 ## P1-R — ETIT 2023
 
@@ -47,17 +63,10 @@ Vérifications :
 
 Conséquence de modélisation : `source_currency` reste au niveau du fact. Nouvelle dimension candidate documentée : `ownership_attribution_raw`. Aucune modification SQL pendant P1.
 
-## Passe suivante exacte
-
-1. matérialiser les **100/100 PDF** de la liste live parent-scoped ;
-2. valider tailles et signatures `%PDF-` ;
-3. calculer SHA-256 sur 100 % ;
-4. identifier les groupes exacts sans supprimer aucun objet ;
-5. revoir seulement les familles sémantiques justifiées lorsque les SHA diffèrent ;
-6. créer `inventory/hashes/ETIT.csv` avec sérialisation LF ;
-7. calculer le Git blob local et vérifier le blob GitHub post-commit ;
-8. finaliser ETIT, manifeste, doublons, `SUIVI.md` et `TODO.md`.
-
 ## Restant transversal
 
-`SHA256 = IN_PROGRESS` ; `VERSION_LINKS = NOT_COMPLETE` ; `ECONOMIC_PERIODS = NOT_COMPLETE` ; `REMOTE_FRESHNESS = NOT_COMPLETE`.
+`SHA256 = COMPLETE` ; `VERSION_LINKS = IN_PROGRESS` ; `ECONOMIC_PERIODS = NOT_COMPLETE` ; `REMOTE_FRESHNESS = NOT_COMPLETE`.
+
+## Prochaine action
+
+Poursuivre le corpus réellement non hashé suivant après vérification des registres : **NTLC**.
