@@ -37,9 +37,16 @@ class ProgramQualificationTests(unittest.TestCase):
         self.snapshot = {str(p): p.read_bytes() for p in
                          (self.root / "TODO.md", self.root / "ROADMAP.md",
                           self.issuers, self.docs)}
-        initial_blueprints = tasking.BLUEPRINTS.read_text(encoding="utf-8")
+        # Isolate the historical bootstrap baseline even after the real
+        # workflow has already appended its program-qualified blueprints.
+        initial_blueprints = json.loads(tasking.BLUEPRINTS.read_text(encoding="utf-8"))
+        kept = {"FD-AUTO-P1-MANIFEST-CHECKER", "FD-AUTO-P1-HASH-CHECKER"}
+        initial_blueprints["tasks"] = [
+            blueprint for blueprint in initial_blueprints["tasks"]
+            if blueprint["id"] in kept]
+        self.assertEqual(len(initial_blueprints["tasks"]), 2)
         self.blueprints = self.folder / "blueprints.json"
-        self.blueprints.write_text(initial_blueprints, encoding="utf-8")
+        self.blueprints.write_text(json.dumps(initial_blueprints), encoding="utf-8")
         self.patches = [
             patch.object(engine, "ROOT", self.root),
             patch.object(engine, "FACTORY", self.folder),
