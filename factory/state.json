@@ -43,8 +43,8 @@
   },
   "continuity": {
     "id": "FD-AUTONOMY-V1",
-    "last_attested_run": 42283964239,
-    "next_action": "ATTEST_GITHUB_ACTIONS_RUN_42292518351"
+    "last_attested_run": 42292518351,
+    "next_action": "EXECUTE_FD-AUTO-P1-TEMPORAL-DIAGNOSTIC"
   },
   "events": [
     {
@@ -212,6 +212,19 @@
       "hash": "d9811a39bdc8b32fb89af00ad384ed3d00e349efee9371f489b0bccc58903a97",
       "prev_hash": "1c7e7182581222d35d2b2305c20cd0bf5f9ff4e5c7955bd7d724ef1fdd471356",
       "sequence": 12
+    },
+    {
+      "at": "2026-11-06T20:56:59+00:00",
+      "data": {
+        "conclusion": "success",
+        "evidence_url": "https://github.com/Patricked-code/financialdata/actions/runs/42292518351",
+        "run_id": 42292518351,
+        "task_id": "FD-AUTO-P1-COVERAGE-DIAGNOSTIC"
+      },
+      "event": "CI_ATTESTED",
+      "hash": "5de9b844d17404812dc9f6d65a349699880fdf1eb46dc78cd543581696388f1c",
+      "prev_hash": "d9811a39bdc8b32fb89af00ad384ed3d00e349efee9371f489b0bccc58903a97",
+      "sequence": 13
     }
   ],
   "programs": {
@@ -313,7 +326,7 @@
       "version": 1
     }
   },
-  "revision": 12,
+  "revision": 13,
   "schema_version": 1,
   "tasks": {
     "FD-A-LINEAGE": {
@@ -451,7 +464,7 @@
           "sha256": "d547f685d6224a37fbad4ad28606129b5f9b2d62a35ab080fd9b8f7dac9866af"
         }
       },
-      "status": "PUBLISHED_PENDING_CI",
+      "status": "DONE",
       "title": "Implement SOURCE P1 issuer-document coverage diagnostics (read only)",
       "units": [
         {
@@ -488,11 +501,11 @@
         },
         {
           "agent_id": "github-actions:reconciler",
-          "evidence": null,
+          "evidence": "https://github.com/Patricked-code/financialdata/actions/runs/42292518351",
           "id": "FD-AUTO-P1-COVERAGE-DIAGNOSTIC-ATTEST",
           "run_id": 42292518351,
           "stage": "ATTEST",
-          "status": "PENDING_CI"
+          "status": "DONE"
         }
       ]
     },
