@@ -3,7 +3,7 @@
   "continuity": {
     "id": "FD-AUTONOMY-V1",
     "last_attested_run": 42283853272,
-    "next_action": "SELECT_NEXT_ADMISSIBLE"
+    "next_action": "ATTEST_GITHUB_ACTIONS_RUN_42283964239"
   },
   "events": [
     {
@@ -48,6 +48,22 @@
       "hash": "daca66c68dd12c12bee6966fe0069d9c243eb3f7d6b808a44162bf41935efce3",
       "prev_hash": "2ff03dda545d659ca289dd68cc2bdf97fa71f98cbdf6a79c75c2d8be0d3b2ad7",
       "sequence": 3
+    },
+    {
+      "at": "2026-11-06T19:56:50+00:00",
+      "data": {
+        "base_sha": "f0832a50d6f03faf82f24d96cce3276862fac7a0",
+        "paths": [
+          "src/financialdata/hash_checker.py",
+          "tests/test_hash_checker.py"
+        ],
+        "run_id": 42283964239,
+        "task_id": "FD-AUTO-P1-HASH-CHECKER"
+      },
+      "event": "CODE_PUBLISHED_PENDING_CI",
+      "hash": "ef6c206b18bdf3516df4647b538fa1a482924500aff0dbb40c0aeb0f1bcc1a63",
+      "prev_hash": "daca66c68dd12c12bee6966fe0069d9c243eb3f7d6b808a44162bf41935efce3",
+      "sequence": 4
     }
   ],
   "programs": {
@@ -149,7 +165,7 @@
       "version": 1
     }
   },
-  "revision": 3,
+  "revision": 4,
   "schema_version": 1,
   "tasks": {
     "FD-A-LINEAGE": {
@@ -230,8 +246,13 @@
     },
     "FD-AUTO-P1-HASH-CHECKER": {
       "autonomy": "READY",
+      "base_sha": "f0832a50d6f03faf82f24d96cce3276862fac7a0",
       "blueprint_version": 1,
       "capability": "coder",
+      "changed_paths": [
+        "src/financialdata/hash_checker.py",
+        "tests/test_hash_checker.py"
+      ],
       "criteria": [
         "No physical source changes",
         "Deterministic duplicate groups",
@@ -241,46 +262,47 @@
       "dependencies": [
         "FD-AUTO-P1-MANIFEST-CHECKER"
       ],
-      "evidence": null,
+      "evidence": "factory/evidence/FD-AUTO-P1-HASH-CHECKER-42283964239.json",
       "id": "FD-AUTO-P1-HASH-CHECKER",
       "kind": "agent_code",
       "lease_until": null,
-      "owner": null,
+      "owner": "github-actions:42283964239",
       "priority": 6,
       "program_id": "FD-P1",
+      "run_id": 42283964239,
       "source": "factory/blueprints.json",
-      "status": "BACKLOG",
+      "status": "PUBLISHED_PENDING_CI",
       "title": "Implement non-destructive SHA-256 register consistency checker",
       "units": [
         {
-          "evidence": null,
+          "evidence": "factory/evidence/FD-AUTO-P1-HASH-CHECKER-42283964239.json",
           "id": "FD-AUTO-P1-HASH-CHECKER-PLAN",
           "stage": "PLAN",
-          "status": "BACKLOG"
+          "status": "DONE"
         },
         {
-          "evidence": null,
+          "evidence": "factory/evidence/FD-AUTO-P1-HASH-CHECKER-42283964239.json",
           "id": "FD-AUTO-P1-HASH-CHECKER-CODE",
           "stage": "CODE",
-          "status": "BACKLOG"
+          "status": "DONE"
         },
         {
-          "evidence": null,
+          "evidence": "factory/evidence/FD-AUTO-P1-HASH-CHECKER-42283964239.json",
           "id": "FD-AUTO-P1-HASH-CHECKER-VALIDATE",
           "stage": "VALIDATE",
-          "status": "BACKLOG"
+          "status": "DONE"
         },
         {
-          "evidence": null,
+          "evidence": "factory/evidence/FD-AUTO-P1-HASH-CHECKER-42283964239.json",
           "id": "FD-AUTO-P1-HASH-CHECKER-PUBLISH",
           "stage": "PUBLISH",
-          "status": "BACKLOG"
+          "status": "DONE"
         },
         {
           "evidence": null,
           "id": "FD-AUTO-P1-HASH-CHECKER-ATTEST",
           "stage": "ATTEST",
-          "status": "BACKLOG"
+          "status": "PENDING_CI"
         }
       ]
     },
