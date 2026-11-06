@@ -20,7 +20,7 @@
     "factory-autonomy.yml",
     "factory-validation.yml"
   ],
-  "next_action": "NO_ADMISSIBLE_AUTONOMOUS_TASK — qualify next safe blueprints from TODO/ROADMAP, connect model provider for non-templated code, preserve SOURCE proof.",
+  "next_action": "QUALIFY_NEW_P1_BLUEPRINT_FROM_VERIFIED_SOURCE_AND_TODO (no READY autonomous task at last attested checkpoint)",
   "next_work_items": [
     "FD-AUTO-P1-MANIFEST-CHECKER",
     "FD-AUTO-P1-HASH-CHECKER"
@@ -70,5 +70,12 @@
     "max_failed_runs": 3,
     "on_exhaustion": "BLOCKED",
     "identity": "GitHub Actions run ID"
-  }
+  },
+  "entry_contract": "FD-AGENT-ARRIVAL-V1",
+  "entry_document": "factory/ARRIVAL.md",
+  "entry_command": "python -m factory.entry --role coder --agent agent-session",
+  "entry_read_only": true,
+  "portability_document": "factory/PORTABILITY.md",
+  "operator_guidance": "On any newly connected coding-agent conversation: read AGENTS.md + factory/ARRIVAL.md, inspect live main/CI/state, perform next governed action, do not assume conversation memory.",
+  "arrival_ci_verified": false
 }

@@ -1,5 +1,10 @@
 # AGENTS.md — Règles universelles des agents
 
+## Entrée universelle « connecte-toi au dépôt en tant qu'agent codeur »
+
+**Dès qu'une instruction de conversation demande d'arriver dans ce dépôt comme codeur, planificateur ou auditeur**, appliquer le contrat [factory/ARRIVAL.md](factory/ARRIVAL.md) **avant de créer une tâche ou modifier le code**. Vérifier le compte GitHub Patricked-code, le SHA réel de main, les autorités documentaires et le registre factory/state.json ; en environnement Python autorisé, utiliser `python -m factory.entry --agent chatgpt-session --role coder`. Sans terminal, réaliser l'équivalent par le connecteur GitHub et distinguer clairement les vérifications réalisées des commandes non exécutées. La déclaration « je suis agent codeur » ne vérifie pas les permissions et n'octroie pas d'écriture implicite. À absence de tâche READY, qualifier le backlog programme existant selon les preuves ; ne jamais inventer une tâche DONE ou créer un deuxième orchestrateur.
+
+
 Ce fichier s'applique à tout agent automatisé intervenant dans `Patricked-code/financialdata` : Claude, Codex, ChatGPT, Copilot ou autre assistant.
 
 ## Règle n°1 — Main uniquement

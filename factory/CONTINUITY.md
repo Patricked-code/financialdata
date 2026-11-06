@@ -67,3 +67,7 @@ Manifest checker : run 42283853272, verdict success, GitHub commit ddd6e4dc4116d
 ## Cartographie des agents/UTL — D038
 
 Le registre unique contient cinq identités de rôles fonctionnels : github-actions:planner (sélection), github-actions:coder (génération), github-actions:validator (tests sans secret), github-actions:publisher (écriture bornée sur main), github-actions:reconciler (vérification du run et déverrouillage). Pour chaque UTL autonome effectivement exécutée, agent_id et run_id relient le résultat au job. Le groupe de concurrence GitHub protège l'écriture entre runs ; le SHA attendu protège les changements concurrents par d'autres acteurs. Cette organisation rend la coordination multi-rôles vérifiable sans inventer une seconde autorité.
+
+## Entrée universelle de session — FD-AGENT-ARRIVAL-V1
+
+Le point d'accès opérationnel de toute conversation autorisée est `factory/ARRIVAL.md` ; le diagnostic exécutable associé est `python -m factory.entry --role coder --agent <identifiant-de-session>`. Cette commande est sans mutation et inspecte la continuité, les programmes, le backlog, les tâches READY, les preuves et les éventuels runs en attente. Elle ne remplace ni l'authentification GitHub, ni le moteur `factory/engine.py`, ni l'attestation du workflow. Si les deux premiers blueprints sont DONE et qu'aucune tâche READY ne demeure, la prochaine action est une **qualification documentée** du travail P1 restant, pas une réexécution ni une clôture fictive des phases métiers.

@@ -80,3 +80,7 @@ L'extension D036 fournit factory/templates.py : un codeur déterministe réel po
 ### Politique de reprise et d'échec opérationnelle
 
 Le workflow gère les états BACKLOG → PUBLISHED_PENDING_CI → DONE/BLOCKED et le registre des UTL dans factory/state.json. La publication n'est autorisée qu'après validation dans un job sans secret. Un échec GENERATE/VALIDATE est enregistré avec l'identifiant du run GitHub, une seule fois par run ; trois échecs distincts font passer la tâche et ses UTL restantes en BLOCKED. Aucune répétition non bornée de dépenses modèle. Après le dernier travail admissible, la continuité est explicitement NO_ADMISSIBLE_AUTONOMOUS_TASK ; cela n'implique pas que les travaux financiers P1 sont terminés. Voir factory/CONTINUITY.md et factory/HANDOFF.json.
+
+## Entrée conversationnelle canonique — FD-AGENT-ARRIVAL-V1
+
+Tout nouvel agent codeur commence par [ARRIVAL.md](ARRIVAL.md), quel que soit l'outil de conversation. Commande diagnostique sans écriture : `python -m factory.entry --role coder --agent agent-session`. Le compte GitHub doit être authentifié séparément : cette commande ne prouve pas l'identité d'une connexion. Le diagnostic peut être obtenu directement via le connecteur GitHub en consultant les mêmes fichiers et les runs. Il oriente vers la qualification des tâches existantes lorsque le catalogue READY est vide. Voir [PORTABILITY.md](PORTABILITY.md) pour installer une usine similaire dans **un autre dépôt après audit**, sans exporter la gouvernance BRVM ou main-only.

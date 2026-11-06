@@ -76,3 +76,7 @@ Le projet contient une première fabrique autonome de programmes, tâches, admis
 ### Démarrage autonome initial
 
 Les deux premiers travaux P1 bénéficient d'un codeur déterministe dans factory/templates.py, capable de produire du code et des tests sans secret externe. Les travaux généraux non couverts par ces templates utiliseront l'adaptateur Claude, sous réserve de configuration. Le statut réel et la prochaine action restent ceux du registre et des exécutions GitHub Actions.
+
+## Arriver comme agent codeur dans une nouvelle conversation
+
+Dire simplement : « Connecte-toi à `Patricked-code/financialdata` avec le compte Patricked-code en tant qu'agent codeur, applique `factory/ARRIVAL.md` et reprends la mission `FD-AUTONOMY-V1`. » Le contrat [factory/ARRIVAL.md](factory/ARRIVAL.md) effectue la découverte du programme, des tâches, des preuves et de l'action suivante. La même logique peut être vérifiée par `python -m factory.entry --role coder --agent chatgpt-session` en environnement Python du dépôt. L'usine continue via GitHub Actions ; une conversation ouverte n'est pas un environnement d'exécution permanent.

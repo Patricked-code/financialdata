@@ -72,3 +72,7 @@ Première chaîne sans clé : exécuteur déterministe de FD-AUTO-P1-MANIFEST-CH
 ### Preuves de clôture technique et reste métier
 
 Les deux tâches de bootstrap autonome FD-AUTO-P1-MANIFEST-CHECKER (run 42283853272) et FD-AUTO-P1-HASH-CHECKER (run 42283964239) ont été exécutées, testées, publiées et attestées DONE. Le run 42284071869 confirme la continuité automatique, sans troisième tâche actuellement admissible. Ne pas changer les cases des tâches P1 historiques sans preuve métier. Le reste de l'usine comprend l'extension du catalogue de blueprints approuvés, la configuration du fournisseur de modèles pour les tâches non templatisées, et l'attestation de nouvelles tâches réelles avant toute déclaration de couverture générale. Les essais d'échec de génération/validation sont bornés à trois avec statut BLOCKED et référence GitHub. Ne pas importer la gouvernance MCP.
+
+### Prochaine progression programmatique FD-AGENT-ARRIVAL-V1
+
+Entrée conversationnelle documentée dans `factory/ARRIVAL.md`, commande de diagnostic `factory/entry.py`, tests unitaires dédiés et référence de portabilité `factory/PORTABILITY.md`. Une nouvelle session disposant d'un accès GitHub doit vérifier l'identité du compte, l'état courant, les runs CI, puis qualifier une prochaine tâche P1 à partir des preuves réelles si le catalogue READY est vide. Ne pas lancer les étapes nécessitant un PDF externe ou une clé de modèle absente en prétendant à un résultat. La fabrique de qualification générale et les accès fournisseurs au-delà des deux templates restent à renforcer.

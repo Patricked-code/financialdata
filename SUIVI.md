@@ -99,3 +99,7 @@ Le bootstrap P1 est désormais raccordé à un codeur déterministe pour les deu
 ### Continuité multi-rôles D038
 
 Les identités des cinq jobs sont désormais projetées dans state.json et affectées aux unités d'exécution autonomes attestées. Une tâche historique sans preuve de run conserve son absence de provenance opérationnelle. Le nombre de travaux admissibles après le bootstrap attesté reste nul ; le système continue à surveiller les nouvelles tâches approuvées dans factory/blueprints.json et à reprendre via GitHub Actions. Ne pas confondre le moteur local avec celui du MCP, qui reste hors du périmètre de cette mise en œuvre.
+
+### Entrée d'un nouvel agent codeur — 2026-11-06
+
+L'instruction de connexion depuis une autre conversation est traitée par `factory/ARRIVAL.md` (`FD-AGENT-ARRIVAL-V1`) et, lorsqu'un terminal autorisé existe, `python -m factory.entry --role coder --agent agent-session`. Le connecteur GitHub sans terminal doit effectuer les mêmes vérifications en lecture seule. État constaté avant ce raccordement : `main` = `2d963bd1ed8c3b0645697823f31326e94d0c4855`, continuité `FD-AUTONOMY-V1`, dernière attestation 42283964239, deux blueprints DONE, aucun travail autonome encore READY. Après raccordement, consulter les **SHA/runs actuels**, qui prévalent sur ce constat historique. Suite admissible : qualifier une tâche métier P1 effectivement justifiée, sans remplacer la fabrique existante.
