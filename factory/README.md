@@ -89,3 +89,7 @@ Le workflow gère les états BACKLOG → PUBLISHED_PENDING_CI → DONE/BLOCKED e
 ## Entrée conversationnelle canonique — FD-AGENT-ARRIVAL-V1
 
 Tout nouvel agent codeur commence par [ARRIVAL.md](ARRIVAL.md), quel que soit l'outil de conversation. Commande diagnostique sans écriture : `python -m factory.entry --role coder --agent agent-session`. Le compte GitHub doit être authentifié séparément : cette commande ne prouve pas l'identité d'une connexion. Le diagnostic peut être obtenu directement via le connecteur GitHub en consultant les mêmes fichiers et les runs. Il oriente vers la qualification des tâches existantes lorsque le catalogue READY est vide. Voir [PORTABILITY.md](PORTABILITY.md) pour installer une usine similaire dans **un autre dépôt après audit**, sans exporter la gouvernance BRVM ou main-only.
+
+## Tranche suivante — qualification automatique P1
+
+La documentation technique actuelle de la nouvelle extension est `factory/PROGRAM_FACTORY.md`. Le moteur ne s'arrête plus à une liste figée de deux tâches : quand aucune tâche READY ne reste, le pipeline de réconciliation examine des règles de qualification de programme **explicites et contrôlées**. Les deux premiers diagnostics sont déterministes, sûrs et en lecture seule. Pour les tâches non couvertes par ces règles, aucune fabrication arbitraire de blueprint ou de résultat métier n'est permise. `factory/provider.py` expose la commande `python -m factory.provider status` et l'appel réel Claude lorsque les paramètres sont disponibles.

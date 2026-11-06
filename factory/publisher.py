@@ -6,7 +6,7 @@ import subprocess
 import sys
 import urllib.error
 import urllib.request
-from factory import engine, tasking, coder
+from factory import engine, tasking, coder, program_factory
 
 def git(*args):
     return subprocess.run(["git", *args], cwd=engine.ROOT,
@@ -93,6 +93,22 @@ def reconcile():
             updated = True
         else:
             status = "PENDING_RUN_" + str(item["run_id"])
+    # Program-level qualification extends the existing blueprint registry only
+    # when there is no pending CI and no already-admissible work to execute.
+    promotion = {"added": []}
+    if not pending and tasking.selected() is None:
+        promotion = program_factory.qualify()
+        if promotion["added"]:
+            with engine.exclusive_lock():
+                state = engine.read_state()
+                state["continuity"]["next_action"] = (
+                    "EXECUTE_" + promotion["added"][0])
+                engine.record(state, "PROGRAM_TASK_QUALIFIED",
+                              task_ids=promotion["added"],
+                              evidence=program_factory.EVIDENCE)
+                engine.save_state(state)
+            updated = True
+            status = "PROGRAM_QUALIFIED"
     # Keep the authoritative cursor explicit even after the last ready task.
     if not pending and tasking.selected() is None:
         with engine.exclusive_lock():
@@ -104,8 +120,12 @@ def reconcile():
                 engine.save_state(idle_state)
                 updated = True
     if updated:
-        commit_and_push("factory: reconcile canonical task continuity and CI", ["factory/state.json"])
+        paths = ["factory/state.json"]
+        if promotion["added"]:
+            paths.extend(["factory/blueprints.json", program_factory.EVIDENCE])
+        commit_and_push("factory: reconcile and qualify next program work", paths)
     print(json.dumps({"status": status, "state_updated": updated,
+                      "program_qualified": promotion["added"],
                       "next_task": (tasking.selected() or {}).get("id")}))
     return status
 

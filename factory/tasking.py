@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 from pathlib import Path
 from factory import engine
 
@@ -42,6 +43,8 @@ def hydrate():
                 "source": "factory/blueprints.json", "blueprint_version": bp["version"],
                 "kind": "agent_code", "autonomy": "READY", "status": "BACKLOG",
                 "priority": bp["priority"], "dependencies": bp.get("dependencies", []),
+                "origin_task_id": bp.get("source_task_id"),
+                "source_evidence": bp.get("source_evidence", {}),
                 "criteria": bp["acceptance"], "capability": "coder", "owner": None,
                 "lease_until": None, "evidence": None,
                 "units": [{"id": tid + "-" + stage, "stage": stage,
@@ -97,6 +100,22 @@ def hydrate():
         return state
 
 
+def evidence_current(task):
+    """A blueprint cannot run when the source evidence changed since qualification."""
+    records = task.get("source_evidence", {})
+    if not isinstance(records, dict):
+        return False
+    for relative, receipt in records.items():
+        if not isinstance(receipt, dict) or not isinstance(receipt.get("sha256"), str):
+            return False
+        absolute = (engine.ROOT / relative).resolve()
+        if not absolute.is_relative_to(engine.ROOT.resolve()) or not absolute.is_file():
+            return False
+        if hashlib.sha256(absolute.read_bytes()).hexdigest() != receipt["sha256"]:
+            return False
+    return True
+
+
 def selected(state=None):
     if state is None:
         state = engine.read_state()
@@ -106,6 +125,7 @@ def selected(state=None):
     done = {key for key, item in state["tasks"].items() if item["status"] == "DONE"}
     options = [t for t in state["tasks"].values()
                if t.get("autonomy") == "READY" and t["status"] == "BACKLOG"
+               and evidence_current(t)
                and all(d in done for d in t.get("dependencies", []))]
     return sorted(options, key=lambda t: (t["priority"], t["id"]))[0] if options else None
 

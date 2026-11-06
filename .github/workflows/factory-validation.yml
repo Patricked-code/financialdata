@@ -44,6 +44,8 @@ jobs:
         run: |
           python -m factory.entry --role coder --agent github-ci-arrival > factory-entry.json
           python -c 'import json; e=json.load(open("factory-entry.json")); assert e["entry_contract"]=="FD-AGENT-ARRIVAL-V1"; assert e["read_only"] and e["continuity_id"]=="FD-AUTONOMY-V1"; assert e["decision"] in ("PROGRAM_QUALIFICATION_REQUIRED","APPROVED_WORK_AVAILABLE","CI_ATTESTATION_REQUIRED","NO_ADMISSIBLE_WORK","BLOCKED_BY_AUDIT"); print("Arrival:",e["decision"],"SHA:",e["head_sha"])'
+      - name: Inspect program qualification without mutating its registry
+        run: python -m factory.program_factory > factory-program-qualification.json
       - name: Archive CI evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -53,5 +55,6 @@ jobs:
             factory-bootstrap.json
             factory-audit.json
             factory-entry.json
+            factory-program-qualification.json
           if-no-files-found: warn
           retention-days: 90

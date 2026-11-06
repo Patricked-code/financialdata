@@ -62,6 +62,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - name: Check coding provider readiness without revealing credentials
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_MODEL: ${{ vars.ANTHROPIC_MODEL }}
+          FD_CODER_PROVIDER: anthropic
+        run: python -m factory.provider status
       - name: Produce code proposal, without running untrusted code
         id: codegen
         env:

@@ -54,3 +54,7 @@ Après chaque étape, enrichir le journal et la mémoire `SUIVI.md` / `DECISIONS
 Rapporter de façon vérifiable : compte et dépôt connectés ; SHA réel de `main` ; Continuity ID ; révision du registre ; dernière attestation ; programme actif ; éventuel blocage ; tâche admissible ou prochaine tâche à qualifier ; actions effectivement exécutées ; prochaine action. Continuer le travail autorisé si des outils sont disponibles, sans attendre une nouvelle explication du propriétaire.
 
 **Limite :** cette instruction n'est pas un déclencheur magique dans toutes les applications. Un agent doit disposer d'un accès GitHub effectif et lire le dépôt. L'exécution 24/7 appartient au workflow GitHub hébergé, non à la conversation elle-même.
+
+## Arrivée après D040 — analyse programmatique automatique
+
+Lorsqu'une nouvelle conversation arrive et constate `PROGRAM_QUALIFICATION_REQUIRED`, consulter `factory/PROGRAM_FACTORY.md` et `python -m factory.program_factory` (ou son équivalent par le connecteur GitHub). La sélection du programme et la création des blueprints autorisés sont désormais raccordées à la phase `reconcile` du workflow existant. Les nouvelles tâches éligibles doivent conserver `source_task_id`, dépendances, preuves SHA et statut READY. Ne pas réexécuter les tâches historique DONE ni lancer une opération nécessitant des fichiers externes absents.

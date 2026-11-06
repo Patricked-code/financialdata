@@ -20,7 +20,7 @@
     "factory-autonomy.yml",
     "factory-validation.yml"
   ],
-  "next_action": "PROGRAM_QUALIFICATION_REQUIRED: verify current P1 SOURCE evidence, prepare/version/test next bounded blueprint; no auto READY candidates",
+  "next_action": "RUN_PROGRAM_QUALIFICATION_CI_THEN_VERIFY_P1_CODE_TASKS",
   "next_work_items": [
     "FD-AUTO-P1-MANIFEST-CHECKER",
     "FD-AUTO-P1-HASH-CHECKER"
@@ -85,5 +85,27 @@
     "business_unit_tests": 6,
     "conclusion": "SUCCESS",
     "source_head_sha": "9f25e95657f533afa1a49c6930fb81d5aa39f396"
-  }
+  },
+  "program_factory": {
+    "version": 1,
+    "policy": "EVIDENCE_GATED_READ_ONLY_ENGINEERING",
+    "program": "FD-P1",
+    "entry": "factory/program_factory.py",
+    "reference": "factory/PROGRAM_FACTORY.md",
+    "qualification_receipt": "factory/evidence/program-qualification.json",
+    "candidate_ids": [
+      "FD-AUTO-P1-COVERAGE-DIAGNOSTIC",
+      "FD-AUTO-P1-TEMPORAL-DIAGNOSTIC"
+    ],
+    "actual_status": "IMPLEMENTATION_PENDING_CI"
+  },
+  "model_provider": {
+    "adapter": "factory/provider.py",
+    "type": "anthropic",
+    "api": "messages",
+    "secret": "ANTHROPIC_API_KEY",
+    "model_variable": "ANTHROPIC_MODEL",
+    "live_api_verified": false
+  },
+  "last_known_attested_baseline": "9c936bf8aa098ae440d1781717748d764b5cc963"
 }

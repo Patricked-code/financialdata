@@ -10,7 +10,7 @@ from collections import Counter, defaultdict
 import json
 import re
 import sys
-from factory import engine, tasking
+from factory import engine, tasking, program_factory
 
 CONTINUITY_ID = "FD-AUTONOMY-V1"
 ALLOWED_ROLES = ("coder", "planner", "auditor")
@@ -111,6 +111,7 @@ def read_only_admission(agent: str, role: str) -> dict:
         "task_counts": dict(counts),
         "audit": {"ok": audit["ok"], "errors": audit["errors"],
                   "warnings": audit["warnings"]},
+        "program_qualification": program_factory.assessment(state),
         "canonical_files": [
             "GOVERNANCE.md", "AGENTS.md", "CLAUDE.md",
             "factory/ARRIVAL.md", "factory/CONTINUITY.md",

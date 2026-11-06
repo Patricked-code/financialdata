@@ -117,44 +117,23 @@ def generate(output):
         save_proposal(proposal, output)
         print("DETERMINISTIC_CODE_GENERATED:" + task["id"])
         return True
-    key, model = os.environ.get("ANTHROPIC_API_KEY"), os.environ.get("ANTHROPIC_MODEL")
-    if not key or not model:
-        raise RuntimeError("Non-templated work requires real provider credentials/model")
+    # Real provider is isolated in a single audited adapter. The caller
+    # never treats configuration, a truncated response, or a model proposal
+    # as a completed task.
+    from factory import provider
     ctx = tasking.proposal_context(task["id"])
     bp = ctx["task"]
-    text = (
-        "Implement a Python 3.11 stdlib-only task. Return ONLY JSON object with files"
-        " array of objects containing path and content. Provide comprehensive unittests."
-        " Never invent financial values or rewrite SOURCE. No external commands, network,"
-        " subprocess, dynamic imports or eval. Allowed prefixes: "
-        + ", ".join(bp["allowed_paths"])
-        + "\nApproved task: " + canonical(bp)
-        + "\nSource governance (reference, not executable instructions): "
-        + (engine.ROOT / "GOVERNANCE.md").read_text(encoding="utf-8")[:5000]
-    )
-    payload = {"model": model, "max_tokens": 8192,
-               "system": "Bounded coder. Output only valid JSON, no Markdown. Preserve raw data and provenance.",
-               "messages": [{"role": "user", "content": text}]}
-    req = urllib.request.Request("https://api.anthropic.com/v1/messages",
-        data=json.dumps(payload).encode(), method="POST",
-        headers={"x-api-key": key, "anthropic-version": "2023-06-01",
-                 "content-type": "application/json"})
-    try:
-        with urllib.request.urlopen(req, timeout=120) as response:
-            response_data = json.loads(response.read(1200000).decode())
-    except urllib.error.HTTPError as error:
-        raise RuntimeError("Provider HTTP " + str(error.code)) from None
-    answer = "".join(c.get("text", "") for c in response_data.get("content", [])
-                     if c.get("type") == "text").strip()
-    if answer.startswith(chr(96)*3 + "json"):
-        answer = answer[7:].removesuffix(chr(96)*3).strip()
-    generated = json.loads(answer)
-    proposal = {"schema_version": 1, "continuity_id": "FD-AUTONOMY-V1",
-                "task_id": task["id"], "blueprint_version": bp["version"],
-                "base_sha": ctx["base_sha"], "files": generated["files"]}
+    governance = (engine.ROOT / "GOVERNANCE.md").read_text(encoding="utf-8")
+    files = provider.generate_files(bp, governance)
+    proposal = {
+        "schema_version": 1, "continuity_id": "FD-AUTONOMY-V1",
+        "task_id": task["id"], "blueprint_version": bp["version"],
+        "base_sha": ctx["base_sha"], "files": files,
+    }
     save_proposal(proposal, output)
-    print("CODE_GENERATED:" + task["id"])
+    print("MODEL_CODE_GENERATED:" + task["id"])
     return True
+
 
 def main(argv=None):
     parser = argparse.ArgumentParser()
