@@ -1,40 +1,46 @@
-name: FinancialData Factory — validation et audit
+name: FinancialData Factory - validation et audit
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
   schedule:
-    - cron: "17 */12 * * *"
+    - cron: "37 */6 * * *"
 
 permissions:
   contents: read
 
 concurrency:
-  group: financialdata-factory-audit
+  group: financialdata-factory-readonly-ci
   cancel-in-progress: false
 
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
-      - name: Checkout main
+      - name: Checkout exact triggering SHA (not floating main)
         uses: actions/checkout@v4
         with:
-          ref: main
           persist-credentials: false
-      - name: Python
+      - name: Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Unit tests
+      - name: Compile factory modules
+        run: python -m compileall -q factory
+      - name: Unit and negative security tests
         run: python -m unittest discover -s factory/tests -v
-      - name: Bootstrap local snapshot (no commit)
+      - name: Existing and generated financial-data tests
+        run: |
+          if [ -d tests ]; then python -m unittest discover -s tests -v; fi
+      - name: Create local (unpublished) state snapshot
         run: python -m factory.engine bootstrap > factory-bootstrap.json
-      - name: Source and governance audit
-        run: python -m factory.engine audit > factory-audit.json
-      - name: Save independent evidence
+      - name: Audit documentary SOURCE and governance
+        run: |
+          python -m factory.engine audit > factory-audit.json
+          python -c 'import json,sys; a=json.load(open("factory-audit.json")); print(json.dumps(a,indent=2)); sys.exit(0 if a["ok"] else 1)'
+      - name: Archive CI evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -43,3 +49,4 @@ jobs:
             factory-bootstrap.json
             factory-audit.json
           if-no-files-found: warn
+          retention-days: 90

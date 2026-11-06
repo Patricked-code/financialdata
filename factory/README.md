@@ -66,3 +66,9 @@ Le codeur autonome permanent, les agents IA et une future connexion au MCP sont 
 GOVERNANCE.md → AGENTS.md → CLAUDE.md → SUIVI.md → DECISIONS.md → TODO.md → ROADMAP.md → factory/README.md → bootstrap → admit → next/run → test → evidence → suivi.
 
 Toute session doit vérifier l'état de main, les travaux existants, et préserver les décisions validées. Après modification significative, mettre à jour SUIVI.md, TODO.md et DECISIONS.md si nécessaire.
+
+## Extension hébergée FD-AUTONOMY-V1
+
+L'implémentation initiale ci-dessus reste valide. Le raccordement [factory/CONTINUITY.md](CONTINUITY.md) ajoute maintenant un workflow hébergé qui enchaîne les unités de travail sans faire dépendre le dépôt du MCP. Le registre reste factory/state.json ; tasking.py ajoute de façon additive les travaux et UTL blueprints, coder.py appelle un véritable modèle Claude, publisher.py gère publication directe main et attestation du workflow. Deux tâches de code P1 non destructives servent de premiers travaux admissibles.
+
+Activation : dans GitHub > Settings > Secrets and variables > Actions, définir le secret ANTHROPIC_API_KEY et les variables ANTHROPIC_MODEL (identifiant Claude disponible) et FD_AUTONOMY_ENABLED=true. L'exécuteur traite un travail à la fois, toutes les 15 minutes et sur workflow_dispatch ; une continuation explicite est demandée après publication. L'absence de ces paramètres interdit de prétendre à un codage autonome opérationnel. Les coûts API et les runs Actions dépendent du fournisseur et des paramètres du compte. Les jobs codage, validation et publication sont séparés : les tests de code généré ne reçoivent pas de clé de modèle ni de permission Git d'écriture.

@@ -68,3 +68,7 @@ GitHub devient la mémoire persistante opérationnelle du projet. Les sources ex
 ## Usine de développement autonome locale
 
 Le projet contient une première fabrique autonome de programmes, tâches, admission des agents, validation et continuité : [factory/README.md](factory/README.md). Elle utilise les fichiers de gouvernance existants comme sources d'autorité et ne dépend pas du MCP. Les audits sont exécutables ; l'agent de développement IA permanent reste à connecter. Aucune branche ni Pull Request n'est introduite.
+
+## Usine de développement autonome — raccordement hébergé
+
+[Mandat de continuité](factory/CONTINUITY.md), [registre machine-lisible](factory/state.json), [tâches admissibles](factory/blueprints.json), [protocole d'activation](factory/README.md). Les composants de codage, validation isolée, publication main et réconciliation CI sont connectés par .github/workflows/factory-autonomy.yml. L'activation de l'agent de génération suppose les variables/secret du fournisseur de modèle ; la seule présence du workflow ne prouve pas une exécution autonome.

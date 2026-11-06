@@ -99,3 +99,7 @@ Avant de dire qu'une tâche est terminée :
 ## Usine de développement autonome locale (2026-11-06)
 
 Le dispositif autonome et indépendant du MCP est décrit dans [factory/README.md](factory/README.md) et [factory/AGENT_PROTOCOL.md](factory/AGENT_PROTOCOL.md). Avant de créer un travail parallèle, synchroniser la projection depuis ROADMAP.md et TODO.md avec `python -m factory.engine bootstrap`, vérifier `python -m factory.engine audit`, puis utiliser `admit` et `next/run`. L'agent codeur doit produire une modification réelle, la tester et fournir une preuve avant de terminer la tâche. La politique main-only, les sources de vérité et les barrières de non-régression précédentes restent inchangées. Le moteur ne prétend pas être à ce stade un codeur IA hébergé 24/7.
+
+## Protocole de développement autonome FD-AUTONOMY-V1 (2026-11-06)
+
+À chaque arrivée, reprise de task, échec CI ou publication de code, lire impérativement [factory/CONTINUITY.md](factory/CONTINUITY.md) et [factory/HANDOFF.json](factory/HANDOFF.json). Le registre unique demeure factory/state.json et le moteur fondateur est factory/engine.py. Les adaptateurs tasking.py/coder.py/publisher.py ne créent aucune autorité concurrente. Reprendre le statut réel du travail, exiger les preuves de CI, préserver la politique main-only et les données SOURCE. Le job autonome est opt-in, ses droits d'écriture sont bornés aux publications validées ; aucun agent ne doit présumer qu'une tâche est terminée sans attestation. Aucun Codex et aucune dépendance au MCP.

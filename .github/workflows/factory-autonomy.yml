@@ -1,0 +1,147 @@
+name: FinancialData - autonomous development factory
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [financialdata_factory_resume]
+  schedule:
+    - cron: "*/15 * * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: financialdata-factory-main-writer
+  cancel-in-progress: false
+
+jobs:
+  reconcile:
+    name: Reconcile persisted task with GitHub CI
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Recover, attest and seed canonical task state
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m factory.publisher reconcile
+
+  generate:
+    name: Unprivileged AI code generation
+    needs: reconcile
+    if: ${{ vars.FD_AUTONOMY_ENABLED == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    outputs:
+      has_proposal: ${{ steps.codegen.outputs.has_proposal }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Produce code proposal, without running untrusted code
+        id: codegen
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_MODEL: ${{ vars.ANTHROPIC_MODEL }}
+        run: |
+          python -m factory.coder generate --output proposal.json
+          if [ -s proposal.json ]; then
+            echo "has_proposal=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_proposal=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Export proposal for validation
+        if: steps.codegen.outputs.has_proposal == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: financialdata-proposal
+          path: proposal.json
+          if-no-files-found: error
+          retention-days: 30
+
+  validate:
+    name: Validate generated code in a secrets-free job
+    needs: generate
+    if: needs.generate.outputs.has_proposal == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/download-artifact@v4
+        with:
+          name: financialdata-proposal
+      - name: Apply bounded file proposal (read-only CI credentials)
+        run: python -m factory.coder apply --proposal proposal.json
+      - name: Validate all factory tests
+        run: python -m unittest discover -s factory/tests -v
+      - name: Validate generated and existing business tests
+        run: python -m unittest discover -s tests -v
+      - name: SOURCE and provenance audit
+        run: |
+          python -m factory.engine audit > business-audit.json
+          python -c 'import json,sys; a=json.load(open("business-audit.json")); print(json.dumps(a,indent=2)); sys.exit(0 if a["ok"] else 1)'
+      - name: Reject invalid patch formatting
+        run: git diff --check
+      - name: Capture validation result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: financialdata-validation
+          path: business-audit.json
+          if-no-files-found: warn
+          retention-days: 90
+
+  publish:
+    name: Publish only tested files to main and schedule continuation
+    needs: [generate, validate]
+    if: needs.validate.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      actions: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/download-artifact@v4
+        with:
+          name: financialdata-proposal
+      - name: Publish exact validated artifact with optimistic main SHA check
+        env:
+          GITHUB_RUN_ID: ${{ github.run_id }}
+        run: python -m factory.publisher publish --proposal proposal.json --run-id "$GITHUB_RUN_ID"
+      - name: Queue attestation and next admissible task
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m factory.publisher dispatch-next

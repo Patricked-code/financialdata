@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "continuity_id": "FD-AUTONOMY-V1",
+  "repo": "Patricked-code/financialdata",
+  "branch": "main",
+  "base_sha": "22deeae0e55d7d5a4c60515d107968444f1b9380",
+  "mandate": "Finish standalone autonomous development without MCP, Codex, new branches, PR or SOURCE regression.",
+  "authority": [
+    "GOVERNANCE.md",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "SUIVI.md",
+    "DECISIONS.md",
+    "TODO.md",
+    "ROADMAP.md",
+    "factory/state.json",
+    "factory/blueprints.json"
+  ],
+  "workflow": [
+    "factory-autonomy.yml",
+    "factory-validation.yml"
+  ],
+  "next_action": "Verify GitHub CI, configure approved model credentials/variable, run first autonomous blueprint, attest runtime, then expand readiness catalog safely.",
+  "next_work_items": [
+    "FD-AUTO-P1-MANIFEST-CHECKER",
+    "FD-AUTO-P1-HASH-CHECKER"
+  ],
+  "security": "least privilege; main-only, read-only generated-test job; SHA CAS; audit proof; no SOURCE mutations",
+  "activation_verified": false
+}
