@@ -2,8 +2,8 @@
   "agents": {},
   "continuity": {
     "id": "FD-AUTONOMY-V1",
-    "last_attested_run": null,
-    "next_action": "ATTEST_GITHUB_ACTIONS_RUN_42283853272"
+    "last_attested_run": 42283853272,
+    "next_action": "SELECT_NEXT_ADMISSIBLE"
   },
   "events": [
     {
@@ -35,6 +35,19 @@
       "hash": "2ff03dda545d659ca289dd68cc2bdf97fa71f98cbdf6a79c75c2d8be0d3b2ad7",
       "prev_hash": "5fce99f02af5c8713cfefab5bcda6462497814e614e76dede6f946bcc3e6cbb0",
       "sequence": 2
+    },
+    {
+      "at": "2026-11-06T19:56:16+00:00",
+      "data": {
+        "conclusion": "success",
+        "evidence_url": "https://github.com/Patricked-code/financialdata/actions/runs/42283853272",
+        "run_id": 42283853272,
+        "task_id": "FD-AUTO-P1-MANIFEST-CHECKER"
+      },
+      "event": "CI_ATTESTED",
+      "hash": "daca66c68dd12c12bee6966fe0069d9c243eb3f7d6b808a44162bf41935efce3",
+      "prev_hash": "2ff03dda545d659ca289dd68cc2bdf97fa71f98cbdf6a79c75c2d8be0d3b2ad7",
+      "sequence": 3
     }
   ],
   "programs": {
@@ -136,7 +149,7 @@
       "version": 1
     }
   },
-  "revision": 2,
+  "revision": 3,
   "schema_version": 1,
   "tasks": {
     "FD-A-LINEAGE": {
@@ -297,7 +310,7 @@
       "program_id": "FD-P1",
       "run_id": 42283853272,
       "source": "factory/blueprints.json",
-      "status": "PUBLISHED_PENDING_CI",
+      "status": "DONE",
       "title": "Implement non-destructive document-manifest integrity checker",
       "units": [
         {
@@ -325,10 +338,10 @@
           "status": "DONE"
         },
         {
-          "evidence": null,
+          "evidence": "https://github.com/Patricked-code/financialdata/actions/runs/42283853272",
           "id": "FD-AUTO-P1-MANIFEST-CHECKER-ATTEST",
           "stage": "ATTEST",
-          "status": "PENDING_CI"
+          "status": "DONE"
         }
       ]
     },
