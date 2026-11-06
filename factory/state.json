@@ -182,6 +182,20 @@
       "hash": "328e7cb29507e5aeb9d6228a3d392785823d637f5f7c350be4e39a4cc05aeaad",
       "prev_hash": "dc4ddaf8491e1fdac4cda81a4db5de223ce254f9455c793adf8f72daaf9af870",
       "sequence": 10
+    },
+    {
+      "at": "2026-11-06T20:55:20+00:00",
+      "data": {
+        "attempts": 2,
+        "run_id": 42292320826,
+        "stage": "VALIDATE",
+        "status": "BACKLOG",
+        "task_id": "FD-AUTO-P1-COVERAGE-DIAGNOSTIC"
+      },
+      "event": "AUTONOMOUS_STAGE_FAILED",
+      "hash": "1c7e7182581222d35d2b2305c20cd0bf5f9ff4e5c7955bd7d724ef1fdd471356",
+      "prev_hash": "328e7cb29507e5aeb9d6228a3d392785823d637f5f7c350be4e39a4cc05aeaad",
+      "sequence": 11
     }
   ],
   "programs": {
@@ -283,7 +297,7 @@
       "version": 1
     }
   },
-  "revision": 10,
+  "revision": 11,
   "schema_version": 1,
   "tasks": {
     "FD-A-LINEAGE": {
@@ -380,6 +394,11 @@
         {
           "at": "2026-11-06T20:53:17+00:00",
           "run_id": 42292036556,
+          "stage": "VALIDATE"
+        },
+        {
+          "at": "2026-11-06T20:55:20+00:00",
+          "run_id": 42292320826,
           "stage": "VALIDATE"
         }
       ],
