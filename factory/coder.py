@@ -123,6 +123,10 @@ def generate(output):
     from factory import provider
     ctx = tasking.proposal_context(task["id"])
     bp = ctx["task"]
+    # Configuration errors take precedence over local workspace reads: no
+    # model proposal, side effects or fake success when a key is unavailable.
+    if not provider.readiness()["configured"]:
+        raise RuntimeError("Non-templated work requires real provider credentials/model")
     governance = (engine.ROOT / "GOVERNANCE.md").read_text(encoding="utf-8")
     files = provider.generate_files(bp, governance)
     proposal = {

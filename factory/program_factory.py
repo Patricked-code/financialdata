@@ -101,11 +101,14 @@ def inspect_rule(rule, state):
             result["status"] = "EXISTING"
             result["reason"] = existing["status"]
         return result
+    live_todo = engine.scan_todo()
     matches = [t for t in state["tasks"].values()
                if t.get("source") == "TODO.md"
                and t.get("program_id") == "FD-P1"
                and t.get("status") == "BACKLOG"
-               and rule["origin_contains"] in t["title"]]
+               and rule["origin_contains"] in t["title"]
+               and t["id"] in live_todo
+               and live_todo[t["id"]]["status"] == "BACKLOG"]
     if len(matches) != 1:
         result["reason"] = "TODO_PROVENANCE_NOT_UNAMBIGUOUS"
         return result
