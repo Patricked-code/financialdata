@@ -3,7 +3,7 @@
   "continuity": {
     "id": "FD-AUTONOMY-V1",
     "last_attested_run": 42283964239,
-    "next_action": "SELECT_NEXT_ADMISSIBLE"
+    "next_action": "NO_ADMISSIBLE_AUTONOMOUS_TASK"
   },
   "events": [
     {
@@ -77,6 +77,16 @@
       "hash": "fc5c8eab43eed028e211a50794df9cb211f1b11381cf7a80af671fd60cf07d25",
       "prev_hash": "ef6c206b18bdf3516df4647b538fa1a482924500aff0dbb40c0aeb0f1bcc1a63",
       "sequence": 5
+    },
+    {
+      "at": "2026-11-06T20:03:59+00:00",
+      "data": {
+        "source_sha": "29882b4534e7228ff10335c6d6fb54aaeef0f815"
+      },
+      "event": "AUTONOMOUS_IDLE_NO_ELIGIBLE_TASK",
+      "hash": "8b91f1890e689cfb9adda225e5377e72951de17aebfd7a26528e0b1a90345944",
+      "prev_hash": "fc5c8eab43eed028e211a50794df9cb211f1b11381cf7a80af671fd60cf07d25",
+      "sequence": 6
     }
   ],
   "programs": {
@@ -178,7 +188,7 @@
       "version": 1
     }
   },
-  "revision": 5,
+  "revision": 6,
   "schema_version": 1,
   "tasks": {
     "FD-A-LINEAGE": {
