@@ -20,7 +20,7 @@
     "factory-autonomy.yml",
     "factory-validation.yml"
   ],
-  "next_action": "D043: verify integration CI on main and preserve existing business pipeline; then qualify next P1 source-backed task in current factory (no new pipeline)",
+  "next_action": "D043 ATTESTED. P1 SOURCE program still open: qualify next business-process-anchored, source-evidenced work using existing factory; do not introduce additional data pipeline.",
   "next_work_items": [
     "FD-AUTO-P1-MANIFEST-CHECKER",
     "FD-AUTO-P1-HASH-CHECKER"
@@ -213,6 +213,16 @@
     "factory_state": "factory/state.json",
     "non_destructive_evidence": "GitHub exact-head CI + SOURCE audit",
     "guard": "factory/program_factory.py process_anchor, dependency evidence; factory/tests/test_program_factory.py",
-    "status": "IMPLEMENTED_AWAITING_EXACT_HEAD_CI"
+    "status": "ATTESTED_EXACT_HEAD_CI_SUCCESS",
+    "integration_commit": "36724ef16332aca57b0990de4c71fa8ddb35e65d",
+    "ci": {
+      "validation_run": 42308957344,
+      "conclusion": "SUCCESS",
+      "factory_tests": 36,
+      "business_tests": 11,
+      "autonomy_run": 42308957465,
+      "autonomy_conclusion": "SUCCESS"
+    },
+    "source_changes": 0
   }
 }
