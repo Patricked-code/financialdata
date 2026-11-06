@@ -71,3 +71,7 @@ Le registre unique contient cinq identités de rôles fonctionnels : github-acti
 ## Entrée universelle de session — FD-AGENT-ARRIVAL-V1
 
 Le point d'accès opérationnel de toute conversation autorisée est `factory/ARRIVAL.md` ; le diagnostic exécutable associé est `python -m factory.entry --role coder --agent <identifiant-de-session>`. Cette commande est sans mutation et inspecte la continuité, les programmes, le backlog, les tâches READY, les preuves et les éventuels runs en attente. Elle ne remplace ni l'authentification GitHub, ni le moteur `factory/engine.py`, ni l'attestation du workflow. Si les deux premiers blueprints sont DONE et qu'aucune tâche READY ne demeure, la prochaine action est une **qualification documentée** du travail P1 restant, pas une réexécution ni une clôture fictive des phases métiers.
+
+## Attestation FD-AGENT-ARRIVAL-V1
+
+Le run GitHub 42288354186 (commit testé 9f25e95657f533afa1a49c6930fb81d5aa39f396) confirme 21 tests factory, 6 tests métier et la commande d'arrivée réelle sur le dépôt. Verdict : PROGRAM_QUALIFICATION_REQUIRED. Le run du moteur hébergé 42288354189 est SUCCESS, sans nouveau travail admissible. L'entrée universelle est donc exécutable et contrôlée ; l'auto-fabrication générale de nouveaux blueprints n'est pas attestée. La prochaine intervention porte sur la qualification gouvernée d'un travail P1 fondé sur sources réelles, sans expansion des permissions de publication.

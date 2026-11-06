@@ -20,7 +20,7 @@
     "factory-autonomy.yml",
     "factory-validation.yml"
   ],
-  "next_action": "QUALIFY_NEW_P1_BLUEPRINT_FROM_VERIFIED_SOURCE_AND_TODO (no READY autonomous task at last attested checkpoint)",
+  "next_action": "PROGRAM_QUALIFICATION_REQUIRED: verify current P1 SOURCE evidence, prepare/version/test next bounded blueprint; no auto READY candidates",
   "next_work_items": [
     "FD-AUTO-P1-MANIFEST-CHECKER",
     "FD-AUTO-P1-HASH-CHECKER"
@@ -77,5 +77,13 @@
   "entry_read_only": true,
   "portability_document": "factory/PORTABILITY.md",
   "operator_guidance": "On any newly connected coding-agent conversation: read AGENTS.md + factory/ARRIVAL.md, inspect live main/CI/state, perform next governed action, do not assume conversation memory.",
-  "arrival_ci_verified": false
+  "arrival_ci_verified": true,
+  "arrival_ci_run": 42288354186,
+  "arrival_diagnostic_decision": "PROGRAM_QUALIFICATION_REQUIRED",
+  "arrival_ci_tests": {
+    "factory_unit_tests": 21,
+    "business_unit_tests": 6,
+    "conclusion": "SUCCESS",
+    "source_head_sha": "9f25e95657f533afa1a49c6930fb81d5aa39f396"
+  }
 }
