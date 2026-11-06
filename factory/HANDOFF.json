@@ -20,7 +20,7 @@
     "factory-autonomy.yml",
     "factory-validation.yml"
   ],
-  "next_action": "NO_READY_TASK: ENABLE_MODEL_PROVIDER_FOR_UNTEMPLATED_WORK; QUALIFY_ADDITIONAL_P1_WORK_ONLY_WITH_REAL_EVIDENCE",
+  "next_action": "CONNECTED_AGENT: inspect live main and P1 backlog; qualify and implement approved work without additional model API. HOSTED_UNTEMPLATED: configure provider only if desired.",
   "next_work_items": [
     "FD-AUTO-P1-MANIFEST-CHECKER",
     "FD-AUTO-P1-HASH-CHECKER"
@@ -132,8 +132,33 @@
     "live_api_verified": false,
     "status": "CONFIGURATION_REQUIRED_IN_RUN_42292599195",
     "secret_configured_in_verified_run": false,
-    "model_configured_in_verified_run": false
+    "model_configured_in_verified_run": false,
+    "scope": "HOSTED_ACTIONS_GENERATOR_ONLY_FOR_NON_TEMPLATED_WORK",
+    "required_for_connected_agent": false
   },
   "last_known_attested_baseline": "9c936bf8aa098ae440d1781717748d764b5cc963",
-  "last_verified_main_head": "908f24d377530b16c0173279e64b43f8af4edef7"
+  "last_verified_main_head": "908f24d377530b16c0173279e64b43f8af4edef7",
+  "execution_modes": {
+    "CONNECTED_CODING_AGENT": {
+      "priority": "PREFERRED_WHEN_CHATGPT_OR_CLAUDE_ALREADY_CONNECTED",
+      "additional_model_api_key_required": false,
+      "entry": "factory/ARRIVAL.md",
+      "loop": "FD_AGENT_AUTO_CONTINUE",
+      "capability": "native conversational agent coding + authorized GitHub connector",
+      "persistence": "GitHub state, CI, checkpoints",
+      "requires": "verified GitHub authorization; approved scope and evidence"
+    },
+    "HOSTED_ACTIONS_GENERATOR": {
+      "priority": "OPTIONAL_FOR_BETWEEN_SESSIONS",
+      "additional_model_api_key_required_for_untemplated_work": true,
+      "entry": ".github/workflows/factory-autonomy.yml",
+      "provider": "factory/provider.py",
+      "deterministic_templates_do_not_require_provider": true
+    }
+  },
+  "historical_reference": {
+    "repository": "Patricked-code/MCP",
+    "pr": 95,
+    "contract": "CLAUDE.md §9.8 bootstrapCandidateConnection/dispatchCandidateWork and §7.2 PROGRAM_AUTO_CONTINUE; conceptual precedent only; do not import runtime authority"
+  }
 }

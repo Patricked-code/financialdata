@@ -1,5 +1,13 @@
 # AGENTS.md — Règles universelles des agents
 
+## Entrée prioritaire — agent codeur connecté, sans clé API modèle supplémentaire (D041)
+
+Lorsqu'un agent **ChatGPT ou Claude disposant déjà de ses capacités de codage et d'un connecteur GitHub autorisé** reçoit « Je suis agent codeur, connecte-toi au dépôt et poursuis », il exécute **directement** le protocole [factory/ARRIVAL.md](factory/ARRIVAL.md) avec ses propres capacités. **Ni `ANTHROPIC_API_KEY` ni `ANTHROPIC_MODEL` ne sont des prérequis pour cette voie conversationnelle.** Ces paramètres concernent uniquement le générateur *GitHub Actions sans agent de conversation* lorsqu'il doit coder une tâche sans template.
+
+La boucle locale `FD_AGENT_AUTO_CONTINUE`, inspirée du principe historique de la PR #95 de Patricked-code/MCP, est : `OBSERVE → RECONCILE → SELECT READY → CHECK DEPENDENCIES/COLLISIONS → CODE → TEST → VERIFY CI → ATTEST → CHECKPOINT → RECOMPUTE → CONTINUE`. Ne pas demander de confirmation répétée pour une tâche déjà autorisée ; s'arrêter sur un blocage gouverné réel. Réutiliser exclusivement les autorités du présent dépôt, **sans importer** la Task Queue, les sessions, les branches ou les permissions propres au MCP. Pas de Codex/Copilot dans ce chantier.
+
+
+
 ## Entrée universelle « connecte-toi au dépôt en tant qu'agent codeur »
 
 **Dès qu'une instruction de conversation demande d'arriver dans ce dépôt comme codeur, planificateur ou auditeur**, appliquer le contrat [factory/ARRIVAL.md](factory/ARRIVAL.md) **avant de créer une tâche ou modifier le code**. Vérifier le compte GitHub Patricked-code, le SHA réel de main, les autorités documentaires et le registre factory/state.json ; en environnement Python autorisé, utiliser `python -m factory.entry --agent chatgpt-session --role coder`. Sans terminal, réaliser l'équivalent par le connecteur GitHub et distinguer clairement les vérifications réalisées des commandes non exécutées. La déclaration « je suis agent codeur » ne vérifie pas les permissions et n'octroie pas d'écriture implicite. À absence de tâche READY, qualifier le backlog programme existant selon les preuves ; ne jamais inventer une tâche DONE ou créer un deuxième orchestrateur.

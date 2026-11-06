@@ -1,5 +1,13 @@
 # CLAUDE.md — Instructions persistantes pour les agents IA
 
+## Priorité D041 — boucle de l'agent connecté, sans API externe de codage
+
+Tout agent ChatGPT/Claude **déjà connecté et autorisé sur GitHub** doit utiliser ses capacités de génération et d'édition de code pour appliquer `factory/ARRIVAL.md`. Cette voie n'exige **aucune clé Anthropic supplémentaire**. La commande `factory.entry` est un diagnostic de lecture ; elle n'est pas un générateur de code, ni la preuve que l'agent est authentifié. Si le connecteur GitHub permet d'écrire, l'agent peut coder et apporter les changements gouvernés sans appeler `factory/provider.py` : vérifier l'état live, le travail, la portée autorisée et les conflits, produire tests/preuves exact-head, publier selon la politique `main`, puis enregistrer un checkpoint et passer au travail admissible suivant.
+
+`PROGRAM_AUTO_CONTINUE` de la PR #95 du MCP constitue une **référence historique de méthode** et non une importation de son moteur runtime. Pour FinancialData, appliquer `FD_AGENT_AUTO_CONTINUE` et la source d'autorité du présent dépôt. Ne pas s'arrêter après une tâche DONE prouvée si un travail compatible est immédiatement sélectionnable. Ne pas prétendre à une exécution autonome en arrière-plan après la fin de la conversation.
+
+
+
 ## Entrée conversationnelle immédiate — FD-AGENT-ARRIVAL-V1
 
 Lorsqu'un assistant (ChatGPT, Claude ou agent de développement autorisé) reçoit « connecte-toi à financialdata en tant qu'agent codeur », **lire et appliquer [factory/ARRIVAL.md](factory/ARRIVAL.md)** puis les autorités listées ci-dessous. Vérifier le dépôt `Patricked-code/financialdata`, l'identité GitHub et `main`, le dernier run CI et `factory/state.json`. Utiliser `python -m factory.entry --role coder --agent agent-session` si un runner existe ; sinon reproduire le diagnostic depuis les outils GitHub. En l'absence de travail READY, sélectionner le programme prioritaire et préparer sa prochaine qualification gouvernée, sans transformer une tâche historique en exécution non autorisée. Toute écriture doit rester compatible avec la politique main-only, les tests et les preuves.

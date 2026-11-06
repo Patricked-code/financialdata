@@ -40,6 +40,8 @@ class AgentEntryTests(unittest.TestCase):
         self.assertEqual(result["head_sha"], "a" * 40)
         self.assertFalse(result["github_identity_verified"])
         self.assertTrue(result["read_only"])
+        self.assertFalse(result["execution_modes"]["CONNECTED_CODING_AGENT"]["additional_model_api_key_required"])
+        self.assertTrue(result["execution_modes"]["HOSTED_ACTIONS_GENERATOR"]["additional_model_api_key_required_for_untemplated_work"])
         self.assertEqual(engine.STATE.read_bytes(), before)
 
     def test_waiting_for_ci_is_first_priority(self):

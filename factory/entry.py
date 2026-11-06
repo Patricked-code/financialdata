@@ -119,6 +119,33 @@ def read_only_admission(agent: str, role: str) -> dict:
             "SUIVI.md", "DECISIONS.md", "TODO.md", "ROADMAP.md",
             "ARCHITECTURE.md", "DATA_MODEL.md", "SOURCES.md",
         ],
+        # Two complementary execution modes. A conversational coding agent
+        # already has a model; it does not need this repository's Anthropic key.
+        "execution_modes": {
+            "CONNECTED_CODING_AGENT": {
+                "additional_model_api_key_required": False,
+                "requires": [
+                    "agent with native coding capability",
+                    "verified GitHub repository authorization",
+                    "governed writable scope and evidence",
+                ],
+                "protocol": "factory/ARRIVAL.md",
+                "next_step": (
+                    "Use native coding capabilities and authorized GitHub tools "
+                    "to execute compatible work; validate, checkpoint, "
+                    "recompute eligibility, and continue without asking again "
+                    "unless a real governed blocker exists."
+                ),
+            },
+            "HOSTED_ACTIONS_GENERATOR": {
+                "additional_model_api_key_required_for_untemplated_work": True,
+                "requires": [
+                    "GitHub Actions host",
+                    "configured model provider for tasks without a deterministic template",
+                ],
+                "protocol": ".github/workflows/factory-autonomy.yml",
+            },
+        },
         "execution_owner": ".github/workflows/factory-autonomy.yml",
         "note": ("The conversational agent must verify GitHub authorization. "
                  "This command does not admit a new GitHub principal, "

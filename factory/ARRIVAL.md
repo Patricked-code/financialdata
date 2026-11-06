@@ -1,5 +1,21 @@
 # FD-AGENT-ARRIVAL-V1 — Entrée canonique de tout agent codeur
 
+## 0. Choix d'exécution — priorité à l'agent déjà connecté
+
+**VOIE A — AGENT CONNECTÉ (sans clé API fournisseur additionnelle)** : la phrase « Je suis agent codeur » active le **protocole** de travail pour un agent ChatGPT/Claude déjà connecté et effectivement autorisé à lire/écrire sur ce dépôt. L'agent **est** le moteur de codage : il lit les `.md`, utilise les outils GitHub disponibles, qualifie ou sélectionne les tâches du registre existant, écrit le code autorisé, lance/vérifie les tests disponibles, consulte la CI, laisse les SHA/runs et la prochaine action, puis recommence tant qu'un travail sûr et admissible existe. Il **n'a pas à attendre `ANTHROPIC_API_KEY` ou `ANTHROPIC_MODEL`**. La commande `python -m factory.entry` est facultative si le client ne donne qu'un connecteur GitHub ; ses vérifications sont alors effectuées directement par le connecteur.
+
+**VOIE B — GÉNÉRATEUR HÉBERGÉ (facultatif)** : `.github/workflows/factory-autonomy.yml` peut fonctionner hors conversation. Ses templates déterministes n'utilisent pas de modèle. Pour générer un **nouveau code non couvert par un template**, ce workflow *sans agent connecté* doit disposer d'une véritable capacité de modèle configurée, aujourd'hui `factory/provider.py` et ses paramètres Anthropic. Cela n'est **pas** un prérequis de la voie A.
+
+**Boucle obligatoire d'un agent connecté — `FD_AGENT_AUTO_CONTINUE` :** `OBSERVE GITHUB → RECONCILE STATE/CI → SELECT WORK → VERIFY DEPENDENCIES/OWNERSHIP/WRITE SCOPE → CODE USING NATIVE AGENT → TEST → VERIFY EXACT SHA/CI → RECORD EVIDENCE AND NEXT_ACTION → RECOMPUTE → CONTINUE`. Inspirée du protocole documentaire de la PR #95 du MCP, **sans copier ses autorités**.
+
+- Réutiliser `factory/engine.py`, `tasking.py`, `program_factory.py`, `state.json`, `SUIVI.md` et `HANDOFF.json`. Ne pas créer de file parallèle, de faux claim ou de tâche DONE.
+- Avant chaque écriture, réobserver `main` et les tâches/runs concurrents. Si un writer du workflow agit ou si le HEAD change, **STOP_WRITE → REOBSERVE → RECONCILE**. Écrire seulement selon les permissions réellement disponibles et les chemins autorisés.
+- Les preuves `CI SUCCESS`, les critères du blueprint et le statut `DONE` sont distincts. Ne pas achever une tâche seulement parce qu'un message affirme que le code est prêt.
+- Si aucun travail READY n'existe, continuer la **qualification du programme** et les travaux de code justifiés par de vraies sources ; un besoin de PDF/Drive, permission absente ou action destructive non autorisée est un blocage local, pas un motif pour inventer des faits.
+- À la fin de chaque lot, consigner le `NEXT_ACTION`, réévaluer le backlog et enchaîner sans question de permission générique lorsque toutes les autorisations sont déjà satisfaites. La continuation au-delà de la session dépend des workflows hébergés ou du prochain agent reconnecté.
+
+
+
 **Déclencheur humain :** « Connecte-toi au dépôt Patricked-code/financialdata en tant qu'agent codeur et poursuis le chantier. »
 
 Cette phrase est une demande de **reprise de travail gouvernée**, pas une autorisation illimitée et pas une nouvelle instance d'orchestration. L'agent connecté doit suivre **les opérations ci-dessous, dans cet ordre**, sans dépendre du contenu d'une conversation précédente.
@@ -32,7 +48,7 @@ Si l'agent n'a que le connecteur GitHub (sans terminal), reproduire ses vérific
 |---|---|
 | `BLOCKED_BY_AUDIT` | Diagnostiquer les erreurs réelles et préparer une correction non destructive |
 | `CI_ATTESTATION_REQUIRED` | Vérifier le run exact et faire réconcilier l'état avant une autre tâche |
-| `APPROVED_WORK_AVAILABLE` | Utiliser **le workflow existant** `factory-autonomy.yml` et sa chaîne PLAN → CODE → VALIDATE → PUBLISH → ATTEST |
+| `APPROVED_WORK_AVAILABLE` | **Agent connecté :** coder avec ses capacités natives et les outils GitHub autorisés ; **workflow hébergé :** utiliser `factory-autonomy.yml`. Dans les deux cas, respecter PLAN → CODE → VALIDATE → PUBLISH → ATTEST et les preuves exigées. |
 | `PROGRAM_QUALIFICATION_REQUIRED` | Reprendre les travaux `BACKLOG` du programme prioritaire ; vérifier les sources ; constituer et tester un **blueprint versionné, admissible et borné**, en réutilisant `factory/tasking.py` |
 | `NO_ADMISSIBLE_WORK` | Rechercher le prochain besoin justifié dans `ROADMAP.md`/`TODO.md` ; ne pas fabriquer une réussite |
 | `BLOCKED` | Préserver les preuves et demander uniquement la permission réellement manquante |
