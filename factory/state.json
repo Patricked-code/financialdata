@@ -1,5 +1,46 @@
 {
-  "agents": {},
+  "agents": {
+    "github-actions:coder": {
+      "admitted_at": "2026-11-06T20:06:42+00:00",
+      "capabilities": [
+        "workflow_coder"
+      ],
+      "last_seen_sha": "ff6fb3c7428e60c047a52e6a1434442a142336f5",
+      "mode": "github_actions_role"
+    },
+    "github-actions:planner": {
+      "admitted_at": "2026-11-06T20:06:42+00:00",
+      "capabilities": [
+        "workflow_planner"
+      ],
+      "last_seen_sha": "ff6fb3c7428e60c047a52e6a1434442a142336f5",
+      "mode": "github_actions_role"
+    },
+    "github-actions:publisher": {
+      "admitted_at": "2026-11-06T20:06:42+00:00",
+      "capabilities": [
+        "workflow_publisher"
+      ],
+      "last_seen_sha": "ff6fb3c7428e60c047a52e6a1434442a142336f5",
+      "mode": "github_actions_role"
+    },
+    "github-actions:reconciler": {
+      "admitted_at": "2026-11-06T20:06:42+00:00",
+      "capabilities": [
+        "workflow_reconciler"
+      ],
+      "last_seen_sha": "ff6fb3c7428e60c047a52e6a1434442a142336f5",
+      "mode": "github_actions_role"
+    },
+    "github-actions:validator": {
+      "admitted_at": "2026-11-06T20:06:42+00:00",
+      "capabilities": [
+        "workflow_validator"
+      ],
+      "last_seen_sha": "ff6fb3c7428e60c047a52e6a1434442a142336f5",
+      "mode": "github_actions_role"
+    }
+  },
   "continuity": {
     "id": "FD-AUTONOMY-V1",
     "last_attested_run": 42283964239,
@@ -87,6 +128,19 @@
       "hash": "8b91f1890e689cfb9adda225e5377e72951de17aebfd7a26528e0b1a90345944",
       "prev_hash": "fc5c8eab43eed028e211a50794df9cb211f1b11381cf7a80af671fd60cf07d25",
       "sequence": 6
+    },
+    {
+      "at": "2026-11-06T20:06:42+00:00",
+      "data": {
+        "added_blueprints": 0,
+        "added_unit_sets": 15,
+        "source": "factory/blueprints.json",
+        "source_sha": "ff6fb3c7428e60c047a52e6a1434442a142336f5"
+      },
+      "event": "WORK_UNIT_SYNC",
+      "hash": "fbd5d2d90dd667be7f76cf5f404a1f64039f37e49ed807eaa92c9bcda01cb101",
+      "prev_hash": "8b91f1890e689cfb9adda225e5377e72951de17aebfd7a26528e0b1a90345944",
+      "sequence": 7
     }
   ],
   "programs": {
@@ -188,7 +242,7 @@
       "version": 1
     }
   },
-  "revision": 6,
+  "revision": 7,
   "schema_version": 1,
   "tasks": {
     "FD-A-LINEAGE": {
@@ -298,32 +352,42 @@
       "title": "Implement non-destructive SHA-256 register consistency checker",
       "units": [
         {
+          "agent_id": "github-actions:planner",
           "evidence": "factory/evidence/FD-AUTO-P1-HASH-CHECKER-42283964239.json",
           "id": "FD-AUTO-P1-HASH-CHECKER-PLAN",
+          "run_id": 42283964239,
           "stage": "PLAN",
           "status": "DONE"
         },
         {
+          "agent_id": "github-actions:coder",
           "evidence": "factory/evidence/FD-AUTO-P1-HASH-CHECKER-42283964239.json",
           "id": "FD-AUTO-P1-HASH-CHECKER-CODE",
+          "run_id": 42283964239,
           "stage": "CODE",
           "status": "DONE"
         },
         {
+          "agent_id": "github-actions:validator",
           "evidence": "factory/evidence/FD-AUTO-P1-HASH-CHECKER-42283964239.json",
           "id": "FD-AUTO-P1-HASH-CHECKER-VALIDATE",
+          "run_id": 42283964239,
           "stage": "VALIDATE",
           "status": "DONE"
         },
         {
+          "agent_id": "github-actions:publisher",
           "evidence": "factory/evidence/FD-AUTO-P1-HASH-CHECKER-42283964239.json",
           "id": "FD-AUTO-P1-HASH-CHECKER-PUBLISH",
+          "run_id": 42283964239,
           "stage": "PUBLISH",
           "status": "DONE"
         },
         {
+          "agent_id": "github-actions:reconciler",
           "evidence": "https://github.com/Patricked-code/financialdata/actions/runs/42283964239",
           "id": "FD-AUTO-P1-HASH-CHECKER-ATTEST",
+          "run_id": 42283964239,
           "stage": "ATTEST",
           "status": "DONE"
         }
@@ -359,32 +423,42 @@
       "title": "Implement non-destructive document-manifest integrity checker",
       "units": [
         {
+          "agent_id": "github-actions:planner",
           "evidence": "factory/evidence/FD-AUTO-P1-MANIFEST-CHECKER-42283853272.json",
           "id": "FD-AUTO-P1-MANIFEST-CHECKER-PLAN",
+          "run_id": 42283853272,
           "stage": "PLAN",
           "status": "DONE"
         },
         {
+          "agent_id": "github-actions:coder",
           "evidence": "factory/evidence/FD-AUTO-P1-MANIFEST-CHECKER-42283853272.json",
           "id": "FD-AUTO-P1-MANIFEST-CHECKER-CODE",
+          "run_id": 42283853272,
           "stage": "CODE",
           "status": "DONE"
         },
         {
+          "agent_id": "github-actions:validator",
           "evidence": "factory/evidence/FD-AUTO-P1-MANIFEST-CHECKER-42283853272.json",
           "id": "FD-AUTO-P1-MANIFEST-CHECKER-VALIDATE",
+          "run_id": 42283853272,
           "stage": "VALIDATE",
           "status": "DONE"
         },
         {
+          "agent_id": "github-actions:publisher",
           "evidence": "factory/evidence/FD-AUTO-P1-MANIFEST-CHECKER-42283853272.json",
           "id": "FD-AUTO-P1-MANIFEST-CHECKER-PUBLISH",
+          "run_id": 42283853272,
           "stage": "PUBLISH",
           "status": "DONE"
         },
         {
+          "agent_id": "github-actions:reconciler",
           "evidence": "https://github.com/Patricked-code/financialdata/actions/runs/42283853272",
           "id": "FD-AUTO-P1-MANIFEST-CHECKER-ATTEST",
+          "run_id": 42283853272,
           "stage": "ATTEST",
           "status": "DONE"
         }
