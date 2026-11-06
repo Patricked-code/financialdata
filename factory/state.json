@@ -43,8 +43,8 @@
   },
   "continuity": {
     "id": "FD-AUTONOMY-V1",
-    "last_attested_run": 42292518351,
-    "next_action": "ATTEST_GITHUB_ACTIONS_RUN_42292599195"
+    "last_attested_run": 42292599195,
+    "next_action": "NO_ADMISSIBLE_AUTONOMOUS_TASK"
   },
   "events": [
     {
@@ -241,6 +241,19 @@
       "hash": "098cf59746a9a56e780de04d8a7c95f3f54180956b8820814691f5fce4110d81",
       "prev_hash": "5de9b844d17404812dc9f6d65a349699880fdf1eb46dc78cd543581696388f1c",
       "sequence": 14
+    },
+    {
+      "at": "2026-11-06T20:57:39+00:00",
+      "data": {
+        "conclusion": "success",
+        "evidence_url": "https://github.com/Patricked-code/financialdata/actions/runs/42292599195",
+        "run_id": 42292599195,
+        "task_id": "FD-AUTO-P1-TEMPORAL-DIAGNOSTIC"
+      },
+      "event": "CI_ATTESTED",
+      "hash": "3bce85ed1498157bf6b2b5c64d9314ae2b16d90ad8ea088f5a3dbf55bb498814",
+      "prev_hash": "098cf59746a9a56e780de04d8a7c95f3f54180956b8820814691f5fce4110d81",
+      "sequence": 15
     }
   ],
   "programs": {
@@ -342,7 +355,7 @@
       "version": 1
     }
   },
-  "revision": 14,
+  "revision": 15,
   "schema_version": 1,
   "tasks": {
     "FD-A-LINEAGE": {
@@ -708,7 +721,7 @@
           "sha256": "eaa2483338eed7414071dbc8436b3ccb4e12f0681cb3fe33592bf27c937c2519"
         }
       },
-      "status": "PUBLISHED_PENDING_CI",
+      "status": "DONE",
       "title": "Implement SOURCE P1 economic-period completeness diagnostic (read only)",
       "units": [
         {
@@ -745,11 +758,11 @@
         },
         {
           "agent_id": "github-actions:reconciler",
-          "evidence": null,
+          "evidence": "https://github.com/Patricked-code/financialdata/actions/runs/42292599195",
           "id": "FD-AUTO-P1-TEMPORAL-DIAGNOSTIC-ATTEST",
           "run_id": 42292599195,
           "stage": "ATTEST",
-          "status": "PENDING_CI"
+          "status": "DONE"
         }
       ]
     },
