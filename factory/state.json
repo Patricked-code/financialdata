@@ -2,8 +2,8 @@
   "agents": {},
   "continuity": {
     "id": "FD-AUTONOMY-V1",
-    "last_attested_run": 42283853272,
-    "next_action": "ATTEST_GITHUB_ACTIONS_RUN_42283964239"
+    "last_attested_run": 42283964239,
+    "next_action": "SELECT_NEXT_ADMISSIBLE"
   },
   "events": [
     {
@@ -64,6 +64,19 @@
       "hash": "ef6c206b18bdf3516df4647b538fa1a482924500aff0dbb40c0aeb0f1bcc1a63",
       "prev_hash": "daca66c68dd12c12bee6966fe0069d9c243eb3f7d6b808a44162bf41935efce3",
       "sequence": 4
+    },
+    {
+      "at": "2026-11-06T19:57:01+00:00",
+      "data": {
+        "conclusion": "success",
+        "evidence_url": "https://github.com/Patricked-code/financialdata/actions/runs/42283964239",
+        "run_id": 42283964239,
+        "task_id": "FD-AUTO-P1-HASH-CHECKER"
+      },
+      "event": "CI_ATTESTED",
+      "hash": "fc5c8eab43eed028e211a50794df9cb211f1b11381cf7a80af671fd60cf07d25",
+      "prev_hash": "ef6c206b18bdf3516df4647b538fa1a482924500aff0dbb40c0aeb0f1bcc1a63",
+      "sequence": 5
     }
   ],
   "programs": {
@@ -165,7 +178,7 @@
       "version": 1
     }
   },
-  "revision": 4,
+  "revision": 5,
   "schema_version": 1,
   "tasks": {
     "FD-A-LINEAGE": {
@@ -271,7 +284,7 @@
       "program_id": "FD-P1",
       "run_id": 42283964239,
       "source": "factory/blueprints.json",
-      "status": "PUBLISHED_PENDING_CI",
+      "status": "DONE",
       "title": "Implement non-destructive SHA-256 register consistency checker",
       "units": [
         {
@@ -299,10 +312,10 @@
           "status": "DONE"
         },
         {
-          "evidence": null,
+          "evidence": "https://github.com/Patricked-code/financialdata/actions/runs/42283964239",
           "id": "FD-AUTO-P1-HASH-CHECKER-ATTEST",
           "stage": "ATTEST",
-          "status": "PENDING_CI"
+          "status": "DONE"
         }
       ]
     },
