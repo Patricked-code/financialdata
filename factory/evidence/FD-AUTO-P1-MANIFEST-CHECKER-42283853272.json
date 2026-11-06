@@ -1,0 +1,14 @@
+{
+  "attestation": "PENDING_WORKFLOW_CONCLUSION",
+  "base_sha": "015ea981e6707b3b256d2784c3a1c97d705af65e",
+  "continuity_id": "FD-AUTONOMY-V1",
+  "paths": [
+    "src/financialdata/__init__.py",
+    "src/financialdata/manifest_checker.py",
+    "tests/test_manifest_checker.py"
+  ],
+  "payload_sha256": "402628e3bfc0a458d0fa353df47e2a2ecf94291cb55581e2b8710b13cdb14209",
+  "run_id": 42283853272,
+  "task_id": "FD-AUTO-P1-MANIFEST-CHECKER",
+  "validation": "SUCCESS_IN_GITHUB_ACTIONS_VALIDATE_JOB"
+}
