@@ -72,3 +72,7 @@ Le projet contient une première fabrique autonome de programmes, tâches, admis
 ## Usine de développement autonome — raccordement hébergé
 
 [Mandat de continuité](factory/CONTINUITY.md), [registre machine-lisible](factory/state.json), [tâches admissibles](factory/blueprints.json), [protocole d'activation](factory/README.md). Les composants de codage, validation isolée, publication main et réconciliation CI sont connectés par .github/workflows/factory-autonomy.yml. L'activation de l'agent de génération suppose les variables/secret du fournisseur de modèle ; la seule présence du workflow ne prouve pas une exécution autonome.
+
+### Démarrage autonome initial
+
+Les deux premiers travaux P1 bénéficient d'un codeur déterministe dans factory/templates.py, capable de produire du code et des tests sans secret externe. Les travaux généraux non couverts par ces templates utiliseront l'adaptateur Claude, sous réserve de configuration. Le statut réel et la prochaine action restent ceux du registre et des exécutions GitHub Actions.

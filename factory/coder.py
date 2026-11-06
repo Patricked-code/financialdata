@@ -105,9 +105,21 @@ def generate(output):
     if task is None:
         print("NO_ADMISSIBLE_TASK")
         return False
+    # Deterministic, reviewed bootstrap blueprints execute without external API
+    # credentials. Other blueprints require a genuine model-backed coding call.
+    from factory import templates
+    seeded_files = templates.generate(task["id"])
+    if seeded_files is not None:
+        ctx = tasking.proposal_context(task["id"])
+        proposal = {"schema_version": 1, "continuity_id": "FD-AUTONOMY-V1",
+                    "task_id": task["id"], "blueprint_version": ctx["task"]["version"],
+                    "base_sha": ctx["base_sha"], "files": seeded_files}
+        save_proposal(proposal, output)
+        print("DETERMINISTIC_CODE_GENERATED:" + task["id"])
+        return True
     key, model = os.environ.get("ANTHROPIC_API_KEY"), os.environ.get("ANTHROPIC_MODEL")
     if not key or not model:
-        raise RuntimeError("Provider credentials/model missing; no fake coding")
+        raise RuntimeError("Non-templated work requires real provider credentials/model")
     ctx = tasking.proposal_context(task["id"])
     bp = ctx["task"]
     text = (

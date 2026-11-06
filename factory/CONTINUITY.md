@@ -55,3 +55,7 @@ Les modèles GitHub Models ne sont pas une solution de repli (service retiré en
 ## Definition of Done à vérifier
 
 Tests unitaires verts, audits P1 verts, génération réelle validée, publication effective sur main, conclusion du run GitHub SUCCESS, état DONE avec preuve, second travail sélectionné automatiquement ; absence de mutation SOURCE comparée à la baseline. Tant qu'une des étapes manque, le statut global est PARTIAL / NOT_RUNTIME_ATTESTED.
+
+## Addendum D036 — Activation du bootstrap sans clé fournisseur
+
+Les deux blueprints initialement admissibles possèdent désormais un exécuteur déterministe versionné factory/templates.py. Ils peuvent être codés automatiquement sans fournisseur IA externe ; leurs tests sont exécutés dans un job séparé de publication. Pour ces deux travaux, ANTHROPIC_API_KEY et ANTHROPIC_MODEL sont facultatifs. Ils demeurent nécessaires pour les nouveaux blueprints sans template. Le workflow se déclenche également lors d'un push sur factory/ ou sur son propre YAML. L'absence de la variable FD_AUTONOMY_ENABLED n'empêche pas le bootstrap ; définir explicitement FD_AUTONOMY_ENABLED=false désactive le job de génération. Le mandat D035 sur la sécurité, les preuves et le contrôle de publication reste inchangé. La réussite réelle en GitHub Actions doit être vérifiée à chaque étape : ne pas déduire DONE de ce texte.

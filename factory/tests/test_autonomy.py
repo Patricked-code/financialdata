@@ -84,11 +84,17 @@ class AutonomousFactoryTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "hash mismatch"):
             coder.load_proposal(path)
 
-    def test_no_api_key_means_no_fake_coding(self):
+    def test_template_coding_without_secrets_and_real_provider_gate(self):
         tasking.hydrate()
+        output = self.root / "generated.json"
         with patch.dict("os.environ", {}, clear=True):
-            with self.assertRaisesRegex(RuntimeError, "Provider credentials"):
-                coder.generate(self.root / "generated.json")
+            self.assertTrue(coder.generate(output))
+            proposal, bp, sha = coder.load_proposal(output)
+            self.assertEqual(proposal["task_id"], "FD-AUTO-P1-MANIFEST-CHECKER")
+            self.assertTrue(any(p["path"].startswith("tests/test_") for p in proposal["files"]))
+            with patch("factory.templates.generate", return_value=None):
+                with self.assertRaisesRegex(RuntimeError, "real provider"):
+                    coder.generate(self.root / "non_template.json")
 
 if __name__ == "__main__":
     unittest.main()

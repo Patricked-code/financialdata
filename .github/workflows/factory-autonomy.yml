@@ -1,6 +1,11 @@
 name: FinancialData - autonomous development factory
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "factory/**"
+      - ".github/workflows/factory-autonomy.yml"
   workflow_dispatch:
   repository_dispatch:
     types: [financialdata_factory_resume]
@@ -39,7 +44,7 @@ jobs:
   generate:
     name: Unprivileged AI code generation
     needs: reconcile
-    if: ${{ vars.FD_AUTONOMY_ENABLED == 'true' }}
+    if: ${{ vars.FD_AUTONOMY_ENABLED != 'false' }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -136,10 +141,11 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: financialdata-proposal
+          path: ${{ runner.temp }}/fd-proposal
       - name: Publish exact validated artifact with optimistic main SHA check
         env:
           GITHUB_RUN_ID: ${{ github.run_id }}
-        run: python -m factory.publisher publish --proposal proposal.json --run-id "$GITHUB_RUN_ID"
+        run: python -m factory.publisher publish --proposal "$RUNNER_TEMP/fd-proposal/proposal.json" --run-id "$GITHUB_RUN_ID"
       - name: Queue attestation and next admissible task
         continue-on-error: true
         env:

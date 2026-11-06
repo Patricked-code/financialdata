@@ -64,3 +64,7 @@ Usine locale : moteur de planification et suivi créé sous `factory/`, audits d
 ## Fil conducteur autonome FD-AUTONOMY-V1 — 2026-11-06
 
 Les tâches historiques restent celles des sections précédentes et de factory/state.json. L'usine doit reprendre de façon déterministe dans cet ordre : attester les nouveaux tests GitHub CI ; vérifier la présence/autorisation du secret ANTHROPIC_API_KEY et des variables ANTHROPIC_MODEL et FD_AUTONOMY_ENABLED ; exécuter FD-AUTO-P1-MANIFEST-CHECKER, confirmer le run CI, puis FD-AUTO-P1-HASH-CHECKER ; élargir ensuite le registre des blueprints aux travaux P1 restants sans inventer ni transformer automatiquement les tâches non admissibles. Après interruption, lire factory/CONTINUITY.md, factory/HANDOFF.json et factory/state.json plutôt que repartir de zéro.
+
+### Bootstrap autonome suivant D036
+
+Première chaîne sans clé : exécuteur déterministe de FD-AUTO-P1-MANIFEST-CHECKER, puis FD-AUTO-P1-HASH-CHECKER, validation séparée, publication main, vérification CI, puis prochain travail. Pour d'autres tâches, une clé et un modèle Claude autorisés seront nécessaires. Consulter le journal et les runs GitHub avant d'inscrire une tâche terminée.
