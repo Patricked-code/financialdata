@@ -54,6 +54,7 @@ class FactoryTest(unittest.TestCase):
     def test_bootstrap_is_idempotent(self):
         state = engine.bootstrap()
         self.assertEqual(len(state["programs"]), len(engine.PROGRAMS))
+        self.assertIn("FD-ROOT", state["projects"])
         self.assertEqual(len(state["tasks"]), 5)
         self.assertEqual(len(engine.bootstrap()["events"]), 1)
         self.assertEqual(len(engine.read_state()["tasks"]), 5)
@@ -95,6 +96,19 @@ class FactoryTest(unittest.TestCase):
         engine.STATE.write_text(json.dumps(data), encoding="utf-8")
         with self.assertRaises(ValueError):
             engine.validate_event_chain(engine.read_state())
+
+    def test_graph_validation_blocks_orphans_and_cycles(self):
+        state = engine.bootstrap()
+        ids = [k for k, v in state["tasks"].items() if v["kind"] == "agent_code"]
+        state["tasks"][ids[0]]["dependencies"] = [ids[1]]
+        state["tasks"][ids[1]]["dependencies"] = [ids[0]]
+        with self.assertRaisesRegex(ValueError, "Cyclic"):
+            engine.validate_graph(state)
+        state["tasks"][ids[1]]["dependencies"] = []
+        engine.validate_graph(state)
+        del state["projects"]["FD-ROOT"]
+        with self.assertRaisesRegex(ValueError, "Orphan program"):
+            engine.validate_graph(state)
 
     def test_audit_detects_stale_suivi_and_duplicates(self):
         engine.bootstrap()

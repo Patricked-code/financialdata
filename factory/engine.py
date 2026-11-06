@@ -70,7 +70,7 @@ def assert_main_only():
 
 def initial_state():
     return {"schema_version": SCHEMA_VERSION, "revision": 0,
-            "programs": {}, "tasks": {}, "agents": {}, "events": []}
+            "projects": {}, "programs": {}, "tasks": {}, "agents": {}, "events": []}
 
 
 def read_state():
@@ -79,7 +79,7 @@ def read_state():
     data = json.loads(STATE.read_text(encoding="utf-8"))
     if data.get("schema_version") != SCHEMA_VERSION:
         raise ValueError("Unsupported factory state schema")
-    for key in ("programs", "tasks", "agents", "events"):
+    for key in ("projects", "programs", "tasks", "agents", "events"):
         if key not in data or not isinstance(data[key], dict if key != "events" else list):
             raise ValueError("Corrupted state: " + key)
     return data
@@ -209,6 +209,9 @@ def bootstrap():
     with exclusive_lock():
         state = read_state()
         before = len(state["tasks"])
+        state["projects"].setdefault("FD-ROOT", {
+            "id": "FD-ROOT", "name": "financialdata", "source": "README.md",
+            "version": 1, "status": "ACTIVE"})
         state["programs"].update(scan_programs())
         scanned = scan_todo()
         for task_id, desired in scanned.items():
@@ -240,9 +243,37 @@ def admit(agent, capabilities):
     return state["agents"][agent]
 
 
+def validate_graph(state):
+    """Reject orphan programs, missing task dependencies and dependency cycles."""
+    projects, programs, tasks = state["projects"], state["programs"], state["tasks"]
+    for program in programs.values():
+        if program.get("parent") not in projects:
+            raise ValueError("Orphan program: " + program["id"])
+    for task in tasks.values():
+        if task["program_id"] not in programs:
+            raise ValueError("Orphan task: " + task["id"])
+        for dep in task.get("dependencies", []):
+            if dep not in tasks:
+                raise ValueError("Missing task dependency: " + dep)
+    visited, active = set(), set()
+    def visit(task_id):
+        if task_id in active:
+            raise ValueError("Cyclic task dependency: " + task_id)
+        if task_id in visited:
+            return
+        active.add(task_id)
+        for dep in tasks[task_id].get("dependencies", []):
+            visit(dep)
+        active.remove(task_id)
+        visited.add(task_id)
+    for task_id in tasks:
+        visit(task_id)
+
+
 def eligible(state, agent):
     if agent not in state["agents"]:
         raise ValueError("Agent not admitted; run admit first")
+    validate_graph(state)
     capabilities = set(state["agents"][agent]["capabilities"])
     completed = {key for key, item in state["tasks"].items() if item["status"] == "DONE"}
     candidates = [task for task in state["tasks"].values()
@@ -325,6 +356,11 @@ def audit():
             warnings.append("SUIVI_STALE_V22_VS_V23")
     state = read_state()
     validate_event_chain(state)
+    try:
+        validate_graph(state)
+    except ValueError as exc:
+        errors.append("INVALID_TASK_GRAPH:" + str(exc))
+    results["metrics"]["projects"] = len(state["projects"])
     results["metrics"]["programs"] = len(state["programs"])
     results["metrics"]["tasks"] = len(state["tasks"])
     results["metrics"]["events"] = len(state["events"])
@@ -388,7 +424,8 @@ def status():
     counts = {}
     for task in state["tasks"].values():
         counts[task["status"]] = counts.get(task["status"], 0) + 1
-    return {"revision": state["revision"], "programs": len(state["programs"]),
+    return {"revision": state["revision"], "projects": len(state["projects"]),
+            "programs": len(state["programs"]),
             "tasks": len(state["tasks"]), "by_status": counts,
             "admitted_agents": sorted(state["agents"]), "head": git_sha(),
             "last_event": state["events"][-1] if state["events"] else None}
