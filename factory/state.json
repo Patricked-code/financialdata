@@ -1,9 +1,561 @@
 {
-  "agents": {},
-  "events": [],
-  "programs": {},
-  "revision": 0,
   "schema_version": 1,
-  "tasks": {},
-  "projects": {}
+  "revision": 0,
+  "projects": {
+    "FD-ROOT": {
+      "id": "FD-ROOT",
+      "name": "financialdata",
+      "source": "README.md",
+      "version": 1,
+      "status": "ACTIVE"
+    }
+  },
+  "programs": {
+    "FD-P0": {
+      "id": "FD-P0",
+      "source": "ROADMAP.md",
+      "status": "DEFINED",
+      "version": 1,
+      "parent": "FD-ROOT",
+      "description": "P0"
+    },
+    "FD-P1": {
+      "id": "FD-P1",
+      "source": "ROADMAP.md",
+      "status": "DEFINED",
+      "version": 1,
+      "parent": "FD-ROOT",
+      "description": "P1"
+    },
+    "FD-P1-R": {
+      "id": "FD-P1-R",
+      "source": "ROADMAP.md",
+      "status": "REVIEW_REQUIRED",
+      "version": 1,
+      "parent": "FD-ROOT",
+      "description": "P1-R"
+    },
+    "FD-P1-FRESH": {
+      "id": "FD-P1-FRESH",
+      "source": "ROADMAP.md",
+      "status": "DEFINED",
+      "version": 1,
+      "parent": "FD-ROOT",
+      "description": "P1-FRESH"
+    },
+    "FD-P2": {
+      "id": "FD-P2",
+      "source": "ROADMAP.md",
+      "status": "DEFINED",
+      "version": 1,
+      "parent": "FD-ROOT",
+      "description": "P2"
+    },
+    "FD-P3": {
+      "id": "FD-P3",
+      "source": "ROADMAP.md",
+      "status": "DEFINED",
+      "version": 1,
+      "parent": "FD-ROOT",
+      "description": "P3"
+    },
+    "FD-P4": {
+      "id": "FD-P4",
+      "source": "ROADMAP.md",
+      "status": "DEFINED",
+      "version": 1,
+      "parent": "FD-ROOT",
+      "description": "P4"
+    },
+    "FD-P5": {
+      "id": "FD-P5",
+      "source": "ROADMAP.md",
+      "status": "DEFINED",
+      "version": 1,
+      "parent": "FD-ROOT",
+      "description": "P5"
+    },
+    "FD-P6": {
+      "id": "FD-P6",
+      "source": "ROADMAP.md",
+      "status": "DEFINED",
+      "version": 1,
+      "parent": "FD-ROOT",
+      "description": "P6"
+    },
+    "FD-P7": {
+      "id": "FD-P7",
+      "source": "ROADMAP.md",
+      "status": "DEFINED",
+      "version": 1,
+      "parent": "FD-ROOT",
+      "description": "P7"
+    },
+    "FD-P8": {
+      "id": "FD-P8",
+      "source": "ROADMAP.md",
+      "status": "DEFINED",
+      "version": 1,
+      "parent": "FD-ROOT",
+      "description": "P8"
+    }
+  },
+  "tasks": {
+    "FD-T-884479AA11FE": {
+      "id": "FD-T-884479AA11FE",
+      "title": "48 / 48 sociétés inventoriées ; état live **V22 = 3 137 PDF**.",
+      "program_id": "FD-P1",
+      "source": "TODO.md",
+      "kind": "agent_code",
+      "status": "DONE",
+      "priority": 50,
+      "dependencies": [],
+      "criteria": [
+        "No regression",
+        "Evidence traceable to sources",
+        "Update project memory"
+      ],
+      "capability": "coder",
+      "owner": null,
+      "lease_until": null,
+      "evidence": null
+    },
+    "FD-T-FF031138D3B1": {
+      "id": "FD-T-FF031138D3B1",
+      "title": "checkpoint `inventory/P1_48_ISSUERS_CHECKPOINT_v22_20260819.md` ; index `inventory/p1_issuer_manifest.csv`.",
+      "program_id": "FD-P1",
+      "source": "TODO.md",
+      "kind": "agent_code",
+      "status": "DONE",
+      "priority": 50,
+      "dependencies": [],
+      "criteria": [
+        "No regression",
+        "Evidence traceable to sources",
+        "Update project memory"
+      ],
+      "capability": "coder",
+      "owner": null,
+      "lease_until": null,
+      "evidence": null
+    },
+    "FD-T-41792FED586C": {
+      "id": "FD-T-41792FED586C",
+      "title": "ETIT : **81 → 100**, delta **+19**, versionné avant SHA (V21), puis SHA 100/100 terminé.",
+      "program_id": "FD-P1",
+      "source": "TODO.md",
+      "kind": "agent_code",
+      "status": "DONE",
+      "priority": 50,
+      "dependencies": [],
+      "criteria": [
+        "No regression",
+        "Evidence traceable to sources",
+        "Update project memory"
+      ],
+      "capability": "coder",
+      "owner": null,
+      "lease_until": null,
+      "evidence": null
+    },
+    "FD-T-D605342FF5D1": {
+      "id": "FD-T-D605342FF5D1",
+      "title": "NTLC : **81 → 85**, delta **+4**, versionné avant SHA (V22), puis SHA 85/85 terminé.",
+      "program_id": "FD-P1",
+      "source": "TODO.md",
+      "kind": "agent_code",
+      "status": "DONE",
+      "priority": 50,
+      "dependencies": [],
+      "criteria": [
+        "No regression",
+        "Evidence traceable to sources",
+        "Update project memory"
+      ],
+      "capability": "coder",
+      "owner": null,
+      "lease_until": null,
+      "evidence": null
+    },
+    "FD-T-F0A98AFE4D00": {
+      "id": "FD-T-F0A98AFE4D00",
+      "title": "schéma/sharding/maître créés ; maître consolidé **14 / 3 137** à ce stade.",
+      "program_id": "FD-P1",
+      "source": "TODO.md",
+      "kind": "agent_code",
+      "status": "DONE",
+      "priority": 50,
+      "dependencies": [],
+      "criteria": [
+        "No regression",
+        "Evidence traceable to sources",
+        "Update project memory"
+      ],
+      "capability": "coder",
+      "owner": null,
+      "lease_until": null,
+      "evidence": null
+    },
+    "FD-T-D400A2361967": {
+      "id": "FD-T-D400A2361967",
+      "title": "registres SHA avec Drive IDs + tailles disponibles pour les corpus hashés.",
+      "program_id": "FD-P1",
+      "source": "TODO.md",
+      "kind": "agent_code",
+      "status": "DONE",
+      "priority": 50,
+      "dependencies": [],
+      "criteria": [
+        "No regression",
+        "Evidence traceable to sources",
+        "Update project memory"
+      ],
+      "capability": "coder",
+      "owner": null,
+      "lease_until": null,
+      "evidence": null
+    },
+    "FD-T-83D7D4C9E801": {
+      "id": "FD-T-83D7D4C9E801",
+      "title": "backfill métadonnées temporelles et shards compatibles pour les corpus hashés.",
+      "program_id": "FD-P1",
+      "source": "TODO.md",
+      "kind": "agent_code",
+      "status": "BACKLOG",
+      "priority": 50,
+      "dependencies": [],
+      "criteria": [
+        "No regression",
+        "Evidence traceable to sources",
+        "Update project memory"
+      ],
+      "capability": "coder",
+      "owner": null,
+      "lease_until": null,
+      "evidence": null
+    },
+    "FD-T-62E626C81F21": {
+      "id": "FD-T-62E626C81F21",
+      "title": "poursuivre tous les émetteurs jusqu'à consolidation complète du manifeste.",
+      "program_id": "FD-P1",
+      "source": "TODO.md",
+      "kind": "agent_code",
+      "status": "BACKLOG",
+      "priority": 50,
+      "dependencies": [],
+      "criteria": [
+        "No regression",
+        "Evidence traceable to sources",
+        "Update project memory"
+      ],
+      "capability": "coder",
+      "owner": null,
+      "lease_until": null,
+      "evidence": null
+    },
+    "FD-T-4DF18AE1131C": {
+      "id": "FD-T-4DF18AE1131C",
+      "title": "NTLC **85/85**, 85 SHA uniques, 0 groupe exact.",
+      "program_id": "FD-P1",
+      "source": "TODO.md",
+      "kind": "agent_code",
+      "status": "DONE",
+      "priority": 50,
+      "dependencies": [],
+      "criteria": [
+        "No regression",
+        "Evidence traceable to sources",
+        "Update project memory"
+      ],
+      "capability": "coder",
+      "owner": null,
+      "lease_until": null,
+      "evidence": null
+    },
+    "FD-T-4F3B305CA60A": {
+      "id": "FD-T-4F3B305CA60A",
+      "title": "NTLC registre `inventory/hashes/NTLC.csv` blob-validé : `90cd7791f2a57754ba3a21f873c8f1a18b543cf2`.",
+      "program_id": "FD-P1",
+      "source": "TODO.md",
+      "kind": "agent_code",
+      "status": "DONE",
+      "priority": 50,
+      "dependencies": [],
+      "criteria": [
+        "No regression",
+        "Evidence traceable to sources",
+        "Update project memory"
+      ],
+      "capability": "coder",
+      "owner": null,
+      "lease_until": null,
+      "evidence": null
+    },
+    "FD-T-422C85BEAF58": {
+      "id": "FD-T-422C85BEAF58",
+      "title": "total SHA vérifiés : **1 715 / 3 137 = 54,67 %**.",
+      "program_id": "FD-P1",
+      "source": "TODO.md",
+      "kind": "agent_code",
+      "status": "DONE",
+      "priority": 50,
+      "dependencies": [],
+      "criteria": [
+        "No regression",
+        "Evidence traceable to sources",
+        "Update project memory"
+      ],
+      "capability": "coder",
+      "owner": null,
+      "lease_until": null,
+      "evidence": null
+    },
+    "FD-T-E6C654D0816D": {
+      "id": "FD-T-E6C654D0816D",
+      "title": "restant non hashé : **1 422 PDF**.",
+      "program_id": "FD-P1",
+      "source": "TODO.md",
+      "kind": "agent_code",
+      "status": "DONE",
+      "priority": 50,
+      "dependencies": [],
+      "criteria": [
+        "No regression",
+        "Evidence traceable to sources",
+        "Update project memory"
+      ],
+      "capability": "coder",
+      "owner": null,
+      "lease_until": null,
+      "evidence": null
+    },
+    "FD-T-745BBB5C010A": {
+      "id": "FD-T-745BBB5C010A",
+      "title": "groupes exacts globaux : **16**.",
+      "program_id": "FD-P1",
+      "source": "TODO.md",
+      "kind": "agent_code",
+      "status": "DONE",
+      "priority": 50,
+      "dependencies": [],
+      "criteria": [
+        "No regression",
+        "Evidence traceable to sources",
+        "Update project memory"
+      ],
+      "capability": "coder",
+      "owner": null,
+      "lease_until": null,
+      "evidence": null
+    },
+    "FD-T-56E648B6A3BE": {
+      "id": "FD-T-56E648B6A3BE",
+      "title": "CFAC : recheck live strict du snapshot **94**, puis SHA exhaustif du périmètre confirmé.",
+      "program_id": "FD-P1",
+      "source": "TODO.md",
+      "kind": "agent_code",
+      "status": "BACKLOG",
+      "priority": 50,
+      "dependencies": [],
+      "criteria": [
+        "No regression",
+        "Evidence traceable to sources",
+        "Update project memory"
+      ],
+      "capability": "coder",
+      "owner": null,
+      "lease_until": null,
+      "evidence": null
+    },
+    "FD-T-91FEB4FE2246": {
+      "id": "FD-T-91FEB4FE2246",
+      "title": "seize groupes exacts documentés dans `inventory/p1_duplicate_groups.csv` ; NTLC n'en ajoute aucun.",
+      "program_id": "FD-P1",
+      "source": "TODO.md",
+      "kind": "agent_code",
+      "status": "DONE",
+      "priority": 50,
+      "dependencies": [],
+      "criteria": [
+        "No regression",
+        "Evidence traceable to sources",
+        "Update project memory"
+      ],
+      "capability": "coder",
+      "owner": null,
+      "lease_until": null,
+      "evidence": null
+    },
+    "FD-T-F394BF5F9425": {
+      "id": "FD-T-F394BF5F9425",
+      "title": "NTLC 2024 EF plain / `_rev` : même période et mêmes principaux chiffres mais représentation/pagination différentes ; famille de version/représentation conservatrice, aucun `SUPERSEDES`.",
+      "program_id": "FD-P1",
+      "source": "TODO.md",
+      "kind": "agent_code",
+      "status": "DONE",
+      "priority": 50,
+      "dependencies": [],
+      "criteria": [
+        "No regression",
+        "Evidence traceable to sources",
+        "Update project memory"
+      ],
+      "capability": "coder",
+      "owner": null,
+      "lease_until": null,
+      "evidence": null
+    },
+    "FD-T-2F1EDCA38B57": {
+      "id": "FD-T-2F1EDCA38B57",
+      "title": "NTLC 2023 EF plain / `_2` : même exercice, formats/contenus comparatifs distincts ; deux objets SOURCE conservés, aucun `SUPERSEDES`.",
+      "program_id": "FD-P1",
+      "source": "TODO.md",
+      "kind": "agent_code",
+      "status": "DONE",
+      "priority": 50,
+      "dependencies": [],
+      "criteria": [
+        "No regression",
+        "Evidence traceable to sources",
+        "Update project memory"
+      ],
+      "capability": "coder",
+      "owner": null,
+      "lease_until": null,
+      "evidence": null
+    },
+    "FD-T-2B884E77E71F": {
+      "id": "FD-T-2B884E77E71F",
+      "title": "aucune relation `SUPERSEDES` sans preuve explicite.",
+      "program_id": "FD-P1",
+      "source": "TODO.md",
+      "kind": "agent_code",
+      "status": "BACKLOG",
+      "priority": 50,
+      "dependencies": [],
+      "criteria": [
+        "No regression",
+        "Evidence traceable to sources",
+        "Update project memory"
+      ],
+      "capability": "coder",
+      "owner": null,
+      "lease_until": null,
+      "evidence": null
+    },
+    "FD-T-065A960F25F9": {
+      "id": "FD-T-065A960F25F9",
+      "title": "règle : noms/dossiers/suffixes ne dictent jamais seuls période, scope, version ou doublon ; contenu et octets prévalent.",
+      "program_id": "FD-P1",
+      "source": "TODO.md",
+      "kind": "agent_code",
+      "status": "DONE",
+      "priority": 50,
+      "dependencies": [],
+      "criteria": [
+        "No regression",
+        "Evidence traceable to sources",
+        "Update project memory"
+      ],
+      "capability": "coder",
+      "owner": null,
+      "lease_until": null,
+      "evidence": null
+    },
+    "FD-T-E4DF8AE91C14": {
+      "id": "FD-T-E4DF8AE91C14",
+      "title": "NTLC : périmètre live défini par 28 parent IDs réels 1998–2025 et non par ticker seul.",
+      "program_id": "FD-P1",
+      "source": "TODO.md",
+      "kind": "agent_code",
+      "status": "DONE",
+      "priority": 50,
+      "dependencies": [],
+      "criteria": [
+        "No regression",
+        "Evidence traceable to sources",
+        "Update project memory"
+      ],
+      "capability": "coder",
+      "owner": null,
+      "lease_until": null,
+      "evidence": null
+    },
+    "FD-T-BE7A6160AC35": {
+      "id": "FD-T-BE7A6160AC35",
+      "title": "périodes économiques fines pour l'ensemble du corpus.",
+      "program_id": "FD-P1",
+      "source": "TODO.md",
+      "kind": "agent_code",
+      "status": "BACKLOG",
+      "priority": 50,
+      "dependencies": [],
+      "criteria": [
+        "No regression",
+        "Evidence traceable to sources",
+        "Update project memory"
+      ],
+      "capability": "coder",
+      "owner": null,
+      "lease_until": null,
+      "evidence": null
+    },
+    "FD-T-3F734F58CD08": {
+      "id": "FD-T-3F734F58CD08",
+      "title": "P1-FRESH / réconciliation BRVM et collecteur V2 pour les deltas distants.",
+      "program_id": "FD-P1",
+      "source": "TODO.md",
+      "kind": "agent_code",
+      "status": "BACKLOG",
+      "priority": 50,
+      "dependencies": [],
+      "criteria": [
+        "No regression",
+        "Evidence traceable to sources",
+        "Update project memory"
+      ],
+      "capability": "coder",
+      "owner": null,
+      "lease_until": null,
+      "evidence": null
+    },
+    "FD-A-STRUCTURE": {
+      "id": "FD-A-STRUCTURE",
+      "title": "Validate repository governance and 48-issuer index",
+      "program_id": "FD-P1",
+      "source": "factory/engine.py",
+      "kind": "audit",
+      "status": "BACKLOG",
+      "priority": 1,
+      "dependencies": [],
+      "criteria": [
+        "Audit report emitted",
+        "No destructive source edits"
+      ],
+      "capability": "audit",
+      "owner": null,
+      "lease_until": null,
+      "evidence": null
+    },
+    "FD-A-LINEAGE": {
+      "id": "FD-A-LINEAGE",
+      "title": "Validate manifest, CFAC hash register and source consistency",
+      "program_id": "FD-P1",
+      "source": "factory/engine.py",
+      "kind": "audit",
+      "status": "BACKLOG",
+      "priority": 2,
+      "dependencies": [],
+      "criteria": [
+        "Audit report emitted",
+        "No destructive source edits"
+      ],
+      "capability": "audit",
+      "owner": null,
+      "lease_until": null,
+      "evidence": null
+    }
+  },
+  "agents": {},
+  "events": []
 }
