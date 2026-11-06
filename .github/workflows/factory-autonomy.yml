@@ -1,5 +1,8 @@
 name: FinancialData - autonomous development factory
 
+env:
+  PYTHONDONTWRITEBYTECODE: "1"
+
 on:
   push:
     branches: [main]

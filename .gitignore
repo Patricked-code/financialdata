@@ -1,0 +1,11 @@
+# Python-generated files must not pollute the governed clean-main gate.
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Ephemeral CI artifacts (source data and factory evidence are NOT ignored).
+proposal.json
+factory-bootstrap.json
+factory-audit.json
+business-audit.json
