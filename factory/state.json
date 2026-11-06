@@ -44,7 +44,7 @@
   "continuity": {
     "id": "FD-AUTONOMY-V1",
     "last_attested_run": 42283964239,
-    "next_action": "RETRY_FD-AUTO-P1-COVERAGE-DIAGNOSTIC"
+    "next_action": "ATTEST_GITHUB_ACTIONS_RUN_42292518351"
   },
   "events": [
     {
@@ -196,6 +196,22 @@
       "hash": "1c7e7182581222d35d2b2305c20cd0bf5f9ff4e5c7955bd7d724ef1fdd471356",
       "prev_hash": "328e7cb29507e5aeb9d6228a3d392785823d637f5f7c350be4e39a4cc05aeaad",
       "sequence": 11
+    },
+    {
+      "at": "2026-11-06T20:56:49+00:00",
+      "data": {
+        "base_sha": "1c094c377bfe07dd40004bb87751ede961f890be",
+        "paths": [
+          "src/financialdata/coverage_checker.py",
+          "tests/test_coverage_checker.py"
+        ],
+        "run_id": 42292518351,
+        "task_id": "FD-AUTO-P1-COVERAGE-DIAGNOSTIC"
+      },
+      "event": "CODE_PUBLISHED_PENDING_CI",
+      "hash": "d9811a39bdc8b32fb89af00ad384ed3d00e349efee9371f489b0bccc58903a97",
+      "prev_hash": "1c7e7182581222d35d2b2305c20cd0bf5f9ff4e5c7955bd7d724ef1fdd471356",
+      "sequence": 12
     }
   ],
   "programs": {
@@ -297,7 +313,7 @@
       "version": 1
     }
   },
-  "revision": 11,
+  "revision": 12,
   "schema_version": 1,
   "tasks": {
     "FD-A-LINEAGE": {
@@ -378,8 +394,13 @@
     },
     "FD-AUTO-P1-COVERAGE-DIAGNOSTIC": {
       "autonomy": "READY",
+      "base_sha": "1c094c377bfe07dd40004bb87751ede961f890be",
       "blueprint_version": 1,
       "capability": "coder",
+      "changed_paths": [
+        "src/financialdata/coverage_checker.py",
+        "tests/test_coverage_checker.py"
+      ],
       "criteria": [
         "All calculations rely on manifest rows present in Git",
         "No PDF or SOURCE object is fabricated or modified",
@@ -389,7 +410,7 @@
       "dependencies": [
         "FD-AUTO-P1-MANIFEST-CHECKER"
       ],
-      "evidence": null,
+      "evidence": "factory/evidence/FD-AUTO-P1-COVERAGE-DIAGNOSTIC-42292518351.json",
       "failed_runs": [
         {
           "at": "2026-11-06T20:53:17+00:00",
@@ -406,9 +427,10 @@
       "kind": "agent_code",
       "lease_until": null,
       "origin_task_id": "FD-T-62E626C81F21",
-      "owner": null,
+      "owner": "github-actions:42292518351",
       "priority": 7,
       "program_id": "FD-P1",
+      "run_id": 42292518351,
       "source": "factory/blueprints.json",
       "source_evidence": {
         "inventory/p1_document_manifest.csv": {
@@ -429,38 +451,48 @@
           "sha256": "d547f685d6224a37fbad4ad28606129b5f9b2d62a35ab080fd9b8f7dac9866af"
         }
       },
-      "status": "BACKLOG",
+      "status": "PUBLISHED_PENDING_CI",
       "title": "Implement SOURCE P1 issuer-document coverage diagnostics (read only)",
       "units": [
         {
-          "evidence": null,
+          "agent_id": "github-actions:planner",
+          "evidence": "factory/evidence/FD-AUTO-P1-COVERAGE-DIAGNOSTIC-42292518351.json",
           "id": "FD-AUTO-P1-COVERAGE-DIAGNOSTIC-PLAN",
+          "run_id": 42292518351,
           "stage": "PLAN",
-          "status": "BACKLOG"
+          "status": "DONE"
         },
         {
-          "evidence": null,
+          "agent_id": "github-actions:coder",
+          "evidence": "factory/evidence/FD-AUTO-P1-COVERAGE-DIAGNOSTIC-42292518351.json",
           "id": "FD-AUTO-P1-COVERAGE-DIAGNOSTIC-CODE",
+          "run_id": 42292518351,
           "stage": "CODE",
-          "status": "BACKLOG"
+          "status": "DONE"
         },
         {
-          "evidence": null,
+          "agent_id": "github-actions:validator",
+          "evidence": "factory/evidence/FD-AUTO-P1-COVERAGE-DIAGNOSTIC-42292518351.json",
           "id": "FD-AUTO-P1-COVERAGE-DIAGNOSTIC-VALIDATE",
+          "run_id": 42292518351,
           "stage": "VALIDATE",
-          "status": "BACKLOG"
+          "status": "DONE"
         },
         {
-          "evidence": null,
+          "agent_id": "github-actions:publisher",
+          "evidence": "factory/evidence/FD-AUTO-P1-COVERAGE-DIAGNOSTIC-42292518351.json",
           "id": "FD-AUTO-P1-COVERAGE-DIAGNOSTIC-PUBLISH",
+          "run_id": 42292518351,
           "stage": "PUBLISH",
-          "status": "BACKLOG"
+          "status": "DONE"
         },
         {
+          "agent_id": "github-actions:reconciler",
           "evidence": null,
           "id": "FD-AUTO-P1-COVERAGE-DIAGNOSTIC-ATTEST",
+          "run_id": 42292518351,
           "stage": "ATTEST",
-          "status": "BACKLOG"
+          "status": "PENDING_CI"
         }
       ]
     },
