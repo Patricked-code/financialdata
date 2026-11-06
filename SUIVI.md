@@ -84,3 +84,14 @@ Mandat canonique : [factory/CONTINUITY.md](factory/CONTINUITY.md). Projection ma
 ### Complément de reprise D036
 
 Le bootstrap P1 est désormais raccordé à un codeur déterministe pour les deux premiers travaux d'ingénierie (validation des manifestes et contrôle SHA-256), et le déclenchement push du workflow est ajouté. Les six tests métier des templates ont passé une vérification locale avant publication. La preuve qui détermine l'avancement final reste le run de GitHub Actions, son éventuel commit de code, puis la réconciliation dans factory/state.json. La clé d'un fournisseur IA externe demeure nécessaire pour les futures tâches sans template ; cela ne doit pas être confondu avec l'activation des deux premières tâches.
+
+## Attestation de l'usine autonome — 2026-11-06
+
+**Continuity ID** : FD-AUTONOMY-V1. Preuves GitHub réelles :
+- FD-AUTO-P1-MANIFEST-CHECKER — génération, validation, commit ddd6e4dc4116d1163d0cd6269b6c71cc2f11083e, run GitHub 42283853272 SUCCESS, réconciliation et statut DONE.
+- FD-AUTO-P1-HASH-CHECKER — génération, validation et publication, run GitHub 42283964239 SUCCESS, réconciliation et statut DONE.
+- Le run de continuation 42284071869 SUCCESS a confirmé l'absence d'une troisième tâche automatique qualifiée. Cela ne clôt pas les travaux SOURCE métier restants de P1 ; ils restent dans TODO.md, hors exécution aveugle.
+- Le diff vérifié depuis la baseline initiale 562dd759 ne montre aucune modification des 114 fichiers inventory/ SOURCE suivis.
+- La validation initiale de l'usine a réussi dans le run 42282675969 et la validation du bootstrap dans 42283853241.
+
+**Prochain point de reprise** : consulter factory/state.json pour les statuts, les unités, les preuves, la continuité et les dépendances ; puis élargir les blueprints sûrs à partir de TODO/ROADMAP et configurer ANTHROPIC_API_KEY/ANTHROPIC_MODEL pour des travaux de code non déterministes. Une tâche nécessitant des octets PDF/Drive ne peut pas être déclarée finie sans la source réelle. Le raccordement au MCP reste reporté et indépendant.

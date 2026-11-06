@@ -20,11 +20,32 @@
     "factory-autonomy.yml",
     "factory-validation.yml"
   ],
-  "next_action": "Verify GitHub CI, configure approved model credentials/variable, run first autonomous blueprint, attest runtime, then expand readiness catalog safely.",
+  "next_action": "NO_ADMISSIBLE_AUTONOMOUS_TASK — qualify next safe blueprints from TODO/ROADMAP, connect model provider for non-templated code, preserve SOURCE proof.",
   "next_work_items": [
     "FD-AUTO-P1-MANIFEST-CHECKER",
     "FD-AUTO-P1-HASH-CHECKER"
   ],
   "security": "least privilege; main-only, read-only generated-test job; SHA CAS; audit proof; no SOURCE mutations",
-  "activation_verified": false
+  "activation_verified": true,
+  "runtime_verified": true,
+  "general_ai_credentials_verified": false,
+  "autonomous_bootstrap_result": "ATTESTED_TWO_WORK_ITEMS",
+  "verified_runs": [
+    {
+      "run_id": 42283853272,
+      "task_id": "FD-AUTO-P1-MANIFEST-CHECKER",
+      "result": "SUCCESS",
+      "code_commit": "ddd6e4dc4116d1163d0cd6269b6c71cc2f11083e"
+    },
+    {
+      "run_id": 42283964239,
+      "task_id": "FD-AUTO-P1-HASH-CHECKER",
+      "result": "SUCCESS"
+    },
+    {
+      "run_id": 42284071869,
+      "result": "SUCCESS",
+      "mode": "NO_ELIGIBLE_TASK"
+    }
+  ]
 }

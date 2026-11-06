@@ -46,12 +46,41 @@ class AutonomousFactoryTests(unittest.TestCase):
         self.assertEqual(tasking.selected()["id"], "FD-AUTO-P1-HASH-CHECKER")
         engine.validate_event_chain(state)
 
+    def test_all_auto_work_finishes_with_durable_idle_cursor(self):
+        tasking.hydrate()
+        for index, task_id in enumerate(("FD-AUTO-P1-MANIFEST-CHECKER",
+                                         "FD-AUTO-P1-HASH-CHECKER"), 1):
+            tasking.mark_published(task_id, 2000 + index, "a"*40,
+                                   ["tests/test_x.py"], "factory/evidence/a.json")
+            self.assertEqual(tasking.reconcile_verdict(
+                task_id, 2000 + index, "success", "https://github.com/example"), "DONE")
+        state = engine.read_state()
+        self.assertEqual(state["continuity"]["next_action"],
+                         "NO_ADMISSIBLE_AUTONOMOUS_TASK")
+        self.assertIsNone(tasking.selected())
+        engine.validate_event_chain(state)
+
     def test_failed_ci_blocks_dependents(self):
         tasking.hydrate()
         tid = "FD-AUTO-P1-MANIFEST-CHECKER"
         tasking.mark_published(tid, 12345, "a"*40, ["tests/test_x.py"], "factory/evidence/123.json")
         self.assertEqual(tasking.reconcile_verdict(tid, 12345, "failure", "https://github.com/example/actions/runs/12345"), "BLOCKED")
         self.assertIsNone(tasking.selected())
+
+    def test_retry_budget_and_idempotent_failure_receipts(self):
+        tasking.hydrate()
+        tid = "FD-AUTO-P1-MANIFEST-CHECKER"
+        self.assertEqual(tasking.record_failure(tid, 1001, "GENERATE"), "BACKLOG")
+        self.assertEqual(tasking.record_failure(tid, 1001, "GENERATE"), "BACKLOG")
+        self.assertEqual(len(engine.read_state()["tasks"][tid]["failed_runs"]), 1)
+        self.assertEqual(tasking.record_failure(tid, 1002, "VALIDATE"), "BACKLOG")
+        self.assertEqual(tasking.record_failure(tid, 1003, "GENERATE"), "BLOCKED")
+        self.assertIsNone(tasking.selected())
+        self.assertEqual(len(engine.read_state()["tasks"][tid]["failed_runs"]), 3)
+        self.assertEqual(engine.read_state()["continuity"]["next_action"], "REVIEW_FAILURES_" + tid)
+        self.assertTrue(all(u["status"] == "BLOCKED"
+                            for u in engine.read_state()["tasks"][tid]["units"]))
+        engine.validate_event_chain(engine.read_state())
 
     def test_proposal_security(self):
         bp = tasking.blueprints()[0]

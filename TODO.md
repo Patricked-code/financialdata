@@ -68,3 +68,7 @@ Les tâches historiques restent celles des sections précédentes et de factory/
 ### Bootstrap autonome suivant D036
 
 Première chaîne sans clé : exécuteur déterministe de FD-AUTO-P1-MANIFEST-CHECKER, puis FD-AUTO-P1-HASH-CHECKER, validation séparée, publication main, vérification CI, puis prochain travail. Pour d'autres tâches, une clé et un modèle Claude autorisés seront nécessaires. Consulter le journal et les runs GitHub avant d'inscrire une tâche terminée.
+
+### Preuves de clôture technique et reste métier
+
+Les deux tâches de bootstrap autonome FD-AUTO-P1-MANIFEST-CHECKER (run 42283853272) et FD-AUTO-P1-HASH-CHECKER (run 42283964239) ont été exécutées, testées, publiées et attestées DONE. Le run 42284071869 confirme la continuité automatique, sans troisième tâche actuellement admissible. Ne pas changer les cases des tâches P1 historiques sans preuve métier. Le reste de l'usine comprend l'extension du catalogue de blueprints approuvés, la configuration du fournisseur de modèles pour les tâches non templatisées, et l'attestation de nouvelles tâches réelles avant toute déclaration de couverture générale. Les essais d'échec de génération/validation sont bornés à trois avec statut BLOCKED et référence GitHub. Ne pas importer la gouvernance MCP.

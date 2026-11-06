@@ -76,3 +76,7 @@ Activation : dans GitHub > Settings > Secrets and variables > Actions, définir 
 ### Bootstrap autonome et opt-out
 
 L'extension D036 fournit factory/templates.py : un codeur déterministe réel pour les deux travaux P1 de vérification SOURCE. Ces deux travaux n'exigent pas de secret et utilisent les mêmes contrôles sécurité, unités, CI et publication. Pour les tâches nouvelles qui n'ont pas de template, la génération Claude nécessite ANTHROPIC_API_KEY et ANTHROPIC_MODEL. Le workflow peut se déclencher par push/dispatch/schedule ; définir FD_AUTONOMY_ENABLED=false pour mettre en pause les travaux de génération. Les deux premières tâches doivent être attestées sur GitHub avant de considérer le bootstrap autonome prouvé.
+
+### Politique de reprise et d'échec opérationnelle
+
+Le workflow gère les états BACKLOG → PUBLISHED_PENDING_CI → DONE/BLOCKED et le registre des UTL dans factory/state.json. La publication n'est autorisée qu'après validation dans un job sans secret. Un échec GENERATE/VALIDATE est enregistré avec l'identifiant du run GitHub, une seule fois par run ; trois échecs distincts font passer la tâche et ses UTL restantes en BLOCKED. Aucune répétition non bornée de dépenses modèle. Après le dernier travail admissible, la continuité est explicitement NO_ADMISSIBLE_AUTONOMOUS_TASK ; cela n'implique pas que les travaux financiers P1 sont terminés. Voir factory/CONTINUITY.md et factory/HANDOFF.json.

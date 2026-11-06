@@ -154,3 +154,27 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python -m factory.publisher dispatch-next
+
+
+  failure:
+    name: Bound repeated generation or validation failures
+    needs: [generate, validate]
+    if: ${{ always() && (needs.generate.result == 'failure' || needs.validate.result == 'failure') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Persist bounded retry with continuity evidence
+        env:
+          GITHUB_RUN_ID: ${{ github.run_id }}
+          FAILURE_STAGE: ${{ needs.generate.result == 'failure' && 'GENERATE' || 'VALIDATE' }}
+        run: python -m factory.publisher record-failure --run-id "$GITHUB_RUN_ID" --stage "$FAILURE_STAGE"

@@ -137,7 +137,41 @@ def reconcile_verdict(task_id, run_id, conclusion, evidence_url):
             if unit["stage"] == "ATTEST":
                 unit["status"] = "DONE" if conclusion == "success" else "BLOCKED"
                 unit["evidence"] = evidence_url
+        if conclusion == "success":
+            following = selected(state)
+            state["continuity"]["next_action"] = ("EXECUTE_" + following["id"] if following
+                                                   else "NO_ADMISSIBLE_AUTONOMOUS_TASK")
         engine.record(state, "CI_ATTESTED", task_id=task_id, run_id=run_id,
                       conclusion=conclusion, evidence_url=evidence_url)
+        engine.save_state(state)
+        return task["status"]
+
+
+def record_failure(task_id, run_id, stage, max_attempts=3):
+    """Persist bounded retries; never loop endlessly on provider/test failures."""
+    if stage not in {"GENERATE", "VALIDATE"}:
+        raise ValueError("Unknown failure stage")
+    with engine.exclusive_lock():
+        state = engine.read_state()
+        task = selected(state)
+        if task is None or task["id"] != task_id:
+            raise ValueError("Failure report targets an inadmissible task")
+        failures = task.setdefault("failed_runs", [])
+        if any(x["run_id"] == int(run_id) for x in failures):
+            return task["status"]
+        failures.append({"run_id": int(run_id), "stage": stage,
+                         "at": engine.utcnow()})
+        if len(failures) >= max_attempts:
+            task["status"] = "BLOCKED"
+            for unit in task.get("units", []):
+                if unit["status"] != "DONE":
+                    unit["status"] = "BLOCKED"
+                    unit["evidence"] = "GITHUB_ACTIONS_RUN_" + str(run_id)
+            state["continuity"]["next_action"] = "REVIEW_FAILURES_" + task_id
+        else:
+            state["continuity"]["next_action"] = "RETRY_" + task_id
+        engine.record(state, "AUTONOMOUS_STAGE_FAILED", task_id=task_id,
+                      run_id=int(run_id), stage=stage,
+                      attempts=len(failures), status=task["status"])
         engine.save_state(state)
         return task["status"]

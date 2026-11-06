@@ -93,11 +93,38 @@ def reconcile():
             updated = True
         else:
             status = "PENDING_RUN_" + str(item["run_id"])
+    # Keep the authoritative cursor explicit even after the last ready task.
+    if not pending and tasking.selected() is None:
+        with engine.exclusive_lock():
+            idle_state = engine.read_state()
+            if idle_state.get("continuity", {}).get("next_action") != "NO_ADMISSIBLE_AUTONOMOUS_TASK":
+                idle_state["continuity"]["next_action"] = "NO_ADMISSIBLE_AUTONOMOUS_TASK"
+                engine.record(idle_state, "AUTONOMOUS_IDLE_NO_ELIGIBLE_TASK",
+                              source_sha=engine.git_sha())
+                engine.save_state(idle_state)
+                updated = True
     if updated:
         commit_and_push("factory: reconcile canonical task continuity and CI", ["factory/state.json"])
     print(json.dumps({"status": status, "state_updated": updated,
                       "next_task": (tasking.selected() or {}).get("id")}))
     return status
+
+def record_failure(run_id, stage):
+    """Record failed generation/validation from a privileged, code-free job."""
+    clean_main()
+    tasking.hydrate()
+    task = tasking.selected()
+    if task is None:
+        print("NO_ADMISSIBLE_FAILURE_TARGET")
+        return None
+    new_status = tasking.record_failure(task["id"], run_id, stage)
+    commit_sha = commit_and_push(
+        "factory: record " + stage + " failure for " + task["id"],
+        ["factory/state.json"])
+    print(json.dumps({"task_id": task["id"], "status": new_status,
+                      "commit_sha": commit_sha, "run_id": run_id}))
+    return new_status
+
 
 def dispatch_next():
     token, repo = os.environ.get("GITHUB_TOKEN"), os.environ.get("GITHUB_REPOSITORY")
@@ -119,12 +146,17 @@ def main(argv=None):
     p = sub.add_parser("publish"); p.add_argument("--proposal", required=True)
     p.add_argument("--run-id", type=int, required=True)
     sub.add_parser("reconcile"); sub.add_parser("dispatch-next")
+    failure = sub.add_parser("record-failure")
+    failure.add_argument("--run-id", type=int, required=True)
+    failure.add_argument("--stage", choices=["GENERATE", "VALIDATE"], required=True)
     args = parser.parse_args(argv)
     try:
         if args.cmd == "publish":
             print(json.dumps({"published_sha": publish(args.proposal, args.run_id)}))
         elif args.cmd == "reconcile":
             reconcile()
+        elif args.cmd == "record-failure":
+            record_failure(args.run_id, args.stage)
         else:
             dispatch_next()
         return 0
