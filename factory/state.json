@@ -44,7 +44,7 @@
   "continuity": {
     "id": "FD-AUTONOMY-V1",
     "last_attested_run": 42292518351,
-    "next_action": "EXECUTE_FD-AUTO-P1-TEMPORAL-DIAGNOSTIC"
+    "next_action": "ATTEST_GITHUB_ACTIONS_RUN_42292599195"
   },
   "events": [
     {
@@ -225,6 +225,22 @@
       "hash": "5de9b844d17404812dc9f6d65a349699880fdf1eb46dc78cd543581696388f1c",
       "prev_hash": "d9811a39bdc8b32fb89af00ad384ed3d00e349efee9371f489b0bccc58903a97",
       "sequence": 13
+    },
+    {
+      "at": "2026-11-06T20:57:28+00:00",
+      "data": {
+        "base_sha": "79c27bcc871d2e07d6484d29aeae7cf2e17b178d",
+        "paths": [
+          "src/financialdata/temporal_checker.py",
+          "tests/test_temporal_checker.py"
+        ],
+        "run_id": 42292599195,
+        "task_id": "FD-AUTO-P1-TEMPORAL-DIAGNOSTIC"
+      },
+      "event": "CODE_PUBLISHED_PENDING_CI",
+      "hash": "098cf59746a9a56e780de04d8a7c95f3f54180956b8820814691f5fce4110d81",
+      "prev_hash": "5de9b844d17404812dc9f6d65a349699880fdf1eb46dc78cd543581696388f1c",
+      "sequence": 14
     }
   ],
   "programs": {
@@ -326,7 +342,7 @@
       "version": 1
     }
   },
-  "revision": 13,
+  "revision": 14,
   "schema_version": 1,
   "tasks": {
     "FD-A-LINEAGE": {
@@ -654,8 +670,13 @@
     },
     "FD-AUTO-P1-TEMPORAL-DIAGNOSTIC": {
       "autonomy": "READY",
+      "base_sha": "79c27bcc871d2e07d6484d29aeae7cf2e17b178d",
       "blueprint_version": 1,
       "capability": "coder",
+      "changed_paths": [
+        "src/financialdata/temporal_checker.py",
+        "tests/test_temporal_checker.py"
+      ],
       "criteria": [
         "No inferred economic date is written as a published fact",
         "Unresolved periods remain explicitly unresolved",
@@ -665,14 +686,15 @@
       "dependencies": [
         "FD-AUTO-P1-COVERAGE-DIAGNOSTIC"
       ],
-      "evidence": null,
+      "evidence": "factory/evidence/FD-AUTO-P1-TEMPORAL-DIAGNOSTIC-42292599195.json",
       "id": "FD-AUTO-P1-TEMPORAL-DIAGNOSTIC",
       "kind": "agent_code",
       "lease_until": null,
       "origin_task_id": "FD-T-83D7D4C9E801",
-      "owner": null,
+      "owner": "github-actions:42292599195",
       "priority": 8,
       "program_id": "FD-P1",
+      "run_id": 42292599195,
       "source": "factory/blueprints.json",
       "source_evidence": {
         "inventory/p1_document_manifest.csv": {
@@ -686,38 +708,48 @@
           "sha256": "eaa2483338eed7414071dbc8436b3ccb4e12f0681cb3fe33592bf27c937c2519"
         }
       },
-      "status": "BACKLOG",
+      "status": "PUBLISHED_PENDING_CI",
       "title": "Implement SOURCE P1 economic-period completeness diagnostic (read only)",
       "units": [
         {
-          "evidence": null,
+          "agent_id": "github-actions:planner",
+          "evidence": "factory/evidence/FD-AUTO-P1-TEMPORAL-DIAGNOSTIC-42292599195.json",
           "id": "FD-AUTO-P1-TEMPORAL-DIAGNOSTIC-PLAN",
+          "run_id": 42292599195,
           "stage": "PLAN",
-          "status": "BACKLOG"
+          "status": "DONE"
         },
         {
-          "evidence": null,
+          "agent_id": "github-actions:coder",
+          "evidence": "factory/evidence/FD-AUTO-P1-TEMPORAL-DIAGNOSTIC-42292599195.json",
           "id": "FD-AUTO-P1-TEMPORAL-DIAGNOSTIC-CODE",
+          "run_id": 42292599195,
           "stage": "CODE",
-          "status": "BACKLOG"
+          "status": "DONE"
         },
         {
-          "evidence": null,
+          "agent_id": "github-actions:validator",
+          "evidence": "factory/evidence/FD-AUTO-P1-TEMPORAL-DIAGNOSTIC-42292599195.json",
           "id": "FD-AUTO-P1-TEMPORAL-DIAGNOSTIC-VALIDATE",
+          "run_id": 42292599195,
           "stage": "VALIDATE",
-          "status": "BACKLOG"
+          "status": "DONE"
         },
         {
-          "evidence": null,
+          "agent_id": "github-actions:publisher",
+          "evidence": "factory/evidence/FD-AUTO-P1-TEMPORAL-DIAGNOSTIC-42292599195.json",
           "id": "FD-AUTO-P1-TEMPORAL-DIAGNOSTIC-PUBLISH",
+          "run_id": 42292599195,
           "stage": "PUBLISH",
-          "status": "BACKLOG"
+          "status": "DONE"
         },
         {
+          "agent_id": "github-actions:reconciler",
           "evidence": null,
           "id": "FD-AUTO-P1-TEMPORAL-DIAGNOSTIC-ATTEST",
+          "run_id": 42292599195,
           "stage": "ATTEST",
-          "status": "BACKLOG"
+          "status": "PENDING_CI"
         }
       ]
     },
