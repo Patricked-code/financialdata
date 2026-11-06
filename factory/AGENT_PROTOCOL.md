@@ -1,5 +1,10 @@
 # Protocole local d'admission, développement et continuité des agents
 
+## Évolution du protocole — 2026-11-06
+
+Ce document conserve les règles initiales de la fabrique. Pour une arrivée d'agent dans une nouvelle conversation, [ARRIVAL.md](ARRIVAL.md) est désormais le point d'entrée obligatoire. Le cycle de code hébergé `factory-autonomy.yml` a déjà été exécuté et attesté pour deux tâches. Les limites de v0.1 décrites plus bas ne doivent pas être interprétées comme un état plus récent que `factory/state.json`. La chaîne d'autorité reste inchangée et le passage à de nouvelles tâches exige un blueprint versionné réellement admissible.
+
+
 Statut : initial implementation. Autorités : GOVERNANCE.md, AGENTS.md, SUIVI.md. Cette page ne délègue aucune autorité Git supplémentaire.
 
 ## Admission

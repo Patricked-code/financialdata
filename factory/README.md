@@ -1,5 +1,10 @@
 # FinancialData — usine de développement autonome locale (v0.1)
 
+## État opérationnel courant — 2026-11-06
+
+**Le titre v0.1 et les limites historiques ci-dessous décrivent la fondation initiale, non l'état complet du dépôt.** Deux tâches autonomes de codage ont été produites, validées, publiées et attestées en runs GitHub `42283853272` et `42283964239`. La chaîne hébergée `PLAN → CODE → VALIDATE → PUBLISH → ATTEST` est active pour les blueprints gouvernés. L'entrée de conversation est [ARRIVAL.md](ARRIVAL.md) ; l'installation dans un autre dépôt s'appuie sur [PORTABILITY.md](PORTABILITY.md). Le codeur général via modèle externe n'a pas de secrets fournisseurs vérifiés ; l'auto-qualification de nouvelles tâches au-delà des deux templates doit encore être développée avec garde-fous. La dernière autorité d'état reste `state.json` et les derniers runs GitHub.
+
+
 ## Portée et statut
 
 Ce dépôt dispose d'un premier moteur exécutable en Python standard, sans dépendance au MCP, à Codex ou à une API de modèle d'IA. Il relie les fichiers de mémoire existants à un état de tâches exploitable par les agents.

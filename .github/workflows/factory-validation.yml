@@ -40,6 +40,10 @@ jobs:
         run: |
           python -m factory.engine audit > factory-audit.json
           python -c 'import json,sys; a=json.load(open("factory-audit.json")); print(json.dumps(a,indent=2)); sys.exit(0 if a["ok"] else 1)'
+      - name: Verify universal coding-agent arrival on real repository state
+        run: |
+          python -m factory.entry --role coder --agent github-ci-arrival > factory-entry.json
+          python -c 'import json; e=json.load(open("factory-entry.json")); assert e["entry_contract"]=="FD-AGENT-ARRIVAL-V1"; assert e["read_only"] and e["continuity_id"]=="FD-AUTONOMY-V1"; assert e["decision"] in ("PROGRAM_QUALIFICATION_REQUIRED","APPROVED_WORK_AVAILABLE","CI_ATTESTATION_REQUIRED","NO_ADMISSIBLE_WORK","BLOCKED_BY_AUDIT"); print("Arrival:",e["decision"],"SHA:",e["head_sha"])'
       - name: Archive CI evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -48,5 +52,6 @@ jobs:
           path: |
             factory-bootstrap.json
             factory-audit.json
+            factory-entry.json
           if-no-files-found: warn
           retention-days: 90
