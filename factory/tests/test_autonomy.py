@@ -31,6 +31,8 @@ class AutonomousFactoryTests(unittest.TestCase):
         task = state["tasks"]["FD-AUTO-P1-MANIFEST-CHECKER"]
         self.assertEqual(task["program_id"], "FD-P1")
         self.assertEqual([x["stage"] for x in task["units"]], list(tasking.STAGES))
+        self.assertEqual(len(state["agents"]), 5)
+        self.assertEqual(state["agents"]["github-actions:validator"]["mode"], "github_actions_role")
         revision = state["revision"]
         self.assertEqual(tasking.hydrate()["revision"], revision)
         self.assertEqual(tasking.selected()["id"], "FD-AUTO-P1-MANIFEST-CHECKER")
@@ -43,6 +45,8 @@ class AutonomousFactoryTests(unittest.TestCase):
         self.assertEqual(tasking.reconcile_verdict(tid, 12345, "success", "https://github.com/example/actions/runs/12345"), "DONE")
         state = engine.read_state()
         self.assertEqual(state["tasks"][tid]["units"][-1]["status"], "DONE")
+        self.assertEqual(state["tasks"][tid]["units"][-1]["agent_id"], "github-actions:reconciler")
+        self.assertEqual(state["tasks"][tid]["units"][-1]["run_id"], 12345)
         self.assertEqual(tasking.selected()["id"], "FD-AUTO-P1-HASH-CHECKER")
         engine.validate_event_chain(state)
 

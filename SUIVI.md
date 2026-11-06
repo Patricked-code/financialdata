@@ -95,3 +95,7 @@ Le bootstrap P1 est désormais raccordé à un codeur déterministe pour les deu
 - La validation initiale de l'usine a réussi dans le run 42282675969 et la validation du bootstrap dans 42283853241.
 
 **Prochain point de reprise** : consulter factory/state.json pour les statuts, les unités, les preuves, la continuité et les dépendances ; puis élargir les blueprints sûrs à partir de TODO/ROADMAP et configurer ANTHROPIC_API_KEY/ANTHROPIC_MODEL pour des travaux de code non déterministes. Une tâche nécessitant des octets PDF/Drive ne peut pas être déclarée finie sans la source réelle. Le raccordement au MCP reste reporté et indépendant.
+
+### Continuité multi-rôles D038
+
+Les identités des cinq jobs sont désormais projetées dans state.json et affectées aux unités d'exécution autonomes attestées. Une tâche historique sans preuve de run conserve son absence de provenance opérationnelle. Le nombre de travaux admissibles après le bootstrap attesté reste nul ; le système continue à surveiller les nouvelles tâches approuvées dans factory/blueprints.json et à reprendre via GitHub Actions. Ne pas confondre le moteur local avec celui du MCP, qui reste hors du périmètre de cette mise en œuvre.

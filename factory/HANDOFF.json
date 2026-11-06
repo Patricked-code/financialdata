@@ -47,5 +47,28 @@
       "result": "SUCCESS",
       "mode": "NO_ELIGIBLE_TASK"
     }
-  ]
+  ],
+  "agent_roles": [
+    "github-actions:planner",
+    "github-actions:coder",
+    "github-actions:validator",
+    "github-actions:publisher",
+    "github-actions:reconciler"
+  ],
+  "unit_chain": [
+    "PLAN",
+    "CODE",
+    "VALIDATE",
+    "PUBLISH",
+    "ATTEST"
+  ],
+  "non_regression": {
+    "baseline_commit": "562dd759f768587bc263731a1ea23318dbe4b294",
+    "inventory_blobs_verified_unchanged": 114
+  },
+  "retry_policy": {
+    "max_failed_runs": 3,
+    "on_exhaustion": "BLOCKED",
+    "identity": "GitHub Actions run ID"
+  }
 }

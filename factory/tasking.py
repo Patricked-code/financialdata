@@ -64,6 +64,30 @@ def hydrate():
                                    "next_action": "RECONCILE_THEN_SELECT",
                                    "last_attested_run": None}
             units_added += 1
+        # Job roles are separately permissioned workers inside one workflow.
+        # They are not independent runtime authorities or model identities.
+        roles = ("planner", "coder", "validator", "publisher", "reconciler")
+        for role in roles:
+            agent_id = "github-actions:" + role
+            if agent_id not in state["agents"]:
+                state["agents"][agent_id] = {
+                    "capabilities": ["workflow_" + role],
+                    "mode": "github_actions_role",
+                    "admitted_at": engine.utcnow(),
+                    "last_seen_sha": engine.git_sha()}
+                units_added += 1
+        # Only previously attested autonomous tasks may receive role provenance.
+        role_for_stage = {"PLAN": "planner", "CODE": "coder",
+                          "VALIDATE": "validator", "PUBLISH": "publisher",
+                          "ATTEST": "reconciler"}
+        for task in state["tasks"].values():
+            if not task.get("run_id") or not task.get("autonomy"):
+                continue
+            for unit in task.get("units", []):
+                if "agent_id" not in unit:
+                    unit["agent_id"] = "github-actions:" + role_for_stage[unit["stage"]]
+                    unit["run_id"] = task["run_id"]
+                    units_added += 1
         engine.validate_graph(state)
         if added or units_added:
             engine.record(state, "WORK_UNIT_SYNC", added_blueprints=added,
@@ -113,7 +137,12 @@ def mark_published(task_id, run_id, base_sha, paths, evidence_ref):
         task["base_sha"] = base_sha
         task["changed_paths"] = list(paths)
         state["continuity"]["next_action"] = "ATTEST_GITHUB_ACTIONS_RUN_" + str(run_id)
+        role_for_stage = {"PLAN": "planner", "CODE": "coder",
+                          "VALIDATE": "validator", "PUBLISH": "publisher",
+                          "ATTEST": "reconciler"}
         for unit in task["units"]:
+            unit["agent_id"] = "github-actions:" + role_for_stage[unit["stage"]]
+            unit["run_id"] = int(run_id)
             unit["status"] = "PENDING_CI" if unit["stage"] == "ATTEST" else "DONE"
             unit["evidence"] = evidence_ref if unit["stage"] != "ATTEST" else None
         engine.record(state, "CODE_PUBLISHED_PENDING_CI", task_id=task_id,
