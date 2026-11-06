@@ -44,7 +44,7 @@
   "continuity": {
     "id": "FD-AUTONOMY-V1",
     "last_attested_run": 42283964239,
-    "next_action": "EXECUTE_FD-AUTO-P1-COVERAGE-DIAGNOSTIC"
+    "next_action": "RETRY_FD-AUTO-P1-COVERAGE-DIAGNOSTIC"
   },
   "events": [
     {
@@ -168,6 +168,20 @@
       "hash": "dc4ddaf8491e1fdac4cda81a4db5de223ce254f9455c793adf8f72daaf9af870",
       "prev_hash": "b2198dd1865d956b84cb4d636816e3481a9a89592c621c2446d05a8acd7bedb3",
       "sequence": 9
+    },
+    {
+      "at": "2026-11-06T20:53:17+00:00",
+      "data": {
+        "attempts": 1,
+        "run_id": 42292036556,
+        "stage": "VALIDATE",
+        "status": "BACKLOG",
+        "task_id": "FD-AUTO-P1-COVERAGE-DIAGNOSTIC"
+      },
+      "event": "AUTONOMOUS_STAGE_FAILED",
+      "hash": "328e7cb29507e5aeb9d6228a3d392785823d637f5f7c350be4e39a4cc05aeaad",
+      "prev_hash": "dc4ddaf8491e1fdac4cda81a4db5de223ce254f9455c793adf8f72daaf9af870",
+      "sequence": 10
     }
   ],
   "programs": {
@@ -269,7 +283,7 @@
       "version": 1
     }
   },
-  "revision": 9,
+  "revision": 10,
   "schema_version": 1,
   "tasks": {
     "FD-A-LINEAGE": {
@@ -362,6 +376,13 @@
         "FD-AUTO-P1-MANIFEST-CHECKER"
       ],
       "evidence": null,
+      "failed_runs": [
+        {
+          "at": "2026-11-06T20:53:17+00:00",
+          "run_id": 42292036556,
+          "stage": "VALIDATE"
+        }
+      ],
       "id": "FD-AUTO-P1-COVERAGE-DIAGNOSTIC",
       "kind": "agent_code",
       "lease_until": null,
