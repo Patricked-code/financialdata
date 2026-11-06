@@ -1,0 +1,84 @@
+{
+  "added_ids": [
+    "FD-AUTO-P1-COVERAGE-DIAGNOSTIC",
+    "FD-AUTO-P1-TEMPORAL-DIAGNOSTIC"
+  ],
+  "continuity_id": "FD-AUTONOMY-V1",
+  "external_requirements": [
+    {
+      "reason": "SUPERSEDES policy guard; not a code-deliverable task",
+      "status": "EVIDENCE_REQUIRED",
+      "task_id": "FD-T-2B884E77E71F"
+    },
+    {
+      "reason": "Needs verified BRVM discovery/collector access and deltas",
+      "status": "EVIDENCE_REQUIRED",
+      "task_id": "FD-T-3F734F58CD08"
+    },
+    {
+      "reason": "Needs real live collection/recheck evidence and external source bytes",
+      "status": "EVIDENCE_REQUIRED",
+      "task_id": "FD-T-56E648B6A3BE"
+    },
+    {
+      "reason": "Needs content-based period evidence beyond filename",
+      "status": "EVIDENCE_REQUIRED",
+      "task_id": "FD-T-BE7A6160AC35"
+    }
+  ],
+  "not_in_scope": "Completing PDF extraction, backfills or obtaining external files",
+  "policy": "READ_ONLY_ENGINEERING_ONLY",
+  "program": "FD-P1",
+  "roadmap_sha256": "b5f86b84154288c8e897b8dec8d2e0db63852b2f7174f7a4173ec4b3eace9da0",
+  "rule_version": 1,
+  "rules": [
+    {
+      "evidence": {
+        "inventory/p1_document_manifest.csv": {
+          "required_columns": [
+            "issuer_folder_ticker",
+            "source_drive_file_id",
+            "source_file_id"
+          ],
+          "rows": 14,
+          "sha256": "eaa2483338eed7414071dbc8436b3ccb4e12f0681cb3fe33592bf27c937c2519"
+        },
+        "inventory/p1_issuer_manifest.csv": {
+          "required_columns": [
+            "ticker",
+            "pdf_count"
+          ],
+          "rows": 49,
+          "sha256": "d547f685d6224a37fbad4ad28606129b5f9b2d62a35ab080fd9b8f7dac9866af"
+        }
+      },
+      "id": "FD-AUTO-P1-COVERAGE-DIAGNOSTIC",
+      "origin_task": "FD-T-62E626C81F21",
+      "reason": null,
+      "rule": "P1_DOCUMENT_COVERAGE_DIAGNOSTIC",
+      "status": "QUALIFIED"
+    },
+    {
+      "evidence": {
+        "inventory/p1_document_manifest.csv": {
+          "required_columns": [
+            "source_drive_file_id",
+            "economic_period_status",
+            "period_start",
+            "period_end"
+          ],
+          "rows": 14,
+          "sha256": "eaa2483338eed7414071dbc8436b3ccb4e12f0681cb3fe33592bf27c937c2519"
+        }
+      },
+      "id": "FD-AUTO-P1-TEMPORAL-DIAGNOSTIC",
+      "origin_task": "FD-T-83D7D4C9E801",
+      "reason": null,
+      "rule": "P1_TEMPORAL_METADATA_DIAGNOSTIC",
+      "status": "QUALIFIED"
+    }
+  ],
+  "schema_version": 1,
+  "source_head": "b7f127fb18b0df90bcb89a0eb2fd86dd80a6dff1",
+  "todo_sha256": "7e1fb4eb9b93dd8ebd04940b3aa0be226259509ad9bd6d3d2895198bbac3fa03"
+}

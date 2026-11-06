@@ -44,7 +44,7 @@
   "continuity": {
     "id": "FD-AUTONOMY-V1",
     "last_attested_run": 42283964239,
-    "next_action": "NO_ADMISSIBLE_AUTONOMOUS_TASK"
+    "next_action": "EXECUTE_FD-AUTO-P1-COVERAGE-DIAGNOSTIC"
   },
   "events": [
     {
@@ -141,6 +141,33 @@
       "hash": "fbd5d2d90dd667be7f76cf5f404a1f64039f37e49ed807eaa92c9bcda01cb101",
       "prev_hash": "8b91f1890e689cfb9adda225e5377e72951de17aebfd7a26528e0b1a90345944",
       "sequence": 7
+    },
+    {
+      "at": "2026-11-06T20:52:48+00:00",
+      "data": {
+        "added_blueprints": 2,
+        "added_unit_sets": 0,
+        "source": "factory/blueprints.json",
+        "source_sha": "b7f127fb18b0df90bcb89a0eb2fd86dd80a6dff1"
+      },
+      "event": "WORK_UNIT_SYNC",
+      "hash": "b2198dd1865d956b84cb4d636816e3481a9a89592c621c2446d05a8acd7bedb3",
+      "prev_hash": "fbd5d2d90dd667be7f76cf5f404a1f64039f37e49ed807eaa92c9bcda01cb101",
+      "sequence": 8
+    },
+    {
+      "at": "2026-11-06T20:52:48+00:00",
+      "data": {
+        "evidence": "factory/evidence/program-qualification.json",
+        "task_ids": [
+          "FD-AUTO-P1-COVERAGE-DIAGNOSTIC",
+          "FD-AUTO-P1-TEMPORAL-DIAGNOSTIC"
+        ]
+      },
+      "event": "PROGRAM_TASK_QUALIFIED",
+      "hash": "dc4ddaf8491e1fdac4cda81a4db5de223ce254f9455c793adf8f72daaf9af870",
+      "prev_hash": "b2198dd1865d956b84cb4d636816e3481a9a89592c621c2446d05a8acd7bedb3",
+      "sequence": 9
     }
   ],
   "programs": {
@@ -242,7 +269,7 @@
       "version": 1
     }
   },
-  "revision": 7,
+  "revision": 9,
   "schema_version": 1,
   "tasks": {
     "FD-A-LINEAGE": {
@@ -316,6 +343,82 @@
         {
           "evidence": null,
           "id": "FD-A-STRUCTURE-ATTEST",
+          "stage": "ATTEST",
+          "status": "BACKLOG"
+        }
+      ]
+    },
+    "FD-AUTO-P1-COVERAGE-DIAGNOSTIC": {
+      "autonomy": "READY",
+      "blueprint_version": 1,
+      "capability": "coder",
+      "criteria": [
+        "All calculations rely on manifest rows present in Git",
+        "No PDF or SOURCE object is fabricated or modified",
+        "Incomplete documentation remains explicit",
+        "Unit tests cover duplicates, missing rows and empty manifests"
+      ],
+      "dependencies": [
+        "FD-AUTO-P1-MANIFEST-CHECKER"
+      ],
+      "evidence": null,
+      "id": "FD-AUTO-P1-COVERAGE-DIAGNOSTIC",
+      "kind": "agent_code",
+      "lease_until": null,
+      "origin_task_id": "FD-T-62E626C81F21",
+      "owner": null,
+      "priority": 7,
+      "program_id": "FD-P1",
+      "source": "factory/blueprints.json",
+      "source_evidence": {
+        "inventory/p1_document_manifest.csv": {
+          "required_columns": [
+            "issuer_folder_ticker",
+            "source_drive_file_id",
+            "source_file_id"
+          ],
+          "rows": 14,
+          "sha256": "eaa2483338eed7414071dbc8436b3ccb4e12f0681cb3fe33592bf27c937c2519"
+        },
+        "inventory/p1_issuer_manifest.csv": {
+          "required_columns": [
+            "ticker",
+            "pdf_count"
+          ],
+          "rows": 49,
+          "sha256": "d547f685d6224a37fbad4ad28606129b5f9b2d62a35ab080fd9b8f7dac9866af"
+        }
+      },
+      "status": "BACKLOG",
+      "title": "Implement SOURCE P1 issuer-document coverage diagnostics (read only)",
+      "units": [
+        {
+          "evidence": null,
+          "id": "FD-AUTO-P1-COVERAGE-DIAGNOSTIC-PLAN",
+          "stage": "PLAN",
+          "status": "BACKLOG"
+        },
+        {
+          "evidence": null,
+          "id": "FD-AUTO-P1-COVERAGE-DIAGNOSTIC-CODE",
+          "stage": "CODE",
+          "status": "BACKLOG"
+        },
+        {
+          "evidence": null,
+          "id": "FD-AUTO-P1-COVERAGE-DIAGNOSTIC-VALIDATE",
+          "stage": "VALIDATE",
+          "status": "BACKLOG"
+        },
+        {
+          "evidence": null,
+          "id": "FD-AUTO-P1-COVERAGE-DIAGNOSTIC-PUBLISH",
+          "stage": "PUBLISH",
+          "status": "BACKLOG"
+        },
+        {
+          "evidence": null,
+          "id": "FD-AUTO-P1-COVERAGE-DIAGNOSTIC-ATTEST",
           "stage": "ATTEST",
           "status": "BACKLOG"
         }
@@ -461,6 +564,75 @@
           "run_id": 42283853272,
           "stage": "ATTEST",
           "status": "DONE"
+        }
+      ]
+    },
+    "FD-AUTO-P1-TEMPORAL-DIAGNOSTIC": {
+      "autonomy": "READY",
+      "blueprint_version": 1,
+      "capability": "coder",
+      "criteria": [
+        "No inferred economic date is written as a published fact",
+        "Unresolved periods remain explicitly unresolved",
+        "No historical SOURCE data is modified",
+        "Tests cover missing, malformed and reversed periods"
+      ],
+      "dependencies": [
+        "FD-AUTO-P1-COVERAGE-DIAGNOSTIC"
+      ],
+      "evidence": null,
+      "id": "FD-AUTO-P1-TEMPORAL-DIAGNOSTIC",
+      "kind": "agent_code",
+      "lease_until": null,
+      "origin_task_id": "FD-T-83D7D4C9E801",
+      "owner": null,
+      "priority": 8,
+      "program_id": "FD-P1",
+      "source": "factory/blueprints.json",
+      "source_evidence": {
+        "inventory/p1_document_manifest.csv": {
+          "required_columns": [
+            "source_drive_file_id",
+            "economic_period_status",
+            "period_start",
+            "period_end"
+          ],
+          "rows": 14,
+          "sha256": "eaa2483338eed7414071dbc8436b3ccb4e12f0681cb3fe33592bf27c937c2519"
+        }
+      },
+      "status": "BACKLOG",
+      "title": "Implement SOURCE P1 economic-period completeness diagnostic (read only)",
+      "units": [
+        {
+          "evidence": null,
+          "id": "FD-AUTO-P1-TEMPORAL-DIAGNOSTIC-PLAN",
+          "stage": "PLAN",
+          "status": "BACKLOG"
+        },
+        {
+          "evidence": null,
+          "id": "FD-AUTO-P1-TEMPORAL-DIAGNOSTIC-CODE",
+          "stage": "CODE",
+          "status": "BACKLOG"
+        },
+        {
+          "evidence": null,
+          "id": "FD-AUTO-P1-TEMPORAL-DIAGNOSTIC-VALIDATE",
+          "stage": "VALIDATE",
+          "status": "BACKLOG"
+        },
+        {
+          "evidence": null,
+          "id": "FD-AUTO-P1-TEMPORAL-DIAGNOSTIC-PUBLISH",
+          "stage": "PUBLISH",
+          "status": "BACKLOG"
+        },
+        {
+          "evidence": null,
+          "id": "FD-AUTO-P1-TEMPORAL-DIAGNOSTIC-ATTEST",
+          "stage": "ATTEST",
+          "status": "BACKLOG"
         }
       ]
     },

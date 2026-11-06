@@ -2,44 +2,125 @@
   "schema_version": 1,
   "tasks": [
     {
-      "id": "FD-AUTO-P1-MANIFEST-CHECKER",
-      "version": 1,
-      "title": "Implement non-destructive document-manifest integrity checker",
-      "program_id": "FD-P1",
-      "priority": 5,
-      "dependencies": [],
-      "allowed_paths": [
-        "src/financialdata/",
-        "tests/"
-      ],
-      "requirements": "Develop a standalone Python 3.11 stdlib-only read-only validator for P1 CSV SOURCE manifests. Implement validate_manifest(path) returning JSON-serializable report with total_rows, distinct_source_ids, missing_source_ids, duplicate_source_ids. Must handle empty and malformed CSV with errors; preserve all raw values. Never alter corpus files. Create comprehensive unittest tests. Do not import or edit factory.engine.",
       "acceptance": [
         "CSV source data untouched",
         "Missing and duplicate IDs detected",
         "Python unittest tests pass",
         "Files restricted to src/financialdata and tests"
-      ]
-    },
-    {
-      "id": "FD-AUTO-P1-HASH-CHECKER",
-      "version": 1,
-      "title": "Implement non-destructive SHA-256 register consistency checker",
-      "program_id": "FD-P1",
-      "priority": 6,
-      "dependencies": [
-        "FD-AUTO-P1-MANIFEST-CHECKER"
       ],
       "allowed_paths": [
         "src/financialdata/",
         "tests/"
       ],
-      "requirements": "Build a Python 3.11 stdlib-only read-only checker for inventory/hashes/* CSV registers. Validate 64-character lowercase hex hashes, unique drive file IDs per register, and report groups of identical SHA without deleting or merging SOURCE rows. Provide public function check_hash_register(path) and unittest tests with malformed rows, exact duplicates, and distinct hashes. Never modify historical data.",
+      "dependencies": [],
+      "id": "FD-AUTO-P1-MANIFEST-CHECKER",
+      "priority": 5,
+      "program_id": "FD-P1",
+      "requirements": "Develop a standalone Python 3.11 stdlib-only read-only validator for P1 CSV SOURCE manifests. Implement validate_manifest(path) returning JSON-serializable report with total_rows, distinct_source_ids, missing_source_ids, duplicate_source_ids. Must handle empty and malformed CSV with errors; preserve all raw values. Never alter corpus files. Create comprehensive unittest tests. Do not import or edit factory.engine.",
+      "title": "Implement non-destructive document-manifest integrity checker",
+      "version": 1
+    },
+    {
       "acceptance": [
         "No physical source changes",
         "Deterministic duplicate groups",
         "Invalid SHA detected",
         "Unittest tests pass"
-      ]
+      ],
+      "allowed_paths": [
+        "src/financialdata/",
+        "tests/"
+      ],
+      "dependencies": [
+        "FD-AUTO-P1-MANIFEST-CHECKER"
+      ],
+      "id": "FD-AUTO-P1-HASH-CHECKER",
+      "priority": 6,
+      "program_id": "FD-P1",
+      "requirements": "Build a Python 3.11 stdlib-only read-only checker for inventory/hashes/* CSV registers. Validate 64-character lowercase hex hashes, unique drive file IDs per register, and report groups of identical SHA without deleting or merging SOURCE rows. Provide public function check_hash_register(path) and unittest tests with malformed rows, exact duplicates, and distinct hashes. Never modify historical data.",
+      "title": "Implement non-destructive SHA-256 register consistency checker",
+      "version": 1
+    },
+    {
+      "acceptance": [
+        "All calculations rely on manifest rows present in Git",
+        "No PDF or SOURCE object is fabricated or modified",
+        "Incomplete documentation remains explicit",
+        "Unit tests cover duplicates, missing rows and empty manifests"
+      ],
+      "allowed_paths": [
+        "src/financialdata/",
+        "tests/"
+      ],
+      "dependencies": [
+        "FD-AUTO-P1-MANIFEST-CHECKER"
+      ],
+      "id": "FD-AUTO-P1-COVERAGE-DIAGNOSTIC",
+      "priority": 7,
+      "program_id": "FD-P1",
+      "qualification_rule": "P1_DOCUMENT_COVERAGE_DIAGNOSTIC",
+      "qualification_rule_version": 1,
+      "requirements": "Develop a read-only Python 3.11 stdlib module that compares the real p1_issuer_manifest.csv with p1_document_manifest.csv. Count published manifest rows by issuer and report indexed-vs-manifest differences, missing source Drive IDs, duplicate Drive IDs and incomplete coverage WITHOUT claiming missing PDFs were obtained. Include executable unittests.",
+      "risk_class": "READ_ONLY_ENGINEERING",
+      "source_evidence": {
+        "inventory/p1_document_manifest.csv": {
+          "required_columns": [
+            "issuer_folder_ticker",
+            "source_drive_file_id",
+            "source_file_id"
+          ],
+          "rows": 14,
+          "sha256": "eaa2483338eed7414071dbc8436b3ccb4e12f0681cb3fe33592bf27c937c2519"
+        },
+        "inventory/p1_issuer_manifest.csv": {
+          "required_columns": [
+            "ticker",
+            "pdf_count"
+          ],
+          "rows": 49,
+          "sha256": "d547f685d6224a37fbad4ad28606129b5f9b2d62a35ab080fd9b8f7dac9866af"
+        }
+      },
+      "source_task_id": "FD-T-62E626C81F21",
+      "title": "Implement SOURCE P1 issuer-document coverage diagnostics (read only)",
+      "version": 1
+    },
+    {
+      "acceptance": [
+        "No inferred economic date is written as a published fact",
+        "Unresolved periods remain explicitly unresolved",
+        "No historical SOURCE data is modified",
+        "Tests cover missing, malformed and reversed periods"
+      ],
+      "allowed_paths": [
+        "src/financialdata/",
+        "tests/"
+      ],
+      "dependencies": [
+        "FD-AUTO-P1-COVERAGE-DIAGNOSTIC"
+      ],
+      "id": "FD-AUTO-P1-TEMPORAL-DIAGNOSTIC",
+      "priority": 8,
+      "program_id": "FD-P1",
+      "qualification_rule": "P1_TEMPORAL_METADATA_DIAGNOSTIC",
+      "qualification_rule_version": 1,
+      "requirements": "Develop a read-only Python 3.11 stdlib validator for P1 document manifest economic_period_status, period_start and period_end. Detect unresolved, malformed and contradictory published period metadata without inferring economic periods from filename or folder. Return a structured reproducible report, with unittest edge cases.",
+      "risk_class": "READ_ONLY_ENGINEERING",
+      "source_evidence": {
+        "inventory/p1_document_manifest.csv": {
+          "required_columns": [
+            "source_drive_file_id",
+            "economic_period_status",
+            "period_start",
+            "period_end"
+          ],
+          "rows": 14,
+          "sha256": "eaa2483338eed7414071dbc8436b3ccb4e12f0681cb3fe33592bf27c937c2519"
+        }
+      },
+      "source_task_id": "FD-T-83D7D4C9E801",
+      "title": "Implement SOURCE P1 economic-period completeness diagnostic (read only)",
+      "version": 1
     }
   ]
 }
