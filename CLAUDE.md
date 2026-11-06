@@ -2,6 +2,8 @@
 
 ## Priorité D041 — boucle de l'agent connecté, sans API externe de codage
 
+**Premier passage obligatoire :** lire les onze fichiers de la liste canonique `README.md`, de `GOVERNANCE.md` à `docs/ISSUER_DISCOVERY_MATRIX.md`, avant de consulter les registres techniques `factory/` ou de coder. Le lien vers `factory/ARRIVAL.md` ne déroge pas à cet ordre.
+
 Tout agent ChatGPT/Claude **déjà connecté et autorisé sur GitHub** doit utiliser ses capacités de génération et d'édition de code pour appliquer `factory/ARRIVAL.md`. Cette voie n'exige **aucune clé Anthropic supplémentaire**. La commande `factory.entry` est un diagnostic de lecture ; elle n'est pas un générateur de code, ni la preuve que l'agent est authentifié. Si le connecteur GitHub permet d'écrire, l'agent peut coder et apporter les changements gouvernés sans appeler `factory/provider.py` : vérifier l'état live, le travail, la portée autorisée et les conflits, produire tests/preuves exact-head, publier selon la politique `main`, puis enregistrer un checkpoint et passer au travail admissible suivant.
 
 `PROGRAM_AUTO_CONTINUE` de la PR #95 du MCP constitue une **référence historique de méthode** et non une importation de son moteur runtime. Pour FinancialData, appliquer `FD_AGENT_AUTO_CONTINUE` et la source d'autorité du présent dépôt. Ne pas s'arrêter après une tâche DONE prouvée si un travail compatible est immédiatement sélectionnable. Ne pas prétendre à une exécution autonome en arrière-plan après la fin de la conversation.
@@ -33,13 +35,17 @@ Lire obligatoirement :
 
 1. `GOVERNANCE.md`
 2. `AGENTS.md`
-3. `SUIVI.md`
-4. `DECISIONS.md`
-5. `TODO.md`
-6. `ARCHITECTURE.md`
-7. `DATA_MODEL.md`
-8. `SOURCES.md`
-9. les documents utiles dans `docs/`
+3. `CLAUDE.md`
+4. `SUIVI.md`
+5. `DECISIONS.md`
+6. `TODO.md`
+7. `ARCHITECTURE.md`
+8. `DATA_MODEL.md`
+9. `SOURCES.md`
+10. `docs/BRVM_RAW_DATABASE_GOVERNANCE.md`
+11. `docs/ISSUER_DISCOVERY_MATRIX.md`
+
+**Ensuite seulement**, lire `ROADMAP.md`, le point de reprise `factory/CONTINUITY.md`, `factory/HANDOFF.json`, le registre `factory/state.json`, le catalogue `factory/blueprints.json` et les documents de tâche. L'ordre des onze premières lectures est celui de `README.md` et `GOVERNANCE.md`.
 
 Ne jamais répondre ou modifier le projet sur la seule base de la mémoire conversationnelle si les fichiers du dépôt donnent un état plus récent.
 

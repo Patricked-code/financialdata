@@ -42,6 +42,9 @@ class AgentEntryTests(unittest.TestCase):
         self.assertTrue(result["read_only"])
         self.assertFalse(result["execution_modes"]["CONNECTED_CODING_AGENT"]["additional_model_api_key_required"])
         self.assertTrue(result["execution_modes"]["HOSTED_ACTIONS_GENERATOR"]["additional_model_api_key_required_for_untemplated_work"])
+        self.assertEqual(tuple(result["canonical_files"]), entry.CANONICAL_READ_ORDER)
+        self.assertEqual(result["operational_files_after_canonical"][0], "ROADMAP.md")
+        self.assertEqual(len(result["canonical_files"]), 11)
         self.assertEqual(engine.STATE.read_bytes(), before)
 
     def test_waiting_for_ci_is_first_priority(self):

@@ -2,6 +2,8 @@
 
 ## Entrée prioritaire — agent codeur connecté, sans clé API modèle supplémentaire (D041)
 
+**Ordre impératif :** avant d'appliquer les instructions opérationnelles de `factory/ARRIVAL.md`, achever la lecture des onze références canoniques de `README.md` / `GOVERNANCE.md` dans leur ordre exact. Le lien ici ne permet pas de substituer `factory/ARRIVAL.md` à la mémoire documentaire.
+
 Lorsqu'un agent **ChatGPT ou Claude disposant déjà de ses capacités de codage et d'un connecteur GitHub autorisé** reçoit « Je suis agent codeur, connecte-toi au dépôt et poursuis », il exécute **directement** le protocole [factory/ARRIVAL.md](factory/ARRIVAL.md) avec ses propres capacités. **Ni `ANTHROPIC_API_KEY` ni `ANTHROPIC_MODEL` ne sont des prérequis pour cette voie conversationnelle.** Ces paramètres concernent uniquement le générateur *GitHub Actions sans agent de conversation* lorsqu'il doit coder une tâche sans template.
 
 La boucle locale `FD_AGENT_AUTO_CONTINUE`, inspirée du principe historique de la PR #95 de Patricked-code/MCP, est : `OBSERVE → RECONCILE → SELECT READY → CHECK DEPENDENCIES/COLLISIONS → CODE → TEST → VERIFY CI → ATTEST → CHECKPOINT → RECOMPUTE → CONTINUE`. Ne pas demander de confirmation répétée pour une tâche déjà autorisée ; s'arrêter sur un blocage gouverné réel. Réutiliser exclusivement les autorités du présent dépôt, **sans importer** la Task Queue, les sessions, les branches ou les permissions propres au MCP. Pas de Codex/Copilot dans ce chantier.
@@ -34,14 +36,18 @@ Cette règle explicite du propriétaire prévaut sur toute recommandation géné
 Avant toute action :
 
 1. `GOVERNANCE.md`
-2. `CLAUDE.md`
-3. `SUIVI.md`
-4. `DECISIONS.md`
-5. `TODO.md`
-6. `ARCHITECTURE.md`
-7. `DATA_MODEL.md`
-8. `SOURCES.md`
-9. documentation pertinente sous `docs/`
+2. `AGENTS.md`
+3. `CLAUDE.md`
+4. `SUIVI.md`
+5. `DECISIONS.md`
+6. `TODO.md`
+7. `ARCHITECTURE.md`
+8. `DATA_MODEL.md`
+9. `SOURCES.md`
+10. `docs/BRVM_RAW_DATABASE_GOVERNANCE.md`
+11. `docs/ISSUER_DISCOVERY_MATRIX.md`
+
+**Après ces onze lectures :** `ROADMAP.md`, `factory/CONTINUITY.md`, `factory/HANDOFF.json`, `factory/state.json`, `factory/blueprints.json` et les pièces techniques pertinentes. La référence d'ordre est `README.md` ; ne pas anticiper la lecture opérationnelle sur la gouvernance.
 
 ## Règle n°3 — Continuer le travail existant, sans régression
 

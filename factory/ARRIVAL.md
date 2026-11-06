@@ -28,7 +28,21 @@ Cette phrase est une demande de **reprise de travail gouvernée**, pas une autor
 
 ## 2. Lecture canonique avant toute programmation
 
-Lire les contenus réels, à `main`, de : `GOVERNANCE.md`, `AGENTS.md`, `CLAUDE.md`, `factory/CONTINUITY.md`, `factory/HANDOFF.json`, `factory/state.json`, `factory/blueprints.json`, `SUIVI.md`, `DECISIONS.md`, `TODO.md`, `ROADMAP.md`, `ARCHITECTURE.md`, `DATA_MODEL.md`, `SOURCES.md`, puis les fichiers spécifiques aux travaux.
+**Premier passage obligatoire : ordre canonique de `README.md` et `GOVERNANCE.md`.** Lire les onze documents suivants depuis le HEAD réel de `main`, **dans cet ordre et sans intercaler les fichiers d'exécution `factory/`** :
+
+1. `GOVERNANCE.md`
+2. `AGENTS.md`
+3. `CLAUDE.md`
+4. `SUIVI.md`
+5. `DECISIONS.md`
+6. `TODO.md`
+7. `ARCHITECTURE.md`
+8. `DATA_MODEL.md`
+9. `SOURCES.md`
+10. `docs/BRVM_RAW_DATABASE_GOVERNANCE.md`
+11. `docs/ISSUER_DISCOVERY_MATRIX.md`
+
+**Deuxième passage : projection et exécution**, sans reconstruire le modèle : `ROADMAP.md`, `factory/CONTINUITY.md`, `factory/HANDOFF.json`, `factory/state.json`, `factory/blueprints.json`, `factory/PROGRAM_FACTORY.md` et les autres fichiers nécessaires à la tâche. Ensuite observer la CI, sélectionner le travail admissible et appliquer `FD_AGENT_AUTO_CONTINUE`.
 
 **Hiérarchie :** la gouvernance et la provenance des sources prévalent. Pour l'état d'exécution, les preuves GitHub vivantes et `factory/state.json` prévalent sur un résumé historique ou sur le présent document.
 

@@ -15,6 +15,22 @@ from factory import engine, tasking, program_factory
 CONTINUITY_ID = "FD-AUTONOMY-V1"
 ALLOWED_ROLES = ("coder", "planner", "auditor")
 
+# Rooted in the historical README.md canonical 11-file reading order.
+# The factory operational files must always be read after these.
+CANONICAL_READ_ORDER = (
+    "GOVERNANCE.md",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "SUIVI.md",
+    "DECISIONS.md",
+    "TODO.md",
+    "ARCHITECTURE.md",
+    "DATA_MODEL.md",
+    "SOURCES.md",
+    "docs/BRVM_RAW_DATABASE_GOVERNANCE.md",
+    "docs/ISSUER_DISCOVERY_MATRIX.md",
+)
+
 
 def check_identity(agent: str, role: str) -> None:
     if role not in ALLOWED_ROLES:
@@ -112,12 +128,13 @@ def read_only_admission(agent: str, role: str) -> dict:
         "audit": {"ok": audit["ok"], "errors": audit["errors"],
                   "warnings": audit["warnings"]},
         "program_qualification": program_factory.assessment(state),
-        "canonical_files": [
-            "GOVERNANCE.md", "AGENTS.md", "CLAUDE.md",
-            "factory/ARRIVAL.md", "factory/CONTINUITY.md",
-            "factory/HANDOFF.json", "factory/state.json", "factory/blueprints.json",
-            "SUIVI.md", "DECISIONS.md", "TODO.md", "ROADMAP.md",
-            "ARCHITECTURE.md", "DATA_MODEL.md", "SOURCES.md",
+        "canonical_files": list(CANONICAL_READ_ORDER),
+        "canonical_read_order_source": "README.md / GOVERNANCE.md",
+        "operational_files_after_canonical": [
+            "ROADMAP.md", "factory/CONTINUITY.md",
+            "factory/HANDOFF.json", "factory/state.json",
+            "factory/blueprints.json", "factory/PROGRAM_FACTORY.md",
+            "factory/ARRIVAL.md",
         ],
         # Two complementary execution modes. A conversational coding agent
         # already has a model; it does not need this repository's Anthropic key.

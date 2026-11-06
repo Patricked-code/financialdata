@@ -31,7 +31,11 @@ Tout agent humain ou IA doit lire avant intervention :
 7. `ARCHITECTURE.md`
 8. `DATA_MODEL.md`
 9. `SOURCES.md`
-10. les documents pertinents sous `docs/`
+10. `docs/BRVM_RAW_DATABASE_GOVERNANCE.md`
+11. `docs/ISSUER_DISCOVERY_MATRIX.md`
+12. Documents complémentaires du chantier sous `docs/`, puis fichiers techniques de `factory/` nécessaires au travail.
+
+Cette liste de 11 documents constitue l'**ordre de lecture canonique** déjà publié dans `README.md` ; les fichiers techniques viennent **ensuite** et ne remplacent aucun de ces documents.
 
 Si une règle du projet évolue, la mémoire persistante doit être mise à jour dans le même travail.
 

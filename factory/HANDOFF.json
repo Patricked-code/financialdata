@@ -20,7 +20,7 @@
     "factory-autonomy.yml",
     "factory-validation.yml"
   ],
-  "next_action": "CONNECTED_AGENT: inspect live main and P1 backlog; qualify and implement approved work without additional model API. HOSTED_UNTEMPLATED: configure provider only if desired.",
+  "next_action": "D042 read-order CI acceptance, then qualify a next P1 SOURCE-backed diagnostic or collector-V2 prep blueprint in existing program_factory, preserving all historical backlog and data",
   "next_work_items": [
     "FD-AUTO-P1-MANIFEST-CHECKER",
     "FD-AUTO-P1-HASH-CHECKER"
@@ -160,5 +160,43 @@
     "repository": "Patricked-code/MCP",
     "pr": 95,
     "contract": "CLAUDE.md §9.8 bootstrapCandidateConnection/dispatchCandidateWork and §7.2 PROGRAM_AUTO_CONTINUE; conceptual precedent only; do not import runtime authority"
-  }
+  },
+  "canonical_memory": {
+    "source": "README.md",
+    "decision": "D042",
+    "mandatory_first_read_order": [
+      "GOVERNANCE.md",
+      "AGENTS.md",
+      "CLAUDE.md",
+      "SUIVI.md",
+      "DECISIONS.md",
+      "TODO.md",
+      "ARCHITECTURE.md",
+      "DATA_MODEL.md",
+      "SOURCES.md",
+      "docs/BRVM_RAW_DATABASE_GOVERNANCE.md",
+      "docs/ISSUER_DISCOVERY_MATRIX.md"
+    ],
+    "after_first_read": [
+      "ROADMAP.md",
+      "factory/CONTINUITY.md",
+      "factory/HANDOFF.json",
+      "factory/state.json",
+      "factory/blueprints.json",
+      "factory/PROGRAM_FACTORY.md"
+    ],
+    "ci_contract": "factory/tests/test_canonical_docs.py",
+    "status": "IMPLEMENTED_AWAITING_CI"
+  },
+  "non_destructive_evolution_audit": {
+    "baseline_sha": "562dd759f768587bc263731a1ea23318dbe4b294",
+    "compared_to_sha": "6264f186d7ef6d3d6e525c36aae83466a218628a",
+    "total_commits": 30,
+    "modified_or_added_files": 47,
+    "lines_added": 6058,
+    "lines_deleted": 0,
+    "changed_inventory_files": 0,
+    "scope": "GitHub diff baseline to pre-D042; does not prove entire software free of regression"
+  },
+  "next_work_status": "PROGRAM_QUALIFICATION_REQUIRED; NO_APPROVED_NEW_BLUEPRINT_YET"
 }
