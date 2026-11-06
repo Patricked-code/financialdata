@@ -20,7 +20,7 @@
     "factory-autonomy.yml",
     "factory-validation.yml"
   ],
-  "next_action": "D042 read-order CI acceptance, then qualify a next P1 SOURCE-backed diagnostic or collector-V2 prep blueprint in existing program_factory, preserving all historical backlog and data",
+  "next_action": "D043: verify integration CI on main and preserve existing business pipeline; then qualify next P1 source-backed task in current factory (no new pipeline)",
   "next_work_items": [
     "FD-AUTO-P1-MANIFEST-CHECKER",
     "FD-AUTO-P1-HASH-CHECKER"
@@ -186,7 +186,7 @@
       "factory/PROGRAM_FACTORY.md"
     ],
     "ci_contract": "factory/tests/test_canonical_docs.py",
-    "status": "IMPLEMENTED_AWAITING_CI"
+    "status": "IMPLEMENTED_AND_CI_VERIFIED_RUN_42305475791"
   },
   "non_destructive_evolution_audit": {
     "baseline_sha": "562dd759f768587bc263731a1ea23318dbe4b294",
@@ -198,5 +198,21 @@
     "changed_inventory_files": 0,
     "scope": "GitHub diff baseline to pre-D042; does not prove entire software free of regression"
   },
-  "next_work_status": "PROGRAM_QUALIFICATION_REQUIRED; NO_APPROVED_NEW_BLUEPRINT_YET"
+  "next_work_status": "NO_READY_BLUEPRINT; P1 historical backlog remains open; no business task marked DONE by engineering code",
+  "business_process_integration": {
+    "decision": "D043",
+    "model": "ADDITIVE_INSIDE_EXISTING_FINANCIALDATA_PROGRAM",
+    "source_of_business_pipeline": "ARCHITECTURE.md",
+    "source_of_business_programs": "ROADMAP.md",
+    "current_program": "FD-P1",
+    "approved_subphases": [
+      "P1-B",
+      "P1-D"
+    ],
+    "development_role": "TRANSVERSE_SUPPORT_NOT_NEW_BUSINESS_PHASE_OR_DATA_LAYER",
+    "factory_state": "factory/state.json",
+    "non_destructive_evidence": "GitHub exact-head CI + SOURCE audit",
+    "guard": "factory/program_factory.py process_anchor, dependency evidence; factory/tests/test_program_factory.py",
+    "status": "IMPLEMENTED_AWAITING_EXACT_HEAD_CI"
+  }
 }

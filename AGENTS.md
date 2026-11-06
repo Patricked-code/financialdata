@@ -122,3 +122,7 @@ Le dispositif autonome et indépendant du MCP est décrit dans [factory/README.m
 ## Protocole de développement autonome FD-AUTONOMY-V1 (2026-11-06)
 
 À chaque arrivée, reprise de task, échec CI ou publication de code, lire impérativement [factory/CONTINUITY.md](factory/CONTINUITY.md) et [factory/HANDOFF.json](factory/HANDOFF.json). Le registre unique demeure factory/state.json et le moteur fondateur est factory/engine.py. Les adaptateurs tasking.py/coder.py/publisher.py ne créent aucune autorité concurrente. Reprendre le statut réel du travail, exiger les preuves de CI, préserver la politique main-only et les données SOURCE. Le job autonome est opt-in, ses droits d'écriture sont bornés aux publications validées ; aucun agent ne doit présumer qu'une tâche est terminée sans attestation. Aucun Codex et aucune dépendance au MCP.
+
+## D043 — Intégration obligatoire dans le processus métier existant
+
+Avant de sélectionner un nouveau travail logiciel, lire la phase de `ROADMAP.md`, sa sous-phase métier, les données et sources correspondantes et l'architecture `SOURCE → RAW → MAPPED → CANONICAL → DERIVED → ANALYTICS`. L'usine doit **faire progresser ces étapes**, pas les remplacer ni créer une autre chaîne. Un blueprint technique doit référencer sa phase métier, sa preuve source, ses dépendances et ses chemins d'écriture. Les diagnostics `DONE` ne rendent pas les objectifs métier `DONE`. Voir `ARCHITECTURE.md` §13 et `ROADMAP.md` §6, puis conserver le même registre `factory/state.json`.

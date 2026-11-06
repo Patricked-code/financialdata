@@ -169,3 +169,7 @@ Au 2026-08-09 :
 - GitHub `financialdata` est la mémoire persistante opérationnelle du chantier ;
 - prochaine phase : `P1_DOCUMENT_INVENTORY` ;
 - vérification Drive : aucun script `.py` confirmé à la racine de `RAPO / Rapport V2` au 2026-08-09.
+
+## D043 — Usine de codage comme composant de l'architecture actuelle
+
+À chaque entrée d'agent, `FD_AGENT_AUTO_CONTINUE` réutilise le processus documentaire et financier de `ROADMAP.md` et `ARCHITECTURE.md`. L'usine agit **sur les travaux de développement nécessaires à ce processus**, jamais comme une nouvelle couche de données, un nouveau backlog métier ou un orchestrateur indépendant. Vérifier l'ancrage `process_anchor` au programme et aux sources, les dépendances ainsi que les preuves. Les phases P1/P1-FRESH/P1-R/P2–P8 conservent leur identité historique ; toute évolution est additive, non destructive et attestée.

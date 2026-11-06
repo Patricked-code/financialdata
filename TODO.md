@@ -89,3 +89,7 @@ L'usine doit maintenant qualifier uniquement les travaux d'ingénierie bornés e
 - Exécuteur de code sans template par fournisseur Claude : **raccordement logiciel codé, tests mock réussis, activation réelle BLOQUÉE** par l'absence de ANTHROPIC_API_KEY et ANTHROPIC_MODEL dans le workflow.
 - Les travaux métiers de consolidation complète, collecte PDF/Drive, relations de version et collecteur BRVM V2 restent **ouverts** tant qu'aucune preuve de source réelle n'existe.
 - Prochaine étape du programme : qualifier de nouvelles tâches sûres après vérification des preuves externes et activer le modèle pour un vrai développement non templatisé, puis attester la CI et l'absence de régression. Kit portable autres dépôts : plus tard.
+
+### D043 — Intégration de l'usine, sans refonte
+
+La machine de développement constitue un support du flux documentaire et des programmes existants, et non un nouveau pipeline financier. Les futures tâches d'ingénierie P1 référencent les sous-phases réelles `P1-B`/`P1-D` et la preuve SOURCE ; la qualification est refusée si l'étape métier ou la dépendance est absente. Conserver sans changement les objectifs P1 historiques, l'inventaire, les documents, les tâches et leurs critères de réception. Prochain travail à qualifier : réconciliation des lacunes manifestées par les contrôleurs déjà terminés et évolutions non destructives du collecteur BRVM V2 selon ses sources réelles.

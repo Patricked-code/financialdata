@@ -8,6 +8,7 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
+import re
 from pathlib import Path
 from factory import engine, tasking
 
@@ -18,6 +19,9 @@ RULES = (
     {
         "rule": "P1_DOCUMENT_COVERAGE_DIAGNOSTIC",
         "id": "FD-AUTO-P1-COVERAGE-DIAGNOSTIC",
+        "roadmap_subphase": "P1-B",
+        "program_id": "FD-P1",
+        "business_layer": "SOURCE",
         "origin_contains": "poursuivre tous les émetteurs jusqu'à consolidation complète du manifeste",
         "requirements": (
             "Develop a read-only Python 3.11 stdlib module that compares the real "
@@ -44,6 +48,9 @@ RULES = (
     {
         "rule": "P1_TEMPORAL_METADATA_DIAGNOSTIC",
         "id": "FD-AUTO-P1-TEMPORAL-DIAGNOSTIC",
+        "roadmap_subphase": "P1-D",
+        "program_id": "FD-P1",
+        "business_layer": "SOURCE",
         "origin_contains": "backfill métadonnées temporelles et shards compatibles",
         "requirements": (
             "Develop a read-only Python 3.11 stdlib validator for P1 document "
@@ -92,6 +99,17 @@ def inspect_rule(rule, state):
     if not eligible_program(state):
         result["reason"] = "ROADMAP_P1_UNVERIFIED"
         return result
+    # Business-process anchor: qualification may only extend a documented
+    # P1 subphase. Never introduce a new data layer or substitute a factory
+    # stage for SOURCE/RAW/MAPPED/CANONICAL/DERIVED/ANALYTICS.
+    roadmap = (engine.ROOT / "ROADMAP.md").read_text(encoding="utf-8")
+    anchor = rule["roadmap_subphase"]
+    if not re.search(r"(?m)^###\s+" + re.escape(anchor) + r"\b", roadmap):
+        result["reason"] = "MISSING_EXISTING_PROCESS_ANCHOR:" + anchor
+        return result
+    if rule["business_layer"] != "SOURCE" or rule["program_id"] != "FD-P1":
+        result["reason"] = "OUTSIDE_EXISTING_BUSINESS_PROCESS"
+        return result
     existing = state["tasks"].get(rule["id"])
     if existing:
         if not tasking.evidence_current(existing):
@@ -113,8 +131,17 @@ def inspect_rule(rule, state):
         result["reason"] = "TODO_PROVENANCE_NOT_UNAMBIGUOUS"
         return result
     for dependency in rule["dependencies"]:
-        if dependency not in state["tasks"] and dependency not in [x["id"] for x in RULES]:
+        if dependency in state["tasks"]:
+            continue
+        # A dependency listed as a candidate rule is not automatically valid:
+        # its own business stage and evidence must also qualify.
+        parents = [candidate for candidate in RULES if candidate["id"] == dependency]
+        if len(parents) != 1:
             result["reason"] = "DEPENDENCY_NOT_IN_CANONICAL_STATE"
+            return result
+        dependency_result = inspect_rule(parents[0], state)
+        if dependency_result["status"] != "QUALIFIED":
+            result["reason"] = "DEPENDENCY_NOT_QUALIFIED:" + dependency
             return result
     for relpath, required in rule["evidence_fields"].items():
         path = (engine.ROOT / relpath).resolve()
@@ -162,6 +189,12 @@ def assessment(state=None):
         "continuity_id": "FD-AUTONOMY-V1",
         "rule_version": RULESET_VERSION,
         "program": "FD-P1",
+        "business_process": {
+            "source": "ROADMAP.md",
+            "architecture": "ARCHITECTURE.md",
+            "existing_data_layer": "SOURCE",
+            "factory_role": "SUPPORTS_EXISTING_PROCESS_NOT_AN_EXTRA_DATA_LAYER",
+        },
         "source_head": engine.git_sha(),
         "roadmap_sha256": sha(engine.ROOT / "ROADMAP.md"),
         "todo_sha256": sha(engine.ROOT / "TODO.md"),
@@ -177,6 +210,12 @@ def build(rule, decision):
         "program_id": "FD-P1", "priority": rule["priority"],
         "dependencies": list(rule["dependencies"]),
         "source_task_id": decision["origin_task"],
+        "process_anchor": {
+            "roadmap": "ROADMAP.md",
+            "subphase": rule["roadmap_subphase"],
+            "data_layer": rule["business_layer"],
+            "role": "TECHNICAL_SUPPORT_NOT_A_NEW_DATA_PIPELINE",
+        },
         "qualification_rule": rule["rule"],
         "qualification_rule_version": RULESET_VERSION,
         "source_evidence": decision["evidence"],

@@ -19,6 +19,8 @@ class ProgramQualificationTests(unittest.TestCase):
         (self.root / "inventory").mkdir()
         (self.root / "ROADMAP.md").write_text(
             "## P1 — Inventaire documentaire exhaustif du corpus existant\n"
+            "### P1-B — Manifeste machine-lisible\n"
+            "### P1-D — Périodes et attribution\n"
             "## P2 — RAW v1\n", encoding="utf-8")
         self.original_todo = (
             "## P1 — SOURCE\n"
@@ -80,6 +82,9 @@ class ProgramQualificationTests(unittest.TestCase):
         self.assertEqual(temporal["dependencies"], [coverage["id"]])
         blueprint = next(b for b in tasking.blueprints() if b["id"] == coverage["id"])
         self.assertEqual(blueprint["risk_class"], "READ_ONLY_ENGINEERING")
+        self.assertEqual(blueprint["process_anchor"]["roadmap"], "ROADMAP.md")
+        self.assertEqual(blueprint["process_anchor"]["subphase"], "P1-B")
+        self.assertEqual(blueprint["process_anchor"]["data_layer"], "SOURCE")
         self.assertEqual(blueprint["source_evidence"]["inventory/p1_issuer_manifest.csv"]["rows"], 3)
         self.assertTrue(blueprint["source_task_id"].startswith("FD-T-"))
         receipt = json.loads((self.folder / "evidence/program-qualification.json").read_text())
@@ -95,6 +100,21 @@ class ProgramQualificationTests(unittest.TestCase):
         again = program_factory.qualify()
         self.assertEqual(again["added"], [])
         self.assertEqual(first, len(tasking.blueprints()))
+
+    def test_existing_business_subphase_is_required_for_qualification(self):
+        roadmap = self.root / "ROADMAP.md"
+        roadmap.write_text(
+            "## P1 — Inventaire documentaire exhaustif du corpus existant\n"
+            "### P1-D — Périodes et attribution\n"
+            "## P2 — RAW v1\n", encoding="utf-8")
+        a = program_factory.assessment()
+        self.assertEqual(a["business_process"]["existing_data_layer"], "SOURCE")
+        self.assertEqual(a["rules"][0]["reason"],
+                         "MISSING_EXISTING_PROCESS_ANCHOR:P1-B")
+        self.assertEqual(a["rules"][1]["reason"],
+                         "DEPENDENCY_NOT_QUALIFIED:FD-AUTO-P1-COVERAGE-DIAGNOSTIC")
+        self.assertEqual(program_factory.qualify()["added"], [])
+        self.assertEqual(len(tasking.blueprints()), 2)
 
     def test_missing_source_evidence_fails_closed(self):
         self.docs.unlink()

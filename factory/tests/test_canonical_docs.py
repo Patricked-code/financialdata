@@ -45,6 +45,18 @@ class CanonicalMemoryReadOrderTests(unittest.TestCase):
             with self.subTest(path=path):
                 self.assertEqual(read_order(path, heading), original)
 
+    def test_financial_pipeline_is_unchanged_and_factory_is_transverse(self):
+        architecture = (PROJECT / "ARCHITECTURE.md").read_text(encoding="utf-8")
+        roadmap = (PROJECT / "ROADMAP.md").read_text(encoding="utf-8")
+        self.assertIn(
+            "0 SOURCE\n  ↓\n1 RAW\n  ↓\n2 MAPPED\n  ↓\n3 CANONICAL\n  ↓\n4 DERIVED\n  ↓\n5 ANALYTICS",
+            architecture)
+        self.assertIn("SOURCE → 1 RAW → 2 MAPPED → 3 CANONICAL → 4 DERIVED → 5 ANALYTICS", roadmap)
+        self.assertIn("## 13. Usine de développement intégrée", architecture)
+        self.assertIn("## 6. Raccordement de l'usine de développement", roadmap)
+        self.assertIn("### P1-B — Manifeste machine-lisible", roadmap)
+        self.assertIn("### P1-D — Périodes et attribution", roadmap)
+
     def test_factory_operational_documents_are_not_first_read(self):
         first_read = set(entry.CANONICAL_READ_ORDER)
         self.assertNotIn("factory/state.json", first_read)

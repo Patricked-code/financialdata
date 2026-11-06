@@ -337,3 +337,13 @@ Le projet est réussi lorsque :
 - Toute extraction : source d'abord, analytics plus tard.
 - Toute modification : vérifier la non-régression.
 - Toute tâche répétitive doit être automatisée/machine-lisible dès que possible.
+
+## 6. Raccordement de l'usine de développement au programme existant — D043
+
+La capacité de codage et de continuation `FD-AUTONOMY-V1` **n'ajoute aucune phase P9 ni nouvelle couche entre SOURCE et RAW**. Elle intervient **au service de chaque phase du présent plan**, selon les dépendances métier réellement établies, sans changer les objectifs, l'ordre ou les critères de réception historiques.
+
+Pour P1, le diagnostic de couverture documentaire se rattache à `P1-B — Manifeste machine-lisible` ; le diagnostic temporel se rattache à `P1-D — Périodes et attribution`. Ces outils et leurs tests, même attestés `DONE`, ne clôturent pas l'inventaire P1 ni les travaux de collecte de PDF. `P1-FRESH` conserve sa propre finalité : découvrir les deltas BRVM, préserver les versions et n'activer une récupération réelle qu'après vérification de ses sources et des conditions de sécurité. Les phases P2–P8 utilisent ultérieurement le même circuit **d'ingénierie**, mais restent des phases **métier** distinctes du développement de l'outil.
+
+Le raccordement des travaux techniques au programme est enregistré avec `process_anchor` (fichier ROADMAP, sous-phase réelle, couche SOURCE/RAW/etc. et rôle de support). Une tâche ne peut être qualifiée si sa sous-phase d'origine a disparu ou si sa dépendance n'est pas admissible. `factory/program_factory.py` réalise ce contrôle pour les règles P1 autorisées ; il ne crée pas une deuxième fabrique ou une deuxième roadmap.
+
+Source de vérité : le **présent** plan et les documents métier existants. `factory/state.json` et les workflows GitHub conservent seulement les statuts d'exécution et les preuves des tâches techniques. La progression métier repose exclusivement sur ses propres preuves de documents, extractions et contrôles ; elle ne peut jamais être déduite des seuls résultats CI.

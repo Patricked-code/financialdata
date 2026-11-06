@@ -213,3 +213,13 @@ Pour chaque société :
 ## 12. Règle Git de l'architecture
 
 Cette architecture et ses migrations sont développées directement sur `main`. **Aucune branche ne doit être créée.**
+
+## 13. Usine de développement intégrée — outillage transversal, aucune nouvelle couche de données
+
+L'usine `FD-AUTONOMY-V1` **soutient la construction et l'évolution du processus défini aux sections 1–12**. Elle ne constitue ni une septième couche de données, ni un second flux documentaire, ni une deuxième base de données métier, ni une autorité distincte. La chaîne métier reste **strictement** `SOURCE → RAW → MAPPED → CANONICAL → DERIVED → ANALYTICS`, avec les contrôles transversaux de lineage/versioning et data quality.
+
+À chaque étape métier existante, l'agent de développement observe le besoin réel, les sources et le backlog du programme correspondant, qualifie un travail vérifiable, puis modifie **additivement et de manière compatible** les composants nécessaires. Le circuit d'ingénierie (préparation → code → tests → CI → publication gouvernée → preuves → reprise) reste **orthogonal** au flux des données financières. Il ne transforme jamais un test logiciel réussi en observation publiée ou en document retrouvé.
+
+L'usine se raccorde à `ROADMAP.md` (séquence, programmes P0–P8 et sous-phases), `TODO.md` (travaux à réaliser), `SUIVI.md`/`DECISIONS.md` (reprise et décisions), `SOURCES.md` (provenance), et aux couches définies ici. `factory/state.json` est le registre de **travail logiciel et de preuve de développement**, non une nouvelle table métier ou une copie du RAW.
+
+Principe de modification : `REUSE → COMPLEMENT → EXTEND → TEST → ATTEST`. Conserver le code, les CSV, les documents, les versions et les progrès antérieurs ; n'ajouter une abstraction ou un module que si le besoin du processus existant le justifie et qu'aucun composant équivalent n'est présent. Toute évolution du schéma financier est d'abord justifiée par une source vérifiable et enregistrée dans la mémoire historique.
