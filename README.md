@@ -64,3 +64,7 @@ Au 9 août 2026 :
 ## Source de vérité du projet
 
 GitHub devient la mémoire persistante opérationnelle du projet. Les sources externes (Drive, PDF, sites officiels) restent les preuves documentaires et doivent être référencées dans `SOURCES.md` et dans la provenance des données.
+
+## Usine de développement autonome locale
+
+Le projet contient une première fabrique autonome de programmes, tâches, admission des agents, validation et continuité : [factory/README.md](factory/README.md). Elle utilise les fichiers de gouvernance existants comme sources d'autorité et ne dépend pas du MCP. Les audits sont exécutables ; l'agent de développement IA permanent reste à connecter. Aucune branche ni Pull Request n'est introduite.

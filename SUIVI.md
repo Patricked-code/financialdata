@@ -70,3 +70,9 @@ Profils vérifiés : BICC 2022, BIIC T2 2025, ETIT 2023. Deep pilots : BOABF, CI
 ## Point de reprise exact
 
 `48/48 ISSUERS | LIVE_TOTAL=3137 | MASTER_CONSOLIDATED=14/3137 | SHA256_VERIFIED=1715/3137 | SHA_COVERAGE=54.67% | UNHASHED=1422 | EXACT_DUPLICATE_GROUPS=16 | NTLC=85/85_SHA_COMPLETE | NTLC_REGISTRY_BLOB=90cd7791f2a57754ba3a21f873c8f1a18b543cf2 | NEXT=CFAC_LIVE_RECHECK_AND_SHA`
+
+## Addendum contrôlé — 2026-11-06 — Source V23 et usine locale
+
+La première partie de ce fichier reste le checkpoint historique du 2026-08-20 (V22) et n'est pas effacée. Les preuves GitHub plus récentes indiquent le checkpoint SOURCE V23 : **3 157 PDF** au total, dont **114 CFAC** après un delta de +20. Le commit `562dd759f768587bc263731a1ea23318dbe4b294` ajoute `inventory/hashes/CFAC.csv` contenant 114 lignes SHA-256 renseignées, 111 empreintes distinctes et 3 paires de doublons binaires. Le registre maître de documents reste à compléter. Les totaux SHA globaux V23 ne sont pas attestés par une réconciliation globale finale ; ne pas remplacer ce manque par un calcul supposé.
+
+Développement : ajout d'une usine de tâches/projets indépendante du MCP sous `factory/` (code, contrôles, tests, protocole agent et workflow CI read-only). Les vérifications automatiques d'inventaire sont implémentées ; l'agent codeur autonome hébergé et l'écriture automatique de code ne sont pas encore opérationnels. Point de reprise : terminer la cohérence des manifests P1, réconcilier TODO/SUIVI avec les preuves V23, puis continuer P1 sans redémarrage de l'architecture.

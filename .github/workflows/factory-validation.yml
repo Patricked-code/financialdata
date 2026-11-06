@@ -1,0 +1,45 @@
+name: FinancialData Factory — validation et audit
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: "17 */12 * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: financialdata-factory-audit
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Unit tests
+        run: python -m unittest discover -s factory/tests -v
+      - name: Bootstrap local snapshot (no commit)
+        run: python -m factory.engine bootstrap > factory-bootstrap.json
+      - name: Source and governance audit
+        run: python -m factory.engine audit > factory-audit.json
+      - name: Save independent evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: financialdata-factory-audit
+          path: |
+            factory-bootstrap.json
+            factory-audit.json
+          if-no-files-found: warn

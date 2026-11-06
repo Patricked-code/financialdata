@@ -207,3 +207,7 @@ Décisions :
 4. `ownership_attribution_raw` est une dimension **candidate documentée**, à n'implémenter en SQL qu'en P2 si les champs existants ne représentent pas proprement cette information.
 
 Profil de preuve : `docs/recognition_profiles/TRANSNATIONAL_BANKING_ETIT_2023_FINANCIAL_STATEMENTS.md`.
+
+## D034 — 2026-11-06 — Fabrique de développement locale et indépendante du MCP
+
+Une fabrique exécutable additive est autorisée sous `factory/`, adossée à ROADMAP.md, TODO.md, SUIVI.md et aux fichiers de gouvernance existants. Elle apporte programmes identifiés, tâches déterministes, admission/claims, audits, tests et chaîne d'événements contrôlée. Elle n'altère ni l'architecture SOURCE→ANALYTICS, ni les politiques main-only, ni la provenance. Les GitHub Actions de validation n'ont que des droits de lecture. Le fonctionnement d'un agent codeur IA hébergé en autonomie continue et le futur raccordement au MCP ne sont pas attestés par ce premier lot et exigent une intégration dédiée, sans duplication d'autorité.

@@ -54,3 +54,9 @@ Ne pas démarrer l'extraction RAW exhaustive avant couverture P1/P1-R suffisante
 ## Prochaine action
 
 `CFAC_LIVE_RECHECK_AND_SHA`, avec checkpoint préalable V23 si le live diffère du snapshot 94, puis validation blob et poursuite des corpus réellement non hashés.
+
+## Addendum contrôlé — 2026-11-06
+
+Les chiffres V22 plus haut décrivent une baseline antérieure. Le checkpoint V23 et le manifeste des émetteurs attestent **3 157 PDF SOURCE** après CFAC +20 ; le dernier commit a ajouté 114 SHA CFAC et 3 paires de doublons binaires. La couverture SHA globale finale et le maître documentaire demeurent à réconcilier, sans supprimer l'historique antérieur.
+
+Usine locale : moteur de planification et suivi créé sous `factory/`, audits déterministes, contrôles non-régression, entrée agent et preuves. Travaux suivants : mécanisme distant de claims multi-runner, raccordement d'un agent codeur réellement exécutable (sans dépendance MCP), validation CI effective sur GitHub, puis enchaînement gouverné après code et validation. Ne jamais considérer ces travaux futurs comme déjà réalisés.
