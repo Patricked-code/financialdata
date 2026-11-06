@@ -80,3 +80,12 @@ Entrée conversationnelle documentée dans `factory/ARRIVAL.md`, commande de dia
 ### Suite automatique du programme P1 — D040
 
 L'usine doit maintenant qualifier uniquement les travaux d'ingénierie bornés et démontrables depuis les manifestes GitHub. Les règles en cours de raccordement sont `FD-AUTO-P1-COVERAGE-DIAGNOSTIC` (comparer inventaire par émetteur et manifeste des documents) et `FD-AUTO-P1-TEMPORAL-DIAGNOSTIC` (identifier les dates économiques insuffisamment vérifiées). Les tâches métier d'origine demeurent ouvertes jusqu'à preuve d'une consolidation réelle. Après qualification : code + tests + publication main + attestation CI + tâche suivante. Vérifier le run de qualification et les nouveaux travaux avant d'inscrire DONE. Le modèle Claude reste optionnel pour les templates et exige `ANTHROPIC_API_KEY` et `ANTHROPIC_MODEL` pour les travaux qui ne disposent pas d'exécuteur déterministe.
+
+### Jalons techniques D040 vérifiés
+
+- Qualification de deux blueprints P1 automatiquement à partir des sources GitHub : **réalisée**, commit b007797ea0e6336bb757011e257897a31fb166be.
+- Contrôle du manifeste par émetteur : **tâche d'ingénierie DONE**, run 42292518351 SUCCESS.
+- Diagnostic de périodes économiques : **tâche d'ingénierie DONE**, run 42292599195 SUCCESS.
+- Exécuteur de code sans template par fournisseur Claude : **raccordement logiciel codé, tests mock réussis, activation réelle BLOQUÉE** par l'absence de ANTHROPIC_API_KEY et ANTHROPIC_MODEL dans le workflow.
+- Les travaux métiers de consolidation complète, collecte PDF/Drive, relations de version et collecteur BRVM V2 restent **ouverts** tant qu'aucune preuve de source réelle n'existe.
+- Prochaine étape du programme : qualifier de nouvelles tâches sûres après vérification des preuves externes et activer le modèle pour un vrai développement non templatisé, puis attester la CI et l'absence de régression. Kit portable autres dépôts : plus tard.

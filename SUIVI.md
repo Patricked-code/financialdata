@@ -111,3 +111,16 @@ L'arrivée conversationnelle `FD-AGENT-ARRIVAL-V1` est attestée en exécution C
 ## FD-AUTONOMY-V1 — Fabrique automatique de travaux P1 — 2026-11-06
 
 À partir de la continuité validée au commit `9c936bf8aa098ae440d1781717748d764b5cc963`, la tranche suivante raccorde `factory/program_factory.py` au cycle existant : analyse de ROADMAP/TODO, vérification de fichiers SOURCE réels, calcul d'empreintes, qualification bornée et création de deux blueprints d'ingénierie non destructifs. La sélection des tâches refuse une preuve modifiée depuis l'admission. Le modèle Claude est raccordé dans `factory/provider.py` sans créer de secret ; la disponibilité réelle du fournisseur n'est pas attestée tant que la configuration GitHub Actions et un appel réussi ne sont pas observés. Les travaux P1 impliquant des sources externes restent ouverts. Voir `factory/PROGRAM_FACTORY.md` pour la règle de qualification et les résultats à vérifier sur GitHub Actions. Aucun changement de gouvernance main-only ni de l'architecture financière.
+
+## FD-AUTONOMY-V1 — Attestation de la qualification automatique P1 — 2026-11-06
+
+La qualification automatique de programme est effectivement en service : après lecture de ROADMAP/TODO et des empreintes des manifests, le run 42292036556 a créé un commit de qualification `b007797ea0e6336bb757011e257897a31fb166be`, ajoutant deux blueprints P1 bornés. Deux échecs de non-régression ont été observés et **conservés** (runs 42292036556 et 42292320826) : contrôle de la provenance TODO courante et fixture de tests supposant le catalogue statique. Les corrections ont été validées par la CI 42292518247 : 31 tests factory et 6 tests métier SUCCESS.
+
+Le cycle autonome a ensuite réalisé :
+- `FD-AUTO-P1-COVERAGE-DIAGNOSTIC` : code publié dans `d354abff06e7293046b6db445b5798160424813a`, run 42292518351 SUCCESS, statut et UTL `DONE` attestés.
+- `FD-AUTO-P1-TEMPORAL-DIAGNOSTIC` : code publié dans `7c33ea9b92ebc158a1cc09b4fdd3b3d535646b9e`, run 42292599195 SUCCESS, statut et UTL `DONE` attestés.
+- Continuation 42292684545 SUCCESS, avec absence de troisième tâche READY ; curseur canonique `NO_ADMISSIBLE_AUTONOMOUS_TASK`.
+
+Comparaison directe de l'arbre Git avec la baseline `562dd759f768587bc263731a1ea23318dbe4b294` : **114 fichiers inventory/ SOURCE comparés et zéro modifié**. La création de diagnostics ne signifie pas que les quelque 3 157 PDF ont été collectés ou que l'inventaire documentaire est exhaustivement consolidé.
+
+Le fournisseur Anthropic est raccordé techniquement via `factory/provider.py`, mais le run 42292599195 atteste `CONFIGURATION_REQUIRED` : `ANTHROPIC_API_KEY` et `ANTHROPIC_MODEL` absents de son environnement GitHub Actions. Aucun appel modèle réel n'a donc été attesté. Prochaine action : configurer ces paramètres dans les Secrets/Variables Actions, ajouter et qualifier des travaux P1 techniquement admissibles nécessitant un vrai modèle, puis confirmer leur première exécution CI de bout en bout. Les tâches nécessitant PDF/Drive/BRVM externes restent en attente de sources vérifiables.

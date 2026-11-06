@@ -75,3 +75,9 @@ Le workflow réutilise le groupe GitHub Actions de concurrence et les contrôles
 - Absence de modifications des fichiers d'inventaire SOURCE de référence et de perte des décisions, des programmes ou des tâches historiques.
 
 Le point de reprise officiel reste `factory/CONTINUITY.md` et `factory/state.json`. Les opérations futures de déploiement d'applications, d'autres dépôts ou du MCP ne sont pas incluses.
+
+## Preuves d'exécution réelles — 2026-11-06
+
+Qualification automatique : commit b007797ea0e6336bb757011e257897a31fb166be, deux règles P1 activées. Après corrections et test d'intégration, CI 42292518247 SUCCESS (31 factory + 6 métier). Contrôleur couverture : run 42292518351 SUCCESS, commit d354abff06e7293046b6db445b5798160424813a, statut DONE. Contrôleur temporel : run 42292599195 SUCCESS, commit 7c33ea9b92ebc158a1cc09b4fdd3b3d535646b9e, statut DONE. Continuation 42292684545 SUCCESS, aucune autre tâche READY. Les deux premiers runs échoués et le budget d'échec persistent comme preuves d'une correction de non-régression, sans effacement.
+
+Le job de génération du run 42292599195 retourne explicitement `CONFIGURATION_REQUIRED` avec modèle et secret absents. Il atteste **l'absence de configuration de ce run**, non l'échec d'un appel modèle, puisqu'aucun appel n'a été lancé. Seuls les travaux déterministes sont attestés à cette étape. Le kit de portabilité est en attente selon le mandat utilisateur.

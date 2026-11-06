@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "continuity_id": "FD-AUTONOMY-V1",
+  "scope": "P1 program qualification and deterministic coding",
+  "initial_main": "9c936bf8aa098ae440d1781717748d764b5cc963",
+  "qualification_commit": "b007797ea0e6336bb757011e257897a31fb166be",
+  "qualifier": "factory/program_factory.py",
+  "decisions": "factory/evidence/program-qualification.json",
+  "ci": {
+    "run": 42292518247,
+    "conclusion": "SUCCESS",
+    "factory_tests": 31,
+    "business_tests": 6
+  },
+  "work_items": [
+    {
+      "task_id": "FD-AUTO-P1-COVERAGE-DIAGNOSTIC",
+      "run": 42292518351,
+      "conclusion": "SUCCESS",
+      "code_commit": "d354abff06e7293046b6db445b5798160424813a",
+      "status": "DONE"
+    },
+    {
+      "task_id": "FD-AUTO-P1-TEMPORAL-DIAGNOSTIC",
+      "run": 42292599195,
+      "conclusion": "SUCCESS",
+      "code_commit": "7c33ea9b92ebc158a1cc09b4fdd3b3d535646b9e",
+      "status": "DONE"
+    }
+  ],
+  "continuation": {
+    "run": 42292684545,
+    "conclusion": "SUCCESS",
+    "next_action": "NO_ADMISSIBLE_AUTONOMOUS_TASK"
+  },
+  "retry_history_preserved": [
+    {
+      "run": 42292036556,
+      "stage": "VALIDATE",
+      "conclusion": "failure"
+    },
+    {
+      "run": 42292320826,
+      "stage": "VALIDATE",
+      "conclusion": "failure"
+    }
+  ],
+  "source_non_regression": {
+    "baseline": "562dd759f768587bc263731a1ea23318dbe4b294",
+    "original_inventory_files_compared": 114,
+    "modified_files": 0
+  },
+  "anthropic": {
+    "adapter": "factory/provider.py",
+    "configured_in_verified_workflow": false,
+    "status": "CONFIGURATION_REQUIRED",
+    "real_model_call_attested": false
+  },
+  "caveat": "Engineering diagnostics are not proof of externally sourced PDFs or completed P1 documentary inventory"
+}
